@@ -10,14 +10,13 @@ There will be $2$ teams both consisting of $3$ minions and a _nexus_. The player
 
 The active player is the player who is currently taking their turn.
 
-The layout of the maze will not be revealed to the players from the start. They have to create the map of it by moving their minions. The files of the maze have $3$ variants of visibility 
+The layout of the maze will not be revealed to the players from the start. Instead, they must create its map by moving their minions. The maze files contain three variants of visibility.
 <!-- check the grammar above -->
+* Segments discovered but not within the sight of any player-controlled minion will be marked as _revealed_.
 
 * Segments of maze which have not yet been revealed are covered in _fog of war_.
 
-* Segments that have been discovered but are not seen by any of the minions active player controls will be marked as _revealed_
-
-* Segments that are seen by any of the minions active player controls will be marked as _visible_.
+* Segments seen by any minion under the control of an active player will be marked as _visible_.
 
 Fog of war dissapears whenever a file covered in it moves into the field of view of a minion active player controls. The file is then marked as _revealed_.
 <!-- TODO: write when does the fog of war disappear -->
