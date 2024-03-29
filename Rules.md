@@ -24,7 +24,13 @@ Fog of war dissapears whenever a file covered in it moves into the field of view
 
 ### Field of view
 
-The minions see a $3 \times 3$ square around them and also they see in straight lines. If there is a mirror that is not separated by walls from a minion then that minion sees everything that is reflected in this mirror. This effect is stackable (that means that if a mirror $1$ is reflected in mirror $2$ then the minion watching mirror $2$ sees everything that is reflected in the mirror $1$) and a minion can bend his vision in one direction using up to $5$ mirrors.
+The minions see <!-- $3 \times 3$  sqare around them--> $4$ files adiacent to them and also they see in straight lines. If there is a mirror that is not separated by walls from a minion then that minion sees everything that is reflected in this mirror. This effect is stackable - it means that if a mirror $1$ is reflected in mirror $2$ then the minion watching mirror $2$ sees everything that is reflected in the mirror $1$. A minion can bend his vision in one direction using up to $5$ mirrors.
 
 ### Mirrors
 
+Mirrors do not block the path of minions. They can be put down if the building minion has not yet used any actions this turn. ...
+
+<!-- Write more about the mirrors -->
+
+### Walls 
+Walls block the path of minions. They also block their vision.
