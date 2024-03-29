@@ -15,3 +15,5 @@ The layout of the maze will not be revealed to the players from the start. They 
 * Segments that have been discovered but are not seen by any of the minions active player controls will be marked as _discovered_
 
 * Segments that are seen by any of the minions active player controls will be marked as _revealed_.
+
+asda
