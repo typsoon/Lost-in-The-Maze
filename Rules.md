@@ -19,7 +19,7 @@ The layout of the maze will not be revealed to the players from the start. They 
 
 * Segments that are seen by any of the minions active player controls will be marked as _visible_.
 
-Fog of war dissapears whenever a file covered in it moves into the field of view of a minion active player controls. The file is then marked as _discovered_.
+Fog of war dissapears whenever a file covered in it moves into the field of view of a minion active player controls. The file is then marked as _revealed_.
 <!-- TODO: write when does the fog of war disappear -->
 
 ### Field of view
