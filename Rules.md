@@ -1,10 +1,12 @@
-## Maze Runner ruleset
+# Maze Runner ruleset
 
 ---
 
+## General rules
+
 ### Goal of the game
 
-There will be $2$ teams both consisting of $3$ minions and a _nexus_. The players will try to navigate the maze and capture the enemy _nexus_ by reaching it with one of their minions.
+There are two teams, each comprised of three minions and a nexus. The objective for each team is to navigate through the maze and reach the enemy nexus with one of their minions in order to capture it.
 
 ### Fog of war
 
@@ -14,22 +16,60 @@ The layout of the maze will not be revealed to the players from the start. Inste
 <!-- check the grammar above -->
 * Segments discovered but not within the sight of any player-controlled minion will be marked as _revealed_.
 
-* Segments of maze which have not yet been revealed are covered in _fog of war_.
+* Segments of maze which have not yet been revealed are covered in _fog of war_
 
 * Segments seen by any minion under the control of an active player will be marked as _visible_.
 
-Fog of war dissapears whenever a file covered in it moves into the field of view of a minion active player controls. The file is then marked as _revealed_.
+Fog of war disappears whenever a file covered in it moves into the field of view of a minion active player controls. The file is then marked as _revealed_.
 <!-- TODO: write when does the fog of war disappear -->
 
 ### Field of view
 
-The minions see <!-- $3 \times 3$  sqare around them--> $4$ files adiacent to them and also they see in straight lines. If there is a mirror that is not separated by walls from a minion then that minion sees everything that is reflected in this mirror. This effect is stackable - it means that if a mirror $1$ is reflected in mirror $2$ then the minion watching mirror $2$ sees everything that is reflected in the mirror $1$. A minion can bend his vision in one direction using up to $5$ mirrors.
+The minions can perceive $4$ adjacent files and straight lines extending from their position. If a mirror is within the line of sight of a minion, without obstruction by walls, the minion will see everything reflected in that mirror. This effect can compound: if Mirror $1$ is reflected in Mirror $2$, then the minion observing Mirror $2$ will perceive everything reflected in Mirror $1$ as well. A minion can adjust their line of sight in one direction by utilizing up to a maximum of [maxMirrorsBending](./Game%20Parameters.md) mirrors.
+
+### The course of the turn
+
+#### _beginning of turn_
+
+Each turn initiates with the _Beginning of Turn_ phase, during which players are unable to take any actions. Instead, they observe the events that unfolded in visible files during their opponent's turn. Minions under the active player's control receive a set number of actions, defined by [actionsNumber](./Game%20Parameters.md) parameter.
+
+<!-- Maybe in some situations state of _revealed_ files could be observed. For example destroying a door -->
+
+#### _turn_
+
+Following the initial phase, players progress to the main segment of their turn. Here, they are granted the opportunity to utilize the actions of their minions strategically.
+
+#### _end of turn_
+
+As the turn draws to a close, any actions left unused by minions are lost.
+
+<!-- Unless... -->
+
+## Objects
+
+### Nexus
+
+_Nexus_ is the most important object in the game. Players must safeguard their own _nexus_ while looking for a way to gain control of their enemy's _nexus_ to secure victory.
+<!-- Insert the structure that spawns alongside the nexus -->
 
 ### Mirrors
 
-Mirrors do not block the path of minions. They can be put down if the building minion has not yet used any actions this turn. ...
+Mirrors, unlike other structures, do not block the movement of minions. They can be put down as long as the building minion has not used any actions during the current turn. ...
 
 <!-- Write more about the mirrors -->
 
 ### Walls 
-Walls block the path of minions. They also block their vision.
+Walls serve as barriers, obstructing both the passage and vision of minions. Players have a limited number of opportunities, defined by the parameter [wallBuildCount](./Game%20Parameters.md), to put down walls. Moreover, walls can only be built if the building minion has not yet used any actions during the current turn.
+
+<!-- In which file is the wall placed upon building it? -->
+
+### Doors
+
+Minions possess the ability to construct doors by spending [doorPrice](./Game%20Parameters.md) actions. After putting down a door, a minion must wait for a duration equal to [doorCooldown](Game%20Parameters.md) turns before constructing another. Each door has a set amount of hitpoints, defined by [doorHitpoints](./Game%20Parameters.md) parameter.
+
+<!-- Maybe the number of doors that can be built should be limited -->
+
+## Playing with the minions
+
+Minions can use their actions in several ways:
+
