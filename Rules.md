@@ -65,11 +65,11 @@ Walls serve as barriers, obstructing both the passage and vision of minions. Pla
 
 ### Doors
 
-Minions possess the ability to construct doors by spending [doorPrice](./Game%20Parameters.md) actions. After putting down a door, a minion must wait for a duration equal to [doorCooldown](Game%20Parameters.md) turns before constructing another. Each door has a set amount of hitpoints, defined by [doorHitpoints](./Game%20Parameters.md) parameter.
+Minions possess the ability to construct doors by spending [doorPrice](./Game%20Parameters.md) actions. After putting down a door, a minion must wait for a duration equal to [doorCooldown](Game%20Parameters.md) turns before constructing another. Each door has a set amount of hitpoints, defined by [doorHitpoints](./Game%20Parameters.md) parameter. Doors block the vision of minions. A door can't be placed if there is an another door of the same colour in a 5 $\times$5 square with the center in the place where the door is beeing built.
 
 <!-- Maybe the number of doors that can be built should be limited -->
 
-## Playing with the minions
+## The Minions
 
 Minions can use their actions in several ways:
 
