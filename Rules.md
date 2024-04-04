@@ -25,7 +25,13 @@ Fog of war disappears whenever a file covered in it moves into the field of view
 
 ### Field of view
 
-The minions can perceive $4$ adjacent files and straight lines extending from their position. If a mirror is within the line of sight of a minion, without obstruction by walls, the minion will see everything reflected in that mirror. This effect can compound: if Mirror $1$ is reflected in Mirror $2$, then the minion observing Mirror $2$ will perceive everything reflected in Mirror $1$ as well. A minion can adjust their line of sight in one direction by utilizing up to a maximum of [maxMirrorsBending](./Game%20Parameters.md) mirrors.
+#### When not wielding a lantern
+
+The minions can perceive $8$ adjacent files. 
+
+
+#### When wielding a lantern
+When wielding a lantern minions perceive straight lines extending from their position. If a mirror is within the line of sight of a minion, without obstruction by walls, the minion will see everything reflected in that mirror. This effect can compound: if Mirror $1$ is reflected in Mirror $2$, then the minion observing Mirror $2$ will perceive everything reflected in Mirror $1$ as well. A minion can adjust their line of sight in one direction by utilizing up to a maximum of [maxMirrorsBending](./Game%20Parameters.md) mirrors.
 
 ### The course of the turn
 
@@ -65,11 +71,37 @@ Walls serve as barriers, obstructing both the passage and vision of minions. Pla
 
 ### Doors
 
-Minions possess the ability to construct doors by spending [doorPrice](./Game%20Parameters.md) actions. After putting down a door, a minion must wait for a duration equal to [doorCooldown](Game%20Parameters.md) turns before constructing another. Each door has a set amount of hitpoints, defined by [doorHitpoints](./Game%20Parameters.md) parameter. Doors block the vision of minions. A door can't be placed if there is an another door of the same colour in a 5 $\times$5 square with the center in the place where the door is beeing built.
+Minions possess the ability to construct doors by spending [doorPrice](./Game%20Parameters.md) actions. After putting down a door, a minion must wait for a duration equal to [doorCooldown](Game%20Parameters.md) turns before constructing another. Each door has a set amount of hitpoints, defined by [doorHitpoints](./Game%20Parameters.md) parameter. Doors block the vision of minions. A door can't be placed if there is an another door of the same colour in a 5 $\times$5 square with the center in the place where the door is being built.
 
 <!-- Maybe the number of doors that can be built should be limited -->
 
 ## The Minions
 
+Minions have [minionsHitpoints](./Game%20Parameters.md) hitpoints. Upon dying they have to wait [turnsToRespawn](./Game%20Parameters.md) turns before respawning next to their controller nexus 
+
 Minions can use their actions in several ways:
 
+#### Moving
+
+moving one file horizontally or diagonally costs one action.
+
+#### Attacking
+
+- switching from lantern to sword costs one action.
+
+- attacking with the sword costs one action. Sword deals one damage.
+
+- Establishing a laser incurs a cost of [actionsNumber](./Game%20Parameters.md) actions. The laser inflicts [laserDamage](./Game%20Parameters.md) damage. It activates during the opponent's beginning-of-turn phase and ricochets off mirrors. Its trajectory halts upon reaching a wall.
+ 
+#### Building
+
+- Building walls or mirrors costs [actionsNumber](./Game%20Parameters.md) actions.
+
+- Building doors costs [doorPrice](./Game%20Parameters.md) actions.
+
+
+
+
+## Golems/towers and extra nexuses
+
+Coming soon
