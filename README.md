@@ -1,1 +1,1 @@
-# Maze-runner
+# Project maze
