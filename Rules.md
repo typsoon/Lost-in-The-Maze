@@ -100,8 +100,7 @@ moving one file horizontally or diagonally costs one action.
 - Building doors costs [doorPrice](./Game%20Parameters.md) actions.
 
 
+    
 
-
-## Golems/towers and extra nexuses
 
 Coming soon
