@@ -8,7 +8,7 @@
 ## Overview
 We are planning on designing a scalable 2D turn-based strategy game.
 
-Most of the rules are described in the rules.md file which is located in our github repository (although this file is not yet finished - rules will be updated throughout the testing process). 
+Most of the rules are described in the rules.md file <!-- which is located in our github repository  --> (although this file is not yet finished - rules will be updated throughout the testing process). 
 
 Our game structure is designed to be scalable (e.g. new variants of already implemented features can be effortlessly added).
 
@@ -27,5 +27,5 @@ Our game structure is designed to be scalable (e.g. new variants of already impl
 ## Framework
 libGDX
 
-## Link to github repository
-https://github.com/typsoon/Project-Maze
+<!-- ## Link to github repository
+https://github.com/typsoon/Project-Maze -->
