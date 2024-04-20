@@ -10,7 +10,7 @@ There are two teams, each comprised of three minions and a nexus. The objective 
 
 ### Fog of war
 
-The active player is the player who is currently taking their turn.
+The active player is the one who is currently taking their turn.
 
 The layout of the maze will not be revealed to the players from the start. Instead, they must create its map by moving their minions. The maze files contain three variants of visibility.
 <!-- check the grammar above -->
