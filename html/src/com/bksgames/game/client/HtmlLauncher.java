@@ -3,7 +3,7 @@ package com.bksgames.game.client;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import com.bksgames.game.Labirynth;
+import com.bksgames.game.LostInTheMaze;
 
 public class HtmlLauncher extends GwtApplication {
 
@@ -17,6 +17,6 @@ public class HtmlLauncher extends GwtApplication {
 
         @Override
         public ApplicationListener createApplicationListener () {
-                return new Labirynth();
+                return new LostInTheMaze();
         }
 }
