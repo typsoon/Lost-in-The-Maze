@@ -21,6 +21,7 @@ allprojects {
 
     version = '1.0'
     ext {
+        visuiVersion = '1.5.3'
         appName = "Lost in The Maze"
         gdxVersion = '1.12.1'
         roboVMVersion = '2.3.20'
