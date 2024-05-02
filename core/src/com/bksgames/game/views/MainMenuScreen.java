@@ -55,7 +55,7 @@ public class MainMenuScreen implements Screen {
         generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Harrington_SHAREWARE.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 50;
-        parameter.color.set(sunflower);
+//        parameter.color.set(sunflower);
 
         font = generator.generateFont(parameter);
 
