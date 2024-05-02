@@ -4,18 +4,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.bksgames.game.LostInTheMaze;
+import sun.awt.X11.XSystemTrayPeer;
 
-import javax.swing.event.ChangeListener;
 
 public class MainMenuScreen implements Screen {
 
@@ -23,7 +22,7 @@ public class MainMenuScreen implements Screen {
     private Stage stage;
     private Skin skin;
     private BitmapFont font;
-    private Label heading;
+    private FreeTypeFontGenerator generator;
 
     final LostInTheMaze game;
 
@@ -41,19 +40,30 @@ public class MainMenuScreen implements Screen {
     public void show() {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
-        atlas = new TextureAtlas("assets/example.atlas");
+        atlas = new TextureAtlas(Gdx.files.internal("MainMenu.atlas"));
         skin = new Skin(atlas);
         Table table = new Table(skin);
-        font = new BitmapFont();
 
-        font.setColor(255, 255, 255, 1);
+        Color goldenrod = new Color(218f /255f, 165f /255f, 32f / 255f, 1f);
+        Color sunflower = new Color(1f, 215f/ 255f, 0f, 1f);
+        Color amber = new Color(255, 191, 0, 1);
+        Color mustard = new Color(204, 204, 0, 1);
+        Color lemon = new Color(255, 255, 102, 1);
+
+        System.out.println(Color.GOLDENROD);
+
+        generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Harrington_SHAREWARE.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 50;
+        parameter.color.set(sunflower);
+
+        font = generator.generateFont(parameter);
 
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = font;
-        textButtonStyle.up = skin.getDrawable("badlogic");
+        textButtonStyle.up = skin.getDrawable("buttonBackground");
         textButtonStyle.pressedOffsetX = 1;
         textButtonStyle.pressedOffsetY = -1;
-
 
         Button buttonPlay = new TextButton("Play", textButtonStyle);
         buttonPlay.addListener(new ClickListener() {
@@ -61,8 +71,6 @@ public class MainMenuScreen implements Screen {
                 System.out.println("clicked");
             }
         });
-        buttonPlay.setPosition(300, 400);
-
 
         Button buttonExit = new TextButton("Exit", textButtonStyle);
         buttonExit.addListener(new ClickListener() {
@@ -72,16 +80,17 @@ public class MainMenuScreen implements Screen {
         });
 
         Label.LabelStyle headingStyle = new Label.LabelStyle(font, Color.WHITE);
-        heading = new Label("BIIIIG TITLE", headingStyle);
-        heading.setFontScale(4);
+        Label heading = new Label(game.gameTitle, headingStyle);
+        heading.setFontScale(1.5f);
         heading.setAlignment(10);
 
-        buttonExit.setPosition(300, 200);
-
         table.add(heading);
+        table.getCell(heading).spaceBottom(80);
+        table.row();
+        table.add(buttonPlay);
+        table.getCell(buttonPlay).spaceBottom(40);
         table.row();
         table.add(buttonExit);
-        table.add(buttonPlay);
 
         table.debug();
         table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -125,6 +134,6 @@ public class MainMenuScreen implements Screen {
         skin.dispose();
         stage.dispose();
         font.dispose();
-
+        generator.dispose();
     }
 }
