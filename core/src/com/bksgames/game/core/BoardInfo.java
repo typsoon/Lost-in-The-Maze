@@ -8,7 +8,7 @@ public interface BoardInfo {
 
     boolean hasWon(Player player);
 
-    Nexus getNexus(Player player);
+    Collection<Nexus> getNexuses(Player player);
 
     Collection<Minion> getMinions(Player player);
 }
