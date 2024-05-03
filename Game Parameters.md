@@ -16,3 +16,6 @@
 
 #### `minionHitPoints` - self-explanatory name
 
+#### `laserDamage` - self-explanatory name
+
+#### `swordDamage` - self-explanatory name
