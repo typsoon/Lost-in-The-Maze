@@ -24,7 +24,6 @@ public class Nexus implements Tile, Vulnerable, KnownPosition{
     //    TODO: write this
     @Override
     public void damage(SourceOfDamage sourceOfDamage) {
-
     }
 
     public Nexus(Player owner, int x, int y, Parameters parameters) {

@@ -1,25 +1,29 @@
 package com.bksgames.game.core;
 
+import java.util.Objects;
+
 public class SourceOfDamage {
     final Parameters parameters;
-    final Source source;
+    final DamageType damageType;
 
     int getDamageValue() {
-        switch (source) {
+        switch (damageType) {
             case LASER: return parameters.laserDamage;
 
             case SWORD: return parameters.swordDamage;
         }
 
-        throw new IllegalArgumentException("Unknown source of damage");
+        throw new IllegalArgumentException("Unknown damageType of damage");
     }
 
-    private enum Source {
+    public DamageType getSource() { return damageType;}
+
+    public enum DamageType {
         LASER, SWORD
     }
 
-    SourceOfDamage(Parameters parameters, Source source) {
-        this.parameters = parameters;
-        this.source = source;
+    SourceOfDamage(Parameters parameters, DamageType damageType) {
+        this.parameters = Objects.requireNonNull(parameters);
+        this.damageType = Objects.requireNonNull(damageType);
     }
 }
