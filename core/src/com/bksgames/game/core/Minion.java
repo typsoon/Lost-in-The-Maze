@@ -18,12 +18,12 @@ public class Minion implements Entity{
     public int getHitPoints() { return hitPoints;}
 
     @Override
-    public void spawn(int x, int y, Parameters parameters) {
+    public void spawn(int x, int y, int hitPoints) {
         this.x = x;
         this.y = y;
 
-        hitPoints = parameters.minionHitPoints;
+        this.hitPoints = hitPoints;
     }
 
-    public Minion(int x, int y, Parameters parameters) {spawn(x,y, parameters);}
+    public Minion(int x, int y, int hitPoints) {spawn(x,y, hitPoints);}
 }

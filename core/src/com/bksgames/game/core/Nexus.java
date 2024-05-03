@@ -26,11 +26,11 @@ public class Nexus implements Tile, Vulnerable, KnownPosition{
     public void damage(SourceOfDamage sourceOfDamage) {
     }
 
-    public Nexus(Player owner, int x, int y, Parameters parameters) {
+    public Nexus(Player owner, int x, int y, int hitPoints) {
         this.x = x;
         this.y = y;
         this.owner = owner;
 
-        hitPoints = parameters.nexusHitPoints;
+        this.hitPoints = hitPoints;
     }
 }

@@ -13,7 +13,7 @@ public class SourceOfDamage {
             case SWORD: return parameters.swordDamage;
         }
 
-        throw new IllegalArgumentException("Unknown damageType of damage");
+        throw new IllegalArgumentException("Unknown type of damage");
     }
 
     public DamageType getSource() { return damageType;}
