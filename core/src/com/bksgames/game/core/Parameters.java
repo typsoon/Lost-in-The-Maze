@@ -8,6 +8,7 @@ public class Parameters {
     public final int doorHitPoints;
     public final int actionsNumber;
     public final int minionHitPoints;
+    public final int nexusHitPoints;
 
     public Parameters() {
         maxMirrorsBending = 5;
@@ -17,15 +18,17 @@ public class Parameters {
         doorHitPoints = 3;
         actionsNumber = 5;
         minionHitPoints = 5;
+        nexusHitPoints = 20;
     }
 
-    public Parameters(int mMB, int wBC, int dP, int dC, int aN, int mHP) {
-        maxMirrorsBending = mMB;
-        wallBuildCount = wBC;
-        doorPrice = dP;
-        doorCooldown = dC;
-        doorHitPoints = aN;
-        actionsNumber = mHP;
-        minionHitPoints = mHP;
+    public Parameters(int maxMirrorsBending, int wallBuildCount, int doorPrice, int doorHitPoints, int doorCooldown, int actionsNumber, int minionHitPoints, int nexusHitPoints) {
+        this.maxMirrorsBending = maxMirrorsBending;
+        this.wallBuildCount = wallBuildCount;
+        this.doorPrice = doorPrice;
+        this.doorCooldown = doorCooldown;
+        this.doorHitPoints = doorHitPoints;
+        this.actionsNumber = actionsNumber;
+        this.minionHitPoints = minionHitPoints;
+        this.nexusHitPoints = nexusHitPoints;
     }
 }
