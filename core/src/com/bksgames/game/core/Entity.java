@@ -1,6 +1,6 @@
 package com.bksgames.game.core;
 
-public abstract class Entity implements Vulnerable{
+public abstract class Entity implements Vulnerable, KnownPosition{
     public int x,y;
     public int hitPoints;
 

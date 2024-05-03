@@ -11,4 +11,14 @@ public class Minion extends Entity{
     public void damage(SourceOfDamage sourceOfDamage) {
 
     }
+
+    @Override
+    public int getX() {
+        return 0;
+    }
+
+    @Override
+    public int getY() {
+        return 0;
+    }
 }
