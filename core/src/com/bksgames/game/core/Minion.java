@@ -1,11 +1,7 @@
 package com.bksgames.game.core;
 
-public class Minion extends Entity{
-
-    @Override
-    public int getHitPoints() {
-        return 0;
-    }
+public class Minion implements Entity{
+    int x, y, hitPoints;
 
     @Override
     public void damage(SourceOfDamage sourceOfDamage) {
@@ -13,12 +9,21 @@ public class Minion extends Entity{
     }
 
     @Override
-    public int getX() {
-        return 0;
-    }
+    public int getX() { return x;}
 
     @Override
-    public int getY() {
-        return 0;
+    public int getY() { return y;}
+
+    @Override
+    public int getHitPoints() { return hitPoints;}
+
+    @Override
+    public void spawn(int x, int y, Parameters parameters) {
+        this.x = x;
+        this.y = y;
+
+        hitPoints = parameters.minionHitPoints;
     }
+
+    public Minion(int x, int y, Parameters parameters) {spawn(x,y, parameters);}
 }
