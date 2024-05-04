@@ -14,6 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.bksgames.game.LostInTheMaze;
 
+import java.util.ArrayList;
+
 public class MainMenuScreen implements Screen {
 
     private TextureAtlas atlas;
