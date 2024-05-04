@@ -31,9 +31,16 @@ public class SimplePlayerView implements PlayerView {
         updates.add(update);
     }
 
+    @Override
     public Update getUpdate() {
         return updates.poll();
     }
+
+    @Override
+    public boolean hasUpdates() {
+        return !updates.isEmpty();
+    }
+
 
     SimplePlayerView(Player.PlayerColor watched) {this.watched = watched;}
 }

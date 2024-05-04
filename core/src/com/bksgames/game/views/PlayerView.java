@@ -12,4 +12,5 @@ public interface PlayerView {
 
     void PushUpdate(Update update);
     Update getUpdate();
+    boolean hasUpdates();
 }
