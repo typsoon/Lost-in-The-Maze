@@ -8,7 +8,7 @@
 
 #### `doorPrice` - number of actions required to build doors
 
-#### `doorCooldown` - number of turns a minion has to wait after building a door
+#### `doorCooldown` - number of turns a minion has to wait after building a door (before building an another one)
 
 #### `doorHitpoints` - self-explanatory name
 
