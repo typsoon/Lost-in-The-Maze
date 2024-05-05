@@ -1,6 +1,5 @@
 package com.bksgames.game.views;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -15,8 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.bksgames.game.LostInTheMaze;
 import com.bksgames.game.core.Player;
-
-import java.util.ArrayList;
 
 public class MainMenuScreen implements Screen {
 

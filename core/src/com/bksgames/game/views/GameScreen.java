@@ -30,9 +30,9 @@ public class GameScreen implements Screen {
     private OrthographicCamera gameCamera;
 
     //    Tiles are squares - tileSize is its width
-    private int tilePixelSize = 50;
-    private int maxBoardWidth = 300;
-    private int maxBoardLength = 300;
+    final static private int tilePixelSize = 50;
+    final static private int maxBoardWidth = 300;
+    final static private int maxBoardLength = 300;
 
     public GameScreen(final LostInTheMaze game, PlayerService playerService) {
         this.playerService = playerService;
@@ -74,6 +74,11 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        while (playerService.hasUpdates()) {
+            processUpdate(playerService.getUpdate());
+            System.out.println("processed update");
+        }
+
         ScreenUtils.clear(0, 0, 0, 1);
 
         mapRenderer.render();
@@ -104,5 +109,9 @@ public class GameScreen implements Screen {
     public void dispose() {
         atlas.dispose();
         skin.dispose();
+    }
+
+    void processUpdate(Update update) {
+
     }
 }
