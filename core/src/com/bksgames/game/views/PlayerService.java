@@ -2,7 +2,8 @@ package com.bksgames.game.views;
 
 import com.bksgames.game.core.Player;
 
-public interface PlayerView {
+//Should we rename this to PlayerService?
+public interface PlayerService {
     Player.PlayerColor getWatched();
 
     int getMaxX();
@@ -10,7 +11,7 @@ public interface PlayerView {
     int getMinX();
     int getMinY();
 
-    void PushUpdate(Update update);
+    void pushUpdate(Update update);
     Update getUpdate();
     boolean hasUpdates();
 }

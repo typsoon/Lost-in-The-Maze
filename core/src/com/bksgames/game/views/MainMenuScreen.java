@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.bksgames.game.LostInTheMaze;
+import com.bksgames.game.core.Player;
 
 import java.util.ArrayList;
 
@@ -51,7 +52,7 @@ public class MainMenuScreen implements Screen {
         Color mustard = new Color(204, 204, 0, 1);
         Color lemon = new Color(255, 255, 102, 1);
 
-        System.out.println(goldenrod);
+//        System.out.println(goldenrod);
 
         generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Harrington_SHAREWARE.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -70,6 +71,12 @@ public class MainMenuScreen implements Screen {
         buttonPlay.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("clicked");
+
+
+                GameScreen bluePlayerScreen = new GameScreen(game, new SimplePlayerService(Player.PlayerColor.BLUE));
+                GameScreen redPlayerScreen = new GameScreen(game, new SimplePlayerService(Player.PlayerColor.RED));
+
+                game.setScreen(bluePlayerScreen);
             }
         });
 

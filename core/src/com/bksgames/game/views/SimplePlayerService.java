@@ -2,14 +2,15 @@ package com.bksgames.game.views;
 
 import com.bksgames.game.core.Player;
 
+import java.util.ArrayDeque;
 import java.util.Queue;
 
-public class SimplePlayerView implements PlayerView {
+public class SimplePlayerService implements PlayerService {
     final Player.PlayerColor watched;
 
     int maxX, minX, maxY, minY;
 
-    Queue<Update> updates;
+    Queue<Update> updates = new ArrayDeque<>();
 
     @Override
     public Player.PlayerColor getWatched() {return watched;}
@@ -27,7 +28,7 @@ public class SimplePlayerView implements PlayerView {
     public int getMinY() {return minY;}
 
     @Override
-    public void PushUpdate(Update update) {
+    public void pushUpdate(Update update) {
         updates.add(update);
     }
 
@@ -42,5 +43,5 @@ public class SimplePlayerView implements PlayerView {
     }
 
 
-    SimplePlayerView(Player.PlayerColor watched) {this.watched = watched;}
+    public SimplePlayerService(Player.PlayerColor watched) {this.watched = watched;}
 }
