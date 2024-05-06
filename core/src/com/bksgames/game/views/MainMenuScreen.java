@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.bksgames.game.LostInTheMaze;
 import com.bksgames.game.core.Player;
+import com.bksgames.game.service.SimplePlayerService;
 
 public class MainMenuScreen implements Screen {
 
