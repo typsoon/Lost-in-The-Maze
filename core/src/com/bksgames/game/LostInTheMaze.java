@@ -3,11 +3,7 @@ package com.bksgames.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.bksgames.game.core.Player;
-import com.bksgames.game.views.GameScreen;
 import com.bksgames.game.views.MainMenuScreen;
-import com.bksgames.game.views.PlayerService;
-import com.bksgames.game.views.SimplePlayerService;
 
 public class LostInTheMaze extends Game {
 	public SpriteBatch batch;

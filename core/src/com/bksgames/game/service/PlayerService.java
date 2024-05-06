@@ -1,6 +1,7 @@
-package com.bksgames.game.views;
+package com.bksgames.game.service;
 
 import com.bksgames.game.core.Player;
+import com.bksgames.game.views.Updates.Update;
 
 //Should we rename this to PlayerService?
 public interface PlayerService {
