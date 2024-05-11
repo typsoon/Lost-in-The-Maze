@@ -1,9 +1,9 @@
-package com.bksgames.game.views.Updates;
+package com.bksgames.game.updateData;
 
-import com.bksgames.game.core.Player;
+import com.bksgames.game.enums.UpdateIDs;
 
 public interface Update {
-    String getKey();
+    UpdateIDs getID();
 
 //    pass relative coordinates
     int getRelativeX();

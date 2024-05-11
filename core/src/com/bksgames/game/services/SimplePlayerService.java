@@ -1,7 +1,7 @@
-package com.bksgames.game.service;
+package com.bksgames.game.services;
 
 import com.bksgames.game.core.Player;
-import com.bksgames.game.views.Updates.Update;
+import com.bksgames.game.updateData.Update;
 
 import java.util.ArrayDeque;
 import java.util.Queue;

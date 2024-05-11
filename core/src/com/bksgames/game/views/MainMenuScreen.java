@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.bksgames.game.LostInTheMaze;
 import com.bksgames.game.core.Player;
-import com.bksgames.game.service.SimplePlayerService;
+import com.bksgames.game.services.SimplePlayerService;
 
 public class MainMenuScreen implements Screen {
 
@@ -44,11 +44,11 @@ public class MainMenuScreen implements Screen {
         skin = new Skin(atlas);
         Table table = new Table(skin);
 
-        Color goldenrod = new Color(218f /255f, 165f /255f, 32f / 255f, 1f);
-        Color sunflower = new Color(1f, 215f/ 255f, 0f, 1f);
-        Color amber = new Color(255, 191, 0, 1);
-        Color mustard = new Color(204, 204, 0, 1);
-        Color lemon = new Color(255, 255, 102, 1);
+//        Color goldenrod = new Color(218f /255f, 165f /255f, 32f / 255f, 1f);
+//        Color sunflower = new Color(1f, 215f/ 255f, 0f, 1f);
+//        Color amber = new Color(255, 191, 0, 1);
+//        Color mustard = new Color(204, 204, 0, 1);
+//        Color lemon = new Color(255, 255, 102, 1);
 
 //        System.out.println(goldenrod);
 
