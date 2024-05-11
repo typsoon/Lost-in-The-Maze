@@ -1,5 +1,6 @@
-package com.bksgames.game.core;
+package com.bksgames.game.core.tiles;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.ArrayList;
 import java.util.Collection;
 

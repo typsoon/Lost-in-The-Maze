@@ -4,6 +4,7 @@ import java.util.Collection;
 
 public interface BoardInfo {
     Player getPlayer();
+
     Player setPlayer(Player player);
 
     boolean hasWon(Player player);

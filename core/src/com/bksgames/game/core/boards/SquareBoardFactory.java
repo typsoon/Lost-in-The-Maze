@@ -1,45 +1,28 @@
-package com.bksgames.game.core;
+package com.bksgames.game.core.boards;
+
+import com.bksgames.game.core.Nexus;
+import com.bksgames.game.core.Parameters;
+import com.bksgames.game.core.tiles.Tunnel;
+import com.bksgames.game.core.tiles.Wall;
+import com.bksgames.game.enums.PlayerColor;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
 
-public class SquareBoard implements Board {
-
-    private final Tile[][] grid;
-    private final int size;
-
+public class SquareBoardFactory
+{
     private static final int baseSize = 7;
 
-
-
-    @Override
-    public Tile getTile(int x, int y) {
-        if(x>=size || y>=size || x<0 || y<0)      //exception do dodania
-            return null;
-        return grid[x][y];
-    }
-
-    @Override
-    public int getWidth() {
-        return size;
-    }
-
-    @Override
-    public int getHeight() {
-        return size;
-    }
-
-    public SquareBoard(int s, Parameters parameters)    {
-
-        size = Math.max(s, 27);
-
-        grid = new Tile[size][size];
-
+    static public SquareBoard CreateSBFor2Players(Parameters parameters)    {
+        SquareBoard board = new SquareBoard(Math.max(parameters.mapSize, 27)); // do przemyslenia
+        board.playerNexuses.put(PlayerColor.RED,new HashSet<>());
+        board.playerNexuses.put(PlayerColor.BLUE,new HashSet<>());
 
         Random rng = new Random();
-        int[][] genGrid = new int[size][size];
-        int realSize = size - (size%3);
+        int[][] genGrid = new int[board.size][board.size];
+        int realSize = board.size - (board.size%3);
         int sectionSize = realSize/3;
 
         //============================================NEXUS SECTION
@@ -120,7 +103,7 @@ public class SquareBoard implements Board {
             fpSplit = conFP.get(rng.nextInt(conFP.size()));
             spSplit = conSP.get(rng.nextInt(conSP.size()));
         }
-        BoardGenerationUtils.randomPath(fpSplit,spSplit,3,genGrid,size,size);
+        BoardGenerationUtils.randomPath(fpSplit,spSplit,3,genGrid,board.size,board.size);
         //====================================SECOND & THIRD PATH
         ArrayList<Point> conFP = new ArrayList<>();
         for(int i=2;i<baseSize;i++)
@@ -156,23 +139,23 @@ public class SquareBoard implements Board {
         Point tdConSP = conSP.get(rng.nextInt(conSP.size()/2));
         Point sdConSP = conSP.get(conSP.size() - 1 - rng.nextInt(conSP.size()/2));
 
-        BoardGenerationUtils.randomPath(sdConSP,sdConFP,3,genGrid,size,size);
-        BoardGenerationUtils.randomPath(tdConSP,tdConFP,3,genGrid,size,size);
+        BoardGenerationUtils.randomPath(sdConSP,sdConFP,3,genGrid,board.size,board.size);
+        BoardGenerationUtils.randomPath(tdConSP,tdConFP,3,genGrid,board.size,board.size);
 
 
-        BoardGenerationUtils.generateRest(genGrid,size,size,3);
+        BoardGenerationUtils.generateRest(genGrid,board.size,board.size,3);
 
 
 
 
-        for(int y=0;y<size;y++)
+        for(int y=0;y<board.size;y++)
         {
-            for(int x=0;x<size;x++)
+            for(int x=0;x<board.size;x++)
             {
                 if(genGrid[x][y] == 0)
-                    grid[x][y] = new Wall();
+                    board.grid[x][y] = new Wall();
                 else if(genGrid[x][y] == 3)
-                    grid[x][y] = new Tunnel();
+                    board.grid[x][y] = new Tunnel();
             }
         }
         Point actFP = new Point(fpNexusOffset.x,fpNexusOffset.y),
@@ -191,30 +174,31 @@ public class SquareBoard implements Board {
                 actSP.y++;
                 if(x==4 && y==4)
                 {
-                    grid[actFP.x][actFP.y] = new Nexus(null,actFP.x, actFP.y,parameters.nexusHitPoints);
-                    grid[actSP.x][actSP.y] = new Nexus(null,actSP.x, actSP.y,parameters.nexusHitPoints);
+                    board.grid[actFP.x][actFP.y] = new Nexus(PlayerColor.RED,actFP.x, actFP.y,parameters.nexusHitPoints);
+                    board.playerNexuses.get(PlayerColor.RED).add((Nexus) board.grid[actFP.x][actFP.y]);
+                    board.grid[actSP.x][actSP.y] = new Nexus(PlayerColor.BLUE,actSP.x, actSP.y,parameters.nexusHitPoints);
+                    board.playerNexuses.get(PlayerColor.BLUE).add((Nexus) board.grid[actSP.x][actSP.y]);
                     continue;
                 }
                 if(!(x==1 || x==baseSize || y==1 || y==baseSize))
                 {
-                    grid[actFP.x][actFP.y] = new Tunnel();
-                    grid[actSP.x][actSP.y] = new Tunnel();
+                    board.grid[actFP.x][actFP.y] = new Tunnel();
+                    board.grid[actSP.x][actSP.y] = new Tunnel();
                     continue;
                 }
                 if(BoardGenerationUtils.adjacent(actFP,fpSplit) || BoardGenerationUtils.adjacent(actFP,sdConFP) ||
                         BoardGenerationUtils.adjacent(actFP,tdConFP))
-                    grid[actFP.x][actFP.y] = new Tunnel();
+                    board.grid[actFP.x][actFP.y] = new Tunnel();
                 else
-                    grid[actFP.x][actFP.y] = new Wall();
+                    board.grid[actFP.x][actFP.y] = new Wall();
 
                 if(BoardGenerationUtils.adjacent(actSP,spSplit) || BoardGenerationUtils.adjacent(actSP,sdConSP) ||
                         BoardGenerationUtils.adjacent(actSP,tdConSP))
-                    grid[actSP.x][actSP.y] = new Tunnel();
+                    board.grid[actSP.x][actSP.y] = new Tunnel();
                 else
-                    grid[actSP.x][actSP.y] = new Wall();
+                    board.grid[actSP.x][actSP.y] = new Wall();
             }
         }
-
-
+        return board;
     }
 }

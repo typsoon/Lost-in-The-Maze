@@ -1,6 +1,4 @@
-package com.bksgames.game.core;
-
-import java.util.ArrayList;
+package com.bksgames.game.core.tiles;
 
 public class Wall implements Tile{
 
