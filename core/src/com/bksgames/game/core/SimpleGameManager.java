@@ -11,8 +11,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
-import java.util.function.Function;
+
 
 public class SimpleGameManager implements GameManager {
     private final Board board;
@@ -29,7 +28,6 @@ public class SimpleGameManager implements GameManager {
         moveHandlers.get(move.type()).handle(move);
         return true;
     }
-    void moveMinion(Move move) {}
     @Override
     public Collection<Move> getLegalMoves(int x, int y, PlayerColor color) {
         return List.of();
@@ -38,7 +36,7 @@ public class SimpleGameManager implements GameManager {
         this.board = SquareBoardFactory.CreateSBFor2Players(parameters);
         moveHandlers = new HashMap<>();
         for(MoveTypes moveType : MoveTypes.values()) {
-            moveHandlers.put(moveType,ActionHandlerFactory.CreateActionHandler(moveType,this));
+            moveHandlers.put(moveType,ActionHandlerFactory.CreateActionHandler(moveType,board));
         }
         players = new HashMap<>();
         activePlayer = PlayerColor.BLUE;

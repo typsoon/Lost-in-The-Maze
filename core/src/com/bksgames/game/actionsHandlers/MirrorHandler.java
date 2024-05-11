@@ -2,6 +2,7 @@ package com.bksgames.game.actionsHandlers;
 
 import com.bksgames.game.core.GameManager;
 import com.bksgames.game.core.Move;
+import com.bksgames.game.core.boards.Board;
 import com.bksgames.game.enums.MoveTypes;
 
 public class MirrorHandler extends ActionHandler{
@@ -10,7 +11,7 @@ public class MirrorHandler extends ActionHandler{
         if(action.type() != MoveTypes.MOVE)
             throw new IllegalStateException("Wrong move type!");
     }
-    MirrorHandler(GameManager gm) {
-        super(gm);
+    MirrorHandler(Board board) {
+        super(board);
     }
 }

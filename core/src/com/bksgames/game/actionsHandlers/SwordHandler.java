@@ -2,6 +2,7 @@ package com.bksgames.game.actionsHandlers;
 
 import com.bksgames.game.core.GameManager;
 import com.bksgames.game.core.Move;
+import com.bksgames.game.core.boards.Board;
 import com.bksgames.game.enums.MoveTypes;
 
 public class SwordHandler extends ActionHandler{
@@ -10,7 +11,7 @@ public class SwordHandler extends ActionHandler{
         if(action.type() != MoveTypes.MOVE)
             throw new IllegalStateException("Wrong move type!");
     }
-    SwordHandler(GameManager gm) {
-        super(gm);
+    SwordHandler(Board board) {
+        super(board);
     }
 }
