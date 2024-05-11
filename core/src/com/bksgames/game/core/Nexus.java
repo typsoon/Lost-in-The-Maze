@@ -1,15 +1,13 @@
 package com.bksgames.game.core;
 
 import com.bksgames.game.core.tiles.Tile;
+import com.bksgames.game.core.tiles.Tunnel;
 import com.bksgames.game.enums.PlayerColor;
 
 public class Nexus implements Tile, Vulnerable, KnownPosition{
     private final int x,y;
     int hitPoints;
     public final PlayerColor owner;
-
-    @Override
-    public boolean isHollow() { return false;}
 
     @Override
     public int getX() {return x;}
@@ -35,5 +33,10 @@ public class Nexus implements Tile, Vulnerable, KnownPosition{
         this.owner = owner;
 
         this.hitPoints = hitPoints;
+    }
+
+    @Override
+    public Tunnel getTunnel() {
+        return null;
     }
 }
