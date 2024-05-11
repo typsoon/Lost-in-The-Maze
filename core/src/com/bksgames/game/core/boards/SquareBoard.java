@@ -1,5 +1,6 @@
 package com.bksgames.game.core.boards;
 
+import com.bksgames.game.core.Minion;
 import com.bksgames.game.core.Nexus;
 import com.bksgames.game.core.Parameters;
 import com.bksgames.game.core.Player;
@@ -38,6 +39,45 @@ public class SquareBoard implements Board {
     @Override
     public Collection<Nexus> getNexus(PlayerColor player) {
         return playerNexuses.get(player);
+    }
+
+    @Override
+    public Collection<Point> getVisible(Minion minion) {
+        if(!getTile(minion.getX(),minion.getY()).isHollow())
+            throw new IllegalArgumentException("Minion is in wall!");
+        Collection<Point> visible = new ArrayList<>();
+        visible.add(new Point(minion.getX(),minion.getY()));
+
+        Point act = new Point(minion.getX(),minion.getY());
+
+        act.x++;
+        while (getTile(act.x,act.y).isHollow()) {
+            visible.add(new Point(act.x,act.y));
+            act.x++;
+        }
+        act.x = minion.getX();
+
+        act.x--;
+        while (getTile(act.x,act.y).isHollow()) {
+            visible.add(new Point(act.x,act.y));
+            act.x--;
+        }
+        act.x = minion.getX();
+
+        act.y++;
+        while (getTile(act.x,act.y).isHollow()) {
+            visible.add(new Point(act.x,act.y));
+            act.y--;
+        }
+        act.y=minion.getY();
+
+        act.y--;
+        while (getTile(act.x,act.y).isHollow()) {
+            visible.add(new Point(act.x,act.y));
+            act.y--;
+        }
+
+        return visible;
     }
 
     SquareBoard(int size){
