@@ -14,6 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.bksgames.game.LostInTheMaze;
 import com.bksgames.game.core.Player;
+import com.bksgames.game.enums.PlayerColor;
+import com.bksgames.game.services.SimplePlayerService;
 
 public class MainMenuScreen implements Screen {
 
@@ -70,8 +72,8 @@ public class MainMenuScreen implements Screen {
                 System.out.println("clicked");
 
 
-                GameScreen bluePlayerScreen = new GameScreen(game, new SimplePlayerService(Player.PlayerColor.BLUE));
-                GameScreen redPlayerScreen = new GameScreen(game, new SimplePlayerService(Player.PlayerColor.RED));
+                GameScreen bluePlayerScreen = new GameScreen(game, new SimplePlayerService(PlayerColor.BLUE));
+                GameScreen redPlayerScreen = new GameScreen(game, new SimplePlayerService(PlayerColor.RED));
 
                 game.setScreen(bluePlayerScreen);
             }

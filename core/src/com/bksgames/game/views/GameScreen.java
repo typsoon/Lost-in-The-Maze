@@ -9,12 +9,12 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.MapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileSets;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.bksgames.game.LostInTheMaze;
-import com.bksgames.game.Testing;
+import com.bksgames.game.services.PlayerService;
+import com.bksgames.game.updateData.Update;
 
 public class GameScreen implements Screen {
 
@@ -68,7 +68,7 @@ public class GameScreen implements Screen {
         map.getLayers().add(wallsAndNexuses);
 
 //        TODO: TEST THIS
-        Testing.dummyUpdater(playerService);
+//        Testing.dummyUpdater(playerService);
 //
     }
 
