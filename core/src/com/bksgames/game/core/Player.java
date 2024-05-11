@@ -1,9 +1,9 @@
 package com.bksgames.game.core;
 
-public enum Player {
-    RED, BLUE;
+import com.bksgames.game.enums.PlayerColor;
 
-    public enum PlayerColor {
-        RED, BLUE
-    }
+public class Player {
+    private final PlayerColor color;
+
+    Player(PlayerColor color) {this.color = color;}
 }

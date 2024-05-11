@@ -1,20 +1,20 @@
 package com.bksgames.game.services;
 
-import com.bksgames.game.core.Player;
+import com.bksgames.game.enums.PlayerColor;
 import com.bksgames.game.updateData.Update;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
 
 public class SimplePlayerService implements PlayerService {
-    final Player.PlayerColor watched;
+    final PlayerColor watched;
 
     int maxX, minX, maxY, minY;
 
     Queue<Update> updates = new ArrayDeque<>();
 
     @Override
-    public Player.PlayerColor getWatched() {return watched;}
+    public PlayerColor getWatched() {return watched;}
 
     @Override
     public int getMaxX() {return maxX;}
@@ -44,5 +44,5 @@ public class SimplePlayerService implements PlayerService {
     }
 
 
-    public SimplePlayerService(Player.PlayerColor watched) {this.watched = watched;}
+    public SimplePlayerService(PlayerColor watched) {this.watched = watched;}
 }
