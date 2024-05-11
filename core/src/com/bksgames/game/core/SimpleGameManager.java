@@ -14,7 +14,7 @@ import java.util.Map;
 
 
 public class SimpleGameManager implements GameManager {
-    private final Board board;
+    public final Board board;
     private final Map<PlayerColor, Player> players;
     private final Map<MoveTypes, ActionHandler> moveHandlers;
     PlayerColor activePlayer;
@@ -32,6 +32,7 @@ public class SimpleGameManager implements GameManager {
     public Collection<Move> getLegalMoves(int x, int y, PlayerColor color) {
         return List.of();
     }
+
     public SimpleGameManager(Parameters parameters) {
         this.board = SquareBoardFactory.CreateSBFor2Players(parameters);
         moveHandlers = new HashMap<>();

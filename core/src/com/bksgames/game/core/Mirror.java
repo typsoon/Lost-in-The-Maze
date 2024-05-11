@@ -12,8 +12,6 @@ public class Mirror{
 	}
 
 	Direction deflect(Direction direction){
-		Direction afterDirection = direction;
-
 		if(orientation==Orientation.SLASH) {
 			return Direction.values()[(direction.ordinal()-1)%4];
 		}
