@@ -1,5 +1,12 @@
 package com.bksgames.game.core;
 
-public class Mirror {
+import com.bksgames.game.enums.PlayerColor;
 
+public class Mirror{
+	PlayerColor color;
+	Orientation orientation;
+
+	enum Orientation {
+		SLASH, BACKSLASH;
+	}
 }

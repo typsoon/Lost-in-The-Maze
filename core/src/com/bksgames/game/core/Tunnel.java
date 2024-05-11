@@ -12,7 +12,5 @@ public class Tunnel implements Tile{
 
     Collection<Entity> entities = new ArrayList<>();
 
-//    TODO: implement mirrors and put
-//    Mirror mirror; //here
-
+    Mirror mirror;
 }
