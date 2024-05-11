@@ -1,9 +1,12 @@
 package com.bksgames.game.core;
 
+import com.bksgames.game.core.tiles.Tile;
+import com.bksgames.game.enums.PlayerColor;
+
 public class Nexus implements Tile, Vulnerable, KnownPosition{
     private final int x,y;
     int hitPoints;
-    public final Player owner;
+    public final PlayerColor owner;
 
     @Override
     public boolean isHollow() { return false;}
@@ -14,7 +17,7 @@ public class Nexus implements Tile, Vulnerable, KnownPosition{
     @Override
     public int getY() {return y;}
 
-    public Player getOwner() { return owner;}
+    public PlayerColor getOwner() { return owner;}
 
     @Override
     public int getHitPoints() {
@@ -26,7 +29,7 @@ public class Nexus implements Tile, Vulnerable, KnownPosition{
     public void damage(SourceOfDamage sourceOfDamage) {
     }
 
-    public Nexus(Player owner, int x, int y, int hitPoints) {
+    public Nexus(PlayerColor owner, int x, int y, int hitPoints) {
         this.x = x;
         this.y = y;
         this.owner = owner;

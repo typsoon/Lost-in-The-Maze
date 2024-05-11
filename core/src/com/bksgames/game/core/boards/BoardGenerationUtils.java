@@ -1,4 +1,4 @@
-package com.bksgames.game.core;
+package com.bksgames.game.core.boards;
 
 import java.awt.*;
 import java.util.Queue;

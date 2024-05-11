@@ -1,5 +1,7 @@
 package com.bksgames.game.services;
 
+import com.badlogic.gdx.Game;
+import com.bksgames.game.core.Player;
 import com.bksgames.game.enums.PlayerColor;
 import com.bksgames.game.updateData.Update;
 
@@ -7,8 +9,8 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 
 public class SimplePlayerService implements PlayerService {
-    final PlayerColor watched;
-
+    final PlayerColor watched; // color of player
+    final GameService game;
     int maxX, minX, maxY, minY;
 
     Queue<Update> updates = new ArrayDeque<>();
@@ -44,5 +46,9 @@ public class SimplePlayerService implements PlayerService {
     }
 
 
-    public SimplePlayerService(PlayerColor watched) {this.watched = watched;}
+
+    public SimplePlayerService(PlayerColor watched,GameService gameService) {
+        this.watched = watched;
+        this.game = gameService;
+    }
 }

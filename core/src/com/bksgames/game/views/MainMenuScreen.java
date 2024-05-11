@@ -13,8 +13,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.bksgames.game.LostInTheMaze;
+import com.bksgames.game.core.Parameters;
 import com.bksgames.game.core.Player;
 import com.bksgames.game.enums.PlayerColor;
+import com.bksgames.game.services.GameService;
+import com.bksgames.game.services.SimpleGameService;
 import com.bksgames.game.services.SimplePlayerService;
 
 public class MainMenuScreen implements Screen {
@@ -67,13 +70,14 @@ public class MainMenuScreen implements Screen {
         textButtonStyle.pressedOffsetY = -1;
 
         Button buttonPlay = new TextButton("Play", textButtonStyle);
+        GameService gameService = new SimpleGameService(new Parameters()); // @typsoon rozwaz to jakos lepiej  !!!!!!!!!!!!!!!!!!!
         buttonPlay.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("clicked");
 
 
-                GameScreen bluePlayerScreen = new GameScreen(game, new SimplePlayerService(PlayerColor.BLUE));
-                GameScreen redPlayerScreen = new GameScreen(game, new SimplePlayerService(PlayerColor.RED));
+                GameScreen bluePlayerScreen = new GameScreen(game, new SimplePlayerService(PlayerColor.BLUE,gameService));
+                GameScreen redPlayerScreen = new GameScreen(game, new SimplePlayerService(PlayerColor.RED,gameService));
 
                 game.setScreen(bluePlayerScreen);
             }

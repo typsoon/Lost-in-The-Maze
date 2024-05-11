@@ -9,6 +9,7 @@ public class Parameters {
     public final int actionsNumber;
     public final int minionHitPoints;
     public final int nexusHitPoints;
+    public final int mapSize;
 
     public final int laserDamage;
     public final int swordDamage;
@@ -22,14 +23,14 @@ public class Parameters {
         actionsNumber = 5;
         minionHitPoints = 5;
         nexusHitPoints = 20;
-
+        mapSize = 30;
 //        TODO: think about these values
         laserDamage = 6;
         swordDamage = 2;
     }
 
     public Parameters(int maxMirrorsBending, int wallBuildCount, int doorPrice, int doorHitPoints, int doorCooldown, int actionsNumber, int minionHitPoints, int nexusHitPoints
-    , int laserDamage, int swordDamage) {
+    , int laserDamage, int swordDamage, int mapSize) {
         this.maxMirrorsBending = maxMirrorsBending;
         this.wallBuildCount = wallBuildCount;
         this.doorPrice = doorPrice;
@@ -40,5 +41,6 @@ public class Parameters {
         this.nexusHitPoints = nexusHitPoints;
         this.laserDamage = laserDamage;
         this.swordDamage = swordDamage;
+        this.mapSize = mapSize;
     }
 }
