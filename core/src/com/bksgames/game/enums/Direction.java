@@ -5,7 +5,7 @@ import java.awt.*;
 public enum Direction {
     LEFT, RIGHT, UP, DOWN;
 
-    static Point getNext(Point point, Direction direction){
+    public static Point getNext(Point point, Direction direction){
         switch (direction){
             case LEFT -> point.x--;
             case RIGHT -> point.x++;
