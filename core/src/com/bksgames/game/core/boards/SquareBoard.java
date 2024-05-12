@@ -68,15 +68,13 @@ public class SquareBoard implements Board {
     @Override
     public Set<Point> getLineOfSight(Point point, Direction direction) {
         Map<Mirror, Set<Direction>> mirrorMap = new HashMap<>();
-        Set<Point> lineofsight = new HashSet<>();
+        Set<Point> lineOfSight = new HashSet<>();
 
+        Direction.next(point, direction);
         Tile currentTile = getTile(point.x, point.y);
-        while(currentTile.isHollow()){
 
-            Direction.next(point, direction);
-            currentTile = getTile(point.x, point.y);
-            System.out.println(point);
-            lineofsight.add(new Point(point));
+        while(currentTile.isHollow()){
+            lineOfSight.add(new Point(point));
             if(!currentTile.isHollow())
                 break;
             Tunnel currentTunnel = currentTile.getTunnel();
@@ -92,8 +90,11 @@ public class SquareBoard implements Board {
                 }
                 direction = currentTunnel.getMirror().deflect(direction);
             }
+            Direction.next(point, direction);
+            currentTile = getTile(point.x, point.y);
         }
-        return lineofsight;
+        lineOfSight.add(new Point(point));
+        return lineOfSight;
     }
 
     SquareBoard(int size){
