@@ -2,9 +2,11 @@ package com.bksgames.game.views.gameScreen;
 
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.bksgames.game.globalClasses.Move;
 import com.bksgames.game.viewmodels.moves.MoveMaker;
 
+import java.awt.*;
 import java.util.Collection;
 
 public class LegalMovesHandler {
@@ -12,13 +14,13 @@ public class LegalMovesHandler {
 
     private final LegalMovesObserver legalMovesObserver;
 
-    public LegalMovesHandler(InputMultiplexer inputMultiplexer, MoveMaker moveMaker) {
+    public LegalMovesHandler(InputMultiplexer inputMultiplexer, MoveMaker moveMaker, TextureAtlas atlas) {
         this.inputMultiplexer = inputMultiplexer;
-        legalMovesObserver = new LegalMovesObserver(new LegalMoves(moveMaker));
+        legalMovesObserver = new LegalMovesObserver(new LegalMoves(moveMaker, atlas));
     }
 
-    void displayLegalMoves(Collection<Move> movesToDisplay) {
-        legalMovesObserver.setLegalMoves(movesToDisplay);
+    void displayLegalMoves(Collection<Move> movesToDisplay, Point coordinates) {
+        legalMovesObserver.setLegalMoves(movesToDisplay, coordinates);
     }
 
     void discardMoves() {inputMultiplexer.removeProcessor(legalMovesObserver);}
@@ -26,7 +28,7 @@ public class LegalMovesHandler {
     private class LegalMovesObserver extends InputAdapter {
         private final LegalMoves delegate;
 
-        void setLegalMoves(Collection<Move> legalMoves) {delegate.setLegalMoves(legalMoves);}
+        void setLegalMoves(Collection<Move> legalMoves, Point coordinates) {delegate.setLegalMoves(legalMoves, coordinates);}
 
         LegalMovesObserver(LegalMoves delegate) {this.delegate = delegate;}
 

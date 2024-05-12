@@ -1,0 +1,11 @@
+ActionButtons.png
+size:512,64
+repeat:none
+RightArrow
+bounds:2,2,300,60
+DownArrow
+bounds:2,2,300,60
+LeftArrow
+bounds:2,2,300,60
+UpArrow
+bounds:2,2,300,60
