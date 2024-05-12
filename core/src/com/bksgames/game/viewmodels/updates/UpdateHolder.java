@@ -4,12 +4,15 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.bksgames.game.enums.UpdateIDs;
 import com.bksgames.game.updateData.Update;
+import com.bksgames.game.viewmodels.updates.updaters.TileUpdateUpdater;
+import com.bksgames.game.viewmodels.updates.updaters.Updater;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Stream;
 
-public class UpdateProcessor {
-    Map<UpdateIDs, Updater<? extends Update>> updaterChooser = new HashMap<>();
+public class UpdateHolder {
+    final Map<UpdateIDs, Updater> updaterChooser = new HashMap<>();
 
     TiledMap map;
     TextureAtlas atlas;
@@ -18,7 +21,7 @@ public class UpdateProcessor {
         updaterChooser.get(update.getID()).process(update);
     }
 
-    public UpdateProcessor(TiledMap map, TextureAtlas atlas) {
+    public UpdateHolder(TiledMap map, TextureAtlas atlas) {
         this.map = map;
         this.atlas = atlas;
 

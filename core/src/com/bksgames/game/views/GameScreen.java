@@ -30,9 +30,9 @@ public class GameScreen implements Screen {
     private OrthographicCamera gameCamera;
 
     //    Tiles are squares - tileSize is its width
-    final static private int tilePixelSize = 50;
-    final static private int maxBoardWidth = 300;
-    final static private int maxBoardLength = 300;
+    final static public int tilePixelSize = 50;
+    final static public int maxBoardWidth = 300;
+    final static public int maxBoardLength = 300;
 
     public GameScreen(final LostInTheMaze game, PlayerService playerService) {
         this.playerService = playerService;

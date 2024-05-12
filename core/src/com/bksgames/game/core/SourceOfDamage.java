@@ -7,13 +7,11 @@ public class SourceOfDamage {
     final DamageType damageType;
 
     int getDamageValue() {
-        switch (damageType) {
-            case LASER: return parameters.laserDamage;
+        return switch (damageType) {
+            case LASER -> parameters.laserDamage;
+            case SWORD -> parameters.swordDamage;
+        };
 
-            case SWORD: return parameters.swordDamage;
-        }
-
-        throw new IllegalArgumentException("Unknown type of damage");
     }
 
     public DamageType getSource() { return damageType;}
