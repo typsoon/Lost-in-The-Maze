@@ -20,6 +20,9 @@ public class LegalMovesHandler {
     }
 
     void displayLegalMoves(Collection<Move> movesToDisplay, Point coordinates) {
+        if (movesToDisplay == null)
+            return;
+
         legalMovesObserver.setLegalMoves(movesToDisplay, coordinates);
     }
 

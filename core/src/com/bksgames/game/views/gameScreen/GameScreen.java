@@ -32,7 +32,8 @@ public class GameScreen implements Screen {
     private final MoveMaker moveMaker;
     private UpdateProcessor updateProcessor;
     private final InputMultiplexer inputMultiplexer;
-    private LegalMovesHandler legalMovesDisplayer;
+    private LegalMovesHandler legalMovesHandler;
+    private MoveSender moveSender;
 
     //    Tiles are squares - tileSize is its width
     final static public int tilePixelSize = 50;
@@ -64,7 +65,7 @@ public class GameScreen implements Screen {
         map.getLayers().add(minions);
 
         screenMover = new ScreenMover(gameCamera);
-        MoveSender moveSender = new MoveSender(playerService, map, minions, gameCamera);
+        moveSender = new MoveSender(playerService, map, minions, gameCamera);
         inputMultiplexer = new InputMultiplexer(screenMover, moveSender);
 //        legalMovesDisplayer = new LegalMovesHandler(inputMultiplexer, new SimpleMoveMaker());
         moveMaker = new SimpleMoveMaker(playerService);
@@ -78,7 +79,8 @@ public class GameScreen implements Screen {
 
 
         updateProcessor = new UpdateProcessor(map, boardAtlas);
-        legalMovesDisplayer = new LegalMovesHandler(inputMultiplexer, moveMaker, actionButtonsAtlas);
+        legalMovesHandler = new LegalMovesHandler(inputMultiplexer, moveMaker, actionButtonsAtlas);
+        moveSender.setLegalMovesHandler(legalMovesHandler);
 
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
