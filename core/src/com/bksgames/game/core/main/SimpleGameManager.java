@@ -37,8 +37,8 @@ public class SimpleGameManager implements GameManager {
     }
     @Override
     public Collection<Move> getLegalMoves(int x, int y, PlayerColor color) {
-        x-=players.get(color).mainNexus.x;
-        y-=players.get(color).mainNexus.y;
+        x+=players.get(color).mainNexus.x;
+        y+=players.get(color).mainNexus.y;
         Minion minion = players.get(color).getMinion(x, y);
         if(minion==null) {return  null;}
         Collection<Move> legalMoves = new ArrayList<>();
