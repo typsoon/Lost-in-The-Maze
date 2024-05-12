@@ -60,11 +60,11 @@ public class SimpleGameService implements GameService {
         players = new HashMap<>();
         this.parameters = parameters;
     }
-/*TEST
+//TEST
     public static void main(String[] args) {
         SimpleGameService gameService = new SimpleGameService(new Parameters());
         PlayerService blue = gameService.connect(PlayerColor.BLUE);
         PlayerService red = gameService.connect(PlayerColor.RED);
         gameService.StartGame();
-    }*/
+    }
 }

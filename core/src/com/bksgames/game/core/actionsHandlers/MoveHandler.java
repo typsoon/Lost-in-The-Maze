@@ -29,7 +29,7 @@ public class MoveHandler extends ActionHandler {
 
         minion.moveMinion(action.direction());
         gameManager.playerVisionUpdate(gameManager.getCurrentPlayer());
-    //    gameManager.minionUpdate();
+        gameManager.minionUpdate(gameManager.getCurrentPlayer(),new Point(minion.getX(),minion.getY()),action.direction(),null,MoveTypes.MOVE);
     }
     MoveHandler(GameManager manager) {
         super(manager);

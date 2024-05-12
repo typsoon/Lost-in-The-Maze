@@ -1,15 +1,16 @@
 package com.bksgames.game.core.main;
 
-import com.bksgames.game.core.entities.SimpleMinionUpdate;
-import com.bksgames.game.globalClasses.Move;
-import com.bksgames.game.core.utils.Parameters;
 import com.bksgames.game.core.actionsHandlers.ActionHandler;
 import com.bksgames.game.core.actionsHandlers.ActionHandlerFactory;
-import com.bksgames.game.core.boards.Board;
 import com.bksgames.game.core.boards.SquareBoardFactory;
+import com.bksgames.game.core.entities.SimpleMinionUpdate;
+import com.bksgames.game.core.tiles.SimpleTileUpdate;
+import com.bksgames.game.core.utils.Parameters;
+import com.bksgames.game.core.utils.PlayerEnums;
+import com.bksgames.game.globalClasses.Move;
+import com.bksgames.game.core.boards.Board;
 import com.bksgames.game.core.entities.Entity;
 import com.bksgames.game.core.entities.Minion;
-import com.bksgames.game.core.tiles.SimpleTileUpdate;
 import com.bksgames.game.core.tiles.Tile;
 import com.bksgames.game.globalClasses.enums.*;
 import com.bksgames.game.services.GameService;
@@ -37,18 +38,18 @@ public class SimpleGameManager implements GameManager {
     }
     @Override
     public Collection<Move> getLegalMoves(int x, int y, PlayerColor color) {
-        x-=players.get(color).mainNexus.x;
-        y-=players.get(color).mainNexus.y;
+        x+=players.get(color).mainNexus.x;
+        y+=players.get(color).mainNexus.y;
         Minion minion = players.get(color).getMinion(x, y);
         if(minion==null) {return  null;}
         Collection<Move> legalMoves = new ArrayList<>();
-        if(board.getTile(x+1,y).isHollow()) {
+        if(board.getTile(x+1,y).isHollow() && board.getTile(x+1,y).getTunnel().getEntities().isEmpty()) {
             legalMoves.add(new Move(x,x+1,MoveTypes.MOVE, Direction.RIGHT));}
-        if(board.getTile(x-1,y).isHollow()) {
+        if(board.getTile(x-1,y).isHollow() && board.getTile(x-1,y).getTunnel().getEntities().isEmpty()) {
             legalMoves.add(new Move(x-1,y,MoveTypes.MOVE,Direction.LEFT));}
-        if(board.getTile(x,y+1).isHollow()) {
+        if(board.getTile(x,y+1).isHollow() && board.getTile(x,y+1).getTunnel().getEntities().isEmpty()) {
             legalMoves.add(new Move(x,y+1,MoveTypes.MOVE,Direction.UP));}
-        if(board.getTile(x,y-1).isHollow()) {
+        if(board.getTile(x,y-1).isHollow() && board.getTile(x,y-1).getTunnel().getEntities().isEmpty()) {
             legalMoves.add(new Move(x,y-1,MoveTypes.MOVE,Direction.DOWN));}
 
         if(!minion.onCooldown()) {
@@ -147,7 +148,7 @@ public class SimpleGameManager implements GameManager {
     public  void minionUpdate(PlayerColor color, Point minionLocation, Direction direction, MinionEvent minionEvent, MoveTypes minionMove) {
         for(PlayerColor playerColor:players.keySet()){
             if(players.get(playerColor).isVisible(minionLocation)){
-                sendUpdate(playerColor,new SimpleMinionUpdate(direction,Displayable.BLUE_MINION,minionEvent,minionMove,minionLocation.x,minionLocation.y));
+                sendUpdate(playerColor,new SimpleMinionUpdate(direction, PlayerEnums.getMinionColor(color),minionEvent,minionMove,minionLocation.x,minionLocation.y));
             }
         }
     }
@@ -158,7 +159,7 @@ public class SimpleGameManager implements GameManager {
         this.board = SquareBoardFactory.CreateSBFor2Players(parameters);
         moveHandlers = new HashMap<>();
         for(MoveTypes moveType : MoveTypes.values()) {
-            moveHandlers.put(moveType,ActionHandlerFactory.CreateActionHandler(moveType,this));
+            moveHandlers.put(moveType, ActionHandlerFactory.CreateActionHandler(moveType,this));
         }
         players = new HashMap<>();
         activePlayer = PlayerColor.BLUE;

@@ -1,8 +1,8 @@
 package com.bksgames.game.core.main;
 
-import com.bksgames.game.globalClasses.Move;
 import com.bksgames.game.core.boards.Board;
 import com.bksgames.game.core.utils.Parameters;
+import com.bksgames.game.globalClasses.Move;
 import com.bksgames.game.globalClasses.Update;
 import com.bksgames.game.globalClasses.enums.Direction;
 import com.bksgames.game.globalClasses.enums.MinionEvent;
