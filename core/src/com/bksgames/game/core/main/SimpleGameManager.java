@@ -1,6 +1,7 @@
 package com.bksgames.game.core.main;
 
 import com.bksgames.game.core.entities.SimpleMinionUpdate;
+import com.bksgames.game.core.utils.PlayerEnums;
 import com.bksgames.game.globalClasses.Move;
 import com.bksgames.game.core.utils.Parameters;
 import com.bksgames.game.core.actionsHandlers.ActionHandler;
@@ -147,7 +148,7 @@ public class SimpleGameManager implements GameManager {
     public  void minionUpdate(PlayerColor color, Point minionLocation, Direction direction, MinionEvent minionEvent, MoveTypes minionMove) {
         for(PlayerColor playerColor:players.keySet()){
             if(players.get(playerColor).isVisible(minionLocation)){
-                sendUpdate(playerColor,new SimpleMinionUpdate(direction,Displayable.BLUE_MINION,minionEvent,minionMove,minionLocation.x,minionLocation.y));
+                sendUpdate(playerColor,new SimpleMinionUpdate(direction, PlayerEnums.getMinionColor(color),minionEvent,minionMove,minionLocation.x,minionLocation.y));
             }
         }
     }
