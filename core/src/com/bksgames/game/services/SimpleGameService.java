@@ -1,9 +1,9 @@
 package com.bksgames.game.services;
 
-import com.bksgames.game.core.main.GameManager;
+import com.bksgames.game.core.test.main.GameManager;
 import com.bksgames.game.globalClasses.Move;
-import com.bksgames.game.core.utils.Parameters;
-import com.bksgames.game.core.main.SimpleGameManager;
+import com.bksgames.game.core.test.utils.Parameters;
+import com.bksgames.game.core.test.main.SimpleGameManager;
 import com.bksgames.game.globalClasses.enums.PlayerColor;
 import com.bksgames.game.globalClasses.Update;
 
@@ -60,11 +60,11 @@ public class SimpleGameService implements GameService {
         players = new HashMap<>();
         this.parameters = parameters;
     }
-/*TEST
+//TEST
     public static void main(String[] args) {
         SimpleGameService gameService = new SimpleGameService(new Parameters());
         PlayerService blue = gameService.connect(PlayerColor.BLUE);
         PlayerService red = gameService.connect(PlayerColor.RED);
         gameService.StartGame();
-    }*/
+    }
 }
