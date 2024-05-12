@@ -1,13 +1,15 @@
 package com.bksgames.game.core;
 
 public class Minion implements Entity{
-    int x, y, hitPoints;
+    int x, y, hitPoints,cooldown;
 
+    public boolean onCooldown(){return cooldown > 0;}
+
+    public void nextTurn(){cooldown--;}
     @Override
     public void damage(SourceOfDamage sourceOfDamage) {
 
     }
-
     @Override
     public int getX() { return x;}
 

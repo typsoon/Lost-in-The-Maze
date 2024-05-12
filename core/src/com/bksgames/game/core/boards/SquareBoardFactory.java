@@ -17,8 +17,8 @@ public class SquareBoardFactory
 
     static public SquareBoard CreateSBFor2Players(Parameters parameters)    {
         SquareBoard board = new SquareBoard(Math.max(parameters.mapSize, 27)); // do przemyslenia
-        board.playerNexuses.put(PlayerColor.RED,new HashSet<>());
-        board.playerNexuses.put(PlayerColor.BLUE,new HashSet<>());
+        board.playerNexuses.put(PlayerColor.RED,new ArrayList<>());
+        board.playerNexuses.put(PlayerColor.BLUE,new ArrayList<>());
 
         Random rng = new Random();
         int[][] genGrid = new int[board.size][board.size];

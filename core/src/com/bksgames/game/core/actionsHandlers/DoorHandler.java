@@ -1,4 +1,4 @@
-package com.bksgames.game.actionsHandlers;
+package com.bksgames.game.core.actionsHandlers;
 
 import com.bksgames.game.core.GameManager;
 import com.bksgames.game.core.Move;
@@ -11,7 +11,7 @@ public class DoorHandler extends ActionHandler {
         if(action.type() != MoveTypes.MOVE)
             throw new IllegalStateException("Wrong move type!");
     }
-    DoorHandler(Board board) {
-        super(board);
+    DoorHandler(GameManager manager) {
+        super(manager);
     }
 }

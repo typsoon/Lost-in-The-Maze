@@ -7,12 +7,13 @@ import com.bksgames.game.enums.PlayerColor;
 
 import java.awt.*;
 import java.util.Collection;
+import java.util.List;
 
 public interface Board {
 
     Tile getTile(int x, int y);
     int getWidth();
     int getHeight();
-    Collection<Nexus> getNexus(PlayerColor player);
+    List<Nexus> getNexus(PlayerColor player);
     Collection<Point> getVisible(Minion minion);
 }

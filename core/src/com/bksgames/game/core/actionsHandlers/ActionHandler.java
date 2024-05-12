@@ -1,13 +1,13 @@
-package com.bksgames.game.actionsHandlers;
+package com.bksgames.game.core.actionsHandlers;
 
 import com.bksgames.game.core.GameManager;
 import com.bksgames.game.core.Move;
 import com.bksgames.game.core.boards.Board;
 
 public abstract class ActionHandler {
-    Board board;
+    GameManager gameManager;
     public abstract void handle(Move action);
-    ActionHandler(Board board) {
-        this.board = board;
+    ActionHandler(GameManager manager) {
+        this.gameManager = manager;
     }
 }

@@ -5,6 +5,7 @@ import com.bksgames.game.core.Move;
 import com.bksgames.game.core.Parameters;
 import com.bksgames.game.core.SimpleGameManager;
 import com.bksgames.game.enums.PlayerColor;
+import com.bksgames.game.updateData.Update;
 
 import java.io.BufferedOutputStream;
 import java.util.Collection;
@@ -34,6 +35,13 @@ public class SimpleGameService implements GameService {
     public Boolean move(Move move, PlayerColor player) {
         return gameManager.makeMove(move);
     }
+
+    @Override
+    public Boolean SendUpdate(PlayerColor color, Update update) {
+        players.get(color).pushUpdate(update);
+        return true;
+    }
+
     public SimpleGameService(Parameters parameters) {
         gameManager = new SimpleGameManager(parameters);
     }

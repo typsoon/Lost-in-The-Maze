@@ -17,7 +17,7 @@ public class SquareBoard implements Board {
 
     final Tile[][] grid;
     final int size;
-    final Map<PlayerColor, Collection<Nexus>> playerNexuses;
+    final Map<PlayerColor, List<Nexus>> playerNexuses;
 
     @Override
     public Tile getTile(int x, int y) {
@@ -37,7 +37,7 @@ public class SquareBoard implements Board {
     }
 
     @Override
-    public Collection<Nexus> getNexus(PlayerColor player) {
+    public List<Nexus> getNexus(PlayerColor player) {
         return playerNexuses.get(player);
     }
 

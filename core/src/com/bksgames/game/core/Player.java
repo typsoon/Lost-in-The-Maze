@@ -28,10 +28,10 @@ public class Player {
     Player(Point mainNexus) {
         this.mainNexus =new Point(mainNexus);
     }
-    boolean hasMinion(int x,int y){
+    Minion getMinion(int x,int y){
         for(Minion minion : minions){
-            if(minion.x == x && minion.y == y){return true;}
+            if(minion.x == x && minion.y == y){return minion;}
         }
-        return false;
+        return null;
     }
 }

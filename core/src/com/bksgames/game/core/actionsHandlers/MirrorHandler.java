@@ -1,4 +1,4 @@
-package com.bksgames.game.actionsHandlers;
+package com.bksgames.game.core.actionsHandlers;
 
 import com.bksgames.game.core.GameManager;
 import com.bksgames.game.core.Move;
@@ -11,7 +11,7 @@ public class MirrorHandler extends ActionHandler{
         if(action.type() != MoveTypes.MOVE)
             throw new IllegalStateException("Wrong move type!");
     }
-    MirrorHandler(Board board) {
-        super(board);
+    MirrorHandler(GameManager manager) {
+        super(manager);
     }
 }
