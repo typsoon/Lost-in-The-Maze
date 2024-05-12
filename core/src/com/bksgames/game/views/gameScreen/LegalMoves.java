@@ -1,33 +1,35 @@
 package com.bksgames.game.views.gameScreen;
 
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.bksgames.game.globalClasses.Move;
 import com.bksgames.game.globalClasses.enums.MoveTypes;
 import com.bksgames.game.viewmodels.moves.MoveMaker;
+import com.bksgames.game.views.gameScreen.actionButtons.ActionButtonFactory;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.awt.*;
+import java.util.*;
 
 public class LegalMoves extends Stage {
-    private final MoveMaker moveMaker;
-    Table mainTable;
-    Table arrowTable;
-    Table actionsTable;
+    private final Table mainTable;
     Map<MoveTypes, Table> mapping = new HashMap<>();
 
-    Table arrows;
+    private final ActionButtonFactory factory;
 
-    LegalMoves(MoveMaker moveMaker) {
-        this.moveMaker = moveMaker;
+    LegalMoves(MoveMaker moveMaker, TextureAtlas atlas) {
+        mainTable = new Table();
+        mainTable.align(Align.right);
+        this.addActor(mainTable);
 
-        arrowTable = new Table();
+        Table arrowTable = new Table();
         arrowTable.align(Align.bottom);
 
-        actionsTable = new Table();
+        Table actionsTable = new Table();
         actionsTable.align(Align.top);
+
+        factory = new ActionButtonFactory(moveMaker, atlas);
 
         mapping.put(MoveTypes.MOVE, arrowTable);
 
@@ -37,21 +39,18 @@ public class LegalMoves extends Stage {
         mapping.put(MoveTypes.MIRROR, actionsTable);
     }
 
-    public void setLegalMoves(Collection<Move> legalMoves) {
-        this.addActor(mainTable);
-        mainTable.align(Align.right);
+    public void setLegalMoves(Collection<Move> legalMoves, Point coordinates) {
+        mainTable.clearChildren();
+        Set<Table> addThese = new HashSet<>();
 
-        legalMoves.forEach(this::displayMove);
+        legalMoves.forEach(move -> {
+            Table ourTable = mapping.get(move.type());
+
+            ourTable.add(factory.getButton(move, coordinates));
+
+            addThese.add(ourTable);
+        });
+
+        addThese.forEach(mainTable::add);
     }
-
-    private void displayMove(Move move) {
-        switch (move.type()) {
-            case MOVE -> {
-
-            }
-        }
-    }
-
-
 }
-

@@ -5,13 +5,18 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector3;
+import com.bksgames.game.globalClasses.Move;
 import com.bksgames.game.services.PlayerService;
+
+import java.awt.*;
+import java.util.Collection;
 
 public class MoveSender extends InputAdapter {
     private final PlayerService playerService;
     private final TiledMap map;
     private final TiledMapTileLayer minionMapLayer;
     private final Camera gameCamera;
+    private LegalMovesHandler legalMovesHandler;
 
     MoveSender(PlayerService playerService, TiledMap map, TiledMapTileLayer minionMapLayer, Camera camera) {
         this.playerService = playerService;
@@ -19,6 +24,8 @@ public class MoveSender extends InputAdapter {
         this.minionMapLayer = minionMapLayer;
         this.gameCamera = camera;
     }
+
+    public void setLegalMovesHandler(LegalMovesHandler legalMovesHandler) { this.legalMovesHandler = legalMovesHandler; }
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
@@ -31,12 +38,16 @@ public class MoveSender extends InputAdapter {
         int tileY = (int) (worldY / minionMapLayer.getTileHeight());
 
         // Output the tile coordinates
-        System.out.println("Clicked tile coordinates: (" + tileX + ", " + tileY + ")");
+        System.out.println("Clicked tile coordinates: (" + (tileX - GameScreen.maxBoardWidth) + ", " + (tileY - GameScreen.maxBoardHeight) + ")");
 //
         TiledMapTileLayer.Cell myCell = minionMapLayer.getCell(tileX, tileY);
 
-        if (myCell != null)
-            playerService.getLegalMoves(tileX - GameScreen.maxBoardWidth, tileY - GameScreen.maxBoardHeight);
+        if (myCell != null) {
+            Point minionCoords = new Point(tileX - GameScreen.maxBoardWidth, tileY - GameScreen.maxBoardHeight);
+            Collection<Move> moves = playerService.getLegalMoves(minionCoords.x, minionCoords.y);
+
+            legalMovesHandler.displayLegalMoves(moves, minionCoords);
+        }
 
         return true; // Indicate that the input event was handled
     }
