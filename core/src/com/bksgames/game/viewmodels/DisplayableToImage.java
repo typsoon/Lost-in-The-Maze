@@ -15,9 +15,9 @@ public class DisplayableToImage {
     }
 
     static {
-//        mapping.put(Displayable.BLUE_NEXUS, revAndVis("BlueNexe"));
-//        mapping.put(Displayable.RED_NEXUS, "RedNexus");
-//        mapping.put(Displayable.WALL, "Wall");
-//        mapping.put(Displayable.TUNNEL, "Tunnel");
+        mapping.put(Displayable.BLUE_NEXUS, new DisplayInfo("RevealedBlueNexus", "VisibleBlueNexus", "wallsAndNexuses"));
+        mapping.put(Displayable.RED_NEXUS, new DisplayInfo("RevealedRedNexus", "VisibleRedNexus", "wallsAndNexuses"));
+        mapping.put(Displayable.WALL, new DisplayInfo("RevealedWall", "VisibleWall", "wallsAndNexuses"));
+        mapping.put(Displayable.TUNNEL, new DisplayInfo("Revealed", "Visible", "tunnels"));
     }
 }

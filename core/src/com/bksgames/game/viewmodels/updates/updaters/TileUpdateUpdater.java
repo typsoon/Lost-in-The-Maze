@@ -2,13 +2,8 @@ package com.bksgames.game.viewmodels.updates.updaters;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.MapObjects;
-import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
-import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.bksgames.game.updateData.TileUpdate;
 import com.bksgames.game.updateData.Update;
 import com.bksgames.game.viewmodels.DisplayableToImage;
@@ -25,11 +20,10 @@ public class TileUpdateUpdater extends Updater {
 
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(info.layer());
 
-        TiledMapTile tile = new StaticTiledMapTile(atlas.findRegion(tileUpdate.isVisible() ? info.visible() : info.revealed()));
-        TiledMapTileLayer.Cell myCell = new TiledMapTileLayer.Cell();
-        myCell.setTile(tile);
+        TextureRegion region = atlas.findRegion(tileUpdate.isVisible() ? info.visible() : info.revealed());
 
-        layer.setCell(GameScreen.maxBoardLength+ tileUpdate.getRelativeX(), GameScreen.maxBoardLength + tileUpdate.getRelativeY(), myCell);
+//        layer.setCell(GameScreen.maxBoardLength+ tileUpdate.getRelativeX(), GameScreen.maxBoardLength + tileUpdate.getRelativeY(), myCell);
+        layer.getCell(GameScreen.maxBoardLength+ tileUpdate.getRelativeX(), GameScreen.maxBoardLength + tileUpdate.getRelativeY()).getTile().setTextureRegion(region);
     }
 
 

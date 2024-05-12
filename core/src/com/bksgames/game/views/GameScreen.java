@@ -25,7 +25,7 @@ public class GameScreen implements Screen {
     private TextureAtlas atlas;
     private Skin skin;
     private InputProcessor inputProcessor;
-    private MapRenderer mapRenderer;
+    private final MapRenderer mapRenderer;
 
     private OrthographicCamera gameCamera;
 
@@ -40,12 +40,7 @@ public class GameScreen implements Screen {
 
         gameCamera = new OrthographicCamera();
         gameCamera.setToOrtho(false, 800, 480);
-    }
 
-    @Override
-    public void show() {
-
-        atlas = new TextureAtlas(Gdx.files.internal("Board.atlas"));
 
         inputProcessor = new InputAdapter() {
             @Override
@@ -64,8 +59,18 @@ public class GameScreen implements Screen {
         TiledMapTileLayer wallsAndNexuses = new TiledMapTileLayer(3*maxBoardLength, 3*maxBoardWidth, tilePixelSize, tilePixelSize);
         wallsAndNexuses.setName("wallsAndNexuses");
 
+        TiledMapTileLayer minions = new TiledMapTileLayer(3*maxBoardLength, 3*maxBoardWidth, tilePixelSize, tilePixelSize);
+        wallsAndNexuses.setName("minions");
+
         map.getLayers().add(tunnels);
         map.getLayers().add(wallsAndNexuses);
+    }
+
+    @Override
+    public void show() {
+        atlas = new TextureAtlas(Gdx.files.internal("Board.atlas"));
+        skin = new Skin(atlas);
+
 
 //        TODO: TEST THIS
 //        Testing.dummyUpdater(playerService);
