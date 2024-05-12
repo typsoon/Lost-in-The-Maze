@@ -1,6 +1,6 @@
 package com.bksgames.game.services;
 
-import com.bksgames.game.core.Move;
+import com.bksgames.game.core.utils.Move;
 import com.bksgames.game.enums.PlayerColor;
 import com.bksgames.game.updateData.Update;
 

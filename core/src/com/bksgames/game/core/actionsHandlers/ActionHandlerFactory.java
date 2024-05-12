@@ -1,7 +1,6 @@
 package com.bksgames.game.core.actionsHandlers;
 
-import com.bksgames.game.core.GameManager;
-import com.bksgames.game.core.boards.Board;
+import com.bksgames.game.core.main.GameManager;
 import com.bksgames.game.enums.MoveTypes;
 
 public class ActionHandlerFactory {

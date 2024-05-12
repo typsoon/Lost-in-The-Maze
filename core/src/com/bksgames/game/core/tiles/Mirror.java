@@ -1,11 +1,17 @@
 package com.bksgames.game.core.tiles;
 
+import com.bksgames.game.core.utils.Owned;
 import com.bksgames.game.enums.Direction;
 import com.bksgames.game.enums.PlayerColor;
 
-public class Mirror{
-	public PlayerColor color;
+public class Mirror implements Owned {
+	private PlayerColor owner;
 	Orientation orientation;
+
+	@Override
+	public PlayerColor getOwner() {
+		return owner;
+	}
 
 	enum Orientation {
 		SLASH, BACKSLASH;
