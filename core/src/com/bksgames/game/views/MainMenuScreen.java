@@ -75,10 +75,9 @@ public class MainMenuScreen implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("clicked");
 
-
-                GameScreen bluePlayerScreen = new GameScreen(game, new SimplePlayerService(PlayerColor.BLUE,gameService));
-                GameScreen redPlayerScreen = new GameScreen(game, new SimplePlayerService(PlayerColor.RED,gameService));
-
+                GameScreen bluePlayerScreen = new GameScreen(game,gameService.connect(PlayerColor.BLUE));
+                GameScreen redPlayerScreen = new GameScreen(game, gameService.connect(PlayerColor.RED));
+                gameService.StartGame();
                 game.setScreen(bluePlayerScreen);
             }
         });
@@ -111,8 +110,8 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        ScreenUtils.clear(0, 0, 0, 1);
-//        ScreenUtils.clear(255, 255, 255, 1);
+        ScreenUtils.clear(0, 0, 0, 0);
+//        ScreenUtils.clear(255, 255, 255, 0);
 
         stage.act(delta);
 

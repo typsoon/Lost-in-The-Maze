@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.bksgames.game.core.Player;
 import com.bksgames.game.enums.PlayerColor;
 import com.bksgames.game.updateData.Update;
+import com.bksgames.game.viewmodels.updates.UpdateProcessor;
 
 import java.util.ArrayDeque;
 import java.util.Queue;

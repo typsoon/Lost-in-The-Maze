@@ -9,9 +9,8 @@ import com.bksgames.game.viewmodels.updates.updaters.Updater;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Stream;
 
-public class UpdateHolder {
+public class UpdateProcessor {
     final Map<UpdateIDs, Updater> updaterChooser = new HashMap<>();
 
     TiledMap map;
@@ -21,7 +20,7 @@ public class UpdateHolder {
         updaterChooser.get(update.getID()).process(update);
     }
 
-    public UpdateHolder(TiledMap map, TextureAtlas atlas) {
+    public UpdateProcessor(TiledMap map, TextureAtlas atlas) {
         this.map = map;
         this.atlas = atlas;
 
