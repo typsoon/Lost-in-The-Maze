@@ -1,10 +1,12 @@
-package com.bksgames.game.core;
+package com.bksgames.game.core.tiles;
 
-import com.bksgames.game.core.tiles.Tile;
-import com.bksgames.game.core.tiles.Tunnel;
+import com.bksgames.game.core.KnownPosition;
+import com.bksgames.game.core.SourceOfDamage;
+import com.bksgames.game.core.Vulnerable;
+import com.bksgames.game.enums.Displayable;
 import com.bksgames.game.enums.PlayerColor;
 
-public class Nexus implements Tile, Vulnerable, KnownPosition{
+public class Nexus implements Tile, Vulnerable, KnownPosition {
     private final int x,y;
     int hitPoints;
     public final PlayerColor owner;
@@ -33,6 +35,14 @@ public class Nexus implements Tile, Vulnerable, KnownPosition{
         this.owner = owner;
 
         this.hitPoints = hitPoints;
+    }
+
+    @Override
+    public Displayable getDisplayable() {
+        if(getOwner()==PlayerColor.BLUE)
+            return Displayable.BLUE_NEXUS;
+        else
+            return Displayable.RED_NEXUS;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.bksgames.game.core;
 
 import com.bksgames.game.enums.PlayerColor;
+import com.bksgames.game.updateData.Update;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -19,11 +20,20 @@ public class Player {
     boolean isVisible(Point point) {
         return visibleTiles.contains(point);
     }
-    void removeVisibleTiles(Collection<Point> visibleTiles) {
-        this.visibleTiles.removeAll(visibleTiles);
-    }
-    void addVisibleTiles(Collection<Point> visibleTiles) {
-        this.visibleTiles.addAll(visibleTiles);
+    Set<Point> updateVisibleTiles(Set<Point> updates){
+        Set<Point> diff = new HashSet<>();
+        for(Point point : updates){
+            if(!visibleTiles.contains(point)){
+                diff.add(point);
+            }
+        }
+        for(Point point : visibleTiles){
+            if(!updates.contains(point)){
+                diff.add(point);
+            }
+        }
+        visibleTiles = updates;
+        return diff;
     }
     Player(Point mainNexus) {
         this.mainNexus =new Point(mainNexus);

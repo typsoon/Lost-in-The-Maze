@@ -1,6 +1,6 @@
 package com.bksgames.game.core.boards;
 
-import com.bksgames.game.core.Nexus;
+import com.bksgames.game.core.tiles.Nexus;
 import com.bksgames.game.core.Parameters;
 import com.bksgames.game.core.tiles.Tunnel;
 import com.bksgames.game.core.tiles.Wall;
@@ -8,7 +8,6 @@ import com.bksgames.game.enums.PlayerColor;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Random;
 
 public class SquareBoardFactory

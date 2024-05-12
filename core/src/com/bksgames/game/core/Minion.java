@@ -1,8 +1,11 @@
 package com.bksgames.game.core;
 
-public class Minion implements Entity{
-    int x, y, hitPoints,cooldown;
+import com.bksgames.game.enums.Displayable;
+import com.bksgames.game.enums.PlayerColor;
 
+public class Minion implements Entity, Owned{
+    int x, y, hitPoints,cooldown;
+    PlayerColor owner;
     public boolean onCooldown(){return cooldown > 0;}
 
     public void nextTurn(){cooldown--;}
@@ -27,5 +30,22 @@ public class Minion implements Entity{
         this.hitPoints = hitPoints;
     }
 
-    public Minion(int x, int y, int hitPoints) {spawn(x,y, hitPoints);}
+    @Override
+    public Displayable getDiplayable() {
+        if(owner==PlayerColor.BLUE)
+            return Displayable.BLUE_MINION;
+        else
+            return Displayable.RED_MINION;
+    }
+
+    @Override
+    public PlayerColor getOwner() {
+        return owner;
+    }
+    public Minion(int x, int y, int hitPoints, PlayerColor player) {
+        spawn(x,y, hitPoints);
+        this.owner = player;
+    }
+
+
 }

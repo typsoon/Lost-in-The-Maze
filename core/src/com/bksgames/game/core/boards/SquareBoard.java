@@ -1,12 +1,8 @@
 package com.bksgames.game.core.boards;
 
 import com.bksgames.game.core.Minion;
-import com.bksgames.game.core.Nexus;
-import com.bksgames.game.core.Parameters;
-import com.bksgames.game.core.Player;
+import com.bksgames.game.core.tiles.Nexus;
 import com.bksgames.game.core.tiles.Tile;
-import com.bksgames.game.core.tiles.Tunnel;
-import com.bksgames.game.core.tiles.Wall;
 import com.bksgames.game.enums.PlayerColor;
 
 import java.awt.*;
@@ -42,10 +38,10 @@ public class SquareBoard implements Board {
     }
 
     @Override
-    public Collection<Point> getVisible(Minion minion) {
+    public Set<Point> getVisible(Minion minion) {
         if(!getTile(minion.getX(),minion.getY()).isHollow())
             throw new IllegalArgumentException("Minion is in wall!");
-        Collection<Point> visible = new ArrayList<>();
+        Set<Point> visible = new HashSet<>();
         visible.add(new Point(minion.getX(),minion.getY()));
 
         Point act = new Point(minion.getX(),minion.getY());
@@ -80,9 +76,35 @@ public class SquareBoard implements Board {
         return visible;
     }
 
+    @Override
+    public Set<Point> getNexusesVision(PlayerColor player) {
+        Set<Point> vision = new HashSet<>();
+        for(Nexus nexus: playerNexuses.get(player))
+        {
+            vision.addAll(getNexusBase(nexus));
+        }
+        return vision;
+    }
+
     SquareBoard(int size){
         this.size = size;
         playerNexuses = new HashMap<>();
         grid = new Tile[size][size];
+    }
+
+    private Set<Point> getNexusBase(Nexus nexus){
+        Set<Point> base = new HashSet<>();
+        Point actFP = new Point(nexus.getX()-baseSize/2,nexus.getY()-baseSize/2);
+        for(int x=0;x<baseSize;x++)
+        {
+            actFP.x++;
+            actFP.y = nexus.getY()-baseSize/2;
+            for(int y=0;y<baseSize;y++)
+            {
+                base.add(new Point(actFP));
+                actFP.y++;
+            }
+        }
+        return base;
     }
 }

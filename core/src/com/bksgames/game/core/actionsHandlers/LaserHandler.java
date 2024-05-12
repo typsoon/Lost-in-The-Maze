@@ -16,7 +16,7 @@ public class LaserHandler extends ActionHandler{
 
         Point point = Direction.getNext(new Point(action.x(), action.y()), action.direction());
 
-        while(board.getTile(point.x, point.y).isHollow()){
+        while(gameManager.getBoard().getTile(point.x, point.y).isHollow()){
             Direction.getNext(point, action.direction());
         }
         // here POINT will point to the first non-tunnel tile

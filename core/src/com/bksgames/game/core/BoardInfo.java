@@ -1,5 +1,7 @@
 package com.bksgames.game.core;
 
+import com.bksgames.game.core.tiles.Nexus;
+
 import java.util.Collection;
 
 public interface BoardInfo {

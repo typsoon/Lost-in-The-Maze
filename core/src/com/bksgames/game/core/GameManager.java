@@ -12,4 +12,6 @@ public interface GameManager  {
     Collection<Move> getLegalMoves(int x, int y, PlayerColor color);
     Board getBoard();
     Map<PlayerColor, Player> getPlayers();
+    Boolean SendUpdate(PlayerColor color,Update update);
+    Boolean SendUpdates(PlayerColor color,Collection<Update> updates);
 }

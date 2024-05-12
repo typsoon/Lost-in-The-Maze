@@ -4,21 +4,23 @@ import com.bksgames.game.core.actionsHandlers.ActionHandler;
 import com.bksgames.game.core.actionsHandlers.ActionHandlerFactory;
 import com.bksgames.game.core.boards.Board;
 import com.bksgames.game.core.boards.SquareBoardFactory;
-import com.bksgames.game.enums.Direction;
-import com.bksgames.game.enums.MoveTypes;
-import com.bksgames.game.enums.PlayerColor;
+import com.bksgames.game.core.tiles.SimpleTileUpdate;
+import com.bksgames.game.core.tiles.Tile;
+import com.bksgames.game.enums.*;
+import com.bksgames.game.services.GameService;
+import com.bksgames.game.updateData.TileUpdate;
 import com.bksgames.game.updateData.Update;
 
 import java.awt.*;
 import java.util.*;
-import java.util.List;
-import java.util.logging.Level;
 
 
 public class SimpleGameManager implements GameManager {
     private final Board board;
     private final Map<PlayerColor, Player> players;
     private final Map<MoveTypes, ActionHandler> moveHandlers;
+    private final GameService gameService;
+    private final Parameters parameters;
     PlayerColor activePlayer;
     @Override
     public Boolean makeMove(Move move) {
@@ -66,8 +68,57 @@ public class SimpleGameManager implements GameManager {
         return players;
     }
 
+    @Override
+    public Boolean SendUpdate(PlayerColor color,Update update) {
+        return gameService.ForwardUpdate(color,update);
+    }
+    @Override
+    public Boolean SendUpdates(PlayerColor color,Collection<Update> updates) {
+        return gameService.ForwardUpdates(color,updates);
+    }
 
-    public SimpleGameManager(Parameters parameters) {
+    private void PlayerSetup(PlayerColor color) {
+        Player player = players.get(color);
+
+        Minion minion = new Minion(player.mainNexus.x+1,player.mainNexus.y,parameters.minionHitPoints,color);
+        player.addMinion(minion);
+        board.getTile(player.mainNexus.x+1,player.mainNexus.y).getTunnel().addEntity(minion);
+
+        minion = new Minion(player.mainNexus.x-1,player.mainNexus.y,parameters.minionHitPoints,color);
+        player.addMinion(minion);
+        board.getTile(player.mainNexus.x-1,player.mainNexus.y).getTunnel().addEntity(minion);
+
+        minion = new Minion(player.mainNexus.x,player.mainNexus.y+1,parameters.minionHitPoints,color);
+        player.addMinion(minion);
+        board.getTile(player.mainNexus.x,player.mainNexus.y+1).getTunnel().addEntity(minion);
+    }
+
+    private void PlayerVisionUpdate(PlayerColor color) {
+        Player player = players.get(color);
+        Set<Point> visible = new HashSet<>(board.getNexusesVision(color));
+        for(Minion minion:player.minions){
+            visible.addAll(board.getVisible(minion));
+        }
+        Point orientation = player.mainNexus.getLocation();
+        Set<Point> changes = player.updateVisibleTiles(visible);
+        for(Point point:changes){
+            Tile actTile = board.getTile(point.x,point.y);
+            point.x-=orientation.x;
+            point.y-=orientation.y;
+            SendUpdate(color,new SimpleTileUpdate(actTile.getDisplayable(),player.isVisible(point),point.x,point.y));
+            if(actTile.isHollow()) {
+                if(actTile.getDisplayable()!=Displayable.TUNNEL)
+                    SendUpdate(color,new SimpleTileUpdate(Displayable.TUNNEL,player.isVisible(point),point.x,point.y));
+                for(Entity entity:actTile.getTunnel().getEntities()){
+                    SendUpdate(color,new SimpleTileUpdate(entity.getDiplayable(),player.isVisible(point),point.x,point.y));
+                }
+            }
+        }
+    }
+
+    public SimpleGameManager(GameService gameService, Parameters parameters) {
+        this.parameters=parameters;
+        this.gameService=gameService;
         this.board = SquareBoardFactory.CreateSBFor2Players(parameters);
         moveHandlers = new HashMap<>();
         for(MoveTypes moveType : MoveTypes.values()) {
@@ -77,5 +128,8 @@ public class SimpleGameManager implements GameManager {
         activePlayer = PlayerColor.BLUE;
         players.put(PlayerColor.BLUE,new Player(new Point(board.getNexus(PlayerColor.BLUE).get(0).getX(),board.getNexus(PlayerColor.BLUE).get(0).getY())));
         players.put(PlayerColor.RED,new Player(new Point(board.getNexus(PlayerColor.RED).get(0).getX(),board.getNexus(PlayerColor.RED).get(0).getY())));
+
+        for(PlayerColor playerColor : players.keySet()) {PlayerSetup(playerColor);}
+        for(PlayerColor playerColor : players.keySet()) {PlayerVisionUpdate(playerColor);}
     }
 }

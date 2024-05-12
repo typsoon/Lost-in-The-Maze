@@ -1,10 +1,10 @@
-package com.bksgames.game.core;
+package com.bksgames.game.core.tiles;
 
 import com.bksgames.game.enums.Direction;
 import com.bksgames.game.enums.PlayerColor;
 
 public class Mirror{
-	PlayerColor color;
+	public PlayerColor color;
 	Orientation orientation;
 
 	enum Orientation {
