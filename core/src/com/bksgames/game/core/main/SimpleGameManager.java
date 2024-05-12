@@ -80,18 +80,38 @@ public class SimpleGameManager implements GameManager {
         return gameService.ForwardUpdates(color,updates);
     }
 
+    @Override
+    public Parameters getParameters() {
+        return parameters;
+    }
+
+    @Override
+    public PlayerColor getCurrentPlayer() {
+        return activePlayer;
+    }
+
+    @Override
+    public void setCurrentPlayer(PlayerColor player) {
+        activePlayer = player;
+    }
+
     private void PlayerSetup(PlayerColor color) {
         Player player = players.get(color);
+        Point tmp = new Point(player.mainNexus);
 
-        Minion minion = new Minion(player.mainNexus.x+1,player.mainNexus.y,parameters.minionHitPoints,color);
+        tmp.x++;
+        Minion minion = new Minion(tmp,parameters.minionHitPoints,color);
         player.addMinion(minion);
         board.getTile(player.mainNexus.x+1,player.mainNexus.y).getTunnel().addEntity(minion);
 
-        minion = new Minion(player.mainNexus.x-1,player.mainNexus.y,parameters.minionHitPoints,color);
+        tmp.x-=2;
+        minion = new Minion(tmp,parameters.minionHitPoints,color);
         player.addMinion(minion);
         board.getTile(player.mainNexus.x-1,player.mainNexus.y).getTunnel().addEntity(minion);
 
-        minion = new Minion(player.mainNexus.x,player.mainNexus.y+1,parameters.minionHitPoints,color);
+        tmp.x++;
+        tmp.y++;
+        minion = new Minion(tmp,parameters.minionHitPoints,color);
         player.addMinion(minion);
         board.getTile(player.mainNexus.x,player.mainNexus.y+1).getTunnel().addEntity(minion);
     }

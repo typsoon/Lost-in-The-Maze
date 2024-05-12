@@ -2,6 +2,7 @@ package com.bksgames.game.core.main;
 
 import com.bksgames.game.core.utils.Move;
 import com.bksgames.game.core.boards.Board;
+import com.bksgames.game.core.utils.Parameters;
 import com.bksgames.game.enums.PlayerColor;
 import com.bksgames.game.updateData.Update;
 
@@ -15,4 +16,7 @@ public interface GameManager  {
     Map<PlayerColor, Player> getPlayers();
     Boolean SendUpdate(PlayerColor color,Update update);
     Boolean SendUpdates(PlayerColor color,Collection<Update> updates);
+    Parameters getParameters();
+    PlayerColor getCurrentPlayer();
+    void setCurrentPlayer(PlayerColor player);
 }

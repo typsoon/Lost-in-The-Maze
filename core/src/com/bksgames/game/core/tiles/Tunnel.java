@@ -36,4 +36,9 @@ public class Tunnel implements Tile{
     public void removeEntity(Entity entity){
         entities.remove(entity);
     }
+
+    public Mirror getMirror(){ return this.mirror; }
+    public void setMirror(Mirror mirror){
+        this.mirror=mirror;
+    }
 }
