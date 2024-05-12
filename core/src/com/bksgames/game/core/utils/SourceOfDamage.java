@@ -19,7 +19,7 @@ public class SourceOfDamage {
         LASER, SWORD
     }
 
-    SourceOfDamage(Parameters parameters, DamageType damageType) {
+    public SourceOfDamage(Parameters parameters, DamageType damageType) {
         this.parameters = Objects.requireNonNull(parameters);
         this.damageType = Objects.requireNonNull(damageType);
     }

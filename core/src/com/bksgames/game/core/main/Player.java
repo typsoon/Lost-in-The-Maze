@@ -37,7 +37,7 @@ public class Player {
     Player(Point mainNexus) {
         this.mainNexus =new Point(mainNexus);
     }
-    Minion getMinion(int x,int y){
+    public Minion getMinion(int x,int y){
         for(Minion minion : minions){
             if(minion.getX() == x && minion.getY() == y){return minion;}
         }

@@ -1,9 +1,13 @@
 package com.bksgames.game.core.boards;
 
+import com.bksgames.game.core.entities.Entity;
 import com.bksgames.game.core.entities.Minion;
+import com.bksgames.game.core.tiles.*;
+import com.bksgames.game.core.utils.SourceOfDamage;
 import com.bksgames.game.core.tiles.Nexus;
 import com.bksgames.game.core.tiles.Tile;
 import com.bksgames.game.core.tiles.Wall;
+import com.bksgames.game.globalClasses.enums.Direction;
 import com.bksgames.game.globalClasses.enums.PlayerColor;
 
 import java.awt.*;
@@ -43,41 +47,11 @@ public class SquareBoard implements Board {
         if(!getTile(minion.getX(),minion.getY()).isHollow())
             throw new IllegalArgumentException("Minion is in wall!");
         Set<Point> visible = new HashSet<>();
-        visible.add(new Point(minion.getX(),minion.getY()));
-
-        Point act = new Point(minion.getX(),minion.getY());
-
-        act.x++;
-        while (getTile(act.x,act.y).isHollow()) {
-            visible.add(new Point(act.x,act.y));
-            act.x++;
+        visible.add(new Point(minion.getX(), minion.getY()));
+        for(Direction d : Direction.values()){
+            Point point = new Point(minion.getX(), minion.getY());
+            visible.addAll(getLineOfSight(point, d));
         }
-        visible.add(new Point(act.x,act.y));
-        act.x = minion.getX();
-
-        act.x--;
-        while (getTile(act.x,act.y).isHollow()) {
-            visible.add(new Point(act.x,act.y));
-            act.x--;
-        }
-        visible.add(new Point(act.x,act.y));
-        act.x = minion.getX();
-
-        act.y++;
-        while (getTile(act.x,act.y).isHollow()) {
-            visible.add(new Point(act.x,act.y));
-            act.y--;
-        }
-        visible.add(new Point(act.x,act.y));
-        act.y=minion.getY();
-
-        act.y--;
-        while (getTile(act.x,act.y).isHollow()) {
-            visible.add(new Point(act.x,act.y));
-            act.y--;
-        }
-        visible.add(new Point(act.x,act.y));
-
         return visible;
     }
 
@@ -89,6 +63,38 @@ public class SquareBoard implements Board {
             vision.addAll(getNexusBase(nexus));
         }
         return vision;
+    }
+
+    @Override
+    public Set<Point> getLineOfSight(Point point, Direction direction) {
+        Map<Mirror, Set<Direction>> mirrorMap = new HashMap<>();
+        Set<Point> lineOfSight = new HashSet<>();
+
+        Direction.next(point, direction);
+        Tile currentTile = getTile(point.x, point.y);
+
+        while(currentTile.isHollow()){
+            lineOfSight.add(new Point(point));
+            if(!currentTile.isHollow())
+                break;
+            Tunnel currentTunnel = currentTile.getTunnel();
+            if(currentTunnel.getMirror()!=null){
+                if(!mirrorMap.containsKey(currentTunnel.getMirror())){
+                    mirrorMap.put(currentTunnel.getMirror(), Set.of(direction));
+                }
+                else{
+                    if(!mirrorMap.get(currentTunnel.getMirror()).contains(direction)){
+                        mirrorMap.get(currentTunnel.getMirror()).add(direction);
+                    }
+                    else break;
+                }
+                direction = currentTunnel.getMirror().deflect(direction);
+            }
+            Direction.next(point, direction);
+            currentTile = getTile(point.x, point.y);
+        }
+        lineOfSight.add(new Point(point));
+        return lineOfSight;
     }
 
     SquareBoard(int size){

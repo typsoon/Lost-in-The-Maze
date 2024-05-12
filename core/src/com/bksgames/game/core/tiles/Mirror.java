@@ -13,16 +13,20 @@ public class Mirror implements Owned {
 		return owner;
 	}
 
-	enum Orientation {
+	public enum Orientation {
 		SLASH, BACKSLASH;
 	}
 
-	Direction deflect(Direction direction){
+	public Direction deflect(Direction direction){
 		if(orientation==Orientation.SLASH) {
 			return Direction.values()[(direction.ordinal()-1)%4];
 		}
 		else{
 			return Direction.values()[(direction.ordinal()+1)%4];
 		}
+	}
+
+	public Mirror(Orientation orientation){
+		this.orientation=orientation;
 	}
 }
