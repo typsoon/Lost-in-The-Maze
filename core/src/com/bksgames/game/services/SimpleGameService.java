@@ -39,7 +39,7 @@ public class SimpleGameService implements GameService {
 
     @Override
     public Boolean ForwardUpdate(PlayerColor color, Update update) {
-        System.out.println(color + " " + update);
+        //System.out.println(color + " " + update);
         players.get(color).pushUpdate(update);
         return true;
     }

@@ -143,7 +143,12 @@ public class SquareBoardFactory
 
 
         BoardGenerationUtils.generateRest(genGrid,board.size,board.size,3);
-
+/*        for(int y=0;y<board.size;y++) {
+            for (int x = 0; x < board.size; x++) {
+                System.out.print(genGrid[x][y]);
+            }
+            System.out.println();
+        }*/
 
 
 

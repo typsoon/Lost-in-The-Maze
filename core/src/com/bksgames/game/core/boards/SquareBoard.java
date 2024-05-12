@@ -3,6 +3,7 @@ package com.bksgames.game.core.boards;
 import com.bksgames.game.core.entities.Minion;
 import com.bksgames.game.core.tiles.Nexus;
 import com.bksgames.game.core.tiles.Tile;
+import com.bksgames.game.core.tiles.Wall;
 import com.bksgames.game.enums.PlayerColor;
 
 import java.awt.*;
@@ -18,7 +19,7 @@ public class SquareBoard implements Board {
     @Override
     public Tile getTile(int x, int y) {
         if(x>=size || y>=size || x<0 || y<0)      //exception do dodania
-            return null;
+            return new Wall();
         return grid[x][y];
     }
 
@@ -51,6 +52,7 @@ public class SquareBoard implements Board {
             visible.add(new Point(act.x,act.y));
             act.x++;
         }
+        visible.add(new Point(act.x,act.y));
         act.x = minion.getX();
 
         act.x--;
@@ -58,6 +60,7 @@ public class SquareBoard implements Board {
             visible.add(new Point(act.x,act.y));
             act.x--;
         }
+        visible.add(new Point(act.x,act.y));
         act.x = minion.getX();
 
         act.y++;
@@ -65,6 +68,7 @@ public class SquareBoard implements Board {
             visible.add(new Point(act.x,act.y));
             act.y--;
         }
+        visible.add(new Point(act.x,act.y));
         act.y=minion.getY();
 
         act.y--;
@@ -72,6 +76,7 @@ public class SquareBoard implements Board {
             visible.add(new Point(act.x,act.y));
             act.y--;
         }
+        visible.add(new Point(act.x,act.y));
 
         return visible;
     }
@@ -97,13 +102,14 @@ public class SquareBoard implements Board {
         Point actFP = new Point(nexus.getX()-baseSize/2,nexus.getY()-baseSize/2);
         for(int x=0;x<baseSize;x++)
         {
-            actFP.x++;
+
             actFP.y = nexus.getY()-baseSize/2;
             for(int y=0;y<baseSize;y++)
             {
                 base.add(new Point(actFP));
                 actFP.y++;
             }
+            actFP.x++;
         }
         return base;
     }
