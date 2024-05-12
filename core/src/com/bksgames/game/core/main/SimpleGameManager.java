@@ -122,6 +122,7 @@ public class SimpleGameManager implements GameManager {
         board.getTile(player.mainNexus.x,player.mainNexus.y+1).getTunnel().addEntity(minion);
     }
 
+    @Override
     public void playerVisionUpdate(PlayerColor color) {
         Player player = players.get(color);
         Set<Point> visible = new HashSet<>(board.getNexusesVision(color));
