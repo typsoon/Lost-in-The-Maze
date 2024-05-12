@@ -28,6 +28,8 @@ public class MoveHandler extends ActionHandler {
         nextTunnel.addEntity(minion);
 
         minion.moveMinion(action.direction());
+        gameManager.playerVisionUpdate(gameManager.getCurrentPlayer());
+    //    gameManager.minionUpdate();
     }
     MoveHandler(GameManager manager) {
         super(manager);

@@ -7,10 +7,10 @@ import com.badlogic.gdx.maps.MapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.bksgames.game.LostInTheMaze;
 import com.bksgames.game.services.PlayerService;
+import com.bksgames.game.viewmodels.moves.MoveMaker;
 import com.bksgames.game.viewmodels.moves.SimpleMoveMaker;
 import com.bksgames.game.viewmodels.updates.UpdateProcessor;
 
@@ -21,15 +21,19 @@ public class GameScreen implements Screen {
 
     private final PlayerService playerService;
     private final TiledMap map = new TiledMap();
-    private TextureAtlas atlas;
-    private Skin skin;
+    private TextureAtlas boardAtlas;
+//    private Skin skin;
+
+    private TextureAtlas actionButtonsAtlas;
 
     private final ScreenMover screenMover;
     private final MapRenderer mapRenderer;
 
+    private final MoveMaker moveMaker;
     private UpdateProcessor updateProcessor;
     private final InputMultiplexer inputMultiplexer;
-    private final LegalMovesHandler legalMovesDisplayer;
+    private LegalMovesHandler legalMovesHandler;
+    private MoveSender moveSender;
 
     //    Tiles are squares - tileSize is its width
     final static public int tilePixelSize = 50;
@@ -61,17 +65,23 @@ public class GameScreen implements Screen {
         map.getLayers().add(minions);
 
         screenMover = new ScreenMover(gameCamera);
-        MoveSender moveSender = new MoveSender(playerService, map, minions, gameCamera);
+        moveSender = new MoveSender(playerService, minions, gameCamera);
         inputMultiplexer = new InputMultiplexer(screenMover, moveSender);
-        legalMovesDisplayer = new LegalMovesHandler(inputMultiplexer, new SimpleMoveMaker());
+//        legalMovesDisplayer = new LegalMovesHandler(inputMultiplexer, new SimpleMoveMaker());
+        moveMaker = new SimpleMoveMaker(playerService);
     }
 
     @Override
     public void show() {
-        atlas = new TextureAtlas(Gdx.files.internal("Board.atlas"));
-        skin = new Skin(atlas);
+        boardAtlas = new TextureAtlas(Gdx.files.internal("Board.atlas"));
+//        skin = new Skin(boardAtlas);
+        actionButtonsAtlas = new TextureAtlas(Gdx.files.internal("ActionButtons.atlas"));
 
-        updateProcessor = new UpdateProcessor(map, atlas);
+
+        updateProcessor = new UpdateProcessor(map, boardAtlas);
+        legalMovesHandler = new LegalMovesHandler(inputMultiplexer, moveMaker, actionButtonsAtlas);
+        moveSender.setLegalMovesHandler(legalMovesHandler);
+
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
@@ -112,7 +122,9 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-        atlas.dispose();
-        skin.dispose();
+        boardAtlas.dispose();
+//        skin.dispose();
+
+        actionButtonsAtlas.dispose();
     }
 }

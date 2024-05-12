@@ -56,5 +56,4 @@ public class Minion implements Entity, Owned {
         spawn(position, hitPoints);
         this.owner = player;
     }
-
 }
