@@ -1,8 +1,6 @@
 package com.bksgames.game.core.tiles;
 
-import com.bksgames.game.core.Player;
 import com.bksgames.game.enums.Displayable;
-import com.bksgames.game.enums.PlayerColor;
 import com.bksgames.game.enums.UpdateIDs;
 import com.bksgames.game.updateData.TileUpdate;
 

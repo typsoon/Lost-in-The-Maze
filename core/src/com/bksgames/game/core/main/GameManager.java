@@ -1,5 +1,6 @@
-package com.bksgames.game.core;
+package com.bksgames.game.core.main;
 
+import com.bksgames.game.core.utils.Move;
 import com.bksgames.game.core.boards.Board;
 import com.bksgames.game.enums.PlayerColor;
 import com.bksgames.game.updateData.Update;

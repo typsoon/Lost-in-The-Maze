@@ -1,4 +1,4 @@
-package com.bksgames.game.core;
+package com.bksgames.game.core.utils;
 
 public class Parameters {
     public final int maxMirrorsBending;

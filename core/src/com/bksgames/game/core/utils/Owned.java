@@ -1,4 +1,4 @@
-package com.bksgames.game.core;
+package com.bksgames.game.core.utils;
 
 import com.bksgames.game.enums.PlayerColor;
 

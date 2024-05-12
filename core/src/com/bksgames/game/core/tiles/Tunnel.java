@@ -1,6 +1,6 @@
 package com.bksgames.game.core.tiles;
 
-import com.bksgames.game.core.Entity;
+import com.bksgames.game.core.entities.Entity;
 import com.bksgames.game.enums.Displayable;
 import com.bksgames.game.enums.PlayerColor;
 
@@ -18,7 +18,7 @@ public class Tunnel implements Tile{
     public Displayable getDisplayable() {
        if(mirror==null)
            return Displayable.TUNNEL;
-       if(mirror.color== PlayerColor.RED)
+       if(mirror.getOwner()== PlayerColor.RED)
            return Displayable.RED_MIRROR;
        else return Displayable.BLUE_MIRROR;
     }

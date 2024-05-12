@@ -1,14 +1,17 @@
-package com.bksgames.game.core;
+package com.bksgames.game.core.main;
 
+import com.bksgames.game.core.utils.Move;
+import com.bksgames.game.core.utils.Parameters;
 import com.bksgames.game.core.actionsHandlers.ActionHandler;
 import com.bksgames.game.core.actionsHandlers.ActionHandlerFactory;
 import com.bksgames.game.core.boards.Board;
 import com.bksgames.game.core.boards.SquareBoardFactory;
+import com.bksgames.game.core.entities.Entity;
+import com.bksgames.game.core.entities.Minion;
 import com.bksgames.game.core.tiles.SimpleTileUpdate;
 import com.bksgames.game.core.tiles.Tile;
 import com.bksgames.game.enums.*;
 import com.bksgames.game.services.GameService;
-import com.bksgames.game.updateData.TileUpdate;
 import com.bksgames.game.updateData.Update;
 
 import java.awt.*;

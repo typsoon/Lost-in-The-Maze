@@ -1,7 +1,6 @@
-package com.bksgames.game.core;
+package com.bksgames.game.core.main;
 
-import com.bksgames.game.enums.PlayerColor;
-import com.bksgames.game.updateData.Update;
+import com.bksgames.game.core.entities.Minion;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -40,7 +39,7 @@ public class Player {
     }
     Minion getMinion(int x,int y){
         for(Minion minion : minions){
-            if(minion.x == x && minion.y == y){return minion;}
+            if(minion.getX() == x && minion.getY() == y){return minion;}
         }
         return null;
     }

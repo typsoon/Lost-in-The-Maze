@@ -1,14 +1,12 @@
 package com.bksgames.game.services;
 
-import com.bksgames.game.core.GameManager;
-import com.bksgames.game.core.Move;
-import com.bksgames.game.core.Parameters;
-import com.bksgames.game.core.SimpleGameManager;
-import com.bksgames.game.core.tiles.SimpleTileUpdate;
+import com.bksgames.game.core.main.GameManager;
+import com.bksgames.game.core.utils.Move;
+import com.bksgames.game.core.utils.Parameters;
+import com.bksgames.game.core.main.SimpleGameManager;
 import com.bksgames.game.enums.PlayerColor;
 import com.bksgames.game.updateData.Update;
 
-import java.io.BufferedOutputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
