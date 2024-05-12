@@ -1,8 +1,8 @@
 package com.bksgames.game.services;
 
-import com.bksgames.game.core.utils.Move;
-import com.bksgames.game.enums.PlayerColor;
-import com.bksgames.game.updateData.Update;
+import com.bksgames.game.globalClasses.Move;
+import com.bksgames.game.globalClasses.enums.PlayerColor;
+import com.bksgames.game.globalClasses.Update;
 
 import java.util.*;
 

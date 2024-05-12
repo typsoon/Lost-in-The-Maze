@@ -1,8 +1,8 @@
 package com.bksgames.game.core.tiles;
 
-import com.bksgames.game.enums.Displayable;
-import com.bksgames.game.enums.UpdateIDs;
-import com.bksgames.game.updateData.TileUpdate;
+import com.bksgames.game.globalClasses.enums.Displayable;
+import com.bksgames.game.globalClasses.enums.UpdateIDs;
+import com.bksgames.game.globalClasses.TileUpdate;
 
 public class SimpleTileUpdate implements TileUpdate {
     private Displayable displayable;

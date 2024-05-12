@@ -1,4 +1,4 @@
-package com.bksgames.game.enums;
+package com.bksgames.game.globalClasses.enums;
 
 import java.awt.*;
 

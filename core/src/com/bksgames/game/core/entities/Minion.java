@@ -5,6 +5,8 @@ import com.bksgames.game.core.utils.SourceOfDamage;
 import com.bksgames.game.enums.Direction;
 import com.bksgames.game.enums.Displayable;
 import com.bksgames.game.enums.PlayerColor;
+import com.bksgames.game.globalClasses.enums.Displayable;
+import com.bksgames.game.globalClasses.enums.PlayerColor;
 
 import java.awt.*;
 

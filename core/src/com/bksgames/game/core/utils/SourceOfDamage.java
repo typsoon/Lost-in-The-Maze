@@ -11,7 +11,6 @@ public class SourceOfDamage {
             case LASER -> parameters.laserDamage;
             case SWORD -> parameters.swordDamage;
         };
-
     }
 
     public DamageType getSource() { return damageType;}

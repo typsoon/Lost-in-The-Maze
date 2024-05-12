@@ -1,6 +1,6 @@
 package com.bksgames.game.core.tiles;
 
-import com.bksgames.game.enums.Displayable;
+import com.bksgames.game.globalClasses.enums.Displayable;
 
 public interface Tile {
     // RETURNS TUNNEL IF TILE IS TUNNEL OTHERWISE NULL

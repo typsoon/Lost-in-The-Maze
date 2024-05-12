@@ -3,13 +3,12 @@ package com.bksgames.game.viewmodels.updates.updaters;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
-import com.bksgames.game.updateData.TileUpdate;
-import com.bksgames.game.updateData.Update;
+import com.bksgames.game.globalClasses.TileUpdate;
+import com.bksgames.game.globalClasses.Update;
 import com.bksgames.game.viewmodels.DisplayableToImage;
-import com.bksgames.game.views.GameScreen;
+import com.bksgames.game.views.gameScreen.GameScreen;
 
 public class TileUpdateUpdater extends Updater {
     @Override
@@ -24,17 +23,14 @@ public class TileUpdateUpdater extends Updater {
 
         TextureRegion region = atlas.findRegion(tileUpdate.isVisible() ? info.visible() : info.revealed());
 
-        TiledMapTileLayer.Cell myCell = layer.getCell(GameScreen.maxBoardLength+ tileUpdate.getRelativeX(), GameScreen.maxBoardLength + tileUpdate.getRelativeY());
+        TiledMapTileLayer.Cell myCell = layer.getCell(GameScreen.maxBoardWidth + tileUpdate.getRelativeX(), GameScreen.maxBoardWidth + tileUpdate.getRelativeY());
         if (myCell == null) {
             myCell = new TiledMapTileLayer.Cell();
             myCell.setTile(new StaticTiledMapTile(region));
         }
         else { myCell.getTile().setTextureRegion(region);}
 
-        layer.setCell(GameScreen.maxBoardLength+ tileUpdate.getRelativeX(), GameScreen.maxBoardLength + tileUpdate.getRelativeY(), myCell);
-//        lay
-        //        layer.setCell(GameScreen.maxBoardLength+ tileUpdate.getRelativeX(), GameScreen.maxBoardLength + tileUpdate.getRelativeY(), myCell);
-//        layer.getCell(GameScreen.maxBoardLength+ tileUpdate.getRelativeX(), GameScreen.maxBoardLength + tileUpdate.getRelativeY()).getTile().setTextureRegion(region);
+        layer.setCell(GameScreen.maxBoardWidth + tileUpdate.getRelativeX(), GameScreen.maxBoardHeight + tileUpdate.getRelativeY(), myCell);
     }
 
 
