@@ -1,33 +1,34 @@
 package com.bksgames.game.services;
 
-import com.bksgames.game.enums.PlayerColor;
-import com.bksgames.game.updateData.Update;
-import com.bksgames.game.viewmodels.updates.UpdateProcessor;
+import com.bksgames.game.globalClasses.Move;
+import com.bksgames.game.globalClasses.enums.PlayerColor;
+import com.bksgames.game.globalClasses.Update;
 
 import java.util.ArrayDeque;
+import java.util.Collection;
 import java.util.Queue;
 
 public class SimplePlayerService implements PlayerService {
-    final PlayerColor watched; // color of player
-    final GameService game;
+    final PlayerColor playerColor; // color of player
+    final GameService gameService;
     int maxX, minX, maxY, minY;
 
+//    TODO: BIG TODO, CHANGE THIS TO STREAM
+//    TODO: TUDUDU TUDUDU
     Queue<Update> updates = new ArrayDeque<>();
 
     @Override
-    public PlayerColor getWatched() {return watched;}
+    public PlayerColor getPlayerColor() {return playerColor;}
 
     @Override
-    public int getMaxX() {return maxX;}
+    public boolean sendMove(Move move) {
+        return gameService.move(move, getPlayerColor());
+    }
 
     @Override
-    public int getMaxY() {return maxY;}
-
-    @Override
-    public int getMinX() {return minX;}
-
-    @Override
-    public int getMinY() {return minY;}
+    public Collection<Move> getLegalMoves(int x, int y) {
+        return gameService.getLegalMoves(x, y, getPlayerColor());
+    }
 
     @Override
     public void pushUpdate(Update update) {
@@ -46,8 +47,8 @@ public class SimplePlayerService implements PlayerService {
 
 
 
-    public SimplePlayerService(PlayerColor watched,GameService gameService) {
-        this.watched = watched;
-        this.game = gameService;
+    public SimplePlayerService(PlayerColor playerColor, GameService gameService) {
+        this.playerColor = playerColor;
+        this.gameService = gameService;
     }
 }

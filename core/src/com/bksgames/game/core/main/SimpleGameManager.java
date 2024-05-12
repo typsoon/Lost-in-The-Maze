@@ -1,6 +1,6 @@
 package com.bksgames.game.core.main;
 
-import com.bksgames.game.core.utils.Move;
+import com.bksgames.game.globalClasses.Move;
 import com.bksgames.game.core.utils.Parameters;
 import com.bksgames.game.core.actionsHandlers.ActionHandler;
 import com.bksgames.game.core.actionsHandlers.ActionHandlerFactory;
@@ -11,8 +11,12 @@ import com.bksgames.game.core.entities.Minion;
 import com.bksgames.game.core.tiles.SimpleTileUpdate;
 import com.bksgames.game.core.tiles.Tile;
 import com.bksgames.game.enums.*;
+import com.bksgames.game.globalClasses.enums.Direction;
+import com.bksgames.game.globalClasses.enums.Displayable;
+import com.bksgames.game.globalClasses.enums.MoveTypes;
+import com.bksgames.game.globalClasses.enums.PlayerColor;
 import com.bksgames.game.services.GameService;
-import com.bksgames.game.updateData.Update;
+import com.bksgames.game.globalClasses.Update;
 
 import java.awt.*;
 import java.util.*;
@@ -40,7 +44,7 @@ public class SimpleGameManager implements GameManager {
         if(minion==null) {return  null;}
         Collection<Move> legalMoves = new ArrayList<>();
         if(board.getTile(x+1,y).isHollow()) {
-            legalMoves.add(new Move(x,x+1,MoveTypes.MOVE,Direction.RIGHT));}
+            legalMoves.add(new Move(x,x+1,MoveTypes.MOVE, Direction.RIGHT));}
         if(board.getTile(x-1,y).isHollow()) {
             legalMoves.add(new Move(x-1,y,MoveTypes.MOVE,Direction.LEFT));}
         if(board.getTile(x,y+1).isHollow()) {
@@ -110,7 +114,7 @@ public class SimpleGameManager implements GameManager {
             point.y-=orientation.y;
             SendUpdate(color,new SimpleTileUpdate(actTile.getDisplayable(),player.isVisible(point),point.x,point.y));
             if(actTile.isHollow()) {
-                if(actTile.getDisplayable()!=Displayable.TUNNEL)
+                if(actTile.getDisplayable()!= Displayable.TUNNEL)
                     SendUpdate(color,new SimpleTileUpdate(Displayable.TUNNEL,player.isVisible(point),point.x,point.y));
                 for(Entity entity:actTile.getTunnel().getEntities()){
                     SendUpdate(color,new SimpleTileUpdate(entity.getDiplayable(),player.isVisible(point),point.x,point.y));

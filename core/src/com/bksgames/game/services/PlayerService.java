@@ -1,15 +1,16 @@
 package com.bksgames.game.services;
 
-import com.bksgames.game.enums.PlayerColor;
-import com.bksgames.game.updateData.Update;
+import com.bksgames.game.globalClasses.Move;
+import com.bksgames.game.globalClasses.enums.PlayerColor;
+import com.bksgames.game.globalClasses.Update;
+
+import java.util.Collection;
 
 public interface PlayerService {
-    PlayerColor getWatched();
+    PlayerColor getPlayerColor();
 
-    int getMaxX();
-    int getMaxY();
-    int getMinX();
-    int getMinY();
+    boolean sendMove(Move move);
+    Collection<Move> getLegalMoves(int x, int y);
 
     void pushUpdate(Update update);
     Update getUpdate();

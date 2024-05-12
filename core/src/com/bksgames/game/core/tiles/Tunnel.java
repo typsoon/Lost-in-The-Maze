@@ -1,8 +1,8 @@
 package com.bksgames.game.core.tiles;
 
 import com.bksgames.game.core.entities.Entity;
-import com.bksgames.game.enums.Displayable;
-import com.bksgames.game.enums.PlayerColor;
+import com.bksgames.game.globalClasses.enums.Displayable;
+import com.bksgames.game.globalClasses.enums.PlayerColor;
 
 import java.util.ArrayList;
 import java.util.Collection;

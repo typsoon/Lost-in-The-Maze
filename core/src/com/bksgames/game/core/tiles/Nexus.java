@@ -4,8 +4,8 @@ import com.bksgames.game.core.utils.KnownPosition;
 import com.bksgames.game.core.utils.Owned;
 import com.bksgames.game.core.utils.SourceOfDamage;
 import com.bksgames.game.core.utils.Vulnerable;
-import com.bksgames.game.enums.Displayable;
-import com.bksgames.game.enums.PlayerColor;
+import com.bksgames.game.globalClasses.enums.Displayable;
+import com.bksgames.game.globalClasses.enums.PlayerColor;
 
 public class Nexus implements Tile, Vulnerable, KnownPosition, Owned {
     private final int x,y;
