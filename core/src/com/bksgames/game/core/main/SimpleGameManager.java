@@ -7,6 +7,7 @@ import com.bksgames.game.core.entities.SimpleMinionUpdate;
 import com.bksgames.game.core.tiles.SimpleTileUpdate;
 import com.bksgames.game.core.utils.Parameters;
 import com.bksgames.game.core.utils.PlayerEnums;
+import com.bksgames.game.core.utils.SimpleLaserUpdate;
 import com.bksgames.game.globalClasses.Move;
 import com.bksgames.game.core.boards.Board;
 import com.bksgames.game.core.entities.Entity;
@@ -148,7 +149,18 @@ public class SimpleGameManager implements GameManager {
     public  void minionUpdate(PlayerColor color, Point minionLocation, Direction direction, MinionEvent minionEvent, MoveTypes minionMove) {
         for(PlayerColor playerColor:players.keySet()){
             if(players.get(playerColor).isVisible(minionLocation)){
-                sendUpdate(playerColor,new SimpleMinionUpdate(direction, PlayerEnums.getMinionColor(color),minionEvent,minionMove,minionLocation.x,minionLocation.y));
+                sendUpdate(playerColor,
+                        new SimpleMinionUpdate(direction, PlayerEnums.getMinionColor(color),minionEvent,minionMove,
+                                minionLocation.x-players.get(playerColor).mainNexus.x,minionLocation.y-players.get(playerColor).mainNexus.y));
+            }
+        }
+    }
+    @Override
+    public void laserUpdate(Direction direction, Direction deflected, Point position) {
+        for(PlayerColor playerColor:players.keySet()){
+            if(players.get(playerColor).isVisible(position)){
+                sendUpdate(playerColor,new SimpleLaserUpdate(direction,deflected,
+                        position.x-players.get(playerColor).mainNexus.x,position.y-players.get(playerColor).mainNexus.y));
             }
         }
     }

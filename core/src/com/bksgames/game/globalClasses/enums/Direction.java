@@ -13,4 +13,20 @@ public enum Direction {
             case DOWN -> point.y--;
         }
     }
+    public static Direction getDirection(Point p1, Point p2){
+        if(p1.x == p2.x) {
+            if(p1.y < p2.y) {
+                return UP;
+            }else if(p1.y > p2.y) {
+                return DOWN;
+            }
+        }else if(p1.y == p2.y) {
+            if(p1.x < p2.x) {
+                return LEFT;
+            } else {
+                return RIGHT;
+            }
+        }
+        return null;
+    }
 }

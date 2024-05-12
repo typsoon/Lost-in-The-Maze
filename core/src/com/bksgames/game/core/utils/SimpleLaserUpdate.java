@@ -35,7 +35,7 @@ public class SimpleLaserUpdate implements LaserUpdate {
 		return y;
 	}
 
-	SimpleLaserUpdate(Direction direction, Direction deflectedDirection, int x, int y){
+	public SimpleLaserUpdate(Direction direction, Direction deflectedDirection, int x, int y){
 		this.direction = direction;
 		this.deflectedDirection = deflectedDirection;
 		this.x = x;

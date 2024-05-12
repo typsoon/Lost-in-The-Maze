@@ -26,4 +26,5 @@ public interface GameManager  {
     void setCurrentPlayer(PlayerColor player);
     void playerVisionUpdate(PlayerColor color);
     void minionUpdate(PlayerColor color, Point minionLocation, Direction direction, MinionEvent minionEvent, MoveTypes minionMove);
+    void laserUpdate(Direction direction, Direction deflected, Point position);
 }
