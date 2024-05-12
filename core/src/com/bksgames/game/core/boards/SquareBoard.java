@@ -72,8 +72,13 @@ public class SquareBoard implements Board {
 
         Tile currentTile = getTile(point.x, point.y);
         while(currentTile.isHollow()){
+
             Direction.next(point, direction);
-            lineofsight.add(point);
+            currentTile = getTile(point.x, point.y);
+            System.out.println(point);
+            lineofsight.add(new Point(point));
+            if(!currentTile.isHollow())
+                break;
             Tunnel currentTunnel = currentTile.getTunnel();
             if(currentTunnel.getMirror()!=null){
                 if(!mirrorMap.containsKey(currentTunnel.getMirror())){
