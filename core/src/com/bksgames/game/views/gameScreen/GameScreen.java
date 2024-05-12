@@ -65,7 +65,7 @@ public class GameScreen implements Screen {
         map.getLayers().add(minions);
 
         screenMover = new ScreenMover(gameCamera);
-        moveSender = new MoveSender(playerService, map, minions, gameCamera);
+        moveSender = new MoveSender(playerService, minions, gameCamera);
         inputMultiplexer = new InputMultiplexer(screenMover, moveSender);
 //        legalMovesDisplayer = new LegalMovesHandler(inputMultiplexer, new SimpleMoveMaker());
         moveMaker = new SimpleMoveMaker(playerService);

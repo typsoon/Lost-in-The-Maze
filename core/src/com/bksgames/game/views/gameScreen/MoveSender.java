@@ -2,7 +2,6 @@ package com.bksgames.game.views.gameScreen;
 
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector3;
 import com.bksgames.game.globalClasses.Move;
@@ -13,14 +12,14 @@ import java.util.Collection;
 
 public class MoveSender extends InputAdapter {
     private final PlayerService playerService;
-    private final TiledMap map;
+//    private final TiledMap map;
     private final TiledMapTileLayer minionMapLayer;
     private final Camera gameCamera;
     private LegalMovesHandler legalMovesHandler;
 
-    MoveSender(PlayerService playerService, TiledMap map, TiledMapTileLayer minionMapLayer, Camera camera) {
+    MoveSender(PlayerService playerService, TiledMapTileLayer minionMapLayer, Camera camera) {
         this.playerService = playerService;
-        this.map = map;
+//        this.map = map;
         this.minionMapLayer = minionMapLayer;
         this.gameCamera = camera;
     }
