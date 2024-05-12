@@ -16,7 +16,7 @@ public class LegalMoves extends Stage {
     Table mainTable;
     Table arrowTable;
     Table actionsTable;
-    Map<MoveTypes, Table> moveActions = new HashMap<>();
+    Map<MoveTypes, Table> mapping = new HashMap<>();
 
     Table arrows;
 
@@ -29,12 +29,12 @@ public class LegalMoves extends Stage {
         actionsTable = new Table();
         actionsTable.align(Align.top);
 
-        moveActions.put(MoveTypes.MOVE, arrowTable);
+        mapping.put(MoveTypes.MOVE, arrowTable);
 
-        moveActions.put(MoveTypes.DOOR, actionsTable);
-        moveActions.put(MoveTypes.LASER, actionsTable);
-        moveActions.put(MoveTypes.SWORD, actionsTable);
-        moveActions.put(MoveTypes.MIRROR, actionsTable);
+        mapping.put(MoveTypes.DOOR, actionsTable);
+        mapping.put(MoveTypes.LASER, actionsTable);
+        mapping.put(MoveTypes.SWORD, actionsTable);
+        mapping.put(MoveTypes.MIRROR, actionsTable);
     }
 
     public void setLegalMoves(Collection<Move> legalMoves) {
@@ -46,7 +46,12 @@ public class LegalMoves extends Stage {
 
     private void displayMove(Move move) {
         switch (move.type()) {
-            case MOVE ->
+            case MOVE -> {
+
+            }
         }
     }
+
+
 }
+
