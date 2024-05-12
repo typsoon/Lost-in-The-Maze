@@ -1,5 +1,6 @@
 package com.bksgames.game.core.main;
 
+import com.bksgames.game.core.entities.SimpleMinionUpdate;
 import com.bksgames.game.globalClasses.Move;
 import com.bksgames.game.core.utils.Parameters;
 import com.bksgames.game.core.actionsHandlers.ActionHandler;
@@ -10,10 +11,7 @@ import com.bksgames.game.core.entities.Entity;
 import com.bksgames.game.core.entities.Minion;
 import com.bksgames.game.core.tiles.SimpleTileUpdate;
 import com.bksgames.game.core.tiles.Tile;
-import com.bksgames.game.globalClasses.enums.Direction;
-import com.bksgames.game.globalClasses.enums.Displayable;
-import com.bksgames.game.globalClasses.enums.MoveTypes;
-import com.bksgames.game.globalClasses.enums.PlayerColor;
+import com.bksgames.game.globalClasses.enums.*;
 import com.bksgames.game.services.GameService;
 import com.bksgames.game.globalClasses.Update;
 
@@ -39,6 +37,8 @@ public class SimpleGameManager implements GameManager {
     }
     @Override
     public Collection<Move> getLegalMoves(int x, int y, PlayerColor color) {
+        x-=players.get(color).mainNexus.x;
+        y-=players.get(color).mainNexus.y;
         Minion minion = players.get(color).getMinion(x, y);
         if(minion==null) {return  null;}
         Collection<Move> legalMoves = new ArrayList<>();
@@ -61,6 +61,7 @@ public class SimpleGameManager implements GameManager {
         legalMoves.add(new Move(x,y+1,MoveTypes.SWORD,Direction.UP));
         legalMoves.add(new Move(x+1,y,MoveTypes.SWORD,Direction.RIGHT));
         legalMoves.add(new Move(x,y-1,MoveTypes.SWORD,Direction.DOWN));
+
         return legalMoves;
     }
 
@@ -75,11 +76,11 @@ public class SimpleGameManager implements GameManager {
     }
 
     @Override
-    public Boolean SendUpdate(PlayerColor color,Update update) {
+    public Boolean sendUpdate(PlayerColor color, Update update) {
         return gameService.ForwardUpdate(color,update);
     }
     @Override
-    public Boolean SendUpdates(PlayerColor color,Collection<Update> updates) {
+    public Boolean sendUpdates(PlayerColor color, Collection<Update> updates) {
         return gameService.ForwardUpdates(color,updates);
     }
 
@@ -98,7 +99,7 @@ public class SimpleGameManager implements GameManager {
         activePlayer = player;
     }
 
-    private void PlayerSetup(PlayerColor color) {
+    private void playerSetup(PlayerColor color) {
         Player player = players.get(color);
         Point tmp = new Point(player.mainNexus);
 
@@ -119,7 +120,7 @@ public class SimpleGameManager implements GameManager {
         board.getTile(player.mainNexus.x,player.mainNexus.y+1).getTunnel().addEntity(minion);
     }
 
-    private void PlayerVisionUpdate(PlayerColor color) {
+    public void playerVisionUpdate(PlayerColor color) {
         Player player = players.get(color);
         Set<Point> visible = new HashSet<>(board.getNexusesVision(color));
         for(Minion minion:player.minions){
@@ -131,13 +132,22 @@ public class SimpleGameManager implements GameManager {
             Tile actTile = board.getTile(point.x,point.y);
             point.x-=orientation.x;
             point.y-=orientation.y;
-            SendUpdate(color,new SimpleTileUpdate(actTile.getDisplayable(),player.isVisible(point),point.x,point.y));
+            sendUpdate(color,new SimpleTileUpdate(actTile.getDisplayable(),player.isVisible(point),point.x,point.y));
             if(actTile.isHollow()) {
                 if(actTile.getDisplayable()!= Displayable.TUNNEL)
-                    SendUpdate(color,new SimpleTileUpdate(Displayable.TUNNEL,player.isVisible(point),point.x,point.y));
+                    sendUpdate(color,new SimpleTileUpdate(Displayable.TUNNEL,player.isVisible(point),point.x,point.y));
                 for(Entity entity:actTile.getTunnel().getEntities()){
-                    SendUpdate(color,new SimpleTileUpdate(entity.getDiplayable(),player.isVisible(point),point.x,point.y));
+                    sendUpdate(color,new SimpleTileUpdate(entity.getDiplayable(),player.isVisible(point),point.x,point.y));
                 }
+            }
+        }
+    }
+
+    @Override
+    public  void minionUpdate(PlayerColor color, Point minionLocation, Direction direction, MinionEvent minionEvent, MoveTypes minionMove) {
+        for(PlayerColor playerColor:players.keySet()){
+            if(players.get(playerColor).isVisible(minionLocation)){
+                sendUpdate(playerColor,new SimpleMinionUpdate(direction,Displayable.BLUE_MINION,minionEvent,minionMove,minionLocation.x,minionLocation.y));
             }
         }
     }
@@ -155,7 +165,9 @@ public class SimpleGameManager implements GameManager {
         players.put(PlayerColor.BLUE,new Player(new Point(board.getNexus(PlayerColor.BLUE).get(0).getX(),board.getNexus(PlayerColor.BLUE).get(0).getY())));
         players.put(PlayerColor.RED,new Player(new Point(board.getNexus(PlayerColor.RED).get(0).getX(),board.getNexus(PlayerColor.RED).get(0).getY())));
 
-        for(PlayerColor playerColor : players.keySet()) {PlayerSetup(playerColor);}
-        for(PlayerColor playerColor : players.keySet()) {PlayerVisionUpdate(playerColor);}
+        for(PlayerColor playerColor : players.keySet()) {
+            playerSetup(playerColor);}
+        for(PlayerColor playerColor : players.keySet()) {
+            playerVisionUpdate(playerColor);}
     }
 }
