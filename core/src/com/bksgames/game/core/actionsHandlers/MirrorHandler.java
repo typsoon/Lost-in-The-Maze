@@ -4,10 +4,8 @@ import com.bksgames.game.core.main.GameManager;
 import com.bksgames.game.core.tiles.Mirror;
 import com.bksgames.game.core.tiles.Tile;
 import com.bksgames.game.core.tiles.Tunnel;
-import com.bksgames.game.core.utils.Move;
-import com.bksgames.game.enums.Direction;
-import com.bksgames.game.enums.MoveTypes;
 import com.bksgames.game.globalClasses.Move;
+import com.bksgames.game.globalClasses.enums.Direction;
 import com.bksgames.game.globalClasses.enums.MoveTypes;
 
 public class MirrorHandler extends ActionHandler{
@@ -23,7 +21,7 @@ public class MirrorHandler extends ActionHandler{
             throw new IllegalArgumentException("To nie Tunnel");
         }
 
-        if(action.direction()==Direction.RIGHT)
+        if(action.direction()== Direction.RIGHT)
             currentTunnel.setMirror(new Mirror(Mirror.Orientation.SLASH));
         if(action.direction()==Direction.LEFT)
             currentTunnel.setMirror(new Mirror(Mirror.Orientation.BACKSLASH));

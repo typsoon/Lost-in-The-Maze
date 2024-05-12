@@ -2,9 +2,7 @@ package com.bksgames.game.core.entities;
 
 import com.bksgames.game.core.utils.Owned;
 import com.bksgames.game.core.utils.SourceOfDamage;
-import com.bksgames.game.enums.Direction;
-import com.bksgames.game.enums.Displayable;
-import com.bksgames.game.enums.PlayerColor;
+import com.bksgames.game.globalClasses.enums.Direction;
 import com.bksgames.game.globalClasses.enums.Displayable;
 import com.bksgames.game.globalClasses.enums.PlayerColor;
 
