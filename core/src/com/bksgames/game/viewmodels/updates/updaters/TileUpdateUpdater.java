@@ -9,6 +9,7 @@ import com.bksgames.game.globalClasses.TileUpdate;
 import com.bksgames.game.globalClasses.Update;
 import com.bksgames.game.viewmodels.DisplayableToImage;
 import com.bksgames.game.views.gameScreen.GameScreen;
+import com.bksgames.game.views.gameScreen.MazeMapFactory;
 
 public class TileUpdateUpdater extends Updater {
     @Override
@@ -23,14 +24,14 @@ public class TileUpdateUpdater extends Updater {
 
         TextureRegion region = atlas.findRegion(tileUpdate.isVisible() ? info.visible() : info.revealed());
 
-        TiledMapTileLayer.Cell myCell = layer.getCell(GameScreen.maxBoardWidth + tileUpdate.getRelativeX(), GameScreen.maxBoardWidth + tileUpdate.getRelativeY());
+        TiledMapTileLayer.Cell myCell = layer.getCell(MazeMapFactory.maxBoardWidth + tileUpdate.getRelativeX(), MazeMapFactory.maxBoardWidth + tileUpdate.getRelativeY());
         if (myCell == null) {
             myCell = new TiledMapTileLayer.Cell();
             myCell.setTile(new StaticTiledMapTile(region));
         }
         else { myCell.getTile().setTextureRegion(region);}
 
-        layer.setCell(GameScreen.maxBoardWidth + tileUpdate.getRelativeX(), GameScreen.maxBoardHeight + tileUpdate.getRelativeY(), myCell);
+        layer.setCell(MazeMapFactory.maxBoardWidth + tileUpdate.getRelativeX(), MazeMapFactory.maxBoardHeight + tileUpdate.getRelativeY(), myCell);
     }
 
 

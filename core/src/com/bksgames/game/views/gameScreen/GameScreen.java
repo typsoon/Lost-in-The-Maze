@@ -20,7 +20,7 @@ public class GameScreen implements Screen {
     private final OrthographicCamera gameCamera;
 
     private final PlayerService playerService;
-    private final TiledMap map = new TiledMap();
+    private final TiledMap map = MazeMapFactory.produce();
     private TextureAtlas boardAtlas;
 //    private Skin skin;
 
@@ -36,9 +36,6 @@ public class GameScreen implements Screen {
     private MoveSender moveSender;
 
     //    Tiles are squares - tileSize is its width
-    final static public int tilePixelSize = 50;
-    final static public int maxBoardWidth = 300;
-    final static public int maxBoardHeight = 300;
 
     public GameScreen(final LostInTheMaze game, PlayerService playerService) {
         this.playerService = playerService;
@@ -46,23 +43,12 @@ public class GameScreen implements Screen {
 
         gameCamera = new OrthographicCamera();
         gameCamera.setToOrtho(false, 800, 480);
-        gameCamera.position.set(tilePixelSize* maxBoardHeight, tilePixelSize* maxBoardWidth, 0);
+        gameCamera.position.set( MazeMapFactory.tilePixelSize* MazeMapFactory.maxBoardHeight, MazeMapFactory.tilePixelSize* MazeMapFactory.maxBoardWidth, 0);
         gameCamera.update();
 
         mapRenderer = new OrthogonalTiledMapRenderer(map);
 
-        TiledMapTileLayer minions = new TiledMapTileLayer(3* maxBoardWidth, 3* maxBoardHeight, tilePixelSize, tilePixelSize);
-        minions.setName("minions");
-
-        TiledMapTileLayer tunnels = new TiledMapTileLayer(3* maxBoardWidth, 3* maxBoardHeight, tilePixelSize, tilePixelSize);
-        tunnels.setName("tunnels");
-
-        TiledMapTileLayer wallsAndNexuses = new TiledMapTileLayer(3* maxBoardWidth, 3* maxBoardHeight, tilePixelSize, tilePixelSize);
-        wallsAndNexuses.setName("wallsAndNexuses");
-
-        map.getLayers().add(tunnels);
-        map.getLayers().add(wallsAndNexuses);
-        map.getLayers().add(minions);
+        TiledMapTileLayer minions = (TiledMapTileLayer) map.getLayers().get("minions");
 
         screenMover = new ScreenMover(gameCamera);
         moveSender = new MoveSender(playerService, minions, gameCamera);

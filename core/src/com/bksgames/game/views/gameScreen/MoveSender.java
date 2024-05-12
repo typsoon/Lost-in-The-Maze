@@ -37,12 +37,12 @@ public class MoveSender extends InputAdapter {
         int tileY = (int) (worldY / minionMapLayer.getTileHeight());
 
         // Output the tile coordinates
-        System.out.println("Clicked tile coordinates: (" + (tileX - GameScreen.maxBoardWidth) + ", " + (tileY - GameScreen.maxBoardHeight) + ")");
+        System.out.println("Clicked tile coordinates: (" + (tileX - MazeMapFactory.maxBoardWidth) + ", " + (tileY - MazeMapFactory.maxBoardHeight) + ")");
 //
         TiledMapTileLayer.Cell myCell = minionMapLayer.getCell(tileX, tileY);
 
         if (myCell != null) {
-            Point minionCoords = new Point(tileX - GameScreen.maxBoardWidth, tileY - GameScreen.maxBoardHeight);
+            Point minionCoords = new Point(tileX - MazeMapFactory.maxBoardWidth, tileY - MazeMapFactory.maxBoardHeight);
             Collection<Move> moves = playerService.getLegalMoves(minionCoords.x, minionCoords.y);
 
             legalMovesHandler.displayLegalMoves(moves, minionCoords);
