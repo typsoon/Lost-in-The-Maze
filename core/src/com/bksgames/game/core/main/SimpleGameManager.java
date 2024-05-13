@@ -54,24 +54,24 @@ public class SimpleGameManager implements GameManager {
         if(minion==null) {return  null;}
         Collection<Move> legalMoves = new ArrayList<>();
         if(board.getTile(x+1,y).isHollow() && board.getTile(x+1,y).getTunnel().getEntities().isEmpty()) {
-            legalMoves.add(new Move(x,x+1,MoveTypes.MOVE, Direction.RIGHT));}
+            legalMoves.add(new Move(x,y,MoveTypes.MOVE, Direction.RIGHT));}
         if(board.getTile(x-1,y).isHollow() && board.getTile(x-1,y).getTunnel().getEntities().isEmpty()) {
-            legalMoves.add(new Move(x-1,y,MoveTypes.MOVE,Direction.LEFT));}
+            legalMoves.add(new Move(x,y,MoveTypes.MOVE,Direction.LEFT));}
         if(board.getTile(x,y+1).isHollow() && board.getTile(x,y+1).getTunnel().getEntities().isEmpty()) {
-            legalMoves.add(new Move(x,y+1,MoveTypes.MOVE,Direction.UP));}
+            legalMoves.add(new Move(x,y,MoveTypes.MOVE,Direction.UP));}
         if(board.getTile(x,y-1).isHollow() && board.getTile(x,y-1).getTunnel().getEntities().isEmpty()) {
-            legalMoves.add(new Move(x,y-1,MoveTypes.MOVE,Direction.DOWN));}
+            legalMoves.add(new Move(x,y,MoveTypes.MOVE,Direction.DOWN));}
 
-        if(!minion.onCooldown()) {
-            legalMoves.add(new Move(x+1,y,MoveTypes.LASER, Direction.RIGHT));
-            legalMoves.add(new Move(x,y-1,MoveTypes.LASER, Direction.DOWN));
-            legalMoves.add(new Move(x,y+1,MoveTypes.LASER, Direction.UP));
-            legalMoves.add(new Move(x-1,y,MoveTypes.LASER, Direction.LEFT));
-        }
-        legalMoves.add(new Move(x-1,y,MoveTypes.SWORD,Direction.LEFT));
-        legalMoves.add(new Move(x,y+1,MoveTypes.SWORD,Direction.UP));
-        legalMoves.add(new Move(x+1,y,MoveTypes.SWORD,Direction.RIGHT));
-        legalMoves.add(new Move(x,y-1,MoveTypes.SWORD,Direction.DOWN));
+//        if(!minion.onCooldown()) {
+//            legalMoves.add(new Move(x+1,y,MoveTypes.LASER, Direction.RIGHT));
+//            legalMoves.add(new Move(x,y-1,MoveTypes.LASER, Direction.DOWN));
+//            legalMoves.add(new Move(x,y+1,MoveTypes.LASER, Direction.UP));
+//            legalMoves.add(new Move(x-1,y,MoveTypes.LASER, Direction.LEFT));
+//        }
+//        legalMoves.add(new Move(x-1,y,MoveTypes.SWORD,Direction.LEFT));
+//        legalMoves.add(new Move(x,y+1,MoveTypes.SWORD,Direction.UP));
+//        legalMoves.add(new Move(x+1,y,MoveTypes.SWORD,Direction.RIGHT));
+//        legalMoves.add(new Move(x,y-1,MoveTypes.SWORD,Direction.DOWN));
 
         return legalMoves;
     }

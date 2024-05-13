@@ -19,6 +19,7 @@ public class MoveHandler extends ActionHandler {
         Tile currentTile = gameManager.getBoard().getTile(action.x(), action.y());
         Tunnel currentTunnel = currentTile.getTunnel();
         Minion minion = gameManager.getPlayers().get(gameManager.getCurrentPlayer()).getMinion(action.x(), action.y());
+        Point lastPos = new Point(minion.getX(), minion.getY());
         currentTunnel.removeEntity(minion);
 
         Point point = new Point(action.x(), action.y());
@@ -29,7 +30,7 @@ public class MoveHandler extends ActionHandler {
 
         minion.moveMinion(action.direction());
         gameManager.playerVisionUpdate(gameManager.getCurrentPlayer());
-        gameManager.minionUpdate(gameManager.getCurrentPlayer(),new Point(minion.getX(),minion.getY()),action.direction(),null,MoveTypes.MOVE);
+        gameManager.minionUpdate(gameManager.getCurrentPlayer(),lastPos,action.direction(),null,MoveTypes.MOVE);
     }
     MoveHandler(GameManager manager) {
         super(manager);
