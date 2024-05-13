@@ -13,6 +13,14 @@ public class Player {
     Collection<Minion> minions = new ArrayList<>();
     Set<Point> visibleTiles = new HashSet<>();
 
+    Point getRelativeCoordinates(Point coordinates)
+    {
+        return new Point(coordinates.x-mainNexus.x, coordinates.y-mainNexus.y);
+    }
+    Point getAbsoluteCoordinates(Point coordinates)
+    {
+        return new Point(coordinates.x+mainNexus.x, coordinates.x+mainNexus.y);
+    }
     void addMinion(Minion minion) {
         minions.add(minion);
     }

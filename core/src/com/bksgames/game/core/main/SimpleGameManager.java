@@ -138,18 +138,15 @@ public class SimpleGameManager implements GameManager {
         for(Minion minion:player.minions){
             visible.addAll(board.getVisible(minion));
         }
-        Point orientation = player.mainNexus.getLocation();
         Set<Point> changes = player.updateVisibleTiles(visible);
         for(Point point:changes){
             Tile actTile = board.getTile(point.x,point.y);
-            point.x-=orientation.x;
-            point.y-=orientation.y;
-            sendUpdate(color,new SimpleTileUpdate(actTile.getDisplayable(),player.isVisible(point),point.x,point.y));
+            sendUpdate(color,new SimpleTileUpdate(actTile.getDisplayable(),player.isVisible(point),player.getRelativeCoordinates(point)));
             if(actTile.isHollow()) {
                 if(actTile.getDisplayable()!= Displayable.TUNNEL)
-                    sendUpdate(color,new SimpleTileUpdate(Displayable.TUNNEL,player.isVisible(point),point.x,point.y));
+                    sendUpdate(color,new SimpleTileUpdate(Displayable.TUNNEL,player.isVisible(point),player.getRelativeCoordinates(point)));
                 for(Entity entity:actTile.getTunnel().getEntities()){
-                    sendUpdate(color,new SimpleTileUpdate(entity.getDiplayable(),player.isVisible(point),point.x,point.y));
+                    sendUpdate(color,new SimpleTileUpdate(entity.getDiplayable(),player.isVisible(point),player.getRelativeCoordinates(point)));
                 }
             }
         }
@@ -158,10 +155,12 @@ public class SimpleGameManager implements GameManager {
     @Override
     public  void minionUpdate(PlayerColor color, Point minionLocation, Direction direction, MinionEvent minionEvent, MoveTypes minionMove) {
         for(PlayerColor playerColor:players.keySet()){
-            if(players.get(playerColor).isVisible(minionLocation)){
+            if(players.get(playerColor).isVisible(Direction.getNext(minionLocation,direction))){
                 sendUpdate(playerColor,
                         new SimpleMinionUpdate(direction, PlayerEnums.getMinionColor(color),minionEvent,minionMove,
                                 minionLocation.x-players.get(playerColor).mainNexus.x,minionLocation.y-players.get(playerColor).mainNexus.y));
+                sendUpdate(playerColor,
+                        new SimpleTileUpdate(PlayerEnums.getMinionColor(color),true,players.get(playerColor).getRelativeCoordinates(Direction.getNext(minionLocation,direction))));
             }
         }
     }

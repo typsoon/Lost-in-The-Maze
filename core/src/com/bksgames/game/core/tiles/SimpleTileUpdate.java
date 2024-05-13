@@ -4,6 +4,8 @@ import com.bksgames.game.globalClasses.enums.Displayable;
 import com.bksgames.game.globalClasses.enums.UpdateIDs;
 import com.bksgames.game.globalClasses.TileUpdate;
 
+import java.awt.*;
+
 public class SimpleTileUpdate implements TileUpdate {
     private Displayable displayable;
     private Boolean visible;
@@ -39,13 +41,19 @@ public class SimpleTileUpdate implements TileUpdate {
         this.x = x;
         this.y = y;
     }
+    public SimpleTileUpdate(Displayable displayable, Boolean visible, Point position){
+        this.displayable = displayable;
+        this.visible = visible;
+        this.x = position.x;
+        this.y = position.y;
+    }
 
     @Override
     public String toString() {
         return getID().name() +
                 displayable.name() +
                 visible +
-                x +
+                x + " " +
                 y;
     }
 }

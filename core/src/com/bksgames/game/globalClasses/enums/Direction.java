@@ -13,6 +13,23 @@ public enum Direction {
             case DOWN -> point.y--;
         }
     }
+    public static Point getNext(Point point, Direction direction){
+        switch (direction){
+            case LEFT -> {
+                return new Point(point.x-1,point.y);
+            }
+            case RIGHT -> {
+                return new Point(point.x+1,point.y);
+            }
+            case UP -> {
+                return new Point(point.x,point.y+1);
+            }
+            case DOWN -> {
+                return new Point(point.x,point.y-1);
+            }
+        }
+        return null;
+    }
     public static Direction getDirection(Point p1, Point p2){
         if(p1.x == p2.x) {
             if(p1.y < p2.y) {
