@@ -49,8 +49,6 @@ public class GameScreen implements Screen {
 
         gameCamera = new OrthographicCamera();
         gameCamera.setToOrtho(false, 800, 480);
-        gameCamera.position.set( MazeMapFactory.tilePixelSize* MazeMapFactory.maxBoardHeight, MazeMapFactory.tilePixelSize* MazeMapFactory.maxBoardWidth, 0);
-        gameCamera.update();
 
         mapRenderer = new OrthogonalTiledMapRenderer(map);
 
@@ -74,7 +72,11 @@ public class GameScreen implements Screen {
         TiledMapTileLayer minions = (TiledMapTileLayer) map.getLayers().get("minions");
         minionClickReceiver = new MinionClickReceiver(playerService, minions, gameCamera, legalMoves);
 
-        inputMultiplexer = new InputMultiplexer(screenMover, minionClickReceiver);
+//        inputMultiplexer = new InputMultiplexer(screenMover, minionClickReceiver);
+        inputMultiplexer = new InputMultiplexer(legalMoves, screenMover, minionClickReceiver);
+
+        gameCamera.position.set( MazeMapFactory.tilePixelSize* MazeMapFactory.maxBoardHeight, MazeMapFactory.tilePixelSize* MazeMapFactory.maxBoardWidth, 0);
+        gameCamera.update();
 
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
@@ -89,6 +91,10 @@ public class GameScreen implements Screen {
 
         ScreenUtils.clear(0,0 , 0, 0);
 
+        legalMoves.act(delta);
+        legalMoves.draw();
+
+//        legalMoves.getViewport().update((int) gameCamera.position.x, (int) gameCamera.position.y, true);
 
         mapRenderer.setView(gameCamera);
         mapRenderer.render();
