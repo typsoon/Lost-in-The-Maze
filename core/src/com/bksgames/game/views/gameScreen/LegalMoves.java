@@ -18,7 +18,7 @@ import java.util.*;
 public class LegalMoves extends Stage {
     private final Table mainTable;
     Map<MoveTypes, Table> mapping = new HashMap<>();
-    private TextureAtlas atlas;
+//    private TextureAtlas atlas;
     private final MinionMoveListener minionMoveListener;
 
     private final Table arrowTable;
@@ -47,7 +47,7 @@ public class LegalMoves extends Stage {
 
         boolean result = super.touchDown(screenX, screenY, pointer, button);
 
-        mainTable.setVisible(false);
+        deactivateLegalMoves();
 
         return result;
     }
