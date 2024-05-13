@@ -10,21 +10,21 @@ import com.bksgames.game.services.PlayerService;
 import java.awt.*;
 import java.util.Collection;
 
-public class MoveSender extends InputAdapter {
+public class MinionClickReceiver extends InputAdapter {
     private final PlayerService playerService;
 //    private final TiledMap map;
     private final TiledMapTileLayer minionMapLayer;
     private final Camera gameCamera;
-    private LegalMovesHandler legalMovesHandler;
+    private final LegalMoves legalMoves;
 
-    MoveSender(PlayerService playerService, TiledMapTileLayer minionMapLayer, Camera camera) {
+    MinionClickReceiver(PlayerService playerService, TiledMapTileLayer minionMapLayer, Camera camera, LegalMoves legalMoves) {
         this.playerService = playerService;
 //        this.map = map;
         this.minionMapLayer = minionMapLayer;
         this.gameCamera = camera;
+        this.legalMoves = legalMoves;
     }
 
-    public void setLegalMovesHandler(LegalMovesHandler legalMovesHandler) { this.legalMovesHandler = legalMovesHandler; }
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
@@ -45,7 +45,7 @@ public class MoveSender extends InputAdapter {
             Point minionCoords = new Point(tileX - MazeMapFactory.maxBoardWidth, tileY - MazeMapFactory.maxBoardHeight);
             Collection<Move> moves = playerService.getLegalMoves(minionCoords.x, minionCoords.y);
 
-            legalMovesHandler.displayLegalMoves(moves, minionCoords);
+            legalMoves.displayLegalMoves(moves, minionCoords);
         }
 
         return true; // Indicate that the input event was handled

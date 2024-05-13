@@ -10,8 +10,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.bksgames.game.LostInTheMaze;
 import com.bksgames.game.services.PlayerService;
-import com.bksgames.game.viewmodels.moves.MoveMaker;
-import com.bksgames.game.viewmodels.moves.SimpleMoveMaker;
+import com.bksgames.game.viewmodels.moves.MinionMoveListener;
+import com.bksgames.game.viewmodels.moves.SimpleMinionMoveListener;
 import com.bksgames.game.viewmodels.updates.UpdateProcessor;
 
 public class GameScreen implements Screen {
@@ -20,26 +20,32 @@ public class GameScreen implements Screen {
     private final OrthographicCamera gameCamera;
 
     private final PlayerService playerService;
-    private final TiledMap map = MazeMapFactory.produce();
-    private TextureAtlas boardAtlas;
-//    private Skin skin;
 
-    private TextureAtlas actionButtonsAtlas;
-
-    private final ScreenMover screenMover;
+    private final TiledMap map;
     private final MapRenderer mapRenderer;
 
-    private final MoveMaker moveMaker;
+//    private Skin skin;
+
+    private TextureAtlas boardAtlas;
+    private TextureAtlas actionButtonsAtlas;
+
     private UpdateProcessor updateProcessor;
-    private final InputMultiplexer inputMultiplexer;
-    private LegalMovesHandler legalMovesHandler;
-    private MoveSender moveSender;
+
+    private  InputMultiplexer inputMultiplexer;
+    private final ScreenMover screenMover;
+    private MinionClickReceiver minionClickReceiver;
+
+
+    private final MinionMoveListener minionMoveListener;
+    private LegalMoves legalMoves;
 
     //    Tiles are squares - tileSize is its width
 
     public GameScreen(final LostInTheMaze game, PlayerService playerService) {
         this.playerService = playerService;
         this.game = game;
+
+        map = MazeMapFactory.produce();
 
         gameCamera = new OrthographicCamera();
         gameCamera.setToOrtho(false, 800, 480);
@@ -48,13 +54,10 @@ public class GameScreen implements Screen {
 
         mapRenderer = new OrthogonalTiledMapRenderer(map);
 
-        TiledMapTileLayer minions = (TiledMapTileLayer) map.getLayers().get("minions");
 
         screenMover = new ScreenMover(gameCamera);
-        moveSender = new MoveSender(playerService, minions, gameCamera);
-        inputMultiplexer = new InputMultiplexer(screenMover, moveSender);
-//        legalMovesDisplayer = new LegalMovesHandler(inputMultiplexer, new SimpleMoveMaker());
-        moveMaker = new SimpleMoveMaker(playerService);
+
+        minionMoveListener = new SimpleMinionMoveListener(playerService);
     }
 
     @Override
@@ -65,8 +68,13 @@ public class GameScreen implements Screen {
 
 
         updateProcessor = new UpdateProcessor(map, boardAtlas);
-        legalMovesHandler = new LegalMovesHandler(inputMultiplexer, moveMaker, actionButtonsAtlas);
-        moveSender.setLegalMovesHandler(legalMovesHandler);
+
+        legalMoves = new LegalMoves(minionMoveListener, actionButtonsAtlas, gameCamera);
+
+        TiledMapTileLayer minions = (TiledMapTileLayer) map.getLayers().get("minions");
+        minionClickReceiver = new MinionClickReceiver(playerService, minions, gameCamera, legalMoves);
+
+        inputMultiplexer = new InputMultiplexer(screenMover, minionClickReceiver);
 
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
@@ -80,6 +88,7 @@ public class GameScreen implements Screen {
         }
 
         ScreenUtils.clear(0,0 , 0, 0);
+
 
         mapRenderer.setView(gameCamera);
         mapRenderer.render();
@@ -110,7 +119,6 @@ public class GameScreen implements Screen {
     public void dispose() {
         boardAtlas.dispose();
 //        skin.dispose();
-
         actionButtonsAtlas.dispose();
     }
 }
