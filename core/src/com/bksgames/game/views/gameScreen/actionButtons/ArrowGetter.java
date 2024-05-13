@@ -1,8 +1,10 @@
 package com.bksgames.game.views.gameScreen.actionButtons;
 
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -15,6 +17,19 @@ import com.bksgames.game.viewmodels.moves.MinionMoveListener;
 public class ArrowGetter extends ActionButtonGetter {
     public ArrowGetter(MinionMoveListener minionMoveListener, TextureAtlas atlas) {
         super(minionMoveListener, atlas);
+    }
+
+    private InputListener getClickListener(final int key, Move move){
+        return new InputListener(){
+            @Override
+            public boolean keyDown(InputEvent event, int keycode) {
+				if (keycode == key) {
+					moveListener.makeMove(new IncompleteMove(MoveTypes.MOVE, move.direction()));
+					return true;
+				}
+                return super.keyDown(event, keycode);
+            }
+        };
     }
 
     @Override
@@ -35,6 +50,13 @@ public class ArrowGetter extends ActionButtonGetter {
             case RIGHT -> button.align(Align.right);
             case UP -> button.align(Align.top).align(Align.center);
             case DOWN -> button.align(Align.bottom).align(Align.center);
+        }
+
+        switch (move.direction()){
+            case LEFT -> button.addListener(getClickListener(Keys.LEFT, move));
+            case RIGHT -> button.addListener(getClickListener(Keys.RIGHT, move));
+            case UP -> button.addListener(getClickListener(Keys.UP, move));
+            case DOWN -> button.addListener(getClickListener(Keys.DOWN, move));
         }
 
         button.addListener(new ClickListener() {
