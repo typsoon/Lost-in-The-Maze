@@ -98,39 +98,10 @@ public class LegalMoves extends Stage {
 //        super.setDebugAll(true);
 
         factory = new ActionButtonFactory(minionMoveListener, atlas);
-
-        mainTable = new Table();
-        mainTable.setPosition((MazeMapFactory.maxBoardWidth+ 10)*MazeMapFactory.tilePixelSize, (MazeMapFactory.maxBoardHeight)*MazeMapFactory.tilePixelSize);
-        mainTable.align(Align.right);
-        this.addActor(mainTable);
-        mainTable.setVisible(false);
-
         arrowTable = new Table();
-        arrowTable.align(Align.bottom);
-
         actionsTable = new Table();
-        actionsTable.align(Align.top);
-
-        mapping.put(MoveTypes.MOVE, arrowTable);
-
-        mapping.put(MoveTypes.DOOR, actionsTable);
-        mapping.put(MoveTypes.LASER, actionsTable);
-        mapping.put(MoveTypes.SWORD, actionsTable);
-        mapping.put(MoveTypes.MIRROR, actionsTable);
-
-        arrowTable.add(factory.getButton(new Move(0, 0, MoveTypes.MOVE, Direction.UP)));
-
-        arrowTable.row();
-
-        arrowTable.add(factory.getButton(new Move(0, 0, MoveTypes.MOVE, Direction.LEFT)));
-        arrowTable.add(factory.getButton(new Move(0, 0, MoveTypes.MOVE, Direction.DOWN)));
-        arrowTable.add(factory.getButton(new Move(0, 0, MoveTypes.MOVE, Direction.RIGHT)));
-
-        mainTable.addActor(actionsTable);
-
-        mainTable.row();
-        mainTable.addActor(arrowTable);
-        arrowTable.debugAll();
+        mainTable = MainTableFactory.produce(arrowTable, actionsTable, factory);
+        this.addActor(mainTable);
 
         super.act();
         super.draw();
