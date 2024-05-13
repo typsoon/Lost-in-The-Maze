@@ -26,6 +26,11 @@ public class SquareBoard implements Board {
         return grid[x][y];
     }
 
+    public Tile getTile(Point point) {
+        return getTile(point.x,point.y);
+    }
+
+
     @Override
     public int getWidth() {
         return size;
@@ -51,7 +56,8 @@ public class SquareBoard implements Board {
             Point point = new Point(minion.getX(), minion.getY());
             visible.addAll(getLineOfSight(point, d));
         }
-        return visible;
+
+        return getBiggerVision(visible);
     }
 
     @Override
@@ -117,5 +123,23 @@ public class SquareBoard implements Board {
             actFP.x++;
         }
         return base;
+    }
+
+    private Set<Point> getAdjacent(Point point){
+        Set<Point> adjacent = new HashSet<>();
+        for(Direction direction: Direction.values()){
+            adjacent.add(Direction.getNext(point,direction));
+        }
+        return adjacent;
+    }
+
+    private Set<Point> getBiggerVision(Set<Point> vision){
+        Set<Point> biggerVision = new HashSet<>();
+        for(Point p:vision){
+            if(getTile(p).isHollow())
+                biggerVision.addAll(getAdjacent(p));
+        }
+        biggerVision.addAll(vision);
+        return biggerVision;
     }
 }
