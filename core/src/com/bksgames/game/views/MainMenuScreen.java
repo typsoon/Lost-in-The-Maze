@@ -1,6 +1,7 @@
 package com.bksgames.game.views;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -8,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -70,12 +72,24 @@ public class MainMenuScreen implements Screen {
 
         Button buttonPlay = new TextButton("Play", textButtonStyle);
         GameService gameService = new SimpleGameService(new Parameters()); // @typsoon rozwaz to jakos lepiej  !!!!!!!!!!!!!!!!!!!
-        buttonPlay.addListener(new ClickListener() {
-            public void clicked(InputEvent event, float x, float y) {
-                GameScreen bluePlayerScreen = new GameScreen(game,gameService.connect(PlayerColor.BLUE));
-                GameScreen redPlayerScreen = new GameScreen(game, gameService.connect(PlayerColor.RED));
-                gameService.StartGame();
-                game.setScreen(bluePlayerScreen);
+
+        stage.addListener(new InputListener() {
+            @Override
+            public boolean keyDown(InputEvent event, int keycode) {
+                if (keycode == Input.Keys.ENTER) {
+                    displayGameScreen(gameService);
+                }
+
+                return super.keyDown(event, keycode);
+            }
+        });
+
+        buttonPlay.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                displayGameScreen(gameService);
+
+                return true;
             }
         });
 
@@ -142,5 +156,12 @@ public class MainMenuScreen implements Screen {
         stage.dispose();
         font.dispose();
         generator.dispose();
+    }
+
+    private void displayGameScreen(GameService gameService) {
+        GameScreen bluePlayerScreen = new GameScreen(game,gameService.connect(PlayerColor.BLUE));
+        GameScreen redPlayerScreen = new GameScreen(game, gameService.connect(PlayerColor.RED));
+        gameService.StartGame();
+        game.setScreen(bluePlayerScreen);
     }
 }
