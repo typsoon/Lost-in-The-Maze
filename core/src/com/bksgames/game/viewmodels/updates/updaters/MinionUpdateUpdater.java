@@ -26,7 +26,8 @@ public class MinionUpdateUpdater extends Updater {
                 MazeMapFactory.maxBoardHeight + minionUpdate.getRelativeY());
 
         if (minionCell != null) {
-            minionCell = null;
+            minionLayer.setCell(MazeMapFactory.maxBoardWidth + minionUpdate.getRelativeX(),
+                    MazeMapFactory.maxBoardHeight + minionUpdate.getRelativeY(), null);
         }
 
 //        TODO: make animations in here
