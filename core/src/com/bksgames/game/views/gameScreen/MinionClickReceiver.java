@@ -64,7 +64,7 @@ public class MinionClickReceiver extends InputAdapter {
 
         List<Point> minionsPositions = playerViewModel.getMinionsPositions();
 
-        keycode -= Input.Keys.NUM_0;
+        keycode -= Input.Keys.NUM_1;
 
         if (keycode >= minionsPositions.size()) {
             return false;

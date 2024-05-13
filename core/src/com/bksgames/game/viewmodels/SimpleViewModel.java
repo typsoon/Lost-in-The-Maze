@@ -18,9 +18,13 @@ public class SimpleViewModel implements PlayerViewModel{
 //            throw new IllegalStateException("View model has wrong data");
         }
 
-        for (int i = 0; i <= minionPositions.size() ; i++) {
-            if (minionPositions.get(i).equals(start)) {
-                Direction.getNext(minionPositions.get(i), direction);
+        for (int i = 0; i < minionPositions.size() ; i++) {
+            if (minionPositions.get(i) != null && minionPositions.get(i).equals(start)) {
+//                Point newPoint = new Point(start.x, start.y);
+//
+//                Direction.getNext(newPoint, direction);
+                minionPositions.set(i, Direction.getNext(minionPositions.get(i), direction));
+//                Direction.getNext(minionPositions.get(i), direction);
             }
         }
     }
