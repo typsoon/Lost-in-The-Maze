@@ -8,17 +8,16 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.bksgames.game.globalClasses.Move;
 import com.bksgames.game.globalClasses.enums.MoveTypes;
-import com.bksgames.game.viewmodels.moves.MoveMaker;
+import com.bksgames.game.viewmodels.moves.IncompleteMove;
+import com.bksgames.game.viewmodels.moves.MinionMoveListener;
 
-import java.awt.*;
-
-public class ArrowButtonGetter extends ActionButtonGetter {
-    public ArrowButtonGetter(MoveMaker move, TextureAtlas atlas) {
-        super(move, atlas);
+public class ArrowGetter extends ActionButtonGetter {
+    public ArrowGetter(MinionMoveListener minionMoveListener, TextureAtlas atlas) {
+        super(minionMoveListener, atlas);
     }
 
     @Override
-    public ImageButton get(Move move, Point minionCoords) {
+    public ImageButton get(Move move) {
         TextureRegion region = new TextureRegion();
 
         switch (move.direction()) {
@@ -33,7 +32,7 @@ public class ArrowButtonGetter extends ActionButtonGetter {
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                moveMaker.makeMove(new Move(minionCoords.x, minionCoords.y, MoveTypes.MOVE, move.direction()));
+                moveListener.makeMove(new IncompleteMove(MoveTypes.MOVE, move.direction()));
             }
         });
 
