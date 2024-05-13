@@ -1,4 +1,4 @@
-package com.bksgames.game.core.tiles;
+package com.bksgames.game.core.updates;
 
 import com.bksgames.game.globalClasses.enums.Displayable;
 import com.bksgames.game.globalClasses.enums.UpdateIDs;

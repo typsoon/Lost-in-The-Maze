@@ -1,7 +1,6 @@
-package com.bksgames.game.core.entities;
+package com.bksgames.game.core.updates;
 
 import com.bksgames.game.globalClasses.MinionUpdate;
-import com.bksgames.game.globalClasses.Move;
 import com.bksgames.game.globalClasses.enums.*;
 
 public class SimpleMinionUpdate implements MinionUpdate {
