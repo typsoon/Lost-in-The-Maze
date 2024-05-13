@@ -45,8 +45,6 @@ public class SimplePlayerService implements PlayerService {
         return !updates.isEmpty();
     }
 
-
-
     public SimplePlayerService(PlayerColor playerColor, GameService gameService) {
         this.playerColor = playerColor;
         this.gameService = gameService;

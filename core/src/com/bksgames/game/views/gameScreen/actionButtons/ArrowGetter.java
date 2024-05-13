@@ -19,7 +19,7 @@ public class ArrowGetter extends ActionButtonGetter {
         super(minionMoveListener, atlas);
     }
 
-    private InputListener getClickListener(final int key, Move move){
+    private InputListener getKeyDownListener(final int key, Move move){
         return new InputListener(){
             @Override
             public boolean keyDown(InputEvent event, int keycode) {
@@ -53,10 +53,10 @@ public class ArrowGetter extends ActionButtonGetter {
         }
 
         switch (move.direction()){
-            case LEFT -> button.addListener(getClickListener(Keys.LEFT, move));
-            case RIGHT -> button.addListener(getClickListener(Keys.RIGHT, move));
-            case UP -> button.addListener(getClickListener(Keys.UP, move));
-            case DOWN -> button.addListener(getClickListener(Keys.DOWN, move));
+            case LEFT -> button.addListener(getKeyDownListener(Keys.LEFT, move));
+            case RIGHT -> button.addListener(getKeyDownListener(Keys.RIGHT, move));
+            case UP -> button.addListener(getKeyDownListener(Keys.UP, move));
+            case DOWN -> button.addListener(getKeyDownListener(Keys.DOWN, move));
         }
 
         button.addListener(new ClickListener() {

@@ -63,18 +63,18 @@ public class ScreenMover extends InputAdapter {
         switch (keycode) {
             case Input.Keys.LEFT:
                 leftPressed = true;
-                break;
+                return true;
             case Input.Keys.RIGHT:
                 rightPressed = true;
-                break;
+                return true;
             case Input.Keys.UP:
                 upPressed = true;
-                break;
+                return true;
             case Input.Keys.DOWN:
                 downPressed = true;
-                break;
+                return true;
         }
-        return true; // Indicate that the input event was handled
+        return false; // Indicate that the input event was handled
     }
 
     @Override
