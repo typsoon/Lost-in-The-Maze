@@ -95,8 +95,8 @@ public class LegalMoves extends Stage {
         arrowTable.row();
 
         arrowTable.add(factory.getButton(new Move(0, 0, MoveTypes.MOVE, Direction.LEFT)));
-        arrowTable.add(factory.getButton(new Move(0, 0, MoveTypes.MOVE, Direction.RIGHT)));
         arrowTable.add(factory.getButton(new Move(0, 0, MoveTypes.MOVE, Direction.DOWN)));
+        arrowTable.add(factory.getButton(new Move(0, 0, MoveTypes.MOVE, Direction.RIGHT)));
 
         mainTable.addActor(actionsTable);
 
