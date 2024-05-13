@@ -1,11 +1,11 @@
 ActionButtons.png
-size:512,64
+size:1024,256
 repeat:none
-RightArrow
-bounds:2,2,300,60
 DownArrow
-bounds:2,2,300,60
+bounds:306,2,150,150
 LeftArrow
-bounds:2,2,300,60
+bounds:458,2,150,150
+RightArrow
+bounds:2,2,150,150
 UpArrow
-bounds:2,2,300,60
+bounds:154,2,150,150
