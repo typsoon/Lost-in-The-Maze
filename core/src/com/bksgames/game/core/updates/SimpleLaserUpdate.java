@@ -1,4 +1,4 @@
-package com.bksgames.game.core.utils;
+package com.bksgames.game.core.updates;
 
 import com.bksgames.game.globalClasses.LaserUpdate;
 import com.bksgames.game.globalClasses.enums.Direction;
