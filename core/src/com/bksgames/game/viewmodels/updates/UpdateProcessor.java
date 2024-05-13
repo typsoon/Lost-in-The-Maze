@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.bksgames.game.globalClasses.enums.UpdateIDs;
 import com.bksgames.game.globalClasses.Update;
+import com.bksgames.game.viewmodels.updates.updaters.MinionUpdateUpdater;
 import com.bksgames.game.viewmodels.updates.updaters.TileUpdateUpdater;
 import com.bksgames.game.viewmodels.updates.updaters.Updater;
 
@@ -25,5 +26,6 @@ public class UpdateProcessor {
         this.atlas = atlas;
 
         updaterChooser.put(UpdateIDs.TILE_UPDATE, new TileUpdateUpdater(map, atlas));
+        updaterChooser.put(UpdateIDs.MINION_UPDATE, new MinionUpdateUpdater(map, atlas));
     }
 }

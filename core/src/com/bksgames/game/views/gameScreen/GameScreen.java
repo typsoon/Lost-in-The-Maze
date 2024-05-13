@@ -124,7 +124,7 @@ public class GameScreen implements Screen {
     @Override
     public void dispose() {
         boardAtlas.dispose();
-//        skin.dispose();
+        legalMoves.dispose();
         actionButtonsAtlas.dispose();
     }
 }

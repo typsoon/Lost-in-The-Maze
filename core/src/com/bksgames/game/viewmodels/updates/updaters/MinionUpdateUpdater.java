@@ -29,15 +29,17 @@ public class MinionUpdateUpdater extends Updater {
             minionCell = null;
         }
 
+//        TODO: make animations in here
+
         Point whereToPutIt = new Point(minionUpdate.getRelativeX(), minionUpdate.getRelativeY());
         Direction.next(whereToPutIt, minionUpdate.getDirection());
 
-        minionCell = minionLayer.getCell(whereToPutIt.x, whereToPutIt.y);
-
-        DisplayableToImage.DisplayInfo info = DisplayableToImage.getDisplayInfo(minionUpdate.getDisplayable());
-        TextureRegion region = atlas.findRegion(info.visible());
-        minionCell = new TiledMapTileLayer.Cell();
-        minionCell.setTile(new StaticTiledMapTile(region));
+//        minionCell = minionLayer.getCell(whereToPutIt.x, whereToPutIt.y);
+//
+//        DisplayableToImage.DisplayInfo info = DisplayableToImage.getDisplayInfo(minionUpdate.getDisplayable());
+//        TextureRegion region = atlas.findRegion(info.visible());
+//        minionCell = new TiledMapTileLayer.Cell();
+//        minionCell.setTile(new StaticTiledMapTile(region));
     }
 
     public MinionUpdateUpdater(TiledMap map, TextureAtlas atlas) {super(map, atlas);}

@@ -30,9 +30,18 @@ public class SimpleGameManager implements GameManager {
     PlayerColor activePlayer;
     @Override
     public Boolean makeMove(Move move) {
-        if( players.get(activePlayer).getMinion(move.x(),move.y())==null
+//        Decipher the move
+        Player actPlayer = players.get(activePlayer);
+        move = new Move(
+                move.x() + (int) actPlayer.mainNexus.getX(),
+                move.y() + (int) actPlayer.mainNexus.getY(),
+                move.type(),
+                move.direction()
+        );
+
+        if( actPlayer.getMinion(move.x(),move.y())==null
         ||
-        !getLegalMoves(move.x(), move.y(), activePlayer).contains(move))
+        !getLegalMoves(move.x() - (int) actPlayer.mainNexus.getX(), move.y() - (int) actPlayer.mainNexus.getY(), activePlayer).contains(move))
         {return false;}
         moveHandlers.get(move.type()).handle(move);
         return true;
