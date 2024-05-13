@@ -104,6 +104,8 @@ public class GameScreen implements Screen {
     public void resize(int width, int height) {
 //        gameCamera.viewportWidth = width;
 //        gameCamera.viewportHeight = height;
+
+        legalMoves.getViewport().update(width, height, false);
     }
 
     @Override
