@@ -8,7 +8,8 @@ import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.bksgames.game.globalClasses.TileUpdate;
 import com.bksgames.game.globalClasses.Update;
 import com.bksgames.game.viewmodels.DisplayableToImage;
-import com.bksgames.game.views.gameScreen.GameScreen;
+import com.bksgames.game.viewmodels.PlayerViewModel;
+import com.bksgames.game.viewmodels.SimpleViewModel;
 import com.bksgames.game.views.gameScreen.MazeMapFactory;
 
 public class TileUpdateUpdater extends Updater {
@@ -35,7 +36,7 @@ public class TileUpdateUpdater extends Updater {
     }
 
 
-    public TileUpdateUpdater(TiledMap map, TextureAtlas atlas) {
-        super(map, atlas);
+    public TileUpdateUpdater(TiledMap map, TextureAtlas atlas, PlayerViewModel playerViewModel) {
+        super(map, atlas, playerViewModel);
     }
 }

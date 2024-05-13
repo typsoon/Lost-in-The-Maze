@@ -131,8 +131,5 @@ public class LegalMoves extends Stage {
         mainTable.row();
         mainTable.addActor(arrowTable);
         arrowTable.debugAll();
-
-        super.act();
-        super.draw();
     }
 }

@@ -10,6 +10,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.bksgames.game.LostInTheMaze;
 import com.bksgames.game.services.PlayerService;
+import com.bksgames.game.viewmodels.PlayerViewModel;
+import com.bksgames.game.viewmodels.SimpleViewModel;
 import com.bksgames.game.viewmodels.moves.MinionMoveListener;
 import com.bksgames.game.viewmodels.moves.SimpleMinionMoveListener;
 import com.bksgames.game.viewmodels.updates.UpdateProcessor;
@@ -39,6 +41,8 @@ public class GameScreen implements Screen {
     private final MinionMoveListener minionMoveListener;
     private LegalMoves legalMoves;
 
+    private final PlayerViewModel playerViewModel;
+
     //    Tiles are squares - tileSize is its width
 
     public GameScreen(final LostInTheMaze game, PlayerService playerService) {
@@ -52,6 +56,7 @@ public class GameScreen implements Screen {
 
         mapRenderer = new OrthogonalTiledMapRenderer(map);
 
+        playerViewModel = new SimpleViewModel((TiledMapTileLayer) map.getLayers().get("minions"));
 
         screenMover = new ScreenMover(gameCamera);
 
@@ -64,13 +69,12 @@ public class GameScreen implements Screen {
 //        skin = new Skin(boardAtlas);
         actionButtonsAtlas = new TextureAtlas(Gdx.files.internal("ActionButtons.atlas"));
 
-
-        updateProcessor = new UpdateProcessor(map, boardAtlas);
+        updateProcessor = new UpdateProcessor(map, boardAtlas, playerViewModel);
 
         legalMoves = new LegalMoves(minionMoveListener, actionButtonsAtlas, gameCamera);
 
         TiledMapTileLayer minions = (TiledMapTileLayer) map.getLayers().get("minions");
-        minionClickReceiver = new MinionClickReceiver(playerService, minions, gameCamera, legalMoves);
+        minionClickReceiver = new MinionClickReceiver(playerService, minions, gameCamera, legalMoves, playerViewModel);
 
 //        inputMultiplexer = new InputMultiplexer(screenMover, minionClickReceiver);
         inputMultiplexer = new InputMultiplexer(legalMoves, screenMover, minionClickReceiver);
