@@ -2,7 +2,8 @@ package com.bksgames.game.views.gameScreen;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.*;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -48,6 +49,33 @@ public class LegalMoves extends Stage {
         boolean result = super.touchDown(screenX, screenY, pointer, button);
 
         deactivateLegalMoves();
+
+        return result;
+    }
+
+    @Override
+    public boolean keyDown(int keyCode) {
+        if (!mainTable.isVisible()) {
+            return false;
+        }
+
+        boolean result = super.keyDown(keyCode);
+
+        deactivateLegalMoves();
+
+        for (Actor actor : arrowTable.getChildren()) {
+            if (!actor.isVisible())
+                continue;
+
+            for (EventListener listener : actor.getListeners()) {
+                if (!(listener instanceof InputListener inputListener)) {
+                    throw new IllegalStateException("Illegal state");
+                }
+
+                if(inputListener.keyDown(new InputEvent(), keyCode))
+                    return true;
+            }
+        }
 
         return result;
     }
