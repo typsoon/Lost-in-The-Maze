@@ -1,15 +1,16 @@
 package com.bksgames.game.views.gameScreen;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.bksgames.game.globalClasses.Move;
-import com.bksgames.game.globalClasses.enums.Direction;
-import com.bksgames.game.globalClasses.enums.MoveTypes;
+import com.bksgames.game.viewmodels.moves.IncompleteMove;
 import com.bksgames.game.viewmodels.moves.MinionMoveListener;
 import com.bksgames.game.views.gameScreen.actionButtons.ActionButtonFactory;
 
@@ -18,14 +19,12 @@ import java.util.*;
 
 public class LegalMoves extends Stage {
     private final Table mainTable;
-    Map<MoveTypes, Table> mapping = new HashMap<>();
-//    private TextureAtlas atlas;
+    //    private TextureAtlas atlas;
+//    Map<IncompleteMove, Actor> mapping;
     private final MinionMoveListener minionMoveListener;
 
     private final Table arrowTable;
     private final Table actionsTable;
-
-    private final ActionButtonFactory factory;
 
     public void displayLegalMoves(Collection<Move> legalMoves, Point minionLocation) {
 
@@ -61,13 +60,14 @@ public class LegalMoves extends Stage {
 
         boolean result = super.keyDown(keyCode);
 
+//        if (!result)
         deactivateLegalMoves();
 
         for (Actor actor : arrowTable.getChildren()) {
             if (!actor.isVisible())
                 continue;
 
-            for (EventListener listener : actor.getListeners()) {
+            for (EventListener listener : actor.getCaptureListeners()) {
                 if (!(listener instanceof InputListener inputListener)) {
                     throw new IllegalStateException("Illegal state");
                 }
@@ -78,6 +78,20 @@ public class LegalMoves extends Stage {
         }
 
         return result;
+    }
+
+    @Override
+    public void act(float deltaTime) {
+
+        Camera gameCamera = getCamera();
+//        Vector3 screenCoordinates = new Vector3(Gdx.graphics.getWidth() , Gdx.graphics.getHeight(), 0);
+        Vector3 screenCoordinates = new Vector3(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 0);
+        Vector3 worldCoordinates = gameCamera.unproject(screenCoordinates);
+
+//        TODO: change this to render correctly
+        mainTable.setPosition(worldCoordinates.x - gameCamera.viewportWidth, worldCoordinates.y);
+
+        super.act(deltaTime);
     }
 
     public void deactivateLegalMoves() {
@@ -97,7 +111,7 @@ public class LegalMoves extends Stage {
 
 //        super.setDebugAll(true);
 
-        factory = new ActionButtonFactory(minionMoveListener, atlas);
+        ActionButtonFactory factory = new ActionButtonFactory(minionMoveListener, atlas);
         arrowTable = new Table();
         actionsTable = new Table();
         mainTable = MainTableFactory.produce(arrowTable, actionsTable, factory);

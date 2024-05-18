@@ -23,7 +23,7 @@ public class Parameters {
         actionsNumber = 5;
         minionHitPoints = 5;
         nexusHitPoints = 20;
-        mapSize = 30;
+        mapSize = 300;
 //        TODO: think about these values
         laserDamage = 6;
         swordDamage = 2;

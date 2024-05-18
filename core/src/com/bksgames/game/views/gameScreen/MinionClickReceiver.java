@@ -16,15 +16,15 @@ import java.util.List;
 public class MinionClickReceiver extends InputAdapter {
     private final PlayerService playerService;
 //    private final TiledMap map;
-    private final TiledMapTileLayer minionMapLayer;
+//    private final TiledMapTileLayer minionMapLayer;
     private final Camera gameCamera;
     private final LegalMoves legalMoves;
     private final PlayerViewModel playerViewModel;
 
-    MinionClickReceiver(PlayerService playerService, TiledMapTileLayer minionMapLayer, Camera camera, LegalMoves legalMoves, PlayerViewModel playerViewModel) {
+    MinionClickReceiver(PlayerService playerService, Camera camera, LegalMoves legalMoves, PlayerViewModel playerViewModel) {
         this.playerService = playerService;
 //        this.map = map;
-        this.minionMapLayer = minionMapLayer;
+//        this.minionMapLayer = minionMapLayer;
         this.gameCamera = camera;
         this.legalMoves = legalMoves;
         this.playerViewModel = playerViewModel;
@@ -38,16 +38,14 @@ public class MinionClickReceiver extends InputAdapter {
         float worldY = gameCamera.unproject(new Vector3(screenX, screenY, 0)).y;
 
         // Convert world coordinates to map coordinates
-        int tileX = (int) (worldX / minionMapLayer.getTileWidth());
-        int tileY = (int) (worldY / minionMapLayer.getTileHeight());
+        int tileX = (int) (worldX / MazeMapFactory.tilePixelSize);
+        int tileY = (int) (worldY / MazeMapFactory.tilePixelSize);
 
+        Point minionCoords = new Point(tileX - MazeMapFactory.maxBoardWidth, tileY - MazeMapFactory.maxBoardHeight);
         // Output the tile coordinates
         System.out.println("Clicked tile coordinates: (" + (tileX - MazeMapFactory.maxBoardWidth) + ", " + (tileY - MazeMapFactory.maxBoardHeight) + ")");
 //
-        TiledMapTileLayer.Cell myCell = minionMapLayer.getCell(tileX, tileY);
-
-        if (myCell != null) {
-            Point minionCoords = new Point(tileX - MazeMapFactory.maxBoardWidth, tileY - MazeMapFactory.maxBoardHeight);
+        if (playerViewModel.hasPlayableMinion(minionCoords)) {
             Collection<Move> moves = playerService.getLegalMoves(minionCoords.x, minionCoords.y);
 
             legalMoves.displayLegalMoves(moves, minionCoords);
