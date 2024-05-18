@@ -23,8 +23,8 @@ import java.util.*;
 
 public class SimpleGameManager implements GameManager {
     private final Board board;
-    private final Map<PlayerColor, Player> players;
-    private final Map<MoveTypes, ActionHandler> moveHandlers;
+    private final EnumMap<PlayerColor, Player> players;
+    private final EnumMap<MoveTypes, ActionHandler> moveHandlers;
     private final GameService gameService;
     private final Parameters parameters;
     PlayerColor activePlayer;
@@ -149,11 +149,11 @@ public class SimpleGameManager implements GameManager {
         this.parameters = parameters;
         this.gameService = gameService;
         this.board = SquareBoardFactory.CreateSBFor2Players(parameters);
-        moveHandlers = new HashMap<>();
+        moveHandlers = new EnumMap<>(MoveTypes.class);
         for (MoveTypes moveType : MoveTypes.values()) {
             moveHandlers.put(moveType, ActionHandlerFactory.CreateActionHandler(moveType, this));
         }
-        players = new HashMap<>();
+        players = new EnumMap<>(PlayerColor.class);
         activePlayer = PlayerColor.BLUE;
         players.put(PlayerColor.BLUE,
                 new Player(board.getNexus(PlayerColor.BLUE).get(0).getPosition()));
@@ -166,7 +166,7 @@ public class SimpleGameManager implements GameManager {
         for (PlayerColor playerColor : players.keySet()) {
             playerVisionUpdate(playerColor);
         }
-        mapTesting();
+       // mapTesting();
     }
 
     private void mapTesting() {

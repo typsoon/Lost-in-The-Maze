@@ -23,7 +23,7 @@ public class SquareBoard implements Board {
     final Tile[][] grid;
     final int size;
     final int baseSize;
-    final Map<PlayerColor, List<Nexus>> playerNexuses;
+    final EnumMap<PlayerColor, List<Nexus>> playerNexuses;
 
     //Board
     @Override
@@ -101,7 +101,7 @@ public class SquareBoard implements Board {
     SquareBoard(int size,int baseSize){
         this.size = size;
         this.baseSize = baseSize;
-        playerNexuses = new HashMap<>();
+        playerNexuses = new EnumMap<>(PlayerColor.class);
         grid = new Tile[size][size];
     }
 
