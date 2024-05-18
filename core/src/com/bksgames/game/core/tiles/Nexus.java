@@ -1,53 +1,56 @@
 package com.bksgames.game.core.tiles;
 
-import com.bksgames.game.core.utils.KnownPosition;
-import com.bksgames.game.core.utils.Owned;
-import com.bksgames.game.core.utils.SourceOfDamage;
-import com.bksgames.game.core.utils.Vulnerable;
+import com.bksgames.game.core.utils.*;
 import com.bksgames.game.globalClasses.enums.Displayable;
 import com.bksgames.game.globalClasses.enums.PlayerColor;
 
-public class Nexus implements Tile, Vulnerable, KnownPosition, Owned {
-    private final int x,y;
-    int hitPoints;
-    public final PlayerColor owner;
+/**
+ * Representing {@code Nexus}
+ * @author typsoon
+ * @author riper
+ */
+public class Nexus implements  Vulnerable, KnownPosition, Owned, Tile {
 
-    @Override
-    public int getX() {return x;}
+    private int hitPoints;
+    private final PlayerColor owner;
+    private final Point position;
 
-    @Override
-    public int getY() {return y;}
-
-    public PlayerColor getOwner() { return owner;}
-
+    //Vulnerable
     @Override
     public int getHitPoints() {
         return hitPoints;
     }
-
     //    TODO: write this
     @Override
-    public void damage(SourceOfDamage sourceOfDamage) {
+    public boolean damage(SourceOfDamage sourceOfDamage) {
+        hitPoints-=sourceOfDamage.getDamageValue();
+        return hitPoints <= 0;
     }
 
-    public Nexus(PlayerColor owner, int x, int y, int hitPoints) {
-        this.x = x;
-        this.y = y;
-        this.owner = owner;
-
-        this.hitPoints = hitPoints;
+    //KnownPosition
+    @Override
+    public Point getPosition() {
+        return position.getPosition();
     }
 
+    //Owned
+    @Override
+    public PlayerColor getOwner() {
+        return owner;
+    }
+
+    //Tile
     @Override
     public Displayable getDisplayable() {
-        if(getOwner()==PlayerColor.BLUE)
-            return Displayable.BLUE_NEXUS;
-        else
-            return Displayable.RED_NEXUS;
+        return PlayerEnums.getNexusColor(owner);
     }
 
-    @Override
-    public Tunnel getTunnel() {
-        return null;
+    /**
+     * Creates Nexus
+     */
+    public Nexus(PlayerColor owner,Point position, int hitPoints) {
+        this.position = position.getPosition();
+        this.owner = owner;
+        this.hitPoints = hitPoints;
     }
 }

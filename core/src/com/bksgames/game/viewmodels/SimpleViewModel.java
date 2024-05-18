@@ -1,9 +1,9 @@
 package com.bksgames.game.viewmodels;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.globalClasses.enums.Direction;
 
-import java.awt.Point;
 import java.util.*;
 import java.util.List;
 
@@ -23,7 +23,7 @@ public class SimpleViewModel implements PlayerViewModel{
 //                Point newPoint = new Point(start.x, start.y);
 //
 //                Direction.getNext(newPoint, direction);
-                minionPositions.set(i, Direction.getNext(minionPositions.get(i), direction));
+                minionPositions.set(i,direction.getNext(minionPositions.get(i)));
 //                Direction.getNext(minionPositions.get(i), direction);
             }
         }

@@ -6,7 +6,7 @@ public class SourceOfDamage {
     final Parameters parameters;
     final DamageType damageType;
 
-    int getDamageValue() {
+    public int getDamageValue() {
         return switch (damageType) {
             case LASER -> parameters.laserDamage;
             case SWORD -> parameters.swordDamage;

@@ -5,11 +5,12 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector3;
+import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.globalClasses.Move;
 import com.bksgames.game.services.PlayerService;
 import com.bksgames.game.viewmodels.PlayerViewModel;
 
-import java.awt.*;
+
 import java.util.Collection;
 import java.util.List;
 

@@ -6,46 +6,45 @@ import com.bksgames.game.core.tiles.Tile;
 import com.bksgames.game.core.tiles.Tunnel;
 import com.bksgames.game.core.tiles.Nexus;
 import com.bksgames.game.core.tiles.Wall;
+import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.globalClasses.enums.Direction;
 import com.bksgames.game.globalClasses.enums.PlayerColor;
 
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 
+/**
+ *  Representing {@code SquareBoard}
+ * @author riper
+ * @author jajko
+ */
 public class SquareBoard implements Board {
 
     final Tile[][] grid;
     final int size;
+    final int baseSize;
     final Map<PlayerColor, List<Nexus>> playerNexuses;
 
+    //Board
     @Override
     public Tile getTile(int x, int y) {
-        if(x>=size || y>=size || x<0 || y<0)      //exception do dodania
+        if(x>=size || y>=size || x<0 || y<0)
             return new Wall();
         return grid[x][y];
     }
-
-    public Tile getTile(Point point) {
-        return getTile(point.x,point.y);
-    }
-
 
     @Override
     public int getWidth() {
         return size;
     }
-
     @Override
     public int getHeight() {
         return size;
     }
-
     @Override
     public List<Nexus> getNexus(PlayerColor player) {
         return playerNexuses.get(player);
     }
-
     @Override
     public Set<Point> getVisible(Minion minion) {
         if(!getTile(minion.getX(),minion.getY()).isHollow())
@@ -56,10 +55,8 @@ public class SquareBoard implements Board {
             Point point = new Point(minion.getX(), minion.getY());
             visible.addAll(getLineOfSight(point, d));
         }
-
         return getBiggerVision(visible);
     }
-
     @Override
     public Set<Point> getNexusesVision(PlayerColor player) {
         Set<Point> vision = new HashSet<>();
@@ -69,13 +66,12 @@ public class SquareBoard implements Board {
         }
         return vision;
     }
-
     @Override
     public Set<Point> getLineOfSight(Point point, Direction direction) {
         Map<Mirror, Set<Direction>> mirrorMap = new HashMap<>();
         Set<Point> lineOfSight = new HashSet<>();
 
-        Direction.next(point, direction);
+        direction.next(point);
         Tile currentTile = getTile(point.x, point.y);
 
         while(currentTile.isHollow()){
@@ -87,23 +83,24 @@ public class SquareBoard implements Board {
                 if(!mirrorMap.containsKey(currentTunnel.getMirror())){
                     mirrorMap.put(currentTunnel.getMirror(), Set.of(direction));
                 }
-                else{
-                    if(!mirrorMap.get(currentTunnel.getMirror()).contains(direction)){
-                        mirrorMap.get(currentTunnel.getMirror()).add(direction);
-                    }
-                    else break;
-                }
+                else if(!mirrorMap.get(currentTunnel.getMirror()).add(direction)){ break; }
                 direction = currentTunnel.getMirror().deflect(direction);
             }
-            Direction.next(point, direction);
+            direction.next(point);
             currentTile = getTile(point.x, point.y);
         }
         lineOfSight.add(new Point(point));
         return lineOfSight;
     }
 
-    SquareBoard(int size){
+    /**
+     * Constructs {@code SquareBoard} for {@code SquareBoardFactory}
+     * @param size of {@code SquareBoard}
+     * @param baseSize of bases when generating {@code SquareBoard}
+     */
+    SquareBoard(int size,int baseSize){
         this.size = size;
+        this.baseSize = baseSize;
         playerNexuses = new HashMap<>();
         grid = new Tile[size][size];
     }
@@ -128,7 +125,7 @@ public class SquareBoard implements Board {
     private Set<Point> getAdjacent(Point point){
         Set<Point> adjacent = new HashSet<>();
         for(Direction direction: Direction.values()){
-            adjacent.add(Direction.getNext(point,direction));
+            adjacent.add(direction.getNext(point));
         }
         return adjacent;
     }

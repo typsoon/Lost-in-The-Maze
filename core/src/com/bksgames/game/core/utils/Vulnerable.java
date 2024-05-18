@@ -1,10 +1,18 @@
 package com.bksgames.game.core.utils;
 
+/** Objects can be damaged and killed
+ * @author riper
+ * @author typsoon
+ */
 public interface Vulnerable {
-
-//    int setHitPoints(int hitPoints);
-
+    /**
+     * @return amount of remaining hitpoints
+     */
     int getHitPoints();
-
-    void damage(SourceOfDamage sourceOfDamage);
+    /**
+     * Deal damage
+     * @param sourceOfDamage source of received damage
+     * @return {@code true} if killed | {@code false} otherwise
+     */
+    boolean damage(SourceOfDamage sourceOfDamage);
 }

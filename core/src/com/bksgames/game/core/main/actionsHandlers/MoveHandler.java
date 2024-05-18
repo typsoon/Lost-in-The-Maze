@@ -1,29 +1,31 @@
-package com.bksgames.game.core.actionsHandlers;
+package com.bksgames.game.core.main.actionsHandlers;
 
 import com.bksgames.game.core.entities.Minion;
 import com.bksgames.game.core.main.GameManager;
 import com.bksgames.game.core.tiles.Tile;
 import com.bksgames.game.core.tiles.Tunnel;
+import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.globalClasses.Move;
-import com.bksgames.game.globalClasses.enums.Direction;
 import com.bksgames.game.globalClasses.enums.MoveTypes;
-
-import java.awt.*;
-
+/**
+ * {@code ActionHandler} for {@code MoveTypes.MOVE}
+ * @author jajko
+ * @author riper
+ */
 public class MoveHandler extends ActionHandler {
     @Override
     public void handle(Move action) {
         if(action.type() != MoveTypes.MOVE)
             throw new IllegalStateException("Wrong move type!");
 
-        Tile currentTile = gameManager.getBoard().getTile(action.x(), action.y());
+        Tile currentTile = gameManager.getBoard().getTile(action.position());
         Tunnel currentTunnel = currentTile.getTunnel();
-        Minion minion = gameManager.getPlayers().get(gameManager.getCurrentPlayer()).getMinion(action.x(), action.y());
+        Minion minion = gameManager.getPlayers().get(gameManager.getCurrentPlayer()).getMinion(action.position());
         Point lastPos = new Point(minion.getX(), minion.getY());
         currentTunnel.removeEntity(minion);
 
-        Point point = new Point(action.x(), action.y());
-        Direction.next(point, action.direction());
+        Point point = action.position();
+        action.direction().next(point);
         Tile nextTile = gameManager.getBoard().getTile(point.x, point.y);
         Tunnel nextTunnel = nextTile.getTunnel();
         nextTunnel.addEntity(minion);

@@ -2,6 +2,7 @@ package com.bksgames.game.views.gameScreen;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
+import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.globalClasses.Move;
 import com.bksgames.game.globalClasses.enums.Direction;
 import com.bksgames.game.globalClasses.enums.MoveTypes;
@@ -29,13 +30,13 @@ public class MainTableFactory {
 		mapping.put(MoveTypes.SWORD, actionsTable);
 		mapping.put(MoveTypes.MIRROR, actionsTable);
 
-		arrowTable.add(factory.getButton(new Move(0, 0, MoveTypes.MOVE, Direction.UP)));
+		arrowTable.add(factory.getButton(new Move(new Point(), MoveTypes.MOVE, Direction.UP)));
 
 		arrowTable.row();
 
-		arrowTable.add(factory.getButton(new Move(0, 0, MoveTypes.MOVE, Direction.LEFT)));
-		arrowTable.add(factory.getButton(new Move(0, 0, MoveTypes.MOVE, Direction.DOWN)));
-		arrowTable.add(factory.getButton(new Move(0, 0, MoveTypes.MOVE, Direction.RIGHT)));
+		arrowTable.add(factory.getButton(new Move(new Point(), MoveTypes.MOVE, Direction.LEFT)));
+		arrowTable.add(factory.getButton(new Move(new Point(), MoveTypes.MOVE, Direction.DOWN)));
+		arrowTable.add(factory.getButton(new Move(new Point(), MoveTypes.MOVE, Direction.RIGHT)));
 
 		mainTable.addActor(actionsTable);
 

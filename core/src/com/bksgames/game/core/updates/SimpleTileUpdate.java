@@ -1,16 +1,21 @@
 package com.bksgames.game.core.updates;
 
+import com.bksgames.game.core.utils.Point;
+import com.bksgames.game.globalClasses.TileUpdate;
 import com.bksgames.game.globalClasses.enums.Displayable;
 import com.bksgames.game.globalClasses.enums.UpdateIDs;
-import com.bksgames.game.globalClasses.TileUpdate;
 
-import java.awt.*;
-
+/**
+ * Simple implementation of {@code TileUpdate}
+ *
+ * @author riper
+ */
 public class SimpleTileUpdate implements TileUpdate {
-    private Displayable displayable;
-    private Boolean visible;
-    private int x;
-    private int y;
+    private final Displayable displayable;
+    private final Boolean visible;
+    private final Point relativePosition;
+
+    //TileUpdate
     @Override
     public Displayable whatToDisplay() {
         return displayable;
@@ -28,32 +33,21 @@ public class SimpleTileUpdate implements TileUpdate {
 
     @Override
     public int getRelativeX() {
-        return x;
+        return relativePosition.x;
     }
 
     @Override
     public int getRelativeY() {
-        return y;
-    }
-    public SimpleTileUpdate(Displayable displayable, Boolean visible,int x,int y){
-        this.displayable = displayable;
-        this.visible = visible;
-        this.x = x;
-        this.y = y;
-    }
-    public SimpleTileUpdate(Displayable displayable, Boolean visible, Point position){
-        this.displayable = displayable;
-        this.visible = visible;
-        this.x = position.x;
-        this.y = position.y;
+        return relativePosition.y;
     }
 
-    @Override
-    public String toString() {
-        return getID().name() +
-                displayable.name() +
-                visible +
-                x + " " +
-                y;
+    /**
+     * Constructs simple {@code TileUpdate}
+     */
+    public SimpleTileUpdate(Displayable displayable, Boolean visible, Point relativePosition) {
+        this.displayable = displayable;
+        this.visible = visible;
+        this.relativePosition = relativePosition.getPosition();
     }
+
 }

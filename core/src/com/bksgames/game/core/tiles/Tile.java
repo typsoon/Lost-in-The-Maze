@@ -1,12 +1,26 @@
 package com.bksgames.game.core.tiles;
 
-import com.bksgames.game.globalClasses.enums.Displayable;
+import com.bksgames.game.core.utils.IsDisplayable;
 
-public interface Tile {
-    // RETURNS TUNNEL IF TILE IS TUNNEL OTHERWISE NULL
-    Displayable getDisplayable();
-    Tunnel getTunnel();
-	default boolean isHollow() {
-		return getTunnel()!=null;
-	}
+/**
+ * Representing single field in {@code Board}
+ *
+ * @author riper
+ * @author jajko
+ * @author typsoon
+ */
+public interface Tile extends IsDisplayable {
+    /**
+     * @return tunnel if {@code Tile} is {@code Tunnel} | otherwise {@code NULL}
+     */
+    default Tunnel getTunnel() {
+        return null;
+    }
+
+    /**
+     * @return {@code True} if hollow | otherwise {@code False}
+     */
+    default boolean isHollow() {
+        return getTunnel() != null;
+    }
 }

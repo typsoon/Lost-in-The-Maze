@@ -1,44 +1,53 @@
 package com.bksgames.game.core.updates;
 
+import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.globalClasses.LaserUpdate;
 import com.bksgames.game.globalClasses.enums.Direction;
 import com.bksgames.game.globalClasses.enums.UpdateIDs;
 
+/**
+ * Simple implementation of {@code LaserUpdate}
+ *
+ * @author jajko
+ */
 public class SimpleLaserUpdate implements LaserUpdate {
 
-	Direction direction;
-	Direction deflectedDirection;
-	int x,y;
+    private final Direction direction;
+    private final Direction deflectedDirection;
+    private final Point relativePosition;
 
-	@Override
-	public Direction getDirection() {
-		return direction;
-	}
+    //LaserUpdate
+    @Override
+    public Direction getDirection() {
+        return direction;
+    }
 
-	@Override
-	public Direction getDeflectedDirection() {
-		return deflectedDirection;
-	}
+    @Override
+    public Direction getDeflectedDirection() {
+        return deflectedDirection;
+    }
 
-	@Override
-	public UpdateIDs getID() {
-		return UpdateIDs.LASER_UPDATE;
-	}
+    @Override
+    public UpdateIDs getID() {
+        return UpdateIDs.LASER_UPDATE;
+    }
 
-	@Override
-	public int getRelativeX() {
-		return x;
-	}
+    @Override
+    public int getRelativeX() {
+        return relativePosition.x;
+    }
 
-	@Override
-	public int getRelativeY() {
-		return y;
-	}
+    @Override
+    public int getRelativeY() {
+        return relativePosition.y;
+    }
 
-	public SimpleLaserUpdate(Direction direction, Direction deflectedDirection, int x, int y){
-		this.direction = direction;
-		this.deflectedDirection = deflectedDirection;
-		this.x = x;
-		this.y = y;
-	}
+    /**
+     * Constructs simple {@code LaserUpdate}
+     */
+    public SimpleLaserUpdate(Direction direction, Direction deflectedDirection, Point relativePosition) {
+        this.direction = direction;
+        this.deflectedDirection = deflectedDirection;
+        this.relativePosition = relativePosition.getPosition();
+    }
 }

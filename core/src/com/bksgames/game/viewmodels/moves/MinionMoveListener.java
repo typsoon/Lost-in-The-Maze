@@ -1,6 +1,7 @@
 package com.bksgames.game.viewmodels.moves;
 
-import java.awt.*;
+
+import com.bksgames.game.core.utils.Point;
 
 public interface MinionMoveListener {
     void makeMove(IncompleteMove incompleteMove);

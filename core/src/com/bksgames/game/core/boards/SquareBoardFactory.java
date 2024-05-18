@@ -4,18 +4,24 @@ import com.bksgames.game.core.tiles.Nexus;
 import com.bksgames.game.core.utils.Parameters;
 import com.bksgames.game.core.tiles.Tunnel;
 import com.bksgames.game.core.tiles.Wall;
+import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.globalClasses.enums.PlayerColor;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Factory class for {@code SquareBoard}-s
+ * @author riper
+ */
 public class SquareBoardFactory
 {
-    private static final int baseSize = 7;
-
+    /**
+     * @return simple {@code SquareBoard} for 2 {@code Players}
+     */
     static public SquareBoard CreateSBFor2Players(Parameters parameters)    {
-        SquareBoard board = new SquareBoard(Math.max(parameters.mapSize, 27)); // do przemyslenia
+        SquareBoard board = new SquareBoard(Math.max(parameters.mapSize, 27), parameters.baseSize); // do przemyslenia
+
         board.playerNexuses.put(PlayerColor.RED,new ArrayList<>());
         board.playerNexuses.put(PlayerColor.BLUE,new ArrayList<>());
 
@@ -48,17 +54,17 @@ public class SquareBoardFactory
         }
         //==============================================NEXUS OFFSET
         Point fpNexusOffset = new Point(
-                rng.nextInt(sectionSize-baseSize-1) + (fpNexusSec%3) * sectionSize,
-                rng.nextInt(sectionSize-baseSize-1) + (fpNexusSec/3) * sectionSize
+                rng.nextInt(sectionSize- parameters.baseSize-1) + (fpNexusSec%3) * sectionSize,
+                rng.nextInt(sectionSize-parameters.baseSize-1) + (fpNexusSec/3) * sectionSize
         );
         Point spNexusOffset = new Point(
-                rng.nextInt(sectionSize-baseSize-1) + (spNexusSec%3) * sectionSize,
-                rng.nextInt(sectionSize-baseSize-1) + (spNexusSec/3) * sectionSize
+                rng.nextInt(sectionSize-parameters.baseSize-1) + (spNexusSec%3) * sectionSize,
+                rng.nextInt(sectionSize-parameters.baseSize-1) + (spNexusSec/3) * sectionSize
         );
 
-        for(int x=1;x<=baseSize;x++)
+        for(int x=1;x<=parameters.baseSize;x++)
         {
-            for(int y=1;y<=baseSize;y++)
+            for(int y=1;y<=parameters.baseSize;y++)
             {
                 genGrid[x+fpNexusOffset.x][y+fpNexusOffset.y] = 1;
                 genGrid[x+spNexusOffset.x][y+spNexusOffset.y] = 2;
@@ -69,33 +75,33 @@ public class SquareBoardFactory
         Point fpSplit,spSplit;
         if(fpNexusSec/3 == spNexusSec/3) // w jednym wierszu
         {
-            fpSplit = new Point(fpNexusOffset.x+baseSize+1,fpNexusOffset.y+2+rng.nextInt(baseSize-2));
-            spSplit = new Point(spNexusOffset.x,spNexusOffset.y+2+rng.nextInt(baseSize-2));
+            fpSplit = new Point(fpNexusOffset.x+parameters.baseSize+1,fpNexusOffset.y+2+rng.nextInt(parameters.baseSize-2));
+            spSplit = new Point(spNexusOffset.x,spNexusOffset.y+2+rng.nextInt(parameters.baseSize-2));
         }
         else if(fpNexusSec%3 == spNexusSec%3) // w jednej kolumnie
         {
-            fpSplit = new Point(fpNexusOffset.x+2+rng.nextInt(baseSize-2),fpNexusOffset.y+baseSize+1);
-            spSplit = new Point(spNexusOffset.x+2+rng.nextInt(baseSize-2),spNexusOffset.y);
+            fpSplit = new Point(fpNexusOffset.x+2+rng.nextInt(parameters.baseSize-2),fpNexusOffset.y+parameters.baseSize+1);
+            spSplit = new Point(spNexusOffset.x+2+rng.nextInt(parameters.baseSize-2),spNexusOffset.y);
         }
         else //reszta
         {
             ArrayList<Point> conFP = new ArrayList<>();
             ArrayList<Point> conSP = new ArrayList<>();
-            for(int i=1;i<baseSize-1;i++){
-                conFP.add(new Point(fpNexusOffset.x+1+i,fpNexusOffset.y+baseSize+1));
+            for(int i=1;i<parameters.baseSize-1;i++){
+                conFP.add(new Point(fpNexusOffset.x+1+i,fpNexusOffset.y+parameters.baseSize+1));
                 conSP.add(new Point(spNexusOffset.x+1+i,spNexusOffset.y));
             }
             if(fpNexusSec%3<spNexusSec%3)
             {
-                for(int i=1;i<baseSize-1;i++){
-                    conFP.add(new Point(fpNexusOffset.x+baseSize+1,fpNexusOffset.y+1+i));
+                for(int i=1;i<parameters.baseSize-1;i++){
+                    conFP.add(new Point(fpNexusOffset.x+parameters.baseSize+1,fpNexusOffset.y+1+i));
                     conSP.add(new Point(spNexusOffset.x,spNexusOffset.y+1+i));
                 }
             }
             else{
-                for(int i=1;i<baseSize-1;i++){
+                for(int i=1;i<parameters.baseSize-1;i++){
                     conFP.add(new Point(fpNexusOffset.x,fpNexusOffset.y+1+i));
-                    conSP.add(new Point(spNexusOffset.x+baseSize+1,spNexusOffset.y+1+i));
+                    conSP.add(new Point(spNexusOffset.x+parameters.baseSize+1,spNexusOffset.y+1+i));
                 }
 
             }
@@ -105,13 +111,13 @@ public class SquareBoardFactory
         BoardGenerationUtils.randomPath(fpSplit,spSplit,3,genGrid,board.size,board.size);
         //====================================SECOND & THIRD PATH
         ArrayList<Point> conFP = new ArrayList<>();
-        for(int i=2;i<baseSize;i++)
+        for(int i=2;i<parameters.baseSize;i++)
             conFP.add(new Point(fpNexusOffset.x+i,fpNexusOffset.y));
-        for(int i=2;i<baseSize;i++)
-            conFP.add(new Point(fpNexusOffset.x+baseSize+1,fpNexusOffset.y+i));
-        for(int i=baseSize-1;i>=2;i--)
-            conFP.add(new Point(fpNexusOffset.x+i,fpNexusOffset.y+baseSize+1));
-        for(int i=baseSize-1;i>=2;i--)
+        for(int i=2;i<parameters.baseSize;i++)
+            conFP.add(new Point(fpNexusOffset.x+parameters.baseSize+1,fpNexusOffset.y+i));
+        for(int i=parameters.baseSize-1;i>=2;i--)
+            conFP.add(new Point(fpNexusOffset.x+i,fpNexusOffset.y+parameters.baseSize+1));
+        for(int i=parameters.baseSize-1;i>=2;i--)
             conFP.add(new Point(fpNexusOffset.x,fpNexusOffset.y+i));
         while(genGrid[conFP.get(0).x][conFP.get(0).y]==0)
             conFP.add(conFP.remove(0));
@@ -123,13 +129,13 @@ public class SquareBoardFactory
 
 
         ArrayList<Point> conSP = new ArrayList<>();
-        for(int i=2;i<baseSize;i++)
+        for(int i=2;i<parameters.baseSize;i++)
             conSP.add(new Point(spNexusOffset.x+i,spNexusOffset.y));
-        for(int i=2;i<baseSize;i++)
-            conSP.add(new Point(spNexusOffset.x+baseSize+1,spNexusOffset.y+i));
-        for(int i=baseSize-1;i>=2;i--)
-            conSP.add(new Point(spNexusOffset.x+i,spNexusOffset.y+baseSize+1));
-        for(int i=baseSize-1;i>=2;i--)
+        for(int i=2;i<parameters.baseSize;i++)
+            conSP.add(new Point(spNexusOffset.x+parameters.baseSize+1,spNexusOffset.y+i));
+        for(int i=parameters.baseSize-1;i>=2;i--)
+            conSP.add(new Point(spNexusOffset.x+i,spNexusOffset.y+parameters.baseSize+1));
+        for(int i=parameters.baseSize-1;i>=2;i--)
             conSP.add(new Point(spNexusOffset.x,spNexusOffset.y+i));
         while(genGrid[conSP.get(0).x][conSP.get(0).y]==0)
             conSP.add(conSP.remove(0));
@@ -165,27 +171,35 @@ public class SquareBoardFactory
         }
         Point actFP = new Point(fpNexusOffset.x,fpNexusOffset.y),
                 actSP = new Point(spNexusOffset.x,spNexusOffset.y);
-        for(int x=1;x<=baseSize;x++)
+        for(int x=1;x<=parameters.baseSize;x++)
         {
             actFP.x++;
             actSP.x++;
 
             actFP.y = fpNexusOffset.y;
             actSP.y = spNexusOffset.y;
-            for(int y=1;y<=baseSize;y++)
+            for(int y=1;y<=parameters.baseSize;y++)
             {
 
                 actFP.y++;
                 actSP.y++;
                 if(x==4 && y==4)
                 {
-                    board.grid[actFP.x][actFP.y] = new Nexus(PlayerColor.RED,actFP.x, actFP.y,parameters.nexusHitPoints);
-                    board.playerNexuses.get(PlayerColor.RED).add((Nexus) board.grid[actFP.x][actFP.y]);
-                    board.grid[actSP.x][actSP.y] = new Nexus(PlayerColor.BLUE,actSP.x, actSP.y,parameters.nexusHitPoints);
-                    board.playerNexuses.get(PlayerColor.BLUE).add((Nexus) board.grid[actSP.x][actSP.y]);
+                    if(rng.nextInt(10000)%2==0){
+                        board.grid[actFP.x][actFP.y] = new Nexus(PlayerColor.RED,actFP,parameters.nexusHitPoints);
+                        board.playerNexuses.get(PlayerColor.RED).add((Nexus) board.grid[actFP.x][actFP.y]);
+                        board.grid[actSP.x][actSP.y] = new Nexus(PlayerColor.BLUE,actSP,parameters.nexusHitPoints);
+                        board.playerNexuses.get(PlayerColor.BLUE).add((Nexus) board.grid[actSP.x][actSP.y]);
+                    }else {
+                        board.grid[actFP.x][actFP.y] = new Nexus(PlayerColor.BLUE,actFP,parameters.nexusHitPoints);
+                        board.playerNexuses.get(PlayerColor.BLUE).add((Nexus) board.grid[actFP.x][actFP.y]);
+                        board.grid[actSP.x][actSP.y] = new Nexus(PlayerColor.RED,actSP,parameters.nexusHitPoints);
+                        board.playerNexuses.get(PlayerColor.RED).add((Nexus) board.grid[actSP.x][actSP.y]);
+                    }
+
                     continue;
                 }
-                if(!(x==1 || x==baseSize || y==1 || y==baseSize))
+                if(!(x==1 || x==parameters.baseSize || y==1 || y==parameters.baseSize))
                 {
                     board.grid[actFP.x][actFP.y] = new Tunnel();
                     board.grid[actSP.x][actSP.y] = new Tunnel();

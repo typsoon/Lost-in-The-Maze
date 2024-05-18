@@ -1,5 +1,6 @@
 package com.bksgames.game.services;
 
+import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.globalClasses.Move;
 import com.bksgames.game.globalClasses.enums.PlayerColor;
 import com.bksgames.game.globalClasses.Update;
@@ -26,8 +27,8 @@ public class SimplePlayerService implements PlayerService {
     }
 
     @Override
-    public Collection<Move> getLegalMoves(int x, int y) {
-        return gameService.getLegalMoves(x, y, getPlayerColor());
+    public Collection<Move> getLegalMoves(Point position) {
+        return gameService.getLegalMoves(position, getPlayerColor());
     }
 
     @Override

@@ -1,9 +1,10 @@
 package com.bksgames.game.viewmodels.moves;
 
+import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.globalClasses.Move;
 import com.bksgames.game.services.PlayerService;
 
-import java.awt.*;
+
 
 public class SimpleMinionMoveListener implements MinionMoveListener {
     private final PlayerService playerService;
@@ -15,7 +16,7 @@ public class SimpleMinionMoveListener implements MinionMoveListener {
 
     @Override
     public void makeMove(IncompleteMove incompleteMove) {
-        Move completeMove = new Move(minionLocation.x, minionLocation.y, incompleteMove.type(), incompleteMove.direction());
+        Move completeMove = new Move(new Point(minionLocation.x, minionLocation.y), incompleteMove.type(), incompleteMove.direction());
 
         playerService.sendMove(completeMove);
     }

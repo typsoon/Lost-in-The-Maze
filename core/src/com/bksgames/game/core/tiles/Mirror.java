@@ -4,29 +4,50 @@ import com.bksgames.game.core.utils.Owned;
 import com.bksgames.game.globalClasses.enums.Direction;
 import com.bksgames.game.globalClasses.enums.PlayerColor;
 
+/**
+ * Representing {@code Mirror}
+ *
+ * @author jajko
+ * @author riper
+ */
 public class Mirror implements Owned {
-	private PlayerColor owner;
-	Orientation orientation;
+    /**
+     * {@code Orientation} of {@code Mirror}<br>
+     * {@code SLASH} - {@code /}<br>
+     * {@code BACKSLASH} - {@code \}
+     */
+    public enum Orientation {
+        SLASH(-1), BACKSLASH(+1);
+        private final int x;
 
-	@Override
-	public PlayerColor getOwner() {
-		return owner;
-	}
+        Orientation(int x) {
+            this.x = x;
+        }
+    }
 
-	public enum Orientation {
-		SLASH, BACKSLASH;
-	}
+    private final Orientation orientation;
+    private final PlayerColor owner;
 
-	public Direction deflect(Direction direction){
-		if(orientation==Orientation.SLASH) {
-			return Direction.values()[(direction.ordinal()-1)%4];
-		}
-		else{
-			return Direction.values()[(direction.ordinal()+1)%4];
-		}
-	}
+    /**
+     * @param direction initial {@code Direction} of light
+     * @return {@code Direction} after contact with {@code Mirror}
+     */
+    public Direction deflect(Direction direction) {
+        return Direction.values()[(direction.ordinal() + orientation.x) % 4];
+    }
 
-	public Mirror(Orientation orientation){
-		this.orientation=orientation;
-	}
+    //Owned
+    @Override
+    public PlayerColor getOwner() {
+        return owner;
+    }
+
+    /**
+     * Constructs a {@code Mirror}
+     */
+    public Mirror(Orientation orientation, PlayerColor owner) {
+        this.orientation = orientation;
+        this.owner = owner;
+    }
+
 }

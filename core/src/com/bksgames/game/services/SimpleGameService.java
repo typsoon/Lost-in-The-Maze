@@ -1,12 +1,14 @@
 package com.bksgames.game.services;
 
 import com.bksgames.game.core.main.GameManager;
+import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.globalClasses.Move;
 import com.bksgames.game.core.utils.Parameters;
 import com.bksgames.game.core.main.SimpleGameManager;
 import com.bksgames.game.globalClasses.enums.PlayerColor;
 import com.bksgames.game.globalClasses.Update;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,24 +29,37 @@ public class SimpleGameService implements GameService {
     }
 
     @Override
-    public Collection<Move> getLegalMoves(int x, int y, PlayerColor player) {
-
-        return gameManager.getLegalMoves(x,y,player);
+    public Collection<Move> getLegalMoves(Point position, PlayerColor player) {
+        if(player!=gameManager.getCurrentPlayer()) {
+            return null;
+        }
+        Collection<Move> relativeLegalMoves = new ArrayList<>();
+        for(Move move : gameManager.getLegalMoves(gameManager.getPlayers().get(gameManager.getCurrentPlayer()).getAbsoluteCoordinates(position), player)) {
+            relativeLegalMoves.add(new Move(
+                    gameManager.getPlayers().get(gameManager.getCurrentPlayer()).getRelativeCoordinates(move.position()),
+                    move.type(),move.direction()));
+        }
+        return relativeLegalMoves;
     }
 
     @Override
-    public Boolean move(Move move, PlayerColor player) {
-        return gameManager.makeMove(move);
+    public boolean move(Move move, PlayerColor player) {
+        if(player!=gameManager.getCurrentPlayer()) {
+            return false;
+        }
+        return gameManager.makeMove(new Move(
+                gameManager.getPlayers().get(gameManager.getCurrentPlayer()).getAbsoluteCoordinates(move.position()),
+                move.type(),move.direction()));
     }
 
     @Override
-    public Boolean ForwardUpdate(PlayerColor color, Update update) {
+    public boolean ForwardUpdate(PlayerColor color, Update update) {
         //System.out.println(color + " " + update);
         players.get(color).pushUpdate(update);
         return true;
     }
     @Override
-    public Boolean ForwardUpdates(PlayerColor color, Collection<Update> updates) {
+    public boolean ForwardUpdates(PlayerColor color, Collection<Update> updates) {
        for(Update u : updates) {
            players.get(color).pushUpdate(u);
        }

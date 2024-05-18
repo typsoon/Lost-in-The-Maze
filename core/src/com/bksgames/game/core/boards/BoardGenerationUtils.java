@@ -1,12 +1,17 @@
 package com.bksgames.game.core.boards;
 
-import java.awt.*;
+import com.bksgames.game.core.utils.Point;
+
 import java.util.Queue;
 import java.util.*;
 
+/**
+ * Class with useful functions when generating board
+ * @author riper
+ */
 class BoardGenerationUtils {
     static final private Random rng = new Random();
-    static void randomPath(Point start,Point dest, int c, int[][]grid, int width,int height) {
+    static void randomPath(Point start, Point dest, int c, int[][]grid, int width, int height) {
        int[][]workGrid = new int[width][height];
        for(int y=0;y<height;y++)
        {

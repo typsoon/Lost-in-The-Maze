@@ -1,15 +1,22 @@
 package com.bksgames.game.core.updates;
 
+import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.globalClasses.MinionUpdate;
 import com.bksgames.game.globalClasses.enums.*;
 
+/**
+ * Simple implementation of {@code MinionUpdate}
+ *
+ * @author riper
+ */
 public class SimpleMinionUpdate implements MinionUpdate {
-    Direction direction;
-    Displayable displayable;
-    MinionEvent event;
-    MoveTypes move;
-    int x;
-    int y;
+    private final Direction direction;
+    private final Displayable displayable;
+    private final MinionEvent event;
+    private final MoveTypes move;
+    private final Point relativePosition;
+
+    //MinionUpdate
     @Override
     public Direction getDirection() {
         return direction;
@@ -37,19 +44,22 @@ public class SimpleMinionUpdate implements MinionUpdate {
 
     @Override
     public int getRelativeX() {
-        return x;
+        return relativePosition.x;
     }
 
     @Override
     public int getRelativeY() {
-        return y;
+        return relativePosition.y;
     }
-    public SimpleMinionUpdate(Direction direction, Displayable displayable, MinionEvent event, MoveTypes move, int x, int y){
+
+    /**
+     * Constructs simple {@code MinionUpdate}
+     */
+    public SimpleMinionUpdate(Direction direction, Displayable displayable, MinionEvent event, MoveTypes move, Point relativePosition) {
         this.direction = direction;
         this.displayable = displayable;
         this.event = event;
         this.move = move;
-        this.x = x;
-        this.y = y;
+        this.relativePosition = relativePosition.getPosition();
     }
 }
