@@ -6,11 +6,9 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.bksgames.game.globalClasses.Move;
-import com.bksgames.game.viewmodels.moves.IncompleteMove;
 import com.bksgames.game.viewmodels.moves.MinionMoveListener;
 import com.bksgames.game.views.gameScreen.actionButtons.ActionButtonFactory;
 
