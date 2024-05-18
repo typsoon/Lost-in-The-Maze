@@ -20,11 +20,7 @@ public class SimpleViewModel implements PlayerViewModel{
 
         for (int i = 0; i < minionPositions.size() ; i++) {
             if (minionPositions.get(i) != null && minionPositions.get(i).equals(start)) {
-//                Point newPoint = new Point(start.x, start.y);
-//
-//                Direction.getNext(newPoint, direction);
                 minionPositions.set(i,direction.getNext(minionPositions.get(i)));
-//                Direction.getNext(minionPositions.get(i), direction);
             }
         }
     }
@@ -32,6 +28,20 @@ public class SimpleViewModel implements PlayerViewModel{
     @Override
     public List<Point> getMinionsPositions() {
         return minionPositions;
+    }
+
+    @Override
+    public Point getMinionPos(int id) {
+        if (id < 0 || id >= minionPositions.size()) {
+            return null;
+        }
+
+        return minionPositions.get(id);
+    }
+
+    @Override
+    public boolean hasPlayableMinion(Point position) {
+        return minionPositions.contains(position);
     }
 
     public SimpleViewModel(TiledMapTileLayer minionLayer) {

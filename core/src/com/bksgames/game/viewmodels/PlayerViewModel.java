@@ -13,6 +13,10 @@ public interface PlayerViewModel {
 //    int getMinX();
 //    int getMinY();
 
-    public void minionMoved(Point start, Direction direction);
-    public List<Point> getMinionsPositions();
+    void minionMoved(Point start, Direction direction);
+    List<Point> getMinionsPositions();
+
+    Point getMinionPos(int id);
+
+    boolean hasPlayableMinion(Point position);
 }

@@ -53,13 +53,13 @@ public class ArrowGetter extends ActionButtonGetter {
         }
 
         switch (move.direction()){
-            case LEFT -> button.addListener(getKeyDownListener(Keys.LEFT, move));
-            case RIGHT -> button.addListener(getKeyDownListener(Keys.RIGHT, move));
-            case UP -> button.addListener(getKeyDownListener(Keys.UP, move));
-            case DOWN -> button.addListener(getKeyDownListener(Keys.DOWN, move));
+            case LEFT -> button.addCaptureListener(getKeyDownListener(Keys.LEFT, move));
+            case RIGHT -> button.addCaptureListener(getKeyDownListener(Keys.RIGHT, move));
+            case UP -> button.addCaptureListener(getKeyDownListener(Keys.UP, move));
+            case DOWN -> button.addCaptureListener(getKeyDownListener(Keys.DOWN, move));
         }
 
-        button.addListener(new ClickListener() {
+        button.addCaptureListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 moveListener.makeMove(new IncompleteMove(MoveTypes.MOVE, move.direction()));

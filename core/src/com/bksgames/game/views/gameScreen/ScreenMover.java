@@ -7,6 +7,7 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.bksgames.game.viewmodels.PlayerViewModel;
 
 public class ScreenMover extends InputAdapter {
     private final OrthographicCamera gameCamera;
@@ -16,7 +17,16 @@ public class ScreenMover extends InputAdapter {
     private int lastMouseX, lastMouseY;
     private boolean isDragging;
 
-    ScreenMover(OrthographicCamera gameCamera) { this.gameCamera = gameCamera;}
+    private boolean controlPressed;
+    private boolean zoomInPressed;
+    private boolean zoomOutPressed;
+
+    PlayerViewModel playerViewModel;
+
+    ScreenMover(OrthographicCamera gameCamera, PlayerViewModel playerViewModel) {
+        this.gameCamera = gameCamera;
+        this.playerViewModel = playerViewModel;
+    }
 
     @Override
     public boolean scrolled(float amountX, float amountY) {
@@ -74,6 +84,18 @@ public class ScreenMover extends InputAdapter {
                 downPressed = true;
                 return true;
         }
+
+        if (keycode == Input.Keys.CONTROL_LEFT) {
+            controlPressed = true;
+        }
+        if (controlPressed) {
+            if (keycode == Input.Keys.MINUS) {
+                zoomOutPressed = true;
+            } else if (keycode == Input.Keys.EQUALS || keycode == Input.Keys.PLUS) {
+                zoomInPressed = true;
+            }
+        }
+
         return false; // Indicate that the input event was handled
     }
 
@@ -93,6 +115,16 @@ public class ScreenMover extends InputAdapter {
                 downPressed = false;
                 break;
         }
+
+        if (keycode == Input.Keys.CONTROL_LEFT) {
+            controlPressed = false;
+        }
+        if (keycode == Input.Keys.MINUS) {
+            zoomOutPressed = false;
+        } else if (keycode == Input.Keys.EQUALS || keycode == Input.Keys.PLUS) {
+            zoomInPressed = false;
+        }
+
         return true; // Indicate that the input event was handled
     }
 
@@ -111,6 +143,15 @@ public class ScreenMover extends InputAdapter {
         }
         if (downPressed) {
             velocityY -= cameraSpeed * delta;
+        }
+
+        if (controlPressed) {
+            if (zoomOutPressed) {
+                gameCamera.zoom += 0.02f; // Adjust zoom speed as necessary
+            }
+            if (zoomInPressed) {
+                gameCamera.zoom -= 0.02f; // Adjust zoom speed as necessary
+            }
         }
 
         // Apply velocity to the camera's position

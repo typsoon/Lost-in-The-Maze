@@ -8,6 +8,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.bksgames.game.LostInTheMaze;
 import com.bksgames.game.services.PlayerService;
 import com.bksgames.game.viewmodels.PlayerViewModel;
@@ -37,7 +38,6 @@ public class GameScreen implements Screen {
     private final ScreenMover screenMover;
     private MinionClickReceiver minionClickReceiver;
 
-
     private final MinionMoveListener minionMoveListener;
     private LegalMoves legalMoves;
 
@@ -58,7 +58,7 @@ public class GameScreen implements Screen {
 
         playerViewModel = new SimpleViewModel((TiledMapTileLayer) map.getLayers().get("minions"));
 
-        screenMover = new ScreenMover(gameCamera);
+        screenMover = new ScreenMover(gameCamera, playerViewModel);
 
         minionMoveListener = new SimpleMinionMoveListener(playerService);
     }
@@ -73,14 +73,15 @@ public class GameScreen implements Screen {
 
         legalMoves = new LegalMoves(minionMoveListener, actionButtonsAtlas, gameCamera);
 
-        TiledMapTileLayer minions = (TiledMapTileLayer) map.getLayers().get("minions");
-        minionClickReceiver = new MinionClickReceiver(playerService, minions, gameCamera, legalMoves, playerViewModel);
+        minionClickReceiver = new MinionClickReceiver(playerService, gameCamera, legalMoves, playerViewModel);
 
 //        inputMultiplexer = new InputMultiplexer(screenMover, minionClickReceiver);
         inputMultiplexer = new InputMultiplexer(legalMoves, screenMover, minionClickReceiver);
 
         gameCamera.position.set( MazeMapFactory.tilePixelSize* MazeMapFactory.maxBoardHeight, MazeMapFactory.tilePixelSize* MazeMapFactory.maxBoardWidth, 0);
         gameCamera.update();
+
+//        legalMoves.setViewport(new ScreenViewport(gameCamera));
 
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
@@ -95,7 +96,7 @@ public class GameScreen implements Screen {
 
         ScreenUtils.clear(0,0 , 0, 0);
 
-        legalMoves.act(delta);
+        legalMoves.act(delta);//, gameCamera);
         legalMoves.draw();
 
 //        legalMoves.getViewport().update((int) gameCamera.position.x, (int) gameCamera.position.y, true);
@@ -106,10 +107,11 @@ public class GameScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-//        gameCamera.viewportWidth = width;
-//        gameCamera.viewportHeight = height;
+        gameCamera.viewportWidth = width;
+        gameCamera.viewportHeight = height;
 
         legalMoves.getViewport().update(width, height, false);
+
     }
 
     @Override
