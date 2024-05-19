@@ -1,4 +1,4 @@
-package com.bksgames.game.views.gameScreen;
+package com.bksgames.game.views.gameScreen.legalMovesHandling;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
@@ -10,8 +10,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.globalClasses.Move;
+import com.bksgames.game.services.PlayerService;
+import com.bksgames.game.viewmodels.PlayerViewModel;
 import com.bksgames.game.viewmodels.moves.MinionMoveListener;
-import com.bksgames.game.views.gameScreen.actionButtons.ActionButtonFactory;
+import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.ActionButtonFactory;
 
 import java.util.*;
 
@@ -20,16 +22,21 @@ public class LegalMoves extends Stage {
     //    private TextureAtlas atlas;
 //    Map<IncompleteMove, Actor> mapping;
     private final MinionMoveListener minionMoveListener;
+    private final PlayerService playerService;
+    private final PlayerViewModel playerViewModel;
+    int activeMinionId = -1;
 
     private final Table arrowTable;
     private final Table actionsTable;
 
-    public void displayLegalMoves(Collection<Move> legalMoves, Point minionLocation) {
+    public void displayLegalMoves(int minionId) {
 
 //        TODO: remove code coupling
+        Point minionLocation = playerViewModel.getMinionPos(minionId);
+        setLegalMoves(playerService.getLegalMoves(minionLocation));
+
         minionMoveListener.setLocation(minionLocation);
-        setLegalMoves(legalMoves);
-        mainTable.setVisible(true);
+        activateLegalMoves(minionId);
     }
 
     private void setLegalMoves(Collection<Move> legalMoves) {
@@ -94,14 +101,22 @@ public class LegalMoves extends Stage {
 
     public void deactivateLegalMoves() {
         mainTable.setVisible(false);
+        activeMinionId = -1;
     }
 
-    LegalMoves(MinionMoveListener minionMoveListener, TextureAtlas atlas, Camera gameCamera) {
+    public void activateLegalMoves(int minionId) {
+        mainTable.setVisible(true);
+        activeMinionId = minionId;
+    }
+
+    public LegalMoves(MinionMoveListener minionMoveListener, TextureAtlas atlas, Camera gameCamera, PlayerViewModel playerViewModel, PlayerService playerService) {
 //        Stage
         super(new ScreenViewport(gameCamera));
         super.getViewport().setCamera(gameCamera);
 
+        this.playerService = playerService;
         this.minionMoveListener = minionMoveListener;
+        this.playerViewModel = playerViewModel;
 
         super.getRoot().setColor(0,0,0,1);
 //        super.setViewport(new ScreenViewport(gameCamera));

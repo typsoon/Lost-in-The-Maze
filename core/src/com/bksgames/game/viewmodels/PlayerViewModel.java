@@ -17,6 +17,7 @@ public interface PlayerViewModel {
     List<Point> getMinionsPositions();
 
     Point getMinionPos(int id);
+    int getMinionId(Point position);
 
     boolean hasPlayableMinion(Point position);
 }

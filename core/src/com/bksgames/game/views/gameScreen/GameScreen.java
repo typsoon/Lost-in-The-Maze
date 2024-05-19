@@ -8,7 +8,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.bksgames.game.LostInTheMaze;
 import com.bksgames.game.services.PlayerService;
 import com.bksgames.game.viewmodels.PlayerViewModel;
@@ -16,6 +15,7 @@ import com.bksgames.game.viewmodels.SimpleViewModel;
 import com.bksgames.game.viewmodels.moves.MinionMoveListener;
 import com.bksgames.game.viewmodels.moves.SimpleMinionMoveListener;
 import com.bksgames.game.viewmodels.updates.UpdateProcessor;
+import com.bksgames.game.views.gameScreen.legalMovesHandling.LegalMoves;
 
 public class GameScreen implements Screen {
 
@@ -71,9 +71,9 @@ public class GameScreen implements Screen {
 
         updateProcessor = new UpdateProcessor(map, boardAtlas, playerViewModel);
 
-        legalMoves = new LegalMoves(minionMoveListener, actionButtonsAtlas, gameCamera);
+        legalMoves = new LegalMoves(minionMoveListener, actionButtonsAtlas, gameCamera, playerViewModel, playerService);
 
-        minionClickReceiver = new MinionClickReceiver(playerService, gameCamera, legalMoves, playerViewModel);
+        minionClickReceiver = new MinionClickReceiver(gameCamera, legalMoves, playerViewModel);
 
 //        inputMultiplexer = new InputMultiplexer(screenMover, minionClickReceiver);
         inputMultiplexer = new InputMultiplexer(legalMoves, screenMover, minionClickReceiver);

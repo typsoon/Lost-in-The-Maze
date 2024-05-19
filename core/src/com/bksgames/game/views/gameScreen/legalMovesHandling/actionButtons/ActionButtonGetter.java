@@ -1,4 +1,4 @@
-package com.bksgames.game.views.gameScreen.actionButtons;
+package com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;

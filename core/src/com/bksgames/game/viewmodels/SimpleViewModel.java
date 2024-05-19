@@ -40,6 +40,11 @@ public class SimpleViewModel implements PlayerViewModel{
     }
 
     @Override
+    public int getMinionId(Point position) {
+        return minionPositions.indexOf(position);
+    }
+
+    @Override
     public boolean hasPlayableMinion(Point position) {
         return minionPositions.contains(position);
     }
