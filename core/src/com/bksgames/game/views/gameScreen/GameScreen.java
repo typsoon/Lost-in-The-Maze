@@ -56,7 +56,8 @@ public class GameScreen implements Screen {
 
         mapRenderer = new OrthogonalTiledMapRenderer(map);
 
-        playerViewModel = new SimpleViewModel((TiledMapTileLayer) map.getLayers().get("minions"));
+//        playerViewModel = new SimpleViewModel((TiledMapTileLayer) map.getLayers().get("minions"));
+        playerViewModel = new SimpleViewModel();
 
         screenMover = new ScreenMover(gameCamera, playerViewModel);
 

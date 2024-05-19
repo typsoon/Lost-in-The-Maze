@@ -8,7 +8,7 @@ import java.util.*;
 import java.util.List;
 
 public class SimpleViewModel implements PlayerViewModel{
-    List<Point> minionPositions = new ArrayList<>();
+    final List<Point> minionPositions;
 //    private final TiledMapTileLayer minionLayer;
 
     @Override
@@ -49,7 +49,7 @@ public class SimpleViewModel implements PlayerViewModel{
         return minionPositions.contains(position);
     }
 
-    public SimpleViewModel(TiledMapTileLayer minionLayer) {
+    public SimpleViewModel() {
 //        this.minionLayer = minionLayer;
 
         minionPositions = new ArrayList<>(List.of(new Point[]{
