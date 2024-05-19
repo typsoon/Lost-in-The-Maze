@@ -3,8 +3,6 @@ package com.bksgames.game.views.gameScreen.legalMovesHandling;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
-import com.bksgames.game.core.utils.Point;
-import com.bksgames.game.globalClasses.Move;
 import com.bksgames.game.globalClasses.enums.Direction;
 import com.bksgames.game.globalClasses.enums.MoveTypes;
 import com.bksgames.game.viewmodels.moves.IncompleteMove;

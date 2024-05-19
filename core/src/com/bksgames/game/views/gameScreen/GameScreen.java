@@ -33,9 +33,7 @@ public class GameScreen implements Screen {
 
     private UpdateProcessor updateProcessor;
 
-    private  InputMultiplexer inputMultiplexer;
     private final ScreenMover screenMover;
-    private MinionClickReceiver minionClickReceiver;
 
     private final MinionMoveListener minionMoveListener;
     private LegalMoves legalMoves;
@@ -73,10 +71,10 @@ public class GameScreen implements Screen {
 
         legalMoves = new LegalMoves(minionMoveListener, actionButtonsAtlas, gameCamera, playerViewModel, playerService);
 
-        minionClickReceiver = new MinionClickReceiver(gameCamera, legalMoves, playerViewModel);
+        MinionClickReceiver minionClickReceiver = new MinionClickReceiver(gameCamera, legalMoves, playerViewModel);
 
 //        inputMultiplexer = new InputMultiplexer(screenMover, minionClickReceiver);
-        inputMultiplexer = new InputMultiplexer(legalMoves, screenMover, minionClickReceiver);
+        InputMultiplexer inputMultiplexer = new InputMultiplexer(legalMoves, screenMover, minionClickReceiver);
 
         gameCamera.position.set( MazeMapFactory.tilePixelSize* MazeMapFactory.maxBoardHeight, MazeMapFactory.tilePixelSize* MazeMapFactory.maxBoardWidth, 0);
         gameCamera.update();

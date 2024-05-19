@@ -2,7 +2,6 @@ package com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.bksgames.game.globalClasses.Move;
 import com.bksgames.game.globalClasses.enums.MoveTypes;
 import com.bksgames.game.viewmodels.moves.IncompleteMove;
 import com.bksgames.game.viewmodels.moves.MinionMoveListener;
