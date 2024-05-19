@@ -20,10 +20,10 @@ public class SimpleGameService implements GameService {
     Parameters parameters;
     @Override
     public PlayerService connect(PlayerColor player) {
-        PlayerService service = new SimplePlayerService(player,this);
         if(players.containsKey(player)) {
             throw new IllegalArgumentException("Player already connected");
         }
+        PlayerService service = new SimplePlayerService(player,this);
         players.put(player, service);
         return service;
     }
@@ -53,13 +53,13 @@ public class SimpleGameService implements GameService {
     }
 
     @Override
-    public boolean ForwardUpdate(PlayerColor color, Update update) {
+    public boolean forwardUpdate(PlayerColor color, Update update) {
         //System.out.println(color + " " + update);
         players.get(color).pushUpdate(update);
         return true;
     }
     @Override
-    public boolean ForwardUpdates(PlayerColor color, Collection<Update> updates) {
+    public boolean forwardUpdates(PlayerColor color, Collection<Update> updates) {
        for(Update u : updates) {
            players.get(color).pushUpdate(u);
        }
@@ -67,8 +67,19 @@ public class SimpleGameService implements GameService {
     }
 
     @Override
-    public void StartGame() {
+    public void startGame() {
+        if(gameManager!=null) {
+            throw new IllegalStateException("Game already started");
+        }
         gameManager = new SimpleGameManager(this,parameters);
+    }
+
+    @Override
+    public void endTurn(PlayerColor player) {
+        if(gameManager.getCurrentPlayer()!=player) {
+            throw new IllegalStateException("Not in a turn");
+        }
+        gameManager.endTurn();
     }
 
     public SimpleGameService(Parameters parameters) {

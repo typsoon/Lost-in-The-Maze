@@ -14,15 +14,18 @@ import com.bksgames.game.globalClasses.enums.PlayerColor;
  * @author riper
  * @author jajko
  */
-public class Minion implements Entity, Owned {
+public class Minion implements Entity, Owned{
     private Point position;
     private int hitPoints;
-    private int cooldown;
-    private final PlayerColor owner;
+    private int actionPoints;
 
-    //TODO
-    public boolean onCooldown(){return cooldown > 0;}
-    public void nextTurn(){cooldown--;}
+    private final PlayerColor owner;
+    private final int startingAP;
+
+    public void nextTurn(){
+        actionPoints = startingAP;
+    }
+
 
     /**
      * Move {@code Minion} to adjacent field
@@ -42,7 +45,6 @@ public class Minion implements Entity, Owned {
     public int getHitPoints() { return hitPoints;}
     @Override
     public boolean damage(SourceOfDamage sourceOfDamage) {
-        //TODO implement
         hitPoints-= sourceOfDamage.getDamageValue();
         return hitPoints <= 0;
     }
@@ -67,8 +69,9 @@ public class Minion implements Entity, Owned {
      * @param hitPoints initial HP
      * @param player owner
      */
-    public Minion(Point position, int hitPoints, PlayerColor player) {
+    public Minion(Point position, int hitPoints, int startingAP, PlayerColor player) {
         spawn(position, hitPoints);
         this.owner = player;
+        this.startingAP = startingAP;
     }
 }

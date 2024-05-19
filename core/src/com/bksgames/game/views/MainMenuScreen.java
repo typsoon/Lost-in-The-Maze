@@ -161,7 +161,7 @@ public class MainMenuScreen implements Screen {
     private void displayGameScreen(GameService gameService) {
         GameScreen bluePlayerScreen = new GameScreen(game,gameService.connect(PlayerColor.BLUE));
         GameScreen redPlayerScreen = new GameScreen(game, gameService.connect(PlayerColor.RED));
-        gameService.StartGame();
+        gameService.startGame();
         game.setScreen(bluePlayerScreen);
     }
 }
