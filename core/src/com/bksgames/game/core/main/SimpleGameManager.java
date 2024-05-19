@@ -20,6 +20,11 @@ import com.bksgames.game.services.GameService;
 
 import java.util.*;
 
+/**
+ * Class managing game
+ * @author riper
+ * @author jajko
+ */
 
 public class SimpleGameManager implements GameManager {
     private final Board board;
@@ -27,8 +32,8 @@ public class SimpleGameManager implements GameManager {
     private final EnumMap<MoveTypes, ActionHandler> moveHandlers;
     private final GameService gameService;
     private final Parameters parameters;
-    PlayerColor activePlayer;
-
+    private PlayerColor activePlayer;
+    private Iterator<PlayerColor> nextPlayer;
     @Override
     public boolean makeMove(Move move) {
         Player actPlayer = players.get(activePlayer);
@@ -42,10 +47,10 @@ public class SimpleGameManager implements GameManager {
     @Override
     public Collection<Move> getLegalMoves(Point position, PlayerColor color) {
         Minion minion = players.get(color).getMinion(position);
-        if (minion == null) {
-            return null;
-        }
         Collection<Move> legalMoves = new ArrayList<>();
+        if (minion == null) {
+            return legalMoves;
+        }
         for(Direction direction : Direction.values()) {
             if(board.getTile(direction.getNext(position)).getTunnel()!=null
                     && board.getTile(direction.getNext(position)).getTunnel().getEntities().isEmpty() ) {
@@ -66,14 +71,6 @@ public class SimpleGameManager implements GameManager {
         return players;
     }
 
-    public boolean sendUpdate(PlayerColor color, Update update) {
-        return gameService.ForwardUpdate(color, update);
-    }
-
-    public boolean sendUpdates(PlayerColor color, Collection<Update> updates) {
-        return gameService.ForwardUpdates(color, updates);
-    }
-
     @Override
     public Parameters getParameters() {
         return parameters;
@@ -87,18 +84,6 @@ public class SimpleGameManager implements GameManager {
     @Override
     public void setCurrentPlayer(PlayerColor player) {
         activePlayer = player;
-    }
-
-    private void playerSetup(PlayerColor color) {
-        Player player = players.get(color);
-        int i=0;
-        for(Direction direction : Direction.values()) {
-            if(i>=parameters.minionCount){break;}
-            Minion minion = new Minion(direction.getNext(player.getMainNexus()), parameters.minionHitPoints, color);
-            player.addMinion(minion);
-            board.getTile(direction.getNext(player.getMainNexus())).getTunnel().addEntity(minion);
-            i++;
-        }
     }
 
     @Override
@@ -145,6 +130,14 @@ public class SimpleGameManager implements GameManager {
         }
     }
 
+    @Override
+    public void endTurn() {
+        if(!nextPlayer.hasNext())
+            nextPlayer = players.keySet().iterator();
+        activePlayer = nextPlayer.next();
+        players.get(activePlayer).nextTurn();
+    }
+
     public SimpleGameManager(GameService gameService, Parameters parameters) {
         this.parameters = parameters;
         this.gameService = gameService;
@@ -168,7 +161,17 @@ public class SimpleGameManager implements GameManager {
         }
        // mapTesting();
     }
-
+    private void playerSetup(PlayerColor color) {
+        Player player = players.get(color);
+        int i=0;
+        for(Direction direction : Direction.values()) {
+            if(i>=parameters.minionCount){break;}
+            Minion minion = new Minion(direction.getNext(player.getMainNexus()), parameters.minionHitPoints, parameters.actionsNumber, color);
+            player.addMinion(minion);
+            board.getTile(direction.getNext(player.getMainNexus())).getTunnel().addEntity(minion);
+            i++;
+        }
+    }
     private void mapTesting() {
         for (PlayerColor playerColor : players.keySet()) {
             for (int y = 0; y <= parameters.mapSize; y++) {
@@ -179,5 +182,12 @@ public class SimpleGameManager implements GameManager {
                 }
             }
         }
+    }
+    private boolean sendUpdate(PlayerColor color, Update update) {
+        return gameService.forwardUpdate(color, update);
+    }
+
+    private boolean sendUpdates(PlayerColor color, Collection<Update> updates) {
+        return gameService.forwardUpdates(color, updates);
     }
 }
