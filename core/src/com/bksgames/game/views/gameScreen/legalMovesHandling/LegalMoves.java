@@ -1,6 +1,7 @@
 package com.bksgames.game.views.gameScreen.legalMovesHandling;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector3;
@@ -12,6 +13,7 @@ import com.bksgames.game.globalClasses.Move;
 import com.bksgames.game.services.PlayerService;
 import com.bksgames.game.viewmodels.PlayerViewModel;
 import com.bksgames.game.viewmodels.moves.IncompleteMove;
+import com.bksgames.game.views.gameScreen.MazeMapFactory;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.ActionButtonFactory;
 
 import java.util.*;
@@ -21,13 +23,15 @@ public class LegalMoves extends Stage {
     //    private TextureAtlas atlas;
     Map<IncompleteMove, Actor> moveToButtonMapping = new HashMap<>();
 
-//    TODO: remove minionMoveListener class
+    //    TODO: remove minionMoveListener class
     private final PlayerService playerService;
     private final PlayerViewModel playerViewModel;
-    int activeMinionId = -1;
 
     private final Table arrowTable;
     private final Table actionsTable;
+
+    int activeMinionId = -1;
+    Collection<IncompleteMove> currentLegalMoves = new ArrayList<>();
 
     public void displayLegalMoves(int minionId) {
         activeMinionId = minionId;
@@ -37,9 +41,9 @@ public class LegalMoves extends Stage {
 
         Camera camera = getCamera();
 
-//        camera.position.x = (minionLocation.x + MazeMapFactory.maxBoardWidth) * MazeMapFactory.tilePixelSize;
-//        camera.position.y = (minionLocation.y + MazeMapFactory.maxBoardHeight) * MazeMapFactory.tilePixelSize;
-//        camera.update();
+        camera.position.x = (minionLocation.x + MazeMapFactory.maxBoardWidth) * MazeMapFactory.tilePixelSize;
+        camera.position.y = (minionLocation.y + MazeMapFactory.maxBoardHeight) * MazeMapFactory.tilePixelSize;
+        camera.update();
 
         activateLegalMoves();
     }
@@ -55,37 +59,24 @@ public class LegalMoves extends Stage {
         if (moves == null)
             throw new IllegalStateException("legal moves are null");
 
-        Collection<IncompleteMove> incompleteMoves = new ArrayList<>();
-        moves.forEach(move -> incompleteMoves.add(new IncompleteMove(move.type(), move.direction())));
+        currentLegalMoves = new ArrayList<>();
+        moves.forEach(move -> currentLegalMoves.add(new IncompleteMove(move.type(), move.direction())));
 
         for (Actor actor : moveToButtonMapping.values()) {
             actor.setVisible(false);
         }
 
-        for (IncompleteMove incompleteMove : incompleteMoves) {
+        for (IncompleteMove incompleteMove : currentLegalMoves) {
             moveToButtonMapping.get(incompleteMove).setVisible(true);
         }
-    }
-
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        if (!isActive()) {
-            return false;
-        }
-
-        boolean result = super.touchDown(screenX, screenY, pointer, button);
-//
-        if (result)
-            updateLegalMoves();
-        else deactivateLegalMoves();
-
-        return false;
-//        return false;
     }
 
 
     @Override
     public void act(float deltaTime) {
+
+        if (!isActive())
+            return;
 
         Camera gameCamera = getCamera();
 //        Vector3 screenCoordinates = new Vector3(Gdx.graphics.getWidth() , Gdx.graphics.getHeight(), 0);
@@ -94,6 +85,11 @@ public class LegalMoves extends Stage {
 
 //        TODO: change this to render correctly
         mainTable.setPosition(worldCoordinates.x - gameCamera.viewportWidth, worldCoordinates.y);
+
+//        TODO: BIG BIG BIG BIG TODO - this sends a lot of obsolete queries to gameManager
+        if (currentLegalMoves == null || currentLegalMoves.isEmpty()) {
+            updateLegalMoves();
+        }
 
         super.act(deltaTime);
     }
@@ -119,6 +115,8 @@ public class LegalMoves extends Stage {
         }
 
         Point minionPosition = playerViewModel.getMinionPos(activeMinionId);
+
+        currentLegalMoves = null;
 
         return playerService.sendMove(new Move(minionPosition, incompleteMove.type(), incompleteMove.direction()));
     }
@@ -149,33 +147,30 @@ public class LegalMoves extends Stage {
         this.addCaptureListener(new InputListener() {
             @Override
             public boolean keyDown(InputEvent event, int keycode) {
+//                Consume all arrow moves when the stage is Active
                 if (!isActive()) {
                     return false;
                 }
 
-                return false;
-            }
+                if (keycode == Input.Keys.ESCAPE) {
+                    deactivateLegalMoves();
+                    return true;
+                }
 
-//            @Override
-//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-//                if (!isActive()) {
-//                    return false;
-//                }
-//
-//                boolean result = arrowTable.notify(event, true);
-//
-//                if (result)
-//                    updateLegalMoves();
-//                else deactivateLegalMoves();
-//
-//                return result;
-//            }
+                arrowTable.notify(event, true);
+
+                return List.of(Input.Keys.LEFT, Input.Keys.RIGHT, Input.Keys.DOWN, Input.Keys.UP).contains(keycode);
+
+//                consume all events that come in when the stage is Active
+            }
         });
 
         this.addListener(event -> {
             if (event instanceof ChosenMove chosenMove) {
                 sendMove(chosenMove.getIncompleteMove());
-                return true;
+
+                updateLegalMoves();
+                updateLegalMoves();return true;
             }
 
             return false;

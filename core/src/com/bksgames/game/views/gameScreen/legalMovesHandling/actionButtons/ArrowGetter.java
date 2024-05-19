@@ -3,10 +3,8 @@ package com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
@@ -20,15 +18,13 @@ public class ArrowGetter extends ActionButtonGetter {
 
     @Override
     public ImageButton get(IncompleteMove incompleteMove) {
-        TextureRegion region = new TextureRegion();
-
         String textureName = switch (incompleteMove.direction()) {
             case LEFT -> "LeftArrow";
             case RIGHT -> "RightArrow";
             case UP -> "UpArrow";
             case DOWN -> "DownArrow";
         };
-        region = atlas.findRegion(textureName);
+        TextureRegion region = atlas.findRegion(textureName);
 //        switch (incompleteMove.direction()) {
 //            case LEFT -> region = atlas.findRegion("LeftArrow");
 //            case RIGHT -> region = atlas.findRegion("RightArrow");
@@ -60,6 +56,7 @@ public class ArrowGetter extends ActionButtonGetter {
                 if (!button.isVisible())
                     return false;
 
+//                This is also due to LibGdx seeing Image as an actor
                 if (event.getTarget() == button.getImage()) {
                     button.fire(new ChosenMove(incompleteMove));
                     return true;
