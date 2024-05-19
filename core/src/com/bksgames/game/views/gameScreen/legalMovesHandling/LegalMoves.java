@@ -12,7 +12,6 @@ import com.bksgames.game.globalClasses.Move;
 import com.bksgames.game.services.PlayerService;
 import com.bksgames.game.viewmodels.PlayerViewModel;
 import com.bksgames.game.viewmodels.moves.IncompleteMove;
-import com.bksgames.game.viewmodels.moves.MinionMoveListener;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.ActionButtonFactory;
 
 import java.util.*;
@@ -23,7 +22,6 @@ public class LegalMoves extends Stage {
     Map<IncompleteMove, Actor> moveToButtonMapping = new HashMap<>();
 
 //    TODO: remove minionMoveListener class
-    private final MinionMoveListener minionMoveListener;
     private final PlayerService playerService;
     private final PlayerViewModel playerViewModel;
     int activeMinionId = -1;
@@ -43,7 +41,6 @@ public class LegalMoves extends Stage {
 //        camera.position.y = (minionLocation.y + MazeMapFactory.maxBoardHeight) * MazeMapFactory.tilePixelSize;
 //        camera.update();
 
-        minionMoveListener.setLocation(minionLocation);
         activateLegalMoves();
     }
 
@@ -77,12 +74,13 @@ public class LegalMoves extends Stage {
         }
 
         boolean result = super.touchDown(screenX, screenY, pointer, button);
-
+//
         if (result)
             updateLegalMoves();
         else deactivateLegalMoves();
 
-        return result;
+        return false;
+//        return false;
     }
 
 
@@ -115,13 +113,22 @@ public class LegalMoves extends Stage {
 
     public boolean isActive() {return mainTable.isVisible();}
 
-    public LegalMoves(MinionMoveListener minionMoveListener, TextureAtlas atlas, Camera gameCamera, PlayerViewModel playerViewModel, PlayerService playerService) {
+    public boolean sendMove(IncompleteMove incompleteMove) {
+        if (activeMinionId == -1) {
+            throw new IllegalStateException("No active minion");
+        }
+
+        Point minionPosition = playerViewModel.getMinionPos(activeMinionId);
+
+        return playerService.sendMove(new Move(minionPosition, incompleteMove.type(), incompleteMove.direction()));
+    }
+
+    public LegalMoves(TextureAtlas atlas, Camera gameCamera, PlayerViewModel playerViewModel, PlayerService playerService) {
 //        Stage
         super(new ScreenViewport(gameCamera));
         super.getViewport().setCamera(gameCamera);
 
         this.playerService = playerService;
-        this.minionMoveListener = minionMoveListener;
         this.playerViewModel = playerViewModel;
 
         super.getRoot().setColor(0,0,0,1);
@@ -130,7 +137,7 @@ public class LegalMoves extends Stage {
 
 //        super.setDebugAll(true);
 
-        ActionButtonFactory factory = new ActionButtonFactory(minionMoveListener, atlas, moveToButtonMapping);
+        ActionButtonFactory factory = new ActionButtonFactory(atlas, moveToButtonMapping);
         arrowTable = new Table();
         actionsTable = new Table();
         mainTable = MainTableFactory.produce(arrowTable, actionsTable, factory);
@@ -146,14 +153,32 @@ public class LegalMoves extends Stage {
                     return false;
                 }
 
-                boolean result = arrowTable.notify(event, true);
-
-                if (result)
-                    updateLegalMoves();
-                else deactivateLegalMoves();
-
-                return result;
+                return false;
             }
+
+//            @Override
+//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+//                if (!isActive()) {
+//                    return false;
+//                }
+//
+//                boolean result = arrowTable.notify(event, true);
+//
+//                if (result)
+//                    updateLegalMoves();
+//                else deactivateLegalMoves();
+//
+//                return result;
+//            }
+        });
+
+        this.addListener(event -> {
+            if (event instanceof ChosenMove chosenMove) {
+                sendMove(chosenMove.getIncompleteMove());
+                return true;
+            }
+
+            return false;
         });
     }
 }

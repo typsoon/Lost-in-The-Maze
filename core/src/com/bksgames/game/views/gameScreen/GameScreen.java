@@ -11,8 +11,6 @@ import com.bksgames.game.LostInTheMaze;
 import com.bksgames.game.services.PlayerService;
 import com.bksgames.game.viewmodels.PlayerViewModel;
 import com.bksgames.game.viewmodels.SimpleViewModel;
-import com.bksgames.game.viewmodels.moves.MinionMoveListener;
-import com.bksgames.game.viewmodels.moves.SimpleMinionMoveListener;
 import com.bksgames.game.viewmodels.updates.UpdateProcessor;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.LegalMoves;
 
@@ -35,7 +33,6 @@ public class GameScreen implements Screen {
 
     private final ScreenMover screenMover;
 
-    private final MinionMoveListener minionMoveListener;
     private LegalMoves legalMoves;
 
     private final PlayerViewModel playerViewModel;
@@ -57,8 +54,6 @@ public class GameScreen implements Screen {
         playerViewModel = new SimpleViewModel();
 
         screenMover = new ScreenMover(gameCamera, playerViewModel);
-
-        minionMoveListener = new SimpleMinionMoveListener(playerService);
     }
 
     @Override
@@ -69,7 +64,7 @@ public class GameScreen implements Screen {
 
         updateProcessor = new UpdateProcessor(map, boardAtlas, playerViewModel);
 
-        legalMoves = new LegalMoves(minionMoveListener, actionButtonsAtlas, gameCamera, playerViewModel, playerService);
+        legalMoves = new LegalMoves(actionButtonsAtlas, gameCamera, playerViewModel, playerService);
 
         MinionClickReceiver minionClickReceiver = new MinionClickReceiver(gameCamera, legalMoves, playerViewModel);
 

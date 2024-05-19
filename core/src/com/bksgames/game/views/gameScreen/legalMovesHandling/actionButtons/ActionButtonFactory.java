@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.bksgames.game.globalClasses.enums.MoveTypes;
 import com.bksgames.game.viewmodels.moves.IncompleteMove;
-import com.bksgames.game.viewmodels.moves.MinionMoveListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,9 +18,9 @@ public class ActionButtonFactory {
         return actor;
     }
 
-    public ActionButtonFactory(MinionMoveListener moveListener, TextureAtlas atlas, Map<IncompleteMove, Actor> incompleteMoveActorMap) {
+    public ActionButtonFactory(TextureAtlas atlas, Map<IncompleteMove, Actor> incompleteMoveActorMap) {
         this.moveToActorMap = incompleteMoveActorMap;
 
-        mapping.put(MoveTypes.MOVE, new ArrowGetter(moveListener, atlas));
+        mapping.put(MoveTypes.MOVE, new ArrowGetter(atlas));
     }
 }

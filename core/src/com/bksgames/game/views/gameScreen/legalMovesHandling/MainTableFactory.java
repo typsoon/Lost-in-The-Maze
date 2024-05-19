@@ -56,6 +56,9 @@ public class MainTableFactory {
 			if (!arrowButton.isVisible())
 				return false;
 			return arrowButton.notify(event, true);
+//			return arrowButton.fire(event, true);
+//			arrowButton.fire(event);
+//			return false;
 		});
 	}
 }
