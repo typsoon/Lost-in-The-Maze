@@ -90,12 +90,13 @@ public class GameScreen implements Screen {
         ScreenUtils.clear(0,0 , 0, 0);
 
         legalMoves.act(delta);//, gameCamera);
-        legalMoves.draw();
 
 //        legalMoves.getViewport().update((int) gameCamera.position.x, (int) gameCamera.position.y, true);
 
         mapRenderer.setView(gameCamera);
         mapRenderer.render();
+
+        legalMoves.draw();
     }
 
     @Override
