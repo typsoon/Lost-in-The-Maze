@@ -1,6 +1,5 @@
 package com.bksgames.game.viewmodels;
 
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.globalClasses.enums.Direction;
 

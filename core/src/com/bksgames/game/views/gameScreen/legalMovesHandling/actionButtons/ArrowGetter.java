@@ -19,12 +19,12 @@ public class ArrowGetter extends ActionButtonGetter {
         super(minionMoveListener, atlas);
     }
 
-    private InputListener getKeyDownListener(final int key, Move move){
+    private InputListener getKeyDownListener(final int key, IncompleteMove incompleteMove){
         return new InputListener(){
             @Override
             public boolean keyDown(InputEvent event, int keycode) {
 				if (keycode == key) {
-					moveListener.makeMove(new IncompleteMove(MoveTypes.MOVE, move.direction()));
+					moveListener.makeMove(new IncompleteMove(MoveTypes.MOVE, incompleteMove.direction()));
 					return true;
 				}
                 return super.keyDown(event, keycode);
@@ -33,10 +33,10 @@ public class ArrowGetter extends ActionButtonGetter {
     }
 
     @Override
-    public ImageButton get(Move move) {
+    public ImageButton get(IncompleteMove incompleteMove) {
         TextureRegion region = new TextureRegion();
 
-        switch (move.direction()) {
+        switch (incompleteMove.direction()) {
             case LEFT -> region = atlas.findRegion("LeftArrow");
             case RIGHT -> region = atlas.findRegion("RightArrow");
             case UP -> region = atlas.findRegion("UpArrow");
@@ -45,24 +45,24 @@ public class ArrowGetter extends ActionButtonGetter {
 
         ImageButton button = new ImageButton(new TextureRegionDrawable(region));
 
-        switch (move.direction()) {
+        switch (incompleteMove.direction()) {
             case LEFT -> button.align(Align.left);
             case RIGHT -> button.align(Align.right);
             case UP -> button.align(Align.top).align(Align.center);
             case DOWN -> button.align(Align.bottom).align(Align.center);
         }
 
-        switch (move.direction()){
-            case LEFT -> button.addCaptureListener(getKeyDownListener(Keys.LEFT, move));
-            case RIGHT -> button.addCaptureListener(getKeyDownListener(Keys.RIGHT, move));
-            case UP -> button.addCaptureListener(getKeyDownListener(Keys.UP, move));
-            case DOWN -> button.addCaptureListener(getKeyDownListener(Keys.DOWN, move));
+        switch (incompleteMove.direction()){
+            case LEFT -> button.addCaptureListener(getKeyDownListener(Keys.LEFT, incompleteMove));
+            case RIGHT -> button.addCaptureListener(getKeyDownListener(Keys.RIGHT, incompleteMove));
+            case UP -> button.addCaptureListener(getKeyDownListener(Keys.UP, incompleteMove));
+            case DOWN -> button.addCaptureListener(getKeyDownListener(Keys.DOWN, incompleteMove));
         }
 
         button.addCaptureListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                moveListener.makeMove(new IncompleteMove(MoveTypes.MOVE, move.direction()));
+                moveListener.makeMove(new IncompleteMove(MoveTypes.MOVE, incompleteMove.direction()));
             }
         });
 

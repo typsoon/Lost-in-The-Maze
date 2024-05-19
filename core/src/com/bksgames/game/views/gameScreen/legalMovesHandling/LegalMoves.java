@@ -21,6 +21,8 @@ public class LegalMoves extends Stage {
     private final Table mainTable;
     //    private TextureAtlas atlas;
 //    Map<IncompleteMove, Actor> mapping;
+
+//    TODO: remove minionMoveListener class
     private final MinionMoveListener minionMoveListener;
     private final PlayerService playerService;
     private final PlayerViewModel playerViewModel;
@@ -31,7 +33,6 @@ public class LegalMoves extends Stage {
 
     public void displayLegalMoves(int minionId) {
 
-//        TODO: remove code coupling
         Point minionLocation = playerViewModel.getMinionPos(minionId);
         setLegalMoves(playerService.getLegalMoves(minionLocation));
 
@@ -130,7 +131,9 @@ public class LegalMoves extends Stage {
         mainTable = MainTableFactory.produce(arrowTable, actionsTable, factory);
         this.addActor(mainTable);
 
-        super.act();
-        super.draw();
+//        super.act();
+//        super.draw();
+
+
     }
 }

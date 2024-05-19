@@ -3,6 +3,7 @@ package com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.bksgames.game.globalClasses.Move;
+import com.bksgames.game.viewmodels.moves.IncompleteMove;
 import com.bksgames.game.viewmodels.moves.MinionMoveListener;
 
 public abstract class ActionButtonGetter {
@@ -14,5 +15,5 @@ public abstract class ActionButtonGetter {
         this.atlas = atlas;
     }
 
-    public abstract ImageButton get(Move move);
+    public abstract ImageButton get(IncompleteMove incompleteMove);
 }

@@ -1,11 +1,13 @@
 package com.bksgames.game.views.gameScreen.legalMovesHandling;
 
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.globalClasses.Move;
 import com.bksgames.game.globalClasses.enums.Direction;
 import com.bksgames.game.globalClasses.enums.MoveTypes;
+import com.bksgames.game.viewmodels.moves.IncompleteMove;
 import com.bksgames.game.views.gameScreen.MazeMapFactory;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.ActionButtonFactory;
 
@@ -31,13 +33,13 @@ public class MainTableFactory {
 		mapping.put(MoveTypes.SWORD, actionsTable);
 		mapping.put(MoveTypes.MIRROR, actionsTable);
 
-		arrowTable.add(factory.getButton(new Move(new Point(), MoveTypes.MOVE, Direction.UP)));
+		addArrow(factory.getButton(new IncompleteMove(MoveTypes.MOVE, Direction.UP)), arrowTable);
 
 		arrowTable.row();
 
-		arrowTable.add(factory.getButton(new Move(new Point(), MoveTypes.MOVE, Direction.LEFT)));
-		arrowTable.add(factory.getButton(new Move(new Point(), MoveTypes.MOVE, Direction.DOWN)));
-		arrowTable.add(factory.getButton(new Move(new Point(), MoveTypes.MOVE, Direction.RIGHT)));
+		addArrow(factory.getButton(new IncompleteMove(MoveTypes.MOVE, Direction.LEFT)), arrowTable);
+		addArrow(factory.getButton(new IncompleteMove(MoveTypes.MOVE, Direction.DOWN)), arrowTable);
+		addArrow(factory.getButton(new IncompleteMove(MoveTypes.MOVE, Direction.RIGHT)), arrowTable);
 
 		mainTable.addActor(actionsTable);
 
@@ -46,5 +48,10 @@ public class MainTableFactory {
 		arrowTable.debugAll();
 
 		return mainTable;
+	}
+
+	private static void addArrow(ImageButton arrowButton, Table arrowTable) {
+		arrowTable.add(arrowButton);
+		arrowTable.addCaptureListener(arrowButton::fire);
 	}
 }
