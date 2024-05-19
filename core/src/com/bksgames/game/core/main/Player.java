@@ -21,6 +21,14 @@ public class Player {
     private final Set<Point> visibleTiles = new HashSet<>();
 
     /**
+     * make necessary thing before next turn starts
+     */
+    public void nextTurn(){
+        for(Minion m : minions){
+            m.nextTurn();
+        }
+    }
+    /**
      * @return coordinates of main {@code Nexus}
      */
     public Point getMainNexus() {
