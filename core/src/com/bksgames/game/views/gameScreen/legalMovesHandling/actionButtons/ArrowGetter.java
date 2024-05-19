@@ -18,19 +18,6 @@ public class ArrowGetter extends ActionButtonGetter {
         super(minionMoveListener, atlas);
     }
 
-    private InputListener getKeyDownListener(final int key, IncompleteMove incompleteMove){
-        return new InputListener(){
-            @Override
-            public boolean keyDown(InputEvent event, int keycode) {
-				if (keycode == key) {
-					moveListener.makeMove(new IncompleteMove(MoveTypes.MOVE, incompleteMove.direction()));
-					return true;
-				}
-                return super.keyDown(event, keycode);
-            }
-        };
-    }
-
     @Override
     public ImageButton get(IncompleteMove incompleteMove) {
         TextureRegion region = new TextureRegion();
@@ -51,17 +38,29 @@ public class ArrowGetter extends ActionButtonGetter {
             case DOWN -> button.align(Align.bottom).align(Align.center);
         }
 
-        switch (incompleteMove.direction()){
-            case LEFT -> button.addCaptureListener(getKeyDownListener(Keys.LEFT, incompleteMove));
-            case RIGHT -> button.addCaptureListener(getKeyDownListener(Keys.RIGHT, incompleteMove));
-            case UP -> button.addCaptureListener(getKeyDownListener(Keys.UP, incompleteMove));
-            case DOWN -> button.addCaptureListener(getKeyDownListener(Keys.DOWN, incompleteMove));
-        }
 
         button.addCaptureListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 moveListener.makeMove(new IncompleteMove(MoveTypes.MOVE, incompleteMove.direction()));
+            }
+        });
+
+        final int key = switch (incompleteMove.direction()){
+            case LEFT -> Keys.LEFT;
+            case RIGHT -> Keys.RIGHT;
+            case UP -> Keys.UP;
+            case DOWN -> Keys.DOWN;
+        };
+
+        button.addCaptureListener(new InputListener() {
+            @Override
+            public boolean keyDown(InputEvent event, int keycode) {
+                if (keycode == key) {
+                    moveListener.makeMove(new IncompleteMove(MoveTypes.MOVE, incompleteMove.direction()));
+                    return true;
+                }
+                return super.keyDown(event, keycode);
             }
         });
 

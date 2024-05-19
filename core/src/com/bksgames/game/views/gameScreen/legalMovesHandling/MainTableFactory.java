@@ -1,6 +1,6 @@
 package com.bksgames.game.views.gameScreen.legalMovesHandling;
 
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.bksgames.game.globalClasses.enums.Direction;
@@ -40,8 +40,8 @@ public class MainTableFactory {
 		addArrow(factory.getButton(new IncompleteMove(MoveTypes.MOVE, Direction.RIGHT)), arrowTable);
 
 		mainTable.addActor(actionsTable);
-		mainTable.addCaptureListener(arrowTable::fire);
-		mainTable.addCaptureListener(actionsTable::fire);
+		mainTable.addCaptureListener(event -> arrowTable.notify(event, true));
+		mainTable.addCaptureListener(event -> arrowTable.notify(event, true));
 
 		mainTable.row();
 		mainTable.addActor(arrowTable);
@@ -50,8 +50,12 @@ public class MainTableFactory {
 		return mainTable;
 	}
 
-	private static void addArrow(ImageButton arrowButton, Table arrowTable) {
+	private static void addArrow(Actor arrowButton, Table arrowTable) {
 		arrowTable.add(arrowButton);
-		arrowTable.addCaptureListener(arrowButton::fire);
+		arrowTable.addCaptureListener(event -> {
+			if (!arrowButton.isVisible())
+				return false;
+			return arrowButton.notify(event, true);
+		});
 	}
 }

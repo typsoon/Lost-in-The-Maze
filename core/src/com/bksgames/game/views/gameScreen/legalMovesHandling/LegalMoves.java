@@ -5,15 +5,14 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.*;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.globalClasses.Move;
 import com.bksgames.game.services.PlayerService;
 import com.bksgames.game.viewmodels.PlayerViewModel;
+import com.bksgames.game.viewmodels.moves.IncompleteMove;
 import com.bksgames.game.viewmodels.moves.MinionMoveListener;
-import com.bksgames.game.views.gameScreen.MazeMapFactory;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.ActionButtonFactory;
 
 import java.util.*;
@@ -21,7 +20,7 @@ import java.util.*;
 public class LegalMoves extends Stage {
     private final Table mainTable;
     //    private TextureAtlas atlas;
-//    Map<IncompleteMove, Actor> mapping;
+    Map<IncompleteMove, Actor> moveToButtonMapping = new HashMap<>();
 
 //    TODO: remove minionMoveListener class
     private final MinionMoveListener minionMoveListener;
@@ -33,65 +32,59 @@ public class LegalMoves extends Stage {
     private final Table actionsTable;
 
     public void displayLegalMoves(int minionId) {
+        activeMinionId = minionId;
 
         Point minionLocation = playerViewModel.getMinionPos(minionId);
-        setLegalMoves(playerService.getLegalMoves(minionLocation));
+        updateLegalMoves();
 
         Camera camera = getCamera();
 
-        camera.position.x = (minionLocation.x + MazeMapFactory.maxBoardWidth) * MazeMapFactory.tilePixelSize;
-        camera.position.y = (minionLocation.y + MazeMapFactory.maxBoardHeight) * MazeMapFactory.tilePixelSize;
-        camera.update();
+//        camera.position.x = (minionLocation.x + MazeMapFactory.maxBoardWidth) * MazeMapFactory.tilePixelSize;
+//        camera.position.y = (minionLocation.y + MazeMapFactory.maxBoardHeight) * MazeMapFactory.tilePixelSize;
+//        camera.update();
 
         minionMoveListener.setLocation(minionLocation);
-        activateLegalMoves(minionId);
+        activateLegalMoves();
     }
 
-    private void setLegalMoves(Collection<Move> legalMoves) {
-        actionsTable.setVisible(true);
-        actionsTable.setVisible(true);
+    private void updateLegalMoves() {
+        if (activeMinionId == -1) {
+            throw new IllegalStateException("No active minion");
+        }
+
+        Point minionLocation = playerViewModel.getMinionPos(activeMinionId);
+        Collection<Move> moves = playerService.getLegalMoves(minionLocation);
+
+        if (moves == null)
+            throw new IllegalStateException("legal moves are null");
+
+        Collection<IncompleteMove> incompleteMoves = new ArrayList<>();
+        moves.forEach(move -> incompleteMoves.add(new IncompleteMove(move.type(), move.direction())));
+
+        for (Actor actor : moveToButtonMapping.values()) {
+            actor.setVisible(false);
+        }
+
+        for (IncompleteMove incompleteMove : incompleteMoves) {
+            moveToButtonMapping.get(incompleteMove).setVisible(true);
+        }
     }
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        if (!mainTable.isVisible()) {
+        if (!isActive()) {
             return false;
         }
 
         boolean result = super.touchDown(screenX, screenY, pointer, button);
 
-        deactivateLegalMoves();
+        if (result)
+            updateLegalMoves();
+        else deactivateLegalMoves();
 
         return result;
     }
 
-    @Override
-    public boolean keyDown(int keyCode) {
-        if (!mainTable.isVisible()) {
-            return false;
-        }
-
-        boolean result = super.keyDown(keyCode);
-
-//        if (!result)
-        deactivateLegalMoves();
-
-        for (Actor actor : arrowTable.getChildren()) {
-            if (!actor.isVisible())
-                continue;
-
-            for (EventListener listener : actor.getCaptureListeners()) {
-                if (!(listener instanceof InputListener inputListener)) {
-                    throw new IllegalStateException("Illegal state");
-                }
-
-                if(inputListener.keyDown(new InputEvent(), keyCode))
-                    return true;
-            }
-        }
-
-        return result;
-    }
 
     @Override
     public void act(float deltaTime) {
@@ -112,10 +105,15 @@ public class LegalMoves extends Stage {
         activeMinionId = -1;
     }
 
-    public void activateLegalMoves(int minionId) {
+    public void activateLegalMoves() {
+        if (activeMinionId == -1) {
+            throw new IllegalStateException("No active minion");
+        }
+
         mainTable.setVisible(true);
-        activeMinionId = minionId;
     }
+
+    public boolean isActive() {return mainTable.isVisible();}
 
     public LegalMoves(MinionMoveListener minionMoveListener, TextureAtlas atlas, Camera gameCamera, PlayerViewModel playerViewModel, PlayerService playerService) {
 //        Stage
@@ -132,7 +130,7 @@ public class LegalMoves extends Stage {
 
 //        super.setDebugAll(true);
 
-        ActionButtonFactory factory = new ActionButtonFactory(minionMoveListener, atlas);
+        ActionButtonFactory factory = new ActionButtonFactory(minionMoveListener, atlas, moveToButtonMapping);
         arrowTable = new Table();
         actionsTable = new Table();
         mainTable = MainTableFactory.produce(arrowTable, actionsTable, factory);
@@ -141,6 +139,21 @@ public class LegalMoves extends Stage {
 //        super.act();
 //        super.draw();
 
+        this.addCaptureListener(new InputListener() {
+            @Override
+            public boolean keyDown(InputEvent event, int keycode) {
+                if (!isActive()) {
+                    return false;
+                }
 
+                boolean result = arrowTable.notify(event, true);
+
+                if (result)
+                    updateLegalMoves();
+                else deactivateLegalMoves();
+
+                return result;
+            }
+        });
     }
 }
