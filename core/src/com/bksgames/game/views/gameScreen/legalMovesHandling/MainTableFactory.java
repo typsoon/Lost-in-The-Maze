@@ -1,5 +1,6 @@
 package com.bksgames.game.views.gameScreen.legalMovesHandling;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -56,6 +57,13 @@ public class MainTableFactory {
 		mainTable.row();
 		mainTable.addActor(arrowTable);
 //		arrowTable.debugAll();
+
+		for (Actor actor : arrowTable.getChildren()) {
+			// Set the alpha value (opacity) for each actor
+			Color color = actor.getColor(); // Get the current color of the actor
+			color.a = 0.5f; // Set the alpha channel to the desired opacity value
+			actor.setColor(color); // Apply the modified color to the actor
+		}
 
 		return mainTable;
 	}
