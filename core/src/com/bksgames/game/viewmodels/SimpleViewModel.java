@@ -8,13 +8,11 @@ import java.util.List;
 
 public class SimpleViewModel implements PlayerViewModel{
     final List<Point> minionPositions;
-//    private final TiledMapTileLayer minionLayer;
 
     @Override
     public void minionMoved(Point start, Direction direction) {
         if (!minionPositions.contains(start)) {
             return;
-//            throw new IllegalStateException("View model has wrong data");
         }
 
         for (int i = 0; i < minionPositions.size() ; i++) {
@@ -49,18 +47,10 @@ public class SimpleViewModel implements PlayerViewModel{
     }
 
     public SimpleViewModel() {
-//        this.minionLayer = minionLayer;
-
         minionPositions = new ArrayList<>(List.of(new Point[]{
                 new Point(-1, 0),
                 new Point(1, 0),
                 new Point(0, 1),
         }));
-//        for (int row = 0; row < minionLayer.getHeight(); row++) {
-//            for (int column = 0; column < minionLayer.getWidth(); column++) {
-//                if (minionLayer.getCell(row, column) != null)
-//                    minionPositions.add(minionPositions.size()+1, new Point(column, row));
-//            }
-//        }
     }
 }

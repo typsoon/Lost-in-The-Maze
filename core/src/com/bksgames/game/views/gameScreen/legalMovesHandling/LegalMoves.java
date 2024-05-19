@@ -13,6 +13,7 @@ import com.bksgames.game.globalClasses.Move;
 import com.bksgames.game.services.PlayerService;
 import com.bksgames.game.viewmodels.PlayerViewModel;
 import com.bksgames.game.viewmodels.moves.MinionMoveListener;
+import com.bksgames.game.views.gameScreen.MazeMapFactory;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.ActionButtonFactory;
 
 import java.util.*;
@@ -35,6 +36,12 @@ public class LegalMoves extends Stage {
 
         Point minionLocation = playerViewModel.getMinionPos(minionId);
         setLegalMoves(playerService.getLegalMoves(minionLocation));
+
+        Camera camera = getCamera();
+
+        camera.position.x = (minionLocation.x + MazeMapFactory.maxBoardWidth) * MazeMapFactory.tilePixelSize;
+        camera.position.y = (minionLocation.y + MazeMapFactory.maxBoardHeight) * MazeMapFactory.tilePixelSize;
+        camera.update();
 
         minionMoveListener.setLocation(minionLocation);
         activateLegalMoves(minionId);

@@ -40,6 +40,8 @@ public class MainTableFactory {
 		addArrow(factory.getButton(new IncompleteMove(MoveTypes.MOVE, Direction.RIGHT)), arrowTable);
 
 		mainTable.addActor(actionsTable);
+		mainTable.addCaptureListener(arrowTable::fire);
+		mainTable.addCaptureListener(actionsTable::fire);
 
 		mainTable.row();
 		mainTable.addActor(arrowTable);
