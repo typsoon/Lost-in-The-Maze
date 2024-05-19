@@ -5,17 +5,14 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.MapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.bksgames.game.LostInTheMaze;
 import com.bksgames.game.services.PlayerService;
 import com.bksgames.game.viewmodels.PlayerViewModel;
 import com.bksgames.game.viewmodels.SimpleViewModel;
-import com.bksgames.game.viewmodels.moves.MinionMoveListener;
-import com.bksgames.game.viewmodels.moves.SimpleMinionMoveListener;
 import com.bksgames.game.viewmodels.updates.UpdateProcessor;
+import com.bksgames.game.views.gameScreen.legalMovesHandling.LegalMoves;
 
 public class GameScreen implements Screen {
 
@@ -34,11 +31,8 @@ public class GameScreen implements Screen {
 
     private UpdateProcessor updateProcessor;
 
-    private  InputMultiplexer inputMultiplexer;
     private final ScreenMover screenMover;
-    private MinionClickReceiver minionClickReceiver;
 
-    private final MinionMoveListener minionMoveListener;
     private LegalMoves legalMoves;
 
     private final PlayerViewModel playerViewModel;
@@ -56,11 +50,10 @@ public class GameScreen implements Screen {
 
         mapRenderer = new OrthogonalTiledMapRenderer(map);
 
-        playerViewModel = new SimpleViewModel((TiledMapTileLayer) map.getLayers().get("minions"));
+//        playerViewModel = new SimpleViewModel((TiledMapTileLayer) map.getLayers().get("minions"));
+        playerViewModel = new SimpleViewModel();
 
         screenMover = new ScreenMover(gameCamera, playerViewModel);
-
-        minionMoveListener = new SimpleMinionMoveListener(playerService);
     }
 
     @Override
@@ -71,12 +64,12 @@ public class GameScreen implements Screen {
 
         updateProcessor = new UpdateProcessor(map, boardAtlas, playerViewModel);
 
-        legalMoves = new LegalMoves(minionMoveListener, actionButtonsAtlas, gameCamera);
+        legalMoves = new LegalMoves(actionButtonsAtlas, gameCamera, playerViewModel, playerService);
 
-        minionClickReceiver = new MinionClickReceiver(playerService, gameCamera, legalMoves, playerViewModel);
+        MinionClickReceiver minionClickReceiver = new MinionClickReceiver(gameCamera, legalMoves, playerViewModel);
 
 //        inputMultiplexer = new InputMultiplexer(screenMover, minionClickReceiver);
-        inputMultiplexer = new InputMultiplexer(legalMoves, screenMover, minionClickReceiver);
+        InputMultiplexer inputMultiplexer = new InputMultiplexer(legalMoves, screenMover, minionClickReceiver);
 
         gameCamera.position.set( MazeMapFactory.tilePixelSize* MazeMapFactory.maxBoardHeight, MazeMapFactory.tilePixelSize* MazeMapFactory.maxBoardWidth, 0);
         gameCamera.update();
