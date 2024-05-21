@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -25,7 +26,6 @@ public class LegalMoves extends Stage {
     //    private TextureAtlas atlas;
     Map<IncompleteMove, Actor> moveToButtonMapping = new HashMap<>();
 
-    //    TODO: remove minionMoveListener class
     private final PlayerService playerService;
     private final PlayerViewModel playerViewModel;
 
@@ -86,10 +86,25 @@ public class LegalMoves extends Stage {
 
 //        Gdx.app.log("INFO", String.valueOf(gameCamera.viewportWidth));
 //        Gdx.app.log("BottomLeftCorner", String.valueOf(worldCoordinates));
-//        TODO: change this to render correctly
-        mainTable.setPosition(worldCoordinates.x + 250, worldCoordinates.y, Align.right);
 
-//        TODO: BIG BIG BIG BIG TODO - this sends a lot of obsolete queries to gameManager
+//        TODO: remove magic values from the code below!!!
+        float multiplier = Math.max(gameCamera.zoom, 1);
+//        float multiplier = gameCamera.zoom;
+
+        mainTable.setPosition(worldCoordinates.x + MainTableFactory.arrowButtonSize*multiplier*1.5f,
+                worldCoordinates.y + MainTableFactory.arrowButtonSize*multiplier*0.3f, Align.right);
+        arrowTable.setSize(MainTableFactory.arrowTableWidth * multiplier, MainTableFactory.arrowTableHeight * multiplier);
+
+        float newButtonSize = MainTableFactory.arrowButtonSize * multiplier * Gdx.graphics.getHeight()/640;
+//        float newButtonSize = MainTableFactory.arrowButtonSize * gameCamera.zoom;
+        for (Cell<?> cell : arrowTable.getCells()) {
+            cell.size(newButtonSize, newButtonSize);
+        }
+
+//        arrowTable.invalidate();
+//        arrowTable.layout();
+
+//        TODO: think about whether this sends obsolete queries
         if (currentLegalMoves == null || currentLegalMoves.isEmpty()) {
             updateLegalMoves();
         }

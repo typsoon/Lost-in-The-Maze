@@ -17,6 +17,8 @@ import java.util.Map;
 public class MainTableFactory {
 	static final int arrowButtonSize = 100;
 	static final int distanceToAdjacentButton = 10;
+	static final int arrowTableWidth = 200;
+	static final int arrowTableHeight = 100;
 
 	static Map<MoveTypes, Table> mapping = new HashMap<>();
 	public static Table produce(Table arrowTable, Table actionsTable, ActionButtonFactory factory){
@@ -50,6 +52,7 @@ public class MainTableFactory {
 		addArrow(factory.getButton(new IncompleteMove(MoveTypes.MOVE, Direction.DOWN)), arrowTable).padRight(distanceToAdjacentButton);
 		addArrow(factory.getButton(new IncompleteMove(MoveTypes.MOVE, Direction.RIGHT)), arrowTable);
 
+
 		mainTable.addActor(actionsTable);
 		mainTable.addCaptureListener(event -> arrowTable.notify(event, true));
 		mainTable.addCaptureListener(event -> actionsTable.notify(event, true));
@@ -74,9 +77,6 @@ public class MainTableFactory {
 			if (!arrowButton.isVisible())
 				return false;
 			return arrowButton.notify(event, true);
-//			return arrowButton.fire(event, true);
-//			arrowButton.fire(event);
-//			return false;
 		});
 		return answer;
 	}

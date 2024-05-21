@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Align;
 import com.bksgames.game.viewmodels.moves.IncompleteMove;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.ChosenMove;
 
@@ -34,13 +33,7 @@ public class ArrowGetter extends ActionButtonGetter {
 
         ImageButton button = new ImageButton(new TextureRegionDrawable(region));
         button.setName(textureName);
-
-        switch (incompleteMove.direction()) {
-            case LEFT -> button.align(Align.left);
-            case RIGHT -> button.align(Align.right);
-            case UP -> button.align(Align.top).align(Align.center);
-            case DOWN -> button.align(Align.bottom).align(Align.center);
-        }
+        button.getImage().setFillParent(true);
 
         final int key = switch (incompleteMove.direction()){
             case LEFT -> Keys.LEFT;
