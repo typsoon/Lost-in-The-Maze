@@ -55,8 +55,6 @@ public class MainMenuScreen implements Screen {
 //        Color mustard = new Color(204, 204, 0, 1);
 //        Color lemon = new Color(255, 255, 102, 1);
 
-//        System.out.println(goldenrod);
-
         generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Harrington_SHAREWARE.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 50;

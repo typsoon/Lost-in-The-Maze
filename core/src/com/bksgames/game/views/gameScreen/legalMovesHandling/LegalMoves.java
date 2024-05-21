@@ -3,10 +3,12 @@ package com.bksgames.game.views.gameScreen.legalMovesHandling;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.globalClasses.Move;
@@ -78,13 +80,14 @@ public class LegalMoves extends Stage {
         if (!isActive())
             return;
 
-        Camera gameCamera = getCamera();
-//        Vector3 screenCoordinates = new Vector3(Gdx.graphics.getWidth() , Gdx.graphics.getHeight(), 0);
-        Vector3 screenCoordinates = new Vector3(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 0);
+        OrthographicCamera gameCamera = (OrthographicCamera) getCamera();
+        Vector3 screenCoordinates = new Vector3(0, Gdx.graphics.getHeight(), 0);
         Vector3 worldCoordinates = gameCamera.unproject(screenCoordinates);
 
+//        Gdx.app.log("INFO", String.valueOf(gameCamera.viewportWidth));
+//        Gdx.app.log("BottomLeftCorner", String.valueOf(worldCoordinates));
 //        TODO: change this to render correctly
-        mainTable.setPosition(worldCoordinates.x - gameCamera.viewportWidth, worldCoordinates.y);
+        mainTable.setPosition(worldCoordinates.x + 250, worldCoordinates.y, Align.right);
 
 //        TODO: BIG BIG BIG BIG TODO - this sends a lot of obsolete queries to gameManager
         if (currentLegalMoves == null || currentLegalMoves.isEmpty()) {
@@ -141,6 +144,7 @@ public class LegalMoves extends Stage {
         mainTable = MainTableFactory.produce(arrowTable, actionsTable, factory);
         this.addActor(mainTable);
 
+        mainTable.setPosition(400, 0);
 //        super.act();
 //        super.draw();
 

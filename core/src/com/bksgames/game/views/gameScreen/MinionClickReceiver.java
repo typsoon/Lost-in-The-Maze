@@ -35,7 +35,7 @@ public class MinionClickReceiver extends InputAdapter {
 
         Point minionCoords = new Point(tileX - MazeMapFactory.maxBoardWidth, tileY - MazeMapFactory.maxBoardHeight);
         // Output the tile coordinates
-        System.out.println("Clicked tile coordinates: (" + (tileX - MazeMapFactory.maxBoardWidth) + ", " + (tileY - MazeMapFactory.maxBoardHeight) + ")");
+//        Gdx.app.log("ClickedTile", "Clicked tile coordinates: (" + (tileX - MazeMapFactory.maxBoardWidth) + ", " + (tileY - MazeMapFactory.maxBoardHeight) + ")");
 //
         if (playerViewModel.hasPlayableMinion(minionCoords)) {
             legalMoves.displayLegalMoves(playerViewModel.getMinionId(minionCoords));
