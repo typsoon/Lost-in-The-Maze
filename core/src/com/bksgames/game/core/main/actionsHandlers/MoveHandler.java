@@ -6,7 +6,7 @@ import com.bksgames.game.core.tiles.Tile;
 import com.bksgames.game.core.tiles.Tunnel;
 import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.globalClasses.Move;
-import com.bksgames.game.globalClasses.enums.MoveTypes;
+import com.bksgames.game.globalClasses.enums.ActionToken;
 /**
  * {@code ActionHandler} for {@code MoveTypes.MOVE}
  * @author jajko
@@ -15,7 +15,7 @@ import com.bksgames.game.globalClasses.enums.MoveTypes;
 public class MoveHandler extends ActionHandler {
     @Override
     public void handle(Move action) {
-        if(action.type() != MoveTypes.MOVE)
+        if(action.type() != ActionToken.MOVE)
             throw new IllegalStateException("Wrong move type!");
 
         Tile currentTile = gameManager.getBoard().getTile(action.position());
@@ -32,7 +32,7 @@ public class MoveHandler extends ActionHandler {
 
         minion.moveMinion(action.direction());
         gameManager.playerVisionUpdate(gameManager.getCurrentPlayer());
-        gameManager.minionUpdate(gameManager.getCurrentPlayer(),lastPos,action.direction(),null,MoveTypes.MOVE);
+        gameManager.minionUpdate(gameManager.getCurrentPlayer(),lastPos,action.direction(),null, ActionToken.MOVE);
     }
     MoveHandler(GameManager manager) {
         super(manager);

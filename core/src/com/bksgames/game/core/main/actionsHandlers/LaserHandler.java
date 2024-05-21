@@ -5,7 +5,7 @@ import com.bksgames.game.core.main.GameManager;
 import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.globalClasses.Move;
 import com.bksgames.game.globalClasses.enums.Direction;
-import com.bksgames.game.globalClasses.enums.MoveTypes;
+import com.bksgames.game.globalClasses.enums.ActionToken;
 import com.bksgames.game.core.tiles.Tile;
 import com.bksgames.game.core.tiles.Tunnel;
 import com.bksgames.game.core.utils.SourceOfDamage;
@@ -22,7 +22,7 @@ import java.util.Set;
 public class LaserHandler extends ActionHandler{
     @Override
     public void handle(Move action) {
-        if(action.type() != MoveTypes.LASER)
+        if(action.type() != ActionToken.LASER)
             throw new IllegalStateException("Wrong move type!");
 
         Point point = action.position();

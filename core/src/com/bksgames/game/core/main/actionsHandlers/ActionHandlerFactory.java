@@ -1,10 +1,10 @@
 package com.bksgames.game.core.main.actionsHandlers;
 
 import com.bksgames.game.core.main.GameManager;
-import com.bksgames.game.globalClasses.enums.MoveTypes;
+import com.bksgames.game.globalClasses.enums.ActionToken;
 
 public class ActionHandlerFactory {
-    public static ActionHandler CreateActionHandler(MoveTypes type, GameManager manager)
+    public static ActionHandler CreateActionHandler(ActionToken type, GameManager manager)
     {
       return switch (type)
         {

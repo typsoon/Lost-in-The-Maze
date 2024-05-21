@@ -25,8 +25,6 @@ public class Minion implements Entity, Owned{
     public void nextTurn(){
         actionPoints = startingAP;
     }
-
-
     /**
      * Move {@code Minion} to adjacent field
      * @param direction {@code Direction} of moving
@@ -64,6 +62,7 @@ public class Minion implements Entity, Owned{
     }
 
     /**
+     *
      * Constructs {@code Minion}
      * @param position initial position
      * @param hitPoints initial HP

@@ -2,14 +2,14 @@ package com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.bksgames.game.globalClasses.enums.MoveTypes;
+import com.bksgames.game.globalClasses.enums.ActionToken;
 import com.bksgames.game.viewmodels.moves.IncompleteMove;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class ActionButtonFactory {
-    private final Map<MoveTypes, ActionButtonGetter> mapping = new HashMap<>();
+    private final Map<ActionToken, ActionButtonGetter> mapping = new HashMap<>();
     private final Map<IncompleteMove, Actor> moveToActorMap;
 
     public Actor getButton(IncompleteMove incompleteMove) {
@@ -21,6 +21,6 @@ public class ActionButtonFactory {
     public ActionButtonFactory(TextureAtlas atlas, Map<IncompleteMove, Actor> incompleteMoveActorMap) {
         this.moveToActorMap = incompleteMoveActorMap;
 
-        mapping.put(MoveTypes.MOVE, new ArrowGetter(atlas));
+        mapping.put(ActionToken.MOVE, new ArrowGetter(atlas));
     }
 }

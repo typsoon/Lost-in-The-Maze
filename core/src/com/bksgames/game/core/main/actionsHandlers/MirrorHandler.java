@@ -6,7 +6,7 @@ import com.bksgames.game.core.tiles.Tile;
 import com.bksgames.game.core.tiles.Tunnel;
 import com.bksgames.game.globalClasses.Move;
 import com.bksgames.game.globalClasses.enums.Direction;
-import com.bksgames.game.globalClasses.enums.MoveTypes;
+import com.bksgames.game.globalClasses.enums.ActionToken;
 /**
  * {@code ActionHandler} for {@code MoveTypes.MIRROR}
  * @author jajko
@@ -15,7 +15,7 @@ import com.bksgames.game.globalClasses.enums.MoveTypes;
 public class MirrorHandler extends ActionHandler{
     @Override
     public void handle(Move action) {
-        if(action.type() != MoveTypes.MIRROR)
+        if(action.type() != ActionToken.MIRROR)
             throw new IllegalStateException("Wrong move type!");
 
         Tile currentTile = gameManager.getBoard().getTile(action.position());

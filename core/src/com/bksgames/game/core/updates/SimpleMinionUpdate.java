@@ -13,7 +13,7 @@ public class SimpleMinionUpdate implements MinionUpdate {
     private final Direction direction;
     private final Displayable displayable;
     private final MinionEvent event;
-    private final MoveTypes move;
+    private final ActionToken move;
     private final Point relativePosition;
 
     //MinionUpdate
@@ -28,7 +28,7 @@ public class SimpleMinionUpdate implements MinionUpdate {
     }
 
     @Override
-    public MoveTypes getMoveType() {
+    public ActionToken getMoveType() {
         return move;
     }
 
@@ -55,7 +55,7 @@ public class SimpleMinionUpdate implements MinionUpdate {
     /**
      * Constructs simple {@code MinionUpdate}
      */
-    public SimpleMinionUpdate(Direction direction, Displayable displayable, MinionEvent event, MoveTypes move, Point relativePosition) {
+    public SimpleMinionUpdate(Direction direction, Displayable displayable, MinionEvent event, ActionToken move, Point relativePosition) {
         this.direction = direction;
         this.displayable = displayable;
         this.event = event;

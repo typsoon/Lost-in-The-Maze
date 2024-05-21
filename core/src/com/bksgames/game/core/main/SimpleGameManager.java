@@ -29,7 +29,7 @@ import java.util.*;
 public class SimpleGameManager implements GameManager {
     private final Board board;
     private final EnumMap<PlayerColor, Player> players;
-    private final EnumMap<MoveTypes, ActionHandler> moveHandlers;
+    private final EnumMap<ActionToken, ActionHandler> moveHandlers;
     private final GameService gameService;
     private final Parameters parameters;
     private PlayerColor activePlayer;
@@ -54,7 +54,7 @@ public class SimpleGameManager implements GameManager {
         for(Direction direction : Direction.values()) {
             if(board.getTile(direction.getNext(position)).getTunnel()!=null
                     && board.getTile(direction.getNext(position)).getTunnel().getEntities().isEmpty() ) {
-                legalMoves.add(new Move(position.getPosition(),MoveTypes.MOVE, direction));
+                legalMoves.add(new Move(position.getPosition(), ActionToken.MOVE, direction));
             }
         }
 
@@ -108,7 +108,7 @@ public class SimpleGameManager implements GameManager {
     }
 
     @Override
-    public void minionUpdate(PlayerColor color, Point minionLocation, Direction direction, MinionEvent minionEvent, MoveTypes minionMove) {
+    public void minionUpdate(PlayerColor color, Point minionLocation, Direction direction, MinionEvent minionEvent, ActionToken minionMove) {
         for (PlayerColor playerColor : players.keySet()) {
             if (players.get(playerColor).isVisible(direction.getNext(minionLocation))) {
                 sendUpdate(playerColor,
@@ -142,8 +142,8 @@ public class SimpleGameManager implements GameManager {
         this.parameters = parameters;
         this.gameService = gameService;
         this.board = SquareBoardFactory.CreateSBFor2Players(parameters);
-        moveHandlers = new EnumMap<>(MoveTypes.class);
-        for (MoveTypes moveType : MoveTypes.values()) {
+        moveHandlers = new EnumMap<>(ActionToken.class);
+        for (ActionToken moveType : ActionToken.values()) {
             moveHandlers.put(moveType, ActionHandlerFactory.CreateActionHandler(moveType, this));
         }
         players = new EnumMap<>(PlayerColor.class);

@@ -1,7 +1,7 @@
 package com.bksgames.game.viewmodels.moves;
 
 import com.bksgames.game.globalClasses.enums.Direction;
-import com.bksgames.game.globalClasses.enums.MoveTypes;
+import com.bksgames.game.globalClasses.enums.ActionToken;
 
-public record IncompleteMove(MoveTypes type, Direction direction) {
+public record IncompleteMove(ActionToken type, Direction direction) {
 }

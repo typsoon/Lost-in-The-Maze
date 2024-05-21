@@ -6,7 +6,7 @@ import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.globalClasses.Move;
 import com.bksgames.game.globalClasses.enums.Direction;
 import com.bksgames.game.globalClasses.enums.MinionEvent;
-import com.bksgames.game.globalClasses.enums.MoveTypes;
+import com.bksgames.game.globalClasses.enums.ActionToken;
 import com.bksgames.game.globalClasses.enums.PlayerColor;
 
 import java.util.Collection;
@@ -29,7 +29,7 @@ public interface GameManager  {
     void setCurrentPlayer(PlayerColor player);
 
     void playerVisionUpdate(PlayerColor color);
-    void minionUpdate(PlayerColor color, Point minionLocation, Direction direction, MinionEvent minionEvent, MoveTypes minionMove);
+    void minionUpdate(PlayerColor color, Point minionLocation, Direction direction, MinionEvent minionEvent, ActionToken minionMove);
     void laserUpdate(Direction direction, Direction deflected, Point position);
 
     void endTurn();

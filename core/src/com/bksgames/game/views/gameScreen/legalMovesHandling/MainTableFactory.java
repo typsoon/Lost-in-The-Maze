@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.bksgames.game.globalClasses.enums.Direction;
-import com.bksgames.game.globalClasses.enums.MoveTypes;
+import com.bksgames.game.globalClasses.enums.ActionToken;
 import com.bksgames.game.viewmodels.moves.IncompleteMove;
 import com.bksgames.game.views.gameScreen.MazeMapFactory;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.ActionButtonFactory;
@@ -20,7 +20,7 @@ public class MainTableFactory {
 	static final int arrowTableWidth = 200;
 	static final int arrowTableHeight = 100;
 
-	static Map<MoveTypes, Table> mapping = new HashMap<>();
+	static Map<ActionToken, Table> mapping = new HashMap<>();
 	public static Table produce(Table arrowTable, Table actionsTable, ActionButtonFactory factory){
 
 		Table mainTable = new Table();
@@ -31,16 +31,16 @@ public class MainTableFactory {
 		arrowTable.align(Align.bottom);
 		actionsTable.align(Align.top);
 
-		mapping.put(MoveTypes.MOVE, arrowTable);
+		mapping.put(ActionToken.MOVE, arrowTable);
 
-		mapping.put(MoveTypes.DOOR, actionsTable);
-		mapping.put(MoveTypes.LASER, actionsTable);
-		mapping.put(MoveTypes.SWORD, actionsTable);
-		mapping.put(MoveTypes.MIRROR, actionsTable);
+		mapping.put(ActionToken.DOOR, actionsTable);
+		mapping.put(ActionToken.LASER, actionsTable);
+		mapping.put(ActionToken.SWORD, actionsTable);
+		mapping.put(ActionToken.MIRROR, actionsTable);
 
 		arrowTable.setFillParent(true);
 
-		Actor upArrow = factory.getButton(new IncompleteMove(MoveTypes.MOVE, Direction.UP));
+		Actor upArrow = factory.getButton(new IncompleteMove(ActionToken.MOVE, Direction.UP));
 
 		arrowTable.add().expand();
 
@@ -48,9 +48,9 @@ public class MainTableFactory {
 
 		arrowTable.row();
 
-		addArrow(factory.getButton(new IncompleteMove(MoveTypes.MOVE, Direction.LEFT)), arrowTable).padRight(distanceToAdjacentButton);
-		addArrow(factory.getButton(new IncompleteMove(MoveTypes.MOVE, Direction.DOWN)), arrowTable).padRight(distanceToAdjacentButton);
-		addArrow(factory.getButton(new IncompleteMove(MoveTypes.MOVE, Direction.RIGHT)), arrowTable);
+		addArrow(factory.getButton(new IncompleteMove(ActionToken.MOVE, Direction.LEFT)), arrowTable).padRight(distanceToAdjacentButton);
+		addArrow(factory.getButton(new IncompleteMove(ActionToken.MOVE, Direction.DOWN)), arrowTable).padRight(distanceToAdjacentButton);
+		addArrow(factory.getButton(new IncompleteMove(ActionToken.MOVE, Direction.RIGHT)), arrowTable);
 
 
 		mainTable.addActor(actionsTable);

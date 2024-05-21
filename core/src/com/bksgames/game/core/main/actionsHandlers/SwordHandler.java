@@ -8,7 +8,7 @@ import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.core.utils.SourceOfDamage;
 import com.bksgames.game.core.utils.Vulnerable;
 import com.bksgames.game.globalClasses.Move;
-import com.bksgames.game.globalClasses.enums.MoveTypes;
+import com.bksgames.game.globalClasses.enums.ActionToken;
 
 /**
  * {@code ActionHandler} for {@code MoveTypes.SWORD}
@@ -18,7 +18,7 @@ import com.bksgames.game.globalClasses.enums.MoveTypes;
 public class SwordHandler extends ActionHandler{
     @Override
     public void handle(Move action) {
-        if(action.type() != MoveTypes.SWORD)
+        if(action.type() != ActionToken.SWORD)
             throw new IllegalStateException("Wrong move type!");
 
         Point point = action.position();

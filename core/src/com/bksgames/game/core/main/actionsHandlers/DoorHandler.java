@@ -2,7 +2,7 @@ package com.bksgames.game.core.main.actionsHandlers;
 
 import com.bksgames.game.core.main.GameManager;
 import com.bksgames.game.globalClasses.Move;
-import com.bksgames.game.globalClasses.enums.MoveTypes;
+import com.bksgames.game.globalClasses.enums.ActionToken;
 
 /**
  * {@code ActionHandler} for {@code MoveTypes.DOOR}
@@ -11,7 +11,7 @@ import com.bksgames.game.globalClasses.enums.MoveTypes;
 public class DoorHandler extends ActionHandler {
     @Override
     public void handle(Move action) {
-        if(action.type() != MoveTypes.DOOR)
+        if(action.type() != ActionToken.DOOR)
             throw new IllegalStateException("Wrong move type!");
     }
     DoorHandler(GameManager manager) {
