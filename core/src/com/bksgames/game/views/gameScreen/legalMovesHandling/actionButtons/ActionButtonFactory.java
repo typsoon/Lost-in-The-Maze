@@ -22,5 +22,6 @@ public class ActionButtonFactory {
         this.moveToActorMap = incompleteMoveActorMap;
 
         mapping.put(ActionToken.MOVE, new ArrowGetter(atlas));
+        mapping.put(ActionToken.MIRROR, new MirrorButtonGetter(atlas));
     }
 }

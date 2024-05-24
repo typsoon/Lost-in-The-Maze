@@ -9,15 +9,19 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.globalClasses.Move;
+import com.bksgames.game.globalClasses.enums.ActionToken;
+import com.bksgames.game.globalClasses.enums.Direction;
 import com.bksgames.game.services.PlayerService;
 import com.bksgames.game.viewmodels.PlayerViewModel;
 import com.bksgames.game.viewmodels.moves.IncompleteMove;
 import com.bksgames.game.views.gameScreen.MazeMapFactory;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.ActionButtonFactory;
+import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.ResizableActionButton;
 
 import java.util.*;
 
@@ -61,8 +65,13 @@ public class LegalMoves extends Stage {
         if (moves == null)
             throw new IllegalStateException("legal moves are null");
 
+
         currentLegalMoves = new ArrayList<>();
         moves.forEach(move -> currentLegalMoves.add(new IncompleteMove(move.type(), move.direction())));
+
+//        TODO: TO JEST ŁATKA - TRZEBA TO USUNĄĆ !!!!!!!!
+        currentLegalMoves.add(new IncompleteMove(ActionToken.MIRROR, Direction.UP));
+//
 
         for (Actor actor : moveToButtonMapping.values()) {
             actor.setVisible(false);
@@ -88,21 +97,35 @@ public class LegalMoves extends Stage {
 //        Gdx.app.log("BottomLeftCorner", String.valueOf(worldCoordinates));
 
 //        TODO: remove magic values from the code below!!!
-        float multiplier = Math.max(gameCamera.zoom, 1);
+//        float multiplier = Math.max(gameCamera.zoom, 1);
+        float multiplier = Math.max(gameCamera.zoom, 0);
 //        float multiplier = gameCamera.zoom;
 
-        mainTable.setPosition(worldCoordinates.x + MainTableFactory.arrowButtonSize*multiplier*1.5f,
-                worldCoordinates.y + MainTableFactory.arrowButtonSize*multiplier*0.3f, Align.right);
-        arrowTable.setSize(MainTableFactory.arrowTableWidth * multiplier, MainTableFactory.arrowTableHeight * multiplier);
+//        arrowTable.setSize(MainTableFactory.arrowTableWidth * multiplier, MainTableFactory.arrowTableHeight * multiplier);
+        mainTable.setSize(Gdx.graphics.getWidth()*multiplier, MainTableFactory.mainTableHeight*multiplier);
+        mainTable.setPosition(worldCoordinates.x, worldCoordinates.y);
+//        mainTable.setPosition(worldCoordinates.x + MainTableFactory.arrowButtonSize*multiplier*1.5f,
+//                worldCoordinates.y + MainTableFactory.arrowButtonSize*multiplier*0.3f, Align.right);
 
-        float newButtonSize = MainTableFactory.arrowButtonSize * multiplier * Gdx.graphics.getHeight()/640;
+        float newArrowButtonSize = MainTableFactory.arrowButtonSize * multiplier * Gdx.graphics.getHeight()/640;
 //        float newButtonSize = MainTableFactory.arrowButtonSize * gameCamera.zoom;
         for (Cell<?> cell : arrowTable.getCells()) {
-            cell.size(newButtonSize, newButtonSize);
+            cell.size(newArrowButtonSize, newArrowButtonSize);
         }
 
-//        arrowTable.invalidate();
-//        arrowTable.layout();
+        float newActionButtonSize = MainTableFactory.actionButtonSize * multiplier * Gdx.graphics.getHeight()/640;
+        for (Cell<?> cell : actionsTable.getCells()) {
+            cell.size(newActionButtonSize, newActionButtonSize);
+            if (cell.getActor() instanceof ResizableActionButton resizable)
+                resizable.resize(multiplier);
+        }
+
+        actionsTable.getBackground().setMinWidth(MainTableFactory.actionsMenuWidth*multiplier);
+        actionsTable.getBackground().setMinHeight(MainTableFactory.actionsMenuHeight*multiplier);
+//        setSize(MainTableFactory.actionsMenuWidth * multiplier, MainTableFactory.actionsMenuHeight*multiplier);
+
+        arrowTable.invalidate();
+        arrowTable.layout();
 
 //        TODO: think about whether this sends obsolete queries
         if (currentLegalMoves == null || currentLegalMoves.isEmpty()) {
@@ -147,7 +170,9 @@ public class LegalMoves extends Stage {
         this.playerService = playerService;
         this.playerViewModel = playerViewModel;
 
-        super.getRoot().setColor(0,0,0,1);
+//        super.getRoot().setColor(0,0,0,0.5f);
+        super.getRoot().setColor(0,0,0,0.75f);
+//        super.getRoot().setColor(0,0,0,0.9f);
 //        super.setViewport(new ScreenViewport(gameCamera));
         super.getBatch().setProjectionMatrix(gameCamera.combined);
 
@@ -156,7 +181,7 @@ public class LegalMoves extends Stage {
         ActionButtonFactory factory = new ActionButtonFactory(atlas, moveToButtonMapping);
         arrowTable = new Table();
         actionsTable = new Table();
-        mainTable = MainTableFactory.produce(arrowTable, actionsTable, factory);
+        mainTable = MainTableFactory.produce(arrowTable, actionsTable, factory, atlas);
         this.addActor(mainTable);
 
         mainTable.setPosition(400, 0);
@@ -185,11 +210,19 @@ public class LegalMoves extends Stage {
         });
 
         this.addListener(event -> {
+//            if (event instanceof ChangeListener.ChangeEvent changeEvent) {
+//                Gdx.app.log("ChangeEvent", changeEvent.toString());
+//            }
+
             if (event instanceof ChosenMove chosenMove) {
+//                if (chosenMove.getIncompleteMove().type() == ActionToken.MIRROR)
+//                    return false;
+
                 sendMove(chosenMove.getIncompleteMove());
 
                 updateLegalMoves();
-                updateLegalMoves();return true;
+                updateLegalMoves();
+                return true;
             }
 
             return false;

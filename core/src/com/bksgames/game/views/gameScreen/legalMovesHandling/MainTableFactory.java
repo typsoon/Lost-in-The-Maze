@@ -1,12 +1,15 @@
 package com.bksgames.game.views.gameScreen.legalMovesHandling;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
-import com.bksgames.game.globalClasses.enums.Direction;
 import com.bksgames.game.globalClasses.enums.ActionToken;
+import com.bksgames.game.globalClasses.enums.Direction;
 import com.bksgames.game.viewmodels.moves.IncompleteMove;
 import com.bksgames.game.views.gameScreen.MazeMapFactory;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.ActionButtonFactory;
@@ -15,30 +18,29 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainTableFactory {
-	static final int arrowButtonSize = 100;
+	static final int mainTableHeight = 200;
+	static final int arrowButtonSize = 75;
+	static final int actionsMenuWidth = 350;
+	static final int actionsMenuHeight = 75;
+	static final int actionButtonSize = 75;
+
 	static final int distanceToAdjacentButton = 10;
-	static final int arrowTableWidth = 200;
-	static final int arrowTableHeight = 100;
+	static final int bottomPadding = 20;
+	static final int leftPadding = 20;
+	static final int rightPadding = 20;
 
-	static Map<ActionToken, Table> mapping = new HashMap<>();
-	public static Table produce(Table arrowTable, Table actionsTable, ActionButtonFactory factory){
-
+	//	static Map<MoveTypes, Table> mapping = new HashMap<>();
+	public static Table produce(Table arrowTable, Table actionsTable, ActionButtonFactory factory, TextureAtlas atlas){
 		Table mainTable = new Table();
-		mainTable.setPosition((MazeMapFactory.maxBoardWidth+ 10)*MazeMapFactory.tilePixelSize, (MazeMapFactory.maxBoardHeight)*MazeMapFactory.tilePixelSize);
-		mainTable.align(Align.right);
 		mainTable.setVisible(false);
 
-		arrowTable.align(Align.bottom);
-		actionsTable.align(Align.top);
+		Drawable drawable = new TextureRegionDrawable(atlas.findRegion("ActionMenuBackground"));
+		actionsTable.setBackground(drawable);
 
-		mapping.put(ActionToken.MOVE, arrowTable);
+		actionsTable.add(factory.getButton(new IncompleteMove(ActionToken.MIRROR, Direction.UP))).left();
+//		actionsTable.debugAll();
 
-		mapping.put(ActionToken.DOOR, actionsTable);
-		mapping.put(ActionToken.LASER, actionsTable);
-		mapping.put(ActionToken.SWORD, actionsTable);
-		mapping.put(ActionToken.MIRROR, actionsTable);
-
-		arrowTable.setFillParent(true);
+		actionsTable.add().expand();
 
 		Actor upArrow = factory.getButton(new IncompleteMove(ActionToken.MOVE, Direction.UP));
 
@@ -52,21 +54,22 @@ public class MainTableFactory {
 		addArrow(factory.getButton(new IncompleteMove(ActionToken.MOVE, Direction.DOWN)), arrowTable).padRight(distanceToAdjacentButton);
 		addArrow(factory.getButton(new IncompleteMove(ActionToken.MOVE, Direction.RIGHT)), arrowTable);
 
+//		arrowTable.padRight(rightPadding);
+//		arrowTable.padBottom(bottomPadding);
+//		actionsTable.padLeft(leftPadding);
 
-		mainTable.addActor(actionsTable);
-		mainTable.addCaptureListener(event -> arrowTable.notify(event, true));
-		mainTable.addCaptureListener(event -> actionsTable.notify(event, true));
+//		actionsTable.bottom();
+		mainTable.add(actionsTable).bottom();
 
-		mainTable.row();
-		mainTable.addActor(arrowTable);
+		mainTable.add().expand().fill();
+
+		mainTable.add(arrowTable).bottom().right();
+
+//		mainTable.debugAll();
 //		arrowTable.debugAll();
 
-		for (Actor actor : arrowTable.getChildren()) {
-			// Set the alpha value (opacity) for each actor
-			Color color = actor.getColor(); // Get the current color of the actor
-			color.a = 0.5f; // Set the alpha channel to the desired opacity value
-			actor.setColor(color); // Apply the modified color to the actor
-		}
+		mainTable.addCaptureListener(event -> arrowTable.notify(event, true));
+		mainTable.addCaptureListener(event -> actionsTable.notify(event, true));
 
 		return mainTable;
 	}
