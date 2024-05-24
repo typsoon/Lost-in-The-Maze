@@ -9,8 +9,6 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.globalClasses.Move;
@@ -52,6 +50,7 @@ public class LegalMoves extends Stage {
         camera.update();
 
         activateLegalMoves();
+        act(0);
     }
 
     private void updateLegalMoves() {
@@ -78,6 +77,9 @@ public class LegalMoves extends Stage {
         }
 
         for (IncompleteMove incompleteMove : currentLegalMoves) {
+            if (!moveToButtonMapping.containsKey(incompleteMove))
+                throw new IllegalStateException("No such legal move" + incompleteMove);
+
             moveToButtonMapping.get(incompleteMove).setVisible(true);
         }
     }
@@ -98,7 +100,7 @@ public class LegalMoves extends Stage {
 
 //        TODO: remove magic values from the code below!!!
 //        float multiplier = Math.max(gameCamera.zoom, 1);
-        float multiplier = Math.max(gameCamera.zoom, 0);
+        final float multiplier = Math.max(gameCamera.zoom, 0);
 //        float multiplier = gameCamera.zoom;
 
 //        arrowTable.setSize(MainTableFactory.arrowTableWidth * multiplier, MainTableFactory.arrowTableHeight * multiplier);
@@ -107,21 +109,24 @@ public class LegalMoves extends Stage {
 //        mainTable.setPosition(worldCoordinates.x + MainTableFactory.arrowButtonSize*multiplier*1.5f,
 //                worldCoordinates.y + MainTableFactory.arrowButtonSize*multiplier*0.3f, Align.right);
 
-        float newArrowButtonSize = MainTableFactory.arrowButtonSize * multiplier * Gdx.graphics.getHeight()/640;
+        final float screenScalingWidth = Gdx.graphics.getWidth()/800f;
+        final float screenScalingHeight = Gdx.graphics.getHeight()/480f;
+
+        float newArrowButtonSize = MainTableFactory.arrowButtonSize * multiplier * screenScalingHeight;
 //        float newButtonSize = MainTableFactory.arrowButtonSize * gameCamera.zoom;
         for (Cell<?> cell : arrowTable.getCells()) {
             cell.size(newArrowButtonSize, newArrowButtonSize);
         }
 
-        float newActionButtonSize = MainTableFactory.actionButtonSize * multiplier * Gdx.graphics.getHeight()/640;
+        float newActionButtonSize = MainTableFactory.actionButtonSize * multiplier * screenScalingHeight;
         for (Cell<?> cell : actionsTable.getCells()) {
             cell.size(newActionButtonSize, newActionButtonSize);
             if (cell.getActor() instanceof ResizableActionButton resizable)
                 resizable.resize(multiplier);
         }
 
-        actionsTable.getBackground().setMinWidth(MainTableFactory.actionsMenuWidth*multiplier);
-        actionsTable.getBackground().setMinHeight(MainTableFactory.actionsMenuHeight*multiplier);
+        actionsTable.getBackground().setMinWidth(MainTableFactory.actionsMenuWidth*multiplier*screenScalingWidth);
+        actionsTable.getBackground().setMinHeight(MainTableFactory.actionsMenuHeight*multiplier*screenScalingHeight);
 //        setSize(MainTableFactory.actionsMenuWidth * multiplier, MainTableFactory.actionsMenuHeight*multiplier);
 
         arrowTable.invalidate();
@@ -157,7 +162,7 @@ public class LegalMoves extends Stage {
 
         Point minionPosition = playerViewModel.getMinionPos(activeMinionId);
 
-        currentLegalMoves = null;
+        currentLegalMoves.clear();
 
         return playerService.sendMove(new Move(minionPosition, incompleteMove.type(), incompleteMove.direction()));
     }
@@ -215,13 +220,10 @@ public class LegalMoves extends Stage {
 //            }
 
             if (event instanceof ChosenMove chosenMove) {
-//                if (chosenMove.getIncompleteMove().type() == ActionToken.MIRROR)
-//                    return false;
+                Gdx.app.log("Move has been chosen", String.valueOf(chosenMove.getIncompleteMove()));
 
                 sendMove(chosenMove.getIncompleteMove());
 
-                updateLegalMoves();
-                updateLegalMoves();
                 return true;
             }
 

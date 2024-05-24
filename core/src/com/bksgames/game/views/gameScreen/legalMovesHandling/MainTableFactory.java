@@ -1,21 +1,16 @@
 package com.bksgames.game.views.gameScreen.legalMovesHandling;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Align;
 import com.bksgames.game.globalClasses.enums.ActionToken;
 import com.bksgames.game.globalClasses.enums.Direction;
 import com.bksgames.game.viewmodels.moves.IncompleteMove;
-import com.bksgames.game.views.gameScreen.MazeMapFactory;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.ActionButtonFactory;
 
-import java.util.HashMap;
-import java.util.Map;
 
 public class MainTableFactory {
 	static final int mainTableHeight = 200;

@@ -1,12 +1,12 @@
 package com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -44,6 +44,7 @@ public class MirrorButtonGetter extends ActionButtonGetter {
 
         MirrorButton mirrorButton = new MirrorButton();
         mirrorButton.setBackground(new TextureRegionDrawable(region));
+
 //        table.setVisible(true);
 
         TextureRegion slashMirrorTexture = atlas.findRegion("SlashMirror");
@@ -75,8 +76,16 @@ class MirrorButton extends Table implements ResizableActionButton {
     }
 
     @Override
-    public void resize(float multiplier) {
-        slashButtonCell.size(MirrorButtonGetter.slashButtonSize * multiplier, MirrorButtonGetter.slashButtonSize * multiplier);
-        backSlashButtonCell.size(MirrorButtonGetter.slashButtonSize * multiplier, MirrorButtonGetter.slashButtonSize * multiplier);
+    public void resize(final float multiplier) {
+//        TODO: Remove magic value from here
+        float newSize = MirrorButtonGetter.slashButtonSize * multiplier * Gdx.graphics.getHeight()/480;
+
+        ImageButton tempActor = slashButtonCell.size(newSize, newSize).getActor();
+//        tempActor.setSize(newSize, newSize);
+        tempActor.getImage().setSize(newSize, newSize);
+
+        tempActor = backSlashButtonCell.size(newSize, newSize).getActor();
+//        tempActor.setSize(newSize, newSize);
+        tempActor.getImage().setSize(newSize, newSize);
     }
 }

@@ -105,7 +105,6 @@ public class GameScreen implements Screen {
         gameCamera.viewportHeight = height;
 
         legalMoves.getViewport().update(width, height, false);
-
     }
 
     @Override
