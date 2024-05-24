@@ -23,5 +23,11 @@ public class DisplayableToImage {
 
         mapping.put(Displayable.RED_MINION, new DisplayInfo("RedMinion", "RedMinion", "minions"));
         mapping.put(Displayable.BLUE_MINION, new DisplayInfo("BlueMinion", "BlueMinion", "minions"));
+
+        mapping.put(Displayable.BLUE_MIRROR_SLASH, new DisplayInfo("BlueMirrorSlash", "BlueMirrorSlash", "mirrors"));
+        mapping.put(Displayable.BLUE_MIRROR_BACKSLASH, new DisplayInfo("BlueMirrorBackSlash", "BlueMirrorBackSlash", "mirrors"));
+
+        mapping.put(Displayable.RED_MIRROR_SLASH, new DisplayInfo("RedMirrorSlash", "RedMirrorSlash", "mirrors"));
+        mapping.put(Displayable.RED_MIRROR_BACKSLASH, new DisplayInfo("RedMirrorBackSlash", "RedMirrorBackSlash", "mirrors"));
     }
 }

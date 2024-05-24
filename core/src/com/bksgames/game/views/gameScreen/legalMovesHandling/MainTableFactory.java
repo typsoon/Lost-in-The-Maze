@@ -16,7 +16,7 @@ public class MainTableFactory {
 	static final int mainTableHeight = 200;
 	static final int arrowButtonSize = 75;
 	static final int actionsMenuWidth = 350;
-	static final int actionsMenuHeight = 75;
+	static final int actionsMenuHeight = 100;
 	static final int actionButtonSize = 75;
 
 	static final int distanceToAdjacentButton = 10;

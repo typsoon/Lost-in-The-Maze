@@ -20,8 +20,12 @@ public class MazeMapFactory {
 		TiledMapTileLayer wallsAndNexuses = new TiledMapTileLayer(3 * maxBoardWidth, 3 * maxBoardHeight, tilePixelSize, tilePixelSize);
 		wallsAndNexuses.setName("wallsAndNexuses");
 
+		TiledMapTileLayer mirrors = new TiledMapTileLayer(3 * maxBoardWidth, 3 * maxBoardHeight, tilePixelSize, tilePixelSize);
+		mirrors.setName("mirrors");
+
 		map.getLayers().add(tunnels);
 		map.getLayers().add(wallsAndNexuses);
+		map.getLayers().add(mirrors);
 		map.getLayers().add(minions);
 
 		return map;
