@@ -30,8 +30,8 @@ public class PlayerEnums {
      * @return {@code Displayable} of {@code Mirror} owned by {@code playerColor}
      */
     public static Displayable getMirrorColor(PlayerColor playerColor) {
-        if (playerColor == PlayerColor.RED) return Displayable.RED_MIRROR;
-        else return Displayable.BLUE_MIRROR;
+        if (playerColor == PlayerColor.RED) return Displayable.RED_MIRROR_SLASH;
+        else return Displayable.BLUE_MIRROR_SLASH;
     }
 
 }
