@@ -2,11 +2,11 @@ package com.bksgames.game.services;
 
 import com.bksgames.game.core.main.GameManager;
 import com.bksgames.game.core.utils.Point;
-import com.bksgames.game.globalClasses.Move;
+import com.bksgames.game.common.Move;
 import com.bksgames.game.core.utils.Parameters;
 import com.bksgames.game.core.main.SimpleGameManager;
-import com.bksgames.game.globalClasses.enums.PlayerColor;
-import com.bksgames.game.globalClasses.Update;
+import com.bksgames.game.common.enums.PlayerColor;
+import com.bksgames.game.common.Update;
 
 import java.util.ArrayList;
 import java.util.Collection;

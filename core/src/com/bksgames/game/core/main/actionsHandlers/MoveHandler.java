@@ -5,8 +5,8 @@ import com.bksgames.game.core.main.GameManager;
 import com.bksgames.game.core.tiles.Tile;
 import com.bksgames.game.core.tiles.Tunnel;
 import com.bksgames.game.core.utils.Point;
-import com.bksgames.game.globalClasses.Move;
-import com.bksgames.game.globalClasses.enums.ActionToken;
+import com.bksgames.game.common.Move;
+import com.bksgames.game.common.enums.ActionToken;
 /**
  * {@code ActionHandler} for {@code MoveTypes.MOVE}
  * @author jajko

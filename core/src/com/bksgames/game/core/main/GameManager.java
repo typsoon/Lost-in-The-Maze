@@ -3,11 +3,11 @@ package com.bksgames.game.core.main;
 import com.bksgames.game.core.boards.Board;
 import com.bksgames.game.core.utils.Parameters;
 import com.bksgames.game.core.utils.Point;
-import com.bksgames.game.globalClasses.Move;
-import com.bksgames.game.globalClasses.enums.Direction;
-import com.bksgames.game.globalClasses.enums.MinionEvent;
-import com.bksgames.game.globalClasses.enums.ActionToken;
-import com.bksgames.game.globalClasses.enums.PlayerColor;
+import com.bksgames.game.common.Move;
+import com.bksgames.game.common.enums.Direction;
+import com.bksgames.game.common.enums.MinionEvent;
+import com.bksgames.game.common.enums.ActionToken;
+import com.bksgames.game.common.enums.PlayerColor;
 
 import java.util.Collection;
 import java.util.Map;

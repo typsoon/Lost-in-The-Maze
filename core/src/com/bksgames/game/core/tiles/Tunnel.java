@@ -2,7 +2,7 @@ package com.bksgames.game.core.tiles;
 
 import com.bksgames.game.core.entities.Entity;
 import com.bksgames.game.core.utils.PlayerEnums;
-import com.bksgames.game.globalClasses.enums.Displayable;
+import com.bksgames.game.common.enums.Displayable;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -6,11 +6,10 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.bksgames.game.core.utils.Point;
-import com.bksgames.game.globalClasses.TileUpdate;
-import com.bksgames.game.globalClasses.Update;
+import com.bksgames.game.common.TileUpdate;
+import com.bksgames.game.common.Update;
 import com.bksgames.game.viewmodels.DisplayableToImage;
 import com.bksgames.game.viewmodels.PlayerViewModel;
-import com.bksgames.game.viewmodels.SimpleViewModel;
 import com.bksgames.game.views.gameScreen.MazeMapFactory;
 
 public class TileUpdateUpdater extends Updater {

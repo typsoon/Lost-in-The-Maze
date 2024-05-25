@@ -1,6 +1,6 @@
-package com.bksgames.game.globalClasses;
+package com.bksgames.game.common;
 
-import com.bksgames.game.globalClasses.enums.UpdateIDs;
+import com.bksgames.game.common.enums.UpdateIDs;
 
 public interface Update {
     UpdateIDs getID();

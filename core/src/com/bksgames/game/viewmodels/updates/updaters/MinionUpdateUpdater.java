@@ -3,9 +3,8 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.bksgames.game.core.utils.Point;
-import com.bksgames.game.globalClasses.MinionUpdate;
-import com.bksgames.game.globalClasses.Update;
-import com.bksgames.game.globalClasses.enums.Direction;
+import com.bksgames.game.common.MinionUpdate;
+import com.bksgames.game.common.Update;
 import com.bksgames.game.viewmodels.PlayerViewModel;
 import com.bksgames.game.views.gameScreen.MazeMapFactory;
 

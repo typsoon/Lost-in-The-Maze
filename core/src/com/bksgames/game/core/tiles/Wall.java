@@ -1,6 +1,6 @@
 package com.bksgames.game.core.tiles;
 
-import com.bksgames.game.globalClasses.enums.Displayable;
+import com.bksgames.game.common.enums.Displayable;
 
 /**
  * Representing {@code Wall}

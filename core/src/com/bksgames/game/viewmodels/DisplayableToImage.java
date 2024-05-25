@@ -1,6 +1,6 @@
 package com.bksgames.game.viewmodels;
 
-import com.bksgames.game.globalClasses.enums.Displayable;
+import com.bksgames.game.common.enums.Displayable;
 
 import java.util.HashMap;
 

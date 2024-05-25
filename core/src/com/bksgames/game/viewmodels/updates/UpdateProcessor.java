@@ -2,8 +2,8 @@ package com.bksgames.game.viewmodels.updates;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.bksgames.game.globalClasses.enums.UpdateIDs;
-import com.bksgames.game.globalClasses.Update;
+import com.bksgames.game.common.enums.UpdateIDs;
+import com.bksgames.game.common.Update;
 import com.bksgames.game.viewmodels.PlayerViewModel;
 import com.bksgames.game.viewmodels.updates.updaters.LaserUpdateHandler;
 import com.bksgames.game.viewmodels.updates.updaters.MinionUpdateUpdater;

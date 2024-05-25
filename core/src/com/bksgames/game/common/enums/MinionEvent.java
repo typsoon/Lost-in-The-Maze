@@ -1,4 +1,4 @@
-package com.bksgames.game.globalClasses.enums;
+package com.bksgames.game.common.enums;
 
 public enum MinionEvent {
     SPAWNED, KILLED

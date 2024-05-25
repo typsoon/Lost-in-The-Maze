@@ -3,7 +3,7 @@ package com.bksgames.game.viewmodels.updates.updaters;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.bksgames.game.globalClasses.Update;
+import com.bksgames.game.common.Update;
 import com.bksgames.game.viewmodels.PlayerViewModel;
 
 public abstract class Updater {

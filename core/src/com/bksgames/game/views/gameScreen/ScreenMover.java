@@ -5,8 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
-import com.bksgames.game.core.utils.Point;
-import com.bksgames.game.globalClasses.enums.Direction;
+import com.bksgames.game.common.enums.Direction;
 import com.bksgames.game.viewmodels.PlayerViewModel;
 
 public class ScreenMover extends InputAdapter {

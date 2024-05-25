@@ -5,7 +5,7 @@ import com.bksgames.game.core.utils.Parameters;
 import com.bksgames.game.core.tiles.Tunnel;
 import com.bksgames.game.core.tiles.Wall;
 import com.bksgames.game.core.utils.Point;
-import com.bksgames.game.globalClasses.enums.PlayerColor;
+import com.bksgames.game.common.enums.PlayerColor;
 
 import java.util.ArrayList;
 import java.util.Random;

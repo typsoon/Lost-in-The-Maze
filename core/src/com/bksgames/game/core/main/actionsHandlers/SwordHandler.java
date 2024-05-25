@@ -7,8 +7,8 @@ import com.bksgames.game.core.tiles.Tunnel;
 import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.core.utils.SourceOfDamage;
 import com.bksgames.game.core.utils.Vulnerable;
-import com.bksgames.game.globalClasses.Move;
-import com.bksgames.game.globalClasses.enums.ActionToken;
+import com.bksgames.game.common.Move;
+import com.bksgames.game.common.enums.ActionToken;
 
 /**
  * {@code ActionHandler} for {@code MoveTypes.SWORD}

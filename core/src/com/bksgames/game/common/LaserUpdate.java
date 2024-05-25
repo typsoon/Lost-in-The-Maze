@@ -1,6 +1,6 @@
-package com.bksgames.game.globalClasses;
+package com.bksgames.game.common;
 
-import com.bksgames.game.globalClasses.enums.Direction;
+import com.bksgames.game.common.enums.Direction;
 
 public interface LaserUpdate extends Update {
     Direction getDirection();

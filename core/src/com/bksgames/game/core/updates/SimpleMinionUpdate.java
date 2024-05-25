@@ -1,8 +1,8 @@
 package com.bksgames.game.core.updates;
 
 import com.bksgames.game.core.utils.Point;
-import com.bksgames.game.globalClasses.MinionUpdate;
-import com.bksgames.game.globalClasses.enums.*;
+import com.bksgames.game.common.MinionUpdate;
+import com.bksgames.game.common.enums.*;
 
 /**
  * Simple implementation of {@code MinionUpdate}

@@ -1,6 +1,6 @@
 package com.bksgames.game.core.utils;
 
-import com.bksgames.game.globalClasses.enums.ActionToken;
+import com.bksgames.game.common.enums.ActionToken;
 
 /**
  *
