@@ -1,18 +1,10 @@
 package com.bksgames.game.viewmodels.updates.updaters;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
-import com.badlogic.gdx.math.Matrix4;
-import com.bksgames.game.core.tiles.Tile;
 import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.globalClasses.LaserUpdate;
 import com.bksgames.game.globalClasses.Update;
