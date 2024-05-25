@@ -1,5 +1,6 @@
 package com.bksgames.game.views.gameScreen;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Camera;
@@ -31,7 +32,7 @@ public class MinionClickReceiver extends InputAdapter {
 
         Point minionCoords = MazeMapFactory.unproject(gameCamera.unproject(new Vector3(screenX, screenY, 0)));
         // Output the tile coordinates
-//        Gdx.app.log("ClickedTile", "Clicked tile coordinates: (" + (tileX - MazeMapFactory.maxBoardWidth) + ", " + (tileY - MazeMapFactory.maxBoardHeight) + ")");
+        Gdx.app.log("ClickedTile", "Clicked tile coordinates: (" + (minionCoords.x) + ", " + (minionCoords.y) + ")");
 //
         if (playerViewModel.hasPlayableMinion(minionCoords)) {
             legalMoves.displayLegalMoves(playerViewModel.getMinionId(minionCoords));

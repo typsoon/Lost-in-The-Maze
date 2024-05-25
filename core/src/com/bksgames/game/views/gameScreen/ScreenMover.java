@@ -11,7 +11,8 @@ import com.bksgames.game.viewmodels.PlayerViewModel;
 public class ScreenMover extends InputAdapter {
     private final OrthographicCamera gameCamera;
     private static final float cameraSpeed = 400f;
-    private static final float offset = 7;
+    private static final float offset = 10;
+    private static final float screenRatio = 800f/480f;
 //    private static final float cameraSpeed = 5f;
     private boolean leftPressed, rightPressed, upPressed, downPressed;
     private int lastMouseX, lastMouseY;
@@ -28,65 +29,94 @@ public class ScreenMover extends InputAdapter {
         this.playerViewModel = playerViewModel;
     }
 
-    // TODO: typsoon's function
+// TODO: typsoon's function
+
+//    public void getAcceptableBounds(Vector3 acceptableLeftUpper, Vector3 acceptableRightLower) {
+//        Vector3 leftUpperGameCoords = new Vector3( playerViewModel.getMostDistant(Direction.LEFT) - offset, playerViewModel.getMostDistant(Direction.UP) + offset, 0);
+//        Vector3 rightLowerGameCoords = new Vector3(playerViewModel.getMostDistant(Direction.RIGHT) + offset, playerViewModel.getMostDistant(Direction.DOWN) - offset,  0);
+//        acceptableLeftUpper = MazeMapFactory.project(leftUpperGameCoords);
+//        acceptableRightLower = MazeMapFactory.project(rightLowerGameCoords);
+//    }
 
     private void alterCameraPosition(float alterX, float alterY){
-        float newX = gameCamera.position.x + alterX;
-        float newY = gameCamera.position.y + alterY;
+//        float newX = gameCamera.position.x + alterX;
+//        float newY = gameCamera.position.y + alterY;
 
-        Vector3 upLeft = new Vector3( playerViewModel.getMostDistant(Direction.LEFT) - offset, playerViewModel.getMostDistant(Direction.UP) + offset, 0);
-        Vector3 downRight = new Vector3(playerViewModel.getMostDistant(Direction.RIGHT) + offset, playerViewModel.getMostDistant(Direction.DOWN) - offset,  0);
-        Vector3 upLeftProjected = MazeMapFactory.project(upLeft);
-        Vector3 downRightProjected = MazeMapFactory.project(downRight);
+        Vector3 leftUpper = gameCamera.unproject(new Vector3(0, 0, 0));
+        Vector3 rightLower = gameCamera.unproject(new Vector3(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(),  0));
 
-        newY = Math.max(downRightProjected.y, newY);
-        newY = Math.min(upLeftProjected.y, newY);
-        newX = Math.min(downRightProjected.x, newX);
-        newX = Math.max(upLeftProjected.x, newX);
+//        Gdx.app.log("Width",  String.valueOf(Gdx.graphics.getWidth()) + ' ' + Gdx.graphics.getHeight());
 
-        gameCamera.position.set(new Vector3(newX, newY, 0));
+        Vector3 leftUpperGameCoords = new Vector3( playerViewModel.getMostDistant(Direction.LEFT) - offset, playerViewModel.getMostDistant(Direction.UP) + offset, 0);
+        Vector3 rightLowerGameCoords = new Vector3(playerViewModel.getMostDistant(Direction.RIGHT) + offset, playerViewModel.getMostDistant(Direction.DOWN) - offset,  0);
+        Vector3 acceptableLeftUpper = MazeMapFactory.project(leftUpperGameCoords);
+        Vector3 acceptableRightLower = MazeMapFactory.project(rightLowerGameCoords);
+
+//        Vector3 acceptableLeftUpperTemp = new Vector3(), acceptableRightLowerTemp = new Vector3();
+//        setAcceptableBounds(acceptableLeftUpperTemp, acceptableRightLowerTemp);
+
+        float maxAcceptableXShift = acceptableRightLower.x - rightLower.x;
+        float minAcceptableXShift = acceptableLeftUpper.x - leftUpper.x;
+        float minAcceptableYShift = acceptableRightLower.y - rightLower.y;
+        float maxAcceptableYShift = acceptableLeftUpper.y - leftUpper.y;
+
+        alterY = Math.max(minAcceptableYShift, alterY);
+        alterY = Math.min(maxAcceptableYShift, alterY);
+
+        alterX = Math.min(maxAcceptableXShift, alterX);
+        alterX = Math.max(minAcceptableXShift, alterX);
+
+        gameCamera.translate(alterX, alterY);
+//        gameCamera.position.set(new Vector3(newX, newY, 0));
     }
 
-    private void adjustZoom(float zoomy){
-        float newZoom = gameCamera.zoom + zoomy;
+    private void adjustZoom(float zoomy) {
+        Vector3 leftUpper = gameCamera.unproject(new Vector3(0, 0, 0));
+        Vector3 rightLower = gameCamera.unproject(new Vector3(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(),  0));
 
-        Vector3 leftUpperInCamera = new Vector3(0, 0, 0);
-        Vector3 leftUpper = gameCamera.unproject(leftUpperInCamera);
+        Vector3 displayedRectangleCenter = new Vector3((leftUpper.x+rightLower.x)/2, (leftUpper.y+rightLower.y)/2, (leftUpper.z+rightLower.z)/2);
 
-        Vector3 rightLowerInCamera = new Vector3(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(),  0);
-        Vector3 rightLower = gameCamera.unproject(rightLowerInCamera);
+        Vector3 leftUpperGameCoords = new Vector3( playerViewModel.getMostDistant(Direction.LEFT) - offset, playerViewModel.getMostDistant(Direction.UP) + offset, 0);
+        Vector3 rightLowerGameCoords = new Vector3(playerViewModel.getMostDistant(Direction.RIGHT) + offset, playerViewModel.getMostDistant(Direction.DOWN) - offset,  0);
+        Vector3 acceptableLeftUpper = MazeMapFactory.project(leftUpperGameCoords);
+        Vector3 acceptableRightLower = MazeMapFactory.project(rightLowerGameCoords);
 
-        Vector3 leftUpperWorld = new Vector3( playerViewModel.getMostDistant(Direction.LEFT) - offset, playerViewModel.getMostDistant(Direction.UP) + offset, 0);
-        Vector3 rightLowerWorld = new Vector3(playerViewModel.getMostDistant(Direction.RIGHT) + offset, playerViewModel.getMostDistant(Direction.DOWN) - offset,  0);
-        Vector3 leftUpperProjected = MazeMapFactory.project(leftUpperWorld);
-        Vector3 rightLowerProjected = MazeMapFactory.project(rightLowerWorld);
+        Gdx.app.log("ZoomInfo", rightLower.toString() + ' ' + leftUpper + ' ' + acceptableLeftUpper + ' ' + acceptableRightLower);
 
-        Gdx.app.log("ZoomInfo", rightLower.toString() + ' ' + leftUpper.toString() + ' ' + leftUpperProjected.toString() + ' ' + rightLowerProjected);
+//        TODO: remove magic values from here
+        float min = getMin(displayedRectangleCenter, acceptableLeftUpper, acceptableRightLower);
+        float newZoom = Math.min(gameCamera.zoom + zoomy, min);
+        newZoom = Math.max(newZoom, 0.1f);
+        gameCamera.zoom = newZoom;
+    }
 
-        float t1 = leftUpperProjected.x/leftUpper.x;
-        float t2 = leftUpperProjected.y/leftUpper.y;
-        float t3 = rightLowerProjected.x/rightLower.x;
-        float t4 = rightLowerProjected.y/rightLower.y;
+    private static float getMin(Vector3 displayedRectangleCenter, Vector3 acceptableLeftUpper, Vector3 acceptableRightLower) {
+        float t1 = (displayedRectangleCenter.x - acceptableLeftUpper.x) / 400;
+        float t2 = (acceptableLeftUpper.y - displayedRectangleCenter.y) / 240;
 
-        Gdx.app.log("tInfo", String.valueOf(t1) + ' ' + String.valueOf(t2) + ' ' + String.valueOf(t3) + ' ' + String.valueOf(t4));
+        float t3 = (acceptableRightLower.x - displayedRectangleCenter.x)/ 400;
+        float t4 = (displayedRectangleCenter.y - acceptableRightLower.y) / 240;
 
-        float min = Math.min(t1, Math.min(t2, Math.min(t3, t4)));
-        gameCamera.zoom = Math.max(min, newZoom);
+//        Gdx.app.log("tInfo", String.valueOf(t1) + ' ' + String.valueOf(t2) + ' ' + String.valueOf(t3) + ' ' + String.valueOf(t4));
+//
+//        Gdx.app.log("newZoom", String.valueOf(newZoom));
+
+        return Math.min(t1, Math.min(t2, Math.min(t3, t4)));
     }
 
     @Override
     public boolean scrolled(float amountX, float amountY) {
+        float added;
         if (amountY > 0) {
             // Zoom in when scrolling up
-            float added = gameCamera.zoom * 0.1f;
-            adjustZoom(added);
-//            gameCamera.zoom *= 1.1f; // Adjust the zoom factor as needed
+            added = gameCamera.zoom * 0.1f;
+            //            gameCamera.zoom *= 1.1f; // Adjust the zoom factor as needed
         } else {
             // Zoom out when scrolling down
-            float added = gameCamera.zoom /11f;
-            adjustZoom(added);
-//            gameCamera.zoom /= 1.1f; // Adjust the zoom factor as needed
+            added = -gameCamera.zoom / 11f;
+            //            gameCamera.zoom /= 1.1f; // Adjust the zoom factor as needed
         }
+        adjustZoom(added);
         return true; // Indicate that the input event was handled
     }
 
