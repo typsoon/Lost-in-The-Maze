@@ -12,8 +12,7 @@ public class ScreenMover extends InputAdapter {
     private final OrthographicCamera gameCamera;
     private static final float cameraSpeed = 400f;
     private static final float offset = 10;
-    private static final float screenRatio = 800f/480f;
-//    private static final float cameraSpeed = 5f;
+    //    private static final float cameraSpeed = 5f;
     private boolean leftPressed, rightPressed, upPressed, downPressed;
     private int lastMouseX, lastMouseY;
     private boolean isDragging;
@@ -81,7 +80,7 @@ public class ScreenMover extends InputAdapter {
         Vector3 acceptableLeftUpper = MazeMapFactory.project(leftUpperGameCoords);
         Vector3 acceptableRightLower = MazeMapFactory.project(rightLowerGameCoords);
 
-        Gdx.app.log("ZoomInfo", rightLower.toString() + ' ' + leftUpper + ' ' + acceptableLeftUpper + ' ' + acceptableRightLower);
+//        Gdx.app.log("ZoomInfo", rightLower.toString() + ' ' + leftUpper + ' ' + acceptableLeftUpper + ' ' + acceptableRightLower);
 
 //        TODO: remove magic values from here
         float min = getMin(displayedRectangleCenter, acceptableLeftUpper, acceptableRightLower);
@@ -110,11 +109,9 @@ public class ScreenMover extends InputAdapter {
         if (amountY > 0) {
             // Zoom in when scrolling up
             added = gameCamera.zoom * 0.1f;
-            //            gameCamera.zoom *= 1.1f; // Adjust the zoom factor as needed
         } else {
             // Zoom out when scrolling down
             added = -gameCamera.zoom / 11f;
-            //            gameCamera.zoom /= 1.1f; // Adjust the zoom factor as needed
         }
         adjustZoom(added);
         return true; // Indicate that the input event was handled
@@ -231,11 +228,9 @@ public class ScreenMover extends InputAdapter {
 
         if (controlPressed) {
             if (zoomOutPressed) {
-//                gameCamera.zoom += 0.02f; // Adjust zoom speed as necessary
                 adjustZoom(0.02f);
             }
             if (zoomInPressed) {
-//                gameCamera.zoom -= 0.02f; // Adjust zoom speed as necessary
                 adjustZoom(-0.02f);
             }
         }
