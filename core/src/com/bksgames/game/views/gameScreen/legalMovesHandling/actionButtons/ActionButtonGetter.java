@@ -34,5 +34,5 @@ public abstract class ActionButtonGetter {
         };
     }
 
-    public abstract Actor get(IncompleteMove incompleteMove);
+    public abstract ImageButton get(IncompleteMove incompleteMove);
 }

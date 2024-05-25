@@ -17,7 +17,7 @@ public class ArrowGetter extends ActionButtonGetter {
     }
 
     @Override
-    public Actor get(IncompleteMove incompleteMove) {
+    public ImageButton get(IncompleteMove incompleteMove) {
         String textureName = switch (incompleteMove.direction()) {
             case LEFT -> "LeftArrow";
             case RIGHT -> "RightArrow";

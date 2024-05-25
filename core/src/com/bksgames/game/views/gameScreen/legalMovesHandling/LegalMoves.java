@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.bksgames.game.core.utils.Point;
@@ -26,7 +27,7 @@ import java.util.*;
 public class LegalMoves extends Stage {
     private final Table mainTable;
     //    private TextureAtlas atlas;
-    Map<IncompleteMove, Actor> moveToButtonMapping = new HashMap<>();
+    Map<IncompleteMove, ImageButton> moveToButtonMapping = new HashMap<>();
 
     private final PlayerService playerService;
     private final PlayerViewModel playerViewModel;
@@ -71,6 +72,10 @@ public class LegalMoves extends Stage {
 //        TODO: TO JEST ŁATKA - TRZEBA TO USUNĄĆ !!!!!!!!
         currentLegalMoves.add(new IncompleteMove(ActionToken.MIRROR, Direction.RIGHT));
         currentLegalMoves.add(new IncompleteMove(ActionToken.MIRROR, Direction.LEFT));
+        currentLegalMoves.add(new IncompleteMove(ActionToken.LASER, Direction.LEFT));
+        currentLegalMoves.add(new IncompleteMove(ActionToken.LASER, Direction.RIGHT));
+        currentLegalMoves.add(new IncompleteMove(ActionToken.LASER, Direction.UP));
+        currentLegalMoves.add(new IncompleteMove(ActionToken.LASER, Direction.DOWN));
 //
 
         for (Actor actor : moveToButtonMapping.values()) {

@@ -27,7 +27,7 @@ public class MirrorButtonGetter extends ActionButtonGetter {
     }
 
     @Override
-    public Actor get(IncompleteMove incompleteMove) {
+    public ImageButton get(IncompleteMove incompleteMove) {
 
         TextureRegion buttonTexture = switch (incompleteMove.direction()) {
             case Direction.RIGHT -> atlas.findRegion("SlashMirror");
