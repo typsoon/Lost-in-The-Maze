@@ -45,9 +45,9 @@ public class MazeMapFactory {
 	}
 
 	public static Vector3 project(Vector3 vector3){
-		float tileX = (vector3.x * tilePixelSize);
-		float tileY = (vector3.y * tilePixelSize);
+		float tileX = (vector3.x + maxBoardWidth) * tilePixelSize;
+		float tileY = (vector3.y + maxBoardHeight) * tilePixelSize;
 
-		return new Vector3(tileX + maxBoardWidth, tileY + maxBoardHeight, 0);
+		return new Vector3(tileX, tileY, 0);
 	}
 }
