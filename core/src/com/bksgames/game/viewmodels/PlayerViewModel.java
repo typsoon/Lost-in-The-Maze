@@ -14,6 +14,9 @@ public interface PlayerViewModel {
 //    int getMinY();
 
     void laserFired(Point position);
+    int getMostDistant(Direction direction);
+
+    void tileRevealed(Point position);
     void minionMoved(Point start, Direction direction);
     List<Point> getMinionsPositions();
 
