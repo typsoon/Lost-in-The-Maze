@@ -9,6 +9,33 @@ import java.util.List;
 public class SimpleViewModel implements PlayerViewModel{
     final List<Point> minionPositions;
 
+    EnumMap<Direction, Integer> mostDistances = new EnumMap<>(Map.of(
+            Direction.UP, 0,
+            Direction.DOWN, 0,
+            Direction.RIGHT, 0,
+            Direction.LEFT, 0
+    ));
+    @Override
+    public int getMostDistant(Direction direction) {
+        return mostDistances.get(direction);
+    }
+
+    @Override
+    public void tileRevealed(Point position) {
+        if(position.x>mostDistances.get(Direction.RIGHT)){
+            mostDistances.put(Direction.RIGHT, position.x);
+        }
+        if(position.x<mostDistances.get(Direction.LEFT)){
+            mostDistances.put(Direction.LEFT, position.x);
+        }
+        if(position.y>mostDistances.get(Direction.UP)){
+            mostDistances.put(Direction.UP, position.y);
+        }
+        if(position.y<mostDistances.get(Direction.DOWN)){
+            mostDistances.put(Direction.DOWN, position.y);
+        }
+    }
+
     @Override
     public void minionMoved(Point start, Direction direction) {
         if (!minionPositions.contains(start)) {

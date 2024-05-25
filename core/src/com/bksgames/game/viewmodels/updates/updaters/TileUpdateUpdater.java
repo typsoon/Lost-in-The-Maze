@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
+import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.globalClasses.TileUpdate;
 import com.bksgames.game.globalClasses.Update;
 import com.bksgames.game.viewmodels.DisplayableToImage;
@@ -18,6 +19,8 @@ public class TileUpdateUpdater extends Updater {
         if (!(update instanceof TileUpdate tileUpdate)) {
             throw new IllegalArgumentException("Invalid update type: " + update.getClass().getSimpleName());
         }
+
+        playerViewModel.tileRevealed(new Point(update.getRelativeX(), update.getRelativeY()));
 
         DisplayableToImage.DisplayInfo info = DisplayableToImage.getDisplayInfo(tileUpdate.whatToDisplay());
 

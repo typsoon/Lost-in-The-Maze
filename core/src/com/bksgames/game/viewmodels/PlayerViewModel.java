@@ -13,6 +13,9 @@ public interface PlayerViewModel {
 //    int getMinX();
 //    int getMinY();
 
+    int getMostDistant(Direction direction);
+
+    void tileRevealed(Point position);
     void minionMoved(Point start, Direction direction);
     List<Point> getMinionsPositions();
 

@@ -26,14 +26,10 @@ public class MinionClickReceiver extends InputAdapter {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         // Convert screen coordinates to world coordinates
-        float worldX = gameCamera.unproject(new Vector3(screenX, screenY, 0)).x;
-        float worldY = gameCamera.unproject(new Vector3(screenX, screenY, 0)).y;
+//        float worldX = gameCamera.unproject(new Vector3(screenX, screenY, 0)).x;
+//        float worldY = gameCamera.unproject(new Vector3(screenX, screenY, 0)).y;
 
-        // Convert world coordinates to map coordinates
-        int tileX = (int) (worldX / MazeMapFactory.tilePixelSize);
-        int tileY = (int) (worldY / MazeMapFactory.tilePixelSize);
-
-        Point minionCoords = new Point(tileX - MazeMapFactory.maxBoardWidth, tileY - MazeMapFactory.maxBoardHeight);
+        Point minionCoords = MazeMapFactory.unproject(gameCamera.unproject(new Vector3(screenX, screenY, 0)));
         // Output the tile coordinates
 //        Gdx.app.log("ClickedTile", "Clicked tile coordinates: (" + (tileX - MazeMapFactory.maxBoardWidth) + ", " + (tileY - MazeMapFactory.maxBoardHeight) + ")");
 //
