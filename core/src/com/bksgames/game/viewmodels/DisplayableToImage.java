@@ -29,5 +29,8 @@ public class DisplayableToImage {
 
         mapping.put(Displayable.RED_MIRROR_SLASH, new DisplayInfo("RedMirrorSlash", "RedMirrorSlash", "mirrors"));
         mapping.put(Displayable.RED_MIRROR_BACKSLASH, new DisplayInfo("RedMirrorBackSlash", "RedMirrorBackSlash", "mirrors"));
+
+        mapping.put(Displayable.STRAIGHT_LASER, new DisplayInfo("StraightLaser", "StraightLaser", "laser"));
+        mapping.put(Displayable.BENT_LASER, new DisplayInfo("BentLaser", "BentLaser", "laser"));
     }
 }

@@ -19,7 +19,7 @@ import com.bksgames.game.viewmodels.PlayerViewModel;
 import com.bksgames.game.viewmodels.moves.IncompleteMove;
 import com.bksgames.game.views.gameScreen.MazeMapFactory;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.ActionButtonFactory;
-import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.ResizableActionButton;
+import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.Resizable;
 
 import java.util.*;
 
@@ -69,7 +69,8 @@ public class LegalMoves extends Stage {
         moves.forEach(move -> currentLegalMoves.add(new IncompleteMove(move.type(), move.direction())));
 
 //        TODO: TO JEST ŁATKA - TRZEBA TO USUNĄĆ !!!!!!!!
-        currentLegalMoves.add(new IncompleteMove(ActionToken.MIRROR, Direction.UP));
+        currentLegalMoves.add(new IncompleteMove(ActionToken.MIRROR, Direction.RIGHT));
+        currentLegalMoves.add(new IncompleteMove(ActionToken.MIRROR, Direction.LEFT));
 //
 
         for (Actor actor : moveToButtonMapping.values()) {
@@ -121,7 +122,7 @@ public class LegalMoves extends Stage {
         float newActionButtonSize = MainTableFactory.actionButtonSize * multiplier * screenScalingHeight;
         for (Cell<?> cell : actionsTable.getCells()) {
             cell.size(newActionButtonSize, newActionButtonSize);
-            if (cell.getActor() instanceof ResizableActionButton resizable)
+            if (cell.getActor() instanceof Resizable resizable)
                 resizable.resize(multiplier);
         }
 
@@ -189,7 +190,6 @@ public class LegalMoves extends Stage {
         mainTable = MainTableFactory.produce(arrowTable, actionsTable, factory, atlas);
         this.addActor(mainTable);
 
-        mainTable.setPosition(400, 0);
 //        super.act();
 //        super.draw();
 

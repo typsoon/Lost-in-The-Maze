@@ -1,5 +1,5 @@
 package com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons;
 
-public interface ResizableActionButton {
+public interface Resizable {
     void resize(float multiplier);
 }

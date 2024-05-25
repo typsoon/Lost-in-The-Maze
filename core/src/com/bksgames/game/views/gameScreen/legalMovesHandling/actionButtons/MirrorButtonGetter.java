@@ -4,72 +4,52 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.bksgames.game.globalClasses.enums.Direction;
 import com.bksgames.game.viewmodels.moves.IncompleteMove;
-import com.bksgames.game.views.gameScreen.legalMovesHandling.ChosenMove;
 
 public class MirrorButtonGetter extends ActionButtonGetter {
-    static final int slashButtonSize = 25;
+    static final int slashButtonSize = 30;
 
     MirrorButtonGetter(TextureAtlas atlas) {
         super(atlas);
     }
 
-    private InputListener getInputListenerForButton(Table table, ImageButton button, IncompleteMove move) {
-        return new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int ignored) {
-                if (!table.isVisible())
-                    return false;
+    public static Table getMirrorButtonTable(ImageButton backSlashButton, ImageButton slashButton, TextureRegion region) {
+        MirrorButtonTable mirrorButtonTable = new MirrorButtonTable(backSlashButton, slashButton);
+        mirrorButtonTable.setBackground(new TextureRegionDrawable(region));
 
-                if (event.getTarget() == button.getImage()) {
-                    table.fire(new ChosenMove(move));
-                    return true;
-                }
-
-                return false;
-            }
-        };
+        return mirrorButtonTable;
     }
 
     @Override
     public Actor get(IncompleteMove incompleteMove) {
-        TextureRegion region = atlas.findRegion("MirrorButton");
 
-        MirrorButton mirrorButton = new MirrorButton();
-        mirrorButton.setBackground(new TextureRegionDrawable(region));
+        TextureRegion buttonTexture = switch (incompleteMove.direction()) {
+            case Direction.RIGHT -> atlas.findRegion("SlashMirror");
+            case Direction.LEFT -> atlas.findRegion("BackSlashMirror");
 
-//        table.setVisible(true);
+            default -> throw new IllegalStateException("Unexpected value: " + incompleteMove.direction() + " as a mirror move direction");
+        };
 
-        TextureRegion slashMirrorTexture = atlas.findRegion("SlashMirror");
-        TextureRegion backSlashMirrorTexture = atlas.findRegion("BackSlashMirror");
+        MirrorButton button = new MirrorButton(new TextureRegionDrawable(buttonTexture));
+        button.bottom().left();
 
-        ImageButton slashButton = new ImageButton(new TextureRegionDrawable(slashMirrorTexture));
-        ImageButton backSlashButton = new ImageButton(new TextureRegionDrawable(backSlashMirrorTexture));
+        button.addCaptureListener(getTouchDownListenerForAButton(button, incompleteMove));
 
-        slashButton.addCaptureListener(getInputListenerForButton(mirrorButton, slashButton,
-                new IncompleteMove(incompleteMove.type(), Direction.RIGHT)));
-
-        backSlashButton.addCaptureListener(getInputListenerForButton(mirrorButton, backSlashButton,
-                new IncompleteMove(incompleteMove.type(), Direction.LEFT)));
-
-        mirrorButton.addButtons(backSlashButton, slashButton);
-
-        return mirrorButton;
+        return button;
     }
 }
 
-class MirrorButton extends Table implements ResizableActionButton {
-    private Cell<ImageButton> backSlashButtonCell;
-    private Cell<ImageButton> slashButtonCell;
+class MirrorButtonTable extends Table implements Resizable {
+    private final Cell<ImageButton> backSlashButtonCell;
+    private final Cell<ImageButton> slashButtonCell;
 
-    void addButtons(ImageButton backSlashButton, ImageButton slashButton) {
+    MirrorButtonTable(ImageButton backSlashButton, ImageButton slashButton) {
         backSlashButtonCell = add(backSlashButton);
         row();
         slashButtonCell = add(slashButton);
@@ -78,7 +58,7 @@ class MirrorButton extends Table implements ResizableActionButton {
     @Override
     public void resize(final float multiplier) {
 //        TODO: Remove magic value from here
-        float newSize = MirrorButtonGetter.slashButtonSize * multiplier * Gdx.graphics.getHeight()/480;
+        final float newSize = MirrorButtonGetter.slashButtonSize * multiplier * Gdx.graphics.getHeight()/480;
 
         ImageButton tempActor = slashButtonCell.size(newSize, newSize).getActor();
 //        tempActor.setSize(newSize, newSize);
@@ -87,5 +67,21 @@ class MirrorButton extends Table implements ResizableActionButton {
         tempActor = backSlashButtonCell.size(newSize, newSize).getActor();
 //        tempActor.setSize(newSize, newSize);
         tempActor.getImage().setSize(newSize, newSize);
+    }
+}
+
+class MirrorButton extends ImageButton {
+    public MirrorButton(Drawable imageUp) {
+        super(imageUp);
+    }
+
+    @Override
+    public void setVisible(boolean visible) {
+        if (getParent() != null) {
+            getParent().setVisible(visible);
+        }
+//        else throw new IllegalStateException("Mirror button parent should not be null");
+
+        super.setVisible(visible);
     }
 }

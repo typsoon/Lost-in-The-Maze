@@ -11,8 +11,6 @@ public class MazeMapFactory {
 
 		TiledMap map = new TiledMap();
 
-		TiledMapTileLayer minions = new TiledMapTileLayer(3 * maxBoardWidth, 3 * maxBoardHeight, tilePixelSize, tilePixelSize);
-		minions.setName("minions");
 
 		TiledMapTileLayer tunnels = new TiledMapTileLayer(3 * maxBoardWidth, 3 * maxBoardHeight, tilePixelSize, tilePixelSize);
 		tunnels.setName("tunnels");
@@ -23,10 +21,17 @@ public class MazeMapFactory {
 		TiledMapTileLayer mirrors = new TiledMapTileLayer(3 * maxBoardWidth, 3 * maxBoardHeight, tilePixelSize, tilePixelSize);
 		mirrors.setName("mirrors");
 
+		TiledMapTileLayer minions = new TiledMapTileLayer(3 * maxBoardWidth, 3 * maxBoardHeight, tilePixelSize, tilePixelSize);
+		minions.setName("minions");
+
+		TiledMapTileLayer laser = new TiledMapTileLayer(3 * maxBoardWidth, 3 * maxBoardHeight, tilePixelSize, tilePixelSize);
+		laser.setName("laser");
+
 		map.getLayers().add(tunnels);
 		map.getLayers().add(wallsAndNexuses);
 		map.getLayers().add(mirrors);
 		map.getLayers().add(minions);
+		map.getLayers().add(laser);
 
 		return map;
 	}

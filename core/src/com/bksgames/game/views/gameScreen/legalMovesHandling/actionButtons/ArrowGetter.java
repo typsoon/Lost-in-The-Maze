@@ -45,21 +45,8 @@ public class ArrowGetter extends ActionButtonGetter {
 
         button.bottom().left();
 
+        button.addCaptureListener(getTouchDownListenerForAButton(button, incompleteMove));
         button.addCaptureListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int buttonCode) {
-//                This is important because of how LibGdx works
-                if (!button.isVisible())
-                    return false;
-
-//                This is also due to LibGdx seeing Image as an actor
-                if (event.getTarget() == button.getImage()) {
-                    button.fire(new ChosenMove(incompleteMove));
-                    return true;
-                }
-                return false;
-            }
-
             @Override
             public boolean keyDown(InputEvent event, int keycode) {
                 if (keycode == key) {

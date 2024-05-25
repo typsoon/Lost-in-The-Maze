@@ -3,6 +3,7 @@ package com.bksgames.game.views.gameScreen.legalMovesHandling;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -10,6 +11,7 @@ import com.bksgames.game.globalClasses.enums.ActionToken;
 import com.bksgames.game.globalClasses.enums.Direction;
 import com.bksgames.game.viewmodels.moves.IncompleteMove;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.ActionButtonFactory;
+import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.MirrorButtonGetter;
 
 
 public class MainTableFactory {
@@ -32,8 +34,14 @@ public class MainTableFactory {
 		Drawable drawable = new TextureRegionDrawable(atlas.findRegion("ActionMenuBackground"));
 		actionsTable.setBackground(drawable);
 
-		actionsTable.add(factory.getButton(new IncompleteMove(ActionToken.MIRROR, Direction.UP))).left();
-//		actionsTable.debugAll();
+		Actor backSlashButton = factory.getButton(new IncompleteMove(ActionToken.MIRROR, Direction.LEFT));
+		Actor slashButton = factory.getButton(new IncompleteMove(ActionToken.MIRROR, Direction.RIGHT));
+
+		if (!(backSlashButton instanceof ImageButton backSlash) || !(slashButton instanceof ImageButton slash)) {
+			throw new IllegalStateException("Mirror buttons should be instances of ImageButton");
+		}
+
+		actionsTable.add(MirrorButtonGetter.getMirrorButtonTable(backSlash, slash, atlas.findRegion("MirrorButton"))).left();
 
 		actionsTable.add().expand();
 
@@ -59,9 +67,6 @@ public class MainTableFactory {
 		mainTable.add().expand().fill();
 
 		mainTable.add(arrowTable).bottom().right();
-
-//		mainTable.debugAll();
-//		arrowTable.debugAll();
 
 		mainTable.addCaptureListener(event -> arrowTable.notify(event, true));
 		mainTable.addCaptureListener(event -> actionsTable.notify(event, true));

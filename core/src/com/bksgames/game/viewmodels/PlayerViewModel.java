@@ -13,6 +13,7 @@ public interface PlayerViewModel {
 //    int getMinX();
 //    int getMinY();
 
+    void laserFired(Point position);
     void minionMoved(Point start, Direction direction);
     List<Point> getMinionsPositions();
 

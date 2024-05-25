@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.MapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.bksgames.game.LostInTheMaze;
@@ -12,6 +13,8 @@ import com.bksgames.game.services.PlayerService;
 import com.bksgames.game.viewmodels.PlayerViewModel;
 import com.bksgames.game.viewmodels.SimpleViewModel;
 import com.bksgames.game.viewmodels.updates.UpdateProcessor;
+import com.bksgames.game.views.gameScreen.laserHandling.ViewLaserHandler;
+import com.bksgames.game.views.gameScreen.laserHandling.SimpleLaserHandler;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.LegalMoves;
 
 public class GameScreen implements Screen {
@@ -37,6 +40,8 @@ public class GameScreen implements Screen {
 
     private final PlayerViewModel playerViewModel;
 
+    private final ViewLaserHandler viewLaserHandler;
+
     //    Tiles are squares - tileSize is its width
 
     public GameScreen(final LostInTheMaze game, PlayerService playerService) {
@@ -51,7 +56,10 @@ public class GameScreen implements Screen {
         mapRenderer = new OrthogonalTiledMapRenderer(map);
 
 //        playerViewModel = new SimpleViewModel((TiledMapTileLayer) map.getLayers().get("minions"));
-        playerViewModel = new SimpleViewModel();
+
+        TiledMapTileLayer laserLayer = (TiledMapTileLayer) map.getLayers().get("laser");
+        viewLaserHandler = new SimpleLaserHandler(laserLayer);
+        playerViewModel = new SimpleViewModel(viewLaserHandler);
 
         screenMover = new ScreenMover(gameCamera, playerViewModel);
     }
@@ -96,6 +104,7 @@ public class GameScreen implements Screen {
         mapRenderer.setView(gameCamera);
         mapRenderer.render();
 
+        viewLaserHandler.framePassed();
         legalMoves.draw();
     }
 
