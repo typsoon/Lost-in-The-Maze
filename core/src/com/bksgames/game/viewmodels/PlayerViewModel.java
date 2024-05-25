@@ -1,7 +1,7 @@
 package com.bksgames.game.viewmodels;
 
 import com.bksgames.game.core.utils.Point;
-import com.bksgames.game.common.enums.Direction;
+import com.bksgames.game.common.utils.Direction;
 
 import java.util.List;
 

@@ -1,8 +1,12 @@
 package com.bksgames.game.core.updates;
 
+import com.bksgames.game.common.Displayable;
+import com.bksgames.game.common.MinionEvent;
+import com.bksgames.game.common.moves.ActionToken;
+import com.bksgames.game.common.updates.UpdateIDs;
 import com.bksgames.game.core.utils.Point;
-import com.bksgames.game.common.MinionUpdate;
-import com.bksgames.game.common.enums.*;
+import com.bksgames.game.common.updates.MinionUpdate;
+import com.bksgames.game.common.utils.*;
 
 /**
  * Simple implementation of {@code MinionUpdate}

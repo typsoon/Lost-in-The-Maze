@@ -1,4 +1,4 @@
-package com.bksgames.game.common.enums;
+package com.bksgames.game.common.utils;
 
 import com.bksgames.game.core.utils.Point;
 

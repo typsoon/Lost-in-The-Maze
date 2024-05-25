@@ -2,7 +2,7 @@ package com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.bksgames.game.common.enums.ActionToken;
+import com.bksgames.game.common.moves.ActionToken;
 import com.bksgames.game.viewmodels.moves.IncompleteMove;
 
 import java.util.HashMap;

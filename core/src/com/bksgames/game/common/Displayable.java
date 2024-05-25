@@ -1,4 +1,4 @@
-package com.bksgames.game.common.enums;
+package com.bksgames.game.common;
 
 public enum Displayable {
     WALL, RED_NEXUS, BLUE_NEXUS, TUNNEL, RED_MINION, BLUE_MINION,

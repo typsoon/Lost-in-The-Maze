@@ -1,7 +1,7 @@
 package com.bksgames.game.core.main.actionsHandlers;
 
 import com.bksgames.game.core.main.GameManager;
-import com.bksgames.game.common.enums.ActionToken;
+import com.bksgames.game.common.moves.ActionToken;
 
 public class ActionHandlerFactory {
     public static ActionHandler CreateActionHandler(ActionToken type, GameManager manager)

@@ -16,7 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.bksgames.game.LostInTheMaze;
 import com.bksgames.game.core.utils.Parameters;
-import com.bksgames.game.common.enums.PlayerColor;
+import com.bksgames.game.common.PlayerColor;
 import com.bksgames.game.services.GameService;
 import com.bksgames.game.services.SimpleGameService;
 import com.bksgames.game.views.gameScreen.GameScreen;

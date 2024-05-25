@@ -1,8 +1,8 @@
 package com.bksgames.game.core.main.actionsHandlers;
 
 import com.bksgames.game.core.main.GameManager;
-import com.bksgames.game.common.Move;
-import com.bksgames.game.common.enums.ActionToken;
+import com.bksgames.game.common.moves.Move;
+import com.bksgames.game.common.moves.ActionToken;
 
 /**
  * {@code ActionHandler} for {@code MoveTypes.DOOR}

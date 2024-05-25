@@ -1,9 +1,9 @@
 package com.bksgames.game.core.updates;
 
 import com.bksgames.game.core.utils.Point;
-import com.bksgames.game.common.LaserUpdate;
-import com.bksgames.game.common.enums.Direction;
-import com.bksgames.game.common.enums.UpdateIDs;
+import com.bksgames.game.common.updates.LaserUpdate;
+import com.bksgames.game.common.utils.Direction;
+import com.bksgames.game.common.updates.UpdateIDs;
 
 /**
  * Simple implementation of {@code LaserUpdate}

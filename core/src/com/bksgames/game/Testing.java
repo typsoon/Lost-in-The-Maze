@@ -1,9 +1,9 @@
 package com.bksgames.game;
 
-import com.bksgames.game.common.enums.Displayable;
-import com.bksgames.game.common.enums.UpdateIDs;
+import com.bksgames.game.common.Displayable;
+import com.bksgames.game.common.updates.UpdateIDs;
 import com.bksgames.game.services.PlayerService;
-import com.bksgames.game.common.TileUpdate;
+import com.bksgames.game.common.updates.TileUpdate;
 
 public class Testing {
 

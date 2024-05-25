@@ -1,7 +1,7 @@
 package com.bksgames.game.core.utils;
 
-import com.bksgames.game.common.enums.Displayable;
-import com.bksgames.game.common.enums.PlayerColor;
+import com.bksgames.game.common.Displayable;
+import com.bksgames.game.common.PlayerColor;
 
 /**
  * Easier access to Enums associated with {@code PlayerColor}

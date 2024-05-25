@@ -1,6 +1,6 @@
 package com.bksgames.game.core.utils;
 
-import com.bksgames.game.common.enums.Displayable;
+import com.bksgames.game.common.Displayable;
 //TODO better name
 /**
  * Objects have {@code Displayable}

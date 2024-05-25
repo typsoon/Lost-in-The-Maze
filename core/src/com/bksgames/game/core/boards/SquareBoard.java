@@ -7,8 +7,8 @@ import com.bksgames.game.core.tiles.Tunnel;
 import com.bksgames.game.core.tiles.Nexus;
 import com.bksgames.game.core.tiles.Wall;
 import com.bksgames.game.core.utils.Point;
-import com.bksgames.game.common.enums.Direction;
-import com.bksgames.game.common.enums.PlayerColor;
+import com.bksgames.game.common.utils.Direction;
+import com.bksgames.game.common.PlayerColor;
 
 import java.util.*;
 import java.util.List;

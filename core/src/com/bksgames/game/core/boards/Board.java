@@ -4,8 +4,8 @@ import com.bksgames.game.core.entities.Minion;
 import com.bksgames.game.core.tiles.Nexus;
 import com.bksgames.game.core.tiles.Tile;
 import com.bksgames.game.core.utils.Point;
-import com.bksgames.game.common.enums.Direction;
-import com.bksgames.game.common.enums.PlayerColor;
+import com.bksgames.game.common.utils.Direction;
+import com.bksgames.game.common.PlayerColor;
 
 import java.util.List;
 import java.util.Set;

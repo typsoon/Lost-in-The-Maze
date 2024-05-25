@@ -1,9 +1,9 @@
 package com.bksgames.game.services;
 
 import com.bksgames.game.core.utils.Point;
-import com.bksgames.game.common.Move;
-import com.bksgames.game.common.enums.PlayerColor;
-import com.bksgames.game.common.Update;
+import com.bksgames.game.common.moves.Move;
+import com.bksgames.game.common.PlayerColor;
+import com.bksgames.game.common.updates.Update;
 
 import java.util.ArrayDeque;
 import java.util.Collection;

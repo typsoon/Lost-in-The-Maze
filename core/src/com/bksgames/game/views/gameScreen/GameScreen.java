@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.bksgames.game.LostInTheMaze;
 import com.bksgames.game.core.updates.SimpleLaserUpdate;
 import com.bksgames.game.core.utils.Point;
-import com.bksgames.game.common.enums.Direction;
+import com.bksgames.game.common.utils.Direction;
 import com.bksgames.game.services.PlayerService;
 import com.bksgames.game.viewmodels.PlayerViewModel;
 import com.bksgames.game.viewmodels.SimpleViewModel;

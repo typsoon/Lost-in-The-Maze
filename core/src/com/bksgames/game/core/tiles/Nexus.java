@@ -1,8 +1,8 @@
 package com.bksgames.game.core.tiles;
 
 import com.bksgames.game.core.utils.*;
-import com.bksgames.game.common.enums.Displayable;
-import com.bksgames.game.common.enums.PlayerColor;
+import com.bksgames.game.common.Displayable;
+import com.bksgames.game.common.PlayerColor;
 
 /**
  * Representing {@code Nexus}

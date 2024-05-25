@@ -4,9 +4,9 @@ import com.bksgames.game.core.utils.Owned;
 import com.bksgames.game.core.utils.PlayerEnums;
 import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.core.utils.SourceOfDamage;
-import com.bksgames.game.common.enums.Direction;
-import com.bksgames.game.common.enums.Displayable;
-import com.bksgames.game.common.enums.PlayerColor;
+import com.bksgames.game.common.utils.Direction;
+import com.bksgames.game.common.Displayable;
+import com.bksgames.game.common.PlayerColor;
 
 /**
  * Representing {@code Minion}

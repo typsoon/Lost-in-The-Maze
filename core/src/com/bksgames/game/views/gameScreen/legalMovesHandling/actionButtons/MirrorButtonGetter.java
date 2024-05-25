@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.bksgames.game.common.enums.Direction;
+import com.bksgames.game.common.utils.Direction;
 import com.bksgames.game.viewmodels.moves.IncompleteMove;
 
 public class MirrorButtonGetter extends ActionButtonGetter {

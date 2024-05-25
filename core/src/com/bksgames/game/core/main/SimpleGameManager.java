@@ -1,5 +1,9 @@
 package com.bksgames.game.core.main;
 
+import com.bksgames.game.common.Displayable;
+import com.bksgames.game.common.MinionEvent;
+import com.bksgames.game.common.PlayerColor;
+import com.bksgames.game.common.moves.ActionToken;
 import com.bksgames.game.core.boards.Board;
 import com.bksgames.game.core.boards.SquareBoardFactory;
 import com.bksgames.game.core.entities.Entity;
@@ -13,9 +17,9 @@ import com.bksgames.game.core.updates.SimpleTileUpdate;
 import com.bksgames.game.core.utils.Parameters;
 import com.bksgames.game.core.utils.PlayerEnums;
 import com.bksgames.game.core.utils.Point;
-import com.bksgames.game.common.Move;
-import com.bksgames.game.common.Update;
-import com.bksgames.game.common.enums.*;
+import com.bksgames.game.common.moves.Move;
+import com.bksgames.game.common.updates.Update;
+import com.bksgames.game.common.utils.*;
 import com.bksgames.game.services.GameService;
 
 import java.util.*;

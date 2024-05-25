@@ -4,9 +4,9 @@ import com.bksgames.game.core.main.GameManager;
 import com.bksgames.game.core.tiles.Mirror;
 import com.bksgames.game.core.tiles.Tile;
 import com.bksgames.game.core.tiles.Tunnel;
-import com.bksgames.game.common.Move;
-import com.bksgames.game.common.enums.Direction;
-import com.bksgames.game.common.enums.ActionToken;
+import com.bksgames.game.common.moves.Move;
+import com.bksgames.game.common.utils.Direction;
+import com.bksgames.game.common.moves.ActionToken;
 /**
  * {@code ActionHandler} for {@code MoveTypes.MIRROR}
  * @author jajko
