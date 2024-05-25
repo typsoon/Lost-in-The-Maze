@@ -2,6 +2,7 @@ package com.bksgames.game.views.gameScreen.laserHandling;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.bksgames.game.core.utils.Point;
+import com.bksgames.game.views.gameScreen.MazeMapFactory;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,7 +19,7 @@ public class SimpleLaserHandler implements ViewLaserHandler {
 
     private void clearLaser() {
         for (Point point : laserPoints) {
-            laserLayer.getCell(point.x, point.y).setTile(null);
+            laserLayer.getCell(MazeMapFactory.maxBoardWidth+ point.x, MazeMapFactory.maxBoardHeight+point.y).setTile(null);
         }
 
         laserPoints.clear();

@@ -9,6 +9,9 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.bksgames.game.LostInTheMaze;
+import com.bksgames.game.core.updates.SimpleLaserUpdate;
+import com.bksgames.game.core.utils.Point;
+import com.bksgames.game.globalClasses.enums.Direction;
 import com.bksgames.game.services.PlayerService;
 import com.bksgames.game.viewmodels.PlayerViewModel;
 import com.bksgames.game.viewmodels.SimpleViewModel;
@@ -85,6 +88,11 @@ public class GameScreen implements Screen {
 //        legalMoves.setViewport(new ScreenViewport(gameCamera));
 
         Gdx.input.setInputProcessor(inputMultiplexer);
+
+        playerService.pushUpdate(new SimpleLaserUpdate(Direction.RIGHT, null, new Point(-2,-2)));
+        playerService.pushUpdate(new SimpleLaserUpdate(Direction.RIGHT, Direction.UP, new Point(-1,-2)));
+        playerService.pushUpdate(new SimpleLaserUpdate(Direction.UP, null, new Point(-1,-1)));
+        playerService.pushUpdate(new SimpleLaserUpdate(Direction.UP, Direction.LEFT, new Point(-1,0)));
     }
 
     @Override

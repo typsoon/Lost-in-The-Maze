@@ -5,6 +5,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.bksgames.game.globalClasses.enums.UpdateIDs;
 import com.bksgames.game.globalClasses.Update;
 import com.bksgames.game.viewmodels.PlayerViewModel;
+import com.bksgames.game.viewmodels.updates.updaters.LaserUpdateHandler;
 import com.bksgames.game.viewmodels.updates.updaters.MinionUpdateUpdater;
 import com.bksgames.game.viewmodels.updates.updaters.TileUpdateUpdater;
 import com.bksgames.game.viewmodels.updates.updaters.Updater;
@@ -28,5 +29,6 @@ public class UpdateProcessor {
 
         updaterChooser.put(UpdateIDs.TILE_UPDATE, new TileUpdateUpdater(map, atlas, playerViewModel));
         updaterChooser.put(UpdateIDs.MINION_UPDATE, new MinionUpdateUpdater(map, atlas, playerViewModel));
+        updaterChooser.put(UpdateIDs.LASER_UPDATE, new LaserUpdateHandler(map, atlas, playerViewModel));
     }
 }
