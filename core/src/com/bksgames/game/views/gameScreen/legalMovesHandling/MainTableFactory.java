@@ -14,6 +14,8 @@ import com.bksgames.game.viewmodels.moves.IncompleteMove;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.ActionButtonFactory;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.LaserButtonGetter;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.MirrorButtonGetter;
+import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.buttonContainers.DirectionalButtonsContainer;
+import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.buttonContainers.TwoButtonedButtonContainer;
 
 import javax.swing.text.TabableView;
 
@@ -41,14 +43,18 @@ public class MainTableFactory {
 		ImageButton backSlashButton = factory.getButton(new IncompleteMove(ActionToken.MIRROR, Direction.LEFT));
 		ImageButton slashButton = factory.getButton(new IncompleteMove(ActionToken.MIRROR, Direction.RIGHT));
 
-		actionsTable.add(MirrorButtonGetter.getMirrorButtonTable(backSlashButton, slashButton, atlas.findRegion("MirrorButton"))).left();
+		Table mirrorTable = new TwoButtonedButtonContainer(MirrorButtonGetter.slashButtonSize, atlas.findRegion("MirrorButton"), backSlashButton, slashButton);
+		actionsTable.add(mirrorTable).left();
+//		actionsTable.add(MirrorButtonGetter.getMirrorButtonTable(backSlashButton, slashButton, atlas.findRegion("MirrorButton"))).left();
 
 		ImageButton leftLaserButton = factory.getButton(new IncompleteMove(ActionToken.LASER, Direction.LEFT));
 		ImageButton rightLaserButton = factory.getButton(new IncompleteMove(ActionToken.LASER, Direction.RIGHT));
 		ImageButton upLaserButton = factory.getButton(new IncompleteMove(ActionToken.LASER, Direction.UP));
 		ImageButton downLaserButton = factory.getButton(new IncompleteMove(ActionToken.LASER, Direction.DOWN));
 
-		Table table = LaserButtonGetter.getLaserArrowButtonTable(leftLaserButton, rightLaserButton, upLaserButton, downLaserButton, atlas.findRegion("MirrorButton"));
+
+		Table table = new DirectionalButtonsContainer(LaserButtonGetter.LaserArrowButtonSize, atlas.findRegion("MirrorButton"), leftLaserButton, rightLaserButton, upLaserButton, downLaserButton);
+//		table = LaserButtonGetter.getLaserArrowButtonTable(leftLaserButton, rightLaserButton, upLaserButton, downLaserButton, atlas.findRegion("MirrorButton"));
 //		table.debugAll();
 		actionsTable.add(table).padLeft(distanceToAdjacentButton);
 

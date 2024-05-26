@@ -35,14 +35,13 @@ public class MainMenuScreen implements Screen {
 
     public MainMenuScreen(final LostInTheMaze game) {
         this.game = game;
-
-        gameCamera = new OrthographicCamera();
-        gameCamera.setToOrtho(false, 800, 480);
-
     }
 
     @Override
     public void show() {
+        gameCamera = new OrthographicCamera();
+        gameCamera.setToOrtho(false, 800, 480);
+
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
         atlas = new TextureAtlas(Gdx.files.internal("MainMenu.atlas"));
