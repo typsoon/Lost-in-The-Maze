@@ -1,0 +1,5 @@
+TurnTransitionScreen.png
+size:512,64
+repeat:none
+buttonBackground
+bounds:2,2,300,60
