@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.common.moves.Move;
 import com.bksgames.game.common.moves.ActionToken;
@@ -32,6 +33,8 @@ public class LegalMoves extends Stage {
     private final PlayerService playerService;
     private final PlayerViewModel playerViewModel;
 
+    private final OrthographicCamera gameCamera;
+
     private final Table arrowTable;
     private final Table actionsTable;
 
@@ -44,11 +47,9 @@ public class LegalMoves extends Stage {
         Point minionLocation = playerViewModel.getMinionPos(minionId);
         updateLegalMoves();
 
-        Camera camera = getCamera();
-
-        camera.position.x = (minionLocation.x + MazeMapFactory.maxBoardWidth) * MazeMapFactory.tilePixelSize;
-        camera.position.y = (minionLocation.y + MazeMapFactory.maxBoardHeight) * MazeMapFactory.tilePixelSize;
-        camera.update();
+        gameCamera.position.x = (minionLocation.x + MazeMapFactory.maxBoardWidth) * MazeMapFactory.tilePixelSize;
+        gameCamera.position.y = (minionLocation.y + MazeMapFactory.maxBoardHeight) * MazeMapFactory.tilePixelSize;
+        gameCamera.update();
 
         activateLegalMoves();
         act(0);
@@ -93,44 +94,6 @@ public class LegalMoves extends Stage {
         if (!isActive())
             return;
 
-        OrthographicCamera gameCamera = (OrthographicCamera) getCamera();
-        Vector3 screenCoordinates = new Vector3(0, Gdx.graphics.getHeight(), 0);
-        Vector3 worldCoordinates = gameCamera.unproject(screenCoordinates);
-
-//        Gdx.app.log("INFO", String.valueOf(gameCamera.viewportWidth));
-//        Gdx.app.log("BottomLeftCorner", String.valueOf(worldCoordinates));
-
-//        TODO: remove magic values from the code below!!!
-//        float multiplier = Math.max(gameCamera.zoom, 1);
-        final float multiplier = Math.max(gameCamera.zoom, 0);
-//        float multiplier = gameCamera.zoom;
-
-//        arrowTable.setSize(MainTableFactory.arrowTableWidth * multiplier, MainTableFactory.arrowTableHeight * multiplier);
-        mainTable.setSize(Gdx.graphics.getWidth()*multiplier, MainTableFactory.mainTableHeight*multiplier);
-        mainTable.setPosition(worldCoordinates.x, worldCoordinates.y);
-//        mainTable.setPosition(worldCoordinates.x + MainTableFactory.arrowButtonSize*multiplier*1.5f,
-//                worldCoordinates.y + MainTableFactory.arrowButtonSize*multiplier*0.3f, Align.right);
-
-        final float screenScalingWidth = Gdx.graphics.getWidth()/800f;
-        final float screenScalingHeight = Gdx.graphics.getHeight()/480f;
-
-        float newArrowButtonSize = MainTableFactory.arrowButtonSize * multiplier * screenScalingHeight;
-//        float newButtonSize = MainTableFactory.arrowButtonSize * gameCamera.zoom;
-        for (Cell<?> cell : arrowTable.getCells()) {
-            cell.size(newArrowButtonSize, newArrowButtonSize);
-        }
-
-        float newActionButtonSize = MainTableFactory.actionButtonSize * multiplier * screenScalingHeight;
-        for (Cell<?> cell : actionsTable.getCells()) {
-            cell.size(newActionButtonSize, newActionButtonSize);
-            if (cell.getActor() instanceof Resizable resizable)
-                resizable.resize(multiplier);
-        }
-
-        actionsTable.getBackground().setMinWidth(MainTableFactory.actionsMenuWidth*multiplier*screenScalingWidth);
-        actionsTable.getBackground().setMinHeight(MainTableFactory.actionsMenuHeight*multiplier*screenScalingHeight);
-//        setSize(MainTableFactory.actionsMenuWidth * multiplier, MainTableFactory.actionsMenuHeight*multiplier);
-
         arrowTable.invalidate();
         arrowTable.layout();
 
@@ -169,21 +132,19 @@ public class LegalMoves extends Stage {
         return playerService.sendMove(new Move(minionPosition, incompleteMove.type(), incompleteMove.direction()));
     }
 
-    public LegalMoves(TextureAtlas atlas, Camera gameCamera, PlayerViewModel playerViewModel, PlayerService playerService) {
+    public LegalMoves(TextureAtlas atlas, Viewport hudViewport, OrthographicCamera gameCamera, PlayerViewModel playerViewModel, PlayerService playerService) {
 //        Stage
-        super(new ScreenViewport(gameCamera));
-        super.getViewport().setCamera(gameCamera);
+        super(hudViewport);
 
+        this.gameCamera = gameCamera;
         this.playerService = playerService;
         this.playerViewModel = playerViewModel;
 
 //        super.getRoot().setColor(0,0,0,0.5f);
         super.getRoot().setColor(0,0,0,0.75f);
 //        super.getRoot().setColor(0,0,0,0.9f);
-//        super.setViewport(new ScreenViewport(gameCamera));
-        super.getBatch().setProjectionMatrix(gameCamera.combined);
 
-//        super.setDebugAll(true);
+
 
         ActionButtonFactory factory = new ActionButtonFactory(atlas, moveToButtonMapping);
         arrowTable = new Table();
@@ -191,8 +152,23 @@ public class LegalMoves extends Stage {
         mainTable = MainTableFactory.produce(arrowTable, actionsTable, factory, atlas);
         this.addActor(mainTable);
 
-//        super.act();
-//        super.draw();
+        mainTable.setSize(Gdx.graphics.getWidth(), MainTableFactory.mainTableHeight);
+
+
+        float newArrowButtonSize = MainTableFactory.arrowButtonSize;
+//        float newArrowButtonSize = MainTableFactory.arrowButtonSize * screenScalingHeight;
+//        float newButtonSize = MainTableFactory.arrowButtonSize * gameCamera.zoom;
+        for (Cell<?> cell : arrowTable.getCells()) {
+            cell.size(newArrowButtonSize, newArrowButtonSize);
+        }
+
+        float newActionButtonSize = MainTableFactory.actionButtonSize;
+//        float newActionButtonSize = MainTableFactory.actionButtonSize * screenScalingHeight;
+        for (Cell<?> cell : actionsTable.getCells()) {
+            cell.size(newActionButtonSize, newActionButtonSize);
+            if (cell.getActor() instanceof Resizable resizable)
+                resizable.resize(1);
+        }
 
         this.addCaptureListener(new InputListener() {
             @Override

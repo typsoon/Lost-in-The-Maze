@@ -8,6 +8,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.bksgames.game.LostInTheMaze;
 import com.bksgames.game.core.updates.SimpleLaserUpdate;
 import com.bksgames.game.core.utils.Point;
@@ -24,6 +25,9 @@ public class GameScreen implements Screen {
 
     final LostInTheMaze game;
     private final OrthographicCamera gameCamera;
+
+    private final FitViewport hudViewport;
+    private final OrthographicCamera hudCamera;
 
     private final PlayerService playerService;
 
@@ -58,6 +62,10 @@ public class GameScreen implements Screen {
 
         mapRenderer = new OrthogonalTiledMapRenderer(map);
 
+
+        hudCamera = new OrthographicCamera();
+        hudViewport = new FitViewport(800, 480, hudCamera);
+
 //        playerViewModel = new SimpleViewModel((TiledMapTileLayer) map.getLayers().get("minions"));
 
         TiledMapTileLayer laserLayer = (TiledMapTileLayer) map.getLayers().get("laser");
@@ -75,7 +83,7 @@ public class GameScreen implements Screen {
 
         updateProcessor = new UpdateProcessor(map, boardAtlas, playerViewModel);
 
-        legalMoves = new LegalMoves(actionButtonsAtlas, gameCamera, playerViewModel, playerService);
+        legalMoves = new LegalMoves(actionButtonsAtlas, hudViewport, gameCamera, playerViewModel, playerService);
 
         MinionClickReceiver minionClickReceiver = new MinionClickReceiver(gameCamera, legalMoves, playerViewModel);
 
@@ -102,8 +110,6 @@ public class GameScreen implements Screen {
 
         legalMoves.act(delta);//, gameCamera);
 
-//        legalMoves.getViewport().update((int) gameCamera.position.x, (int) gameCamera.position.y, true);
-
         mapRenderer.setView(gameCamera);
         mapRenderer.render();
 
@@ -116,6 +122,7 @@ public class GameScreen implements Screen {
         gameCamera.viewportWidth = width;
         gameCamera.viewportHeight = height;
 
+//        hudViewport.update(width, height);
         legalMoves.getViewport().update(width, height, false);
     }
 
