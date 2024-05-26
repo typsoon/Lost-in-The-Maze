@@ -42,7 +42,7 @@ public class Nexus implements  Vulnerable, KnownPosition, Owned, Tile {
     //Tile
     @Override
     public Displayable getDisplayable() {
-        return PlayerEnums.getNexusColor(owner);
+        return PlayerEnums.getNexusDisplayable(owner);
     }
 
     /**

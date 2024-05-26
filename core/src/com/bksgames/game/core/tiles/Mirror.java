@@ -17,23 +17,40 @@ public class Mirror implements Owned {
      * {@code BACKSLASH} - {@code \}
      */
     public enum Orientation {
-        SLASH(-1), BACKSLASH(+1);
-        private final int x;
-
-        Orientation(int x) {
-            this.x = x;
-        }
+        SLASH, BACKSLASH
     }
 
     private final Orientation orientation;
     private final PlayerColor owner;
 
     /**
+     * @return {@code Orientation} of {@code Mirror}
+     */
+    public Orientation getOrientation() {
+        return orientation;
+    }
+
+    /**
      * @param direction initial {@code Direction} of light
      * @return {@code Direction} after contact with {@code Mirror}
      */
     public Direction deflect(Direction direction) {
-        return Direction.values()[(direction.ordinal() + orientation.x) % 4];
+        if (orientation == Orientation.SLASH) {
+            return switch (direction) {
+                case UP -> Direction.RIGHT;
+                case DOWN -> Direction.LEFT;
+                case LEFT -> Direction.DOWN;
+                case RIGHT -> Direction.UP;
+            };
+        }
+       else{
+            return switch (direction) {
+                case UP -> Direction.LEFT;
+                case DOWN -> Direction.RIGHT;
+                case LEFT -> Direction.UP;
+                case RIGHT -> Direction.DOWN;
+            };
+        }
     }
 
     //Owned

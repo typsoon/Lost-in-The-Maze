@@ -52,18 +52,18 @@ public class LaserUpdateHandler extends Updater {
             } else if (laserUpdate.getDirection() == Direction.UP && laserUpdate.getDeflectedDirection() == Direction.RIGHT) {
                 rotation = TiledMapTileLayer.Cell.ROTATE_270;
             } else if (laserUpdate.getDirection() == Direction.DOWN && laserUpdate.getDeflectedDirection() == Direction.LEFT) {
-                rotation = TiledMapTileLayer.Cell.ROTATE_180;
+                rotation = TiledMapTileLayer.Cell.ROTATE_90;
             } else if (laserUpdate.getDirection() == Direction.DOWN && laserUpdate.getDeflectedDirection() == Direction.RIGHT) {
                 rotation = TiledMapTileLayer.Cell.ROTATE_0;
             } else if (laserUpdate.getDirection() == Direction.LEFT && laserUpdate.getDeflectedDirection() == Direction.UP) {
-                rotation = TiledMapTileLayer.Cell.ROTATE_90;
+                rotation = TiledMapTileLayer.Cell.ROTATE_0;
             } else if (laserUpdate.getDirection() == Direction.LEFT && laserUpdate.getDeflectedDirection() == Direction.DOWN) {
                 rotation = TiledMapTileLayer.Cell.ROTATE_270;
             } else if (laserUpdate.getDirection() == Direction.RIGHT && laserUpdate.getDeflectedDirection() == Direction.UP) {
                 rotation = TiledMapTileLayer.Cell.ROTATE_90;
             } else {
 //            else if (laserUpdate.getDirection() == Direction.RIGHT && laserUpdate.getDeflectedDirection() == Direction.DOWN) {
-                rotation = TiledMapTileLayer.Cell.ROTATE_0;
+                rotation = TiledMapTileLayer.Cell.ROTATE_180;
             }
         }
 

@@ -70,7 +70,13 @@ public class Point {
         this(0, 0);
     }
 
-
+    @Override
+    public String toString() {
+        return "Point{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
+    }
 
     @Override
     public boolean equals(Object o) {
