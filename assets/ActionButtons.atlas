@@ -9,6 +9,8 @@ DownArrow
 bounds:458,64,150,150
 LaserArrowButton
 bounds:368,12,50,50
+SwordButton
+bounds:368,12,50,50
 LeftArrow
 bounds:610,64,150,150
 MirrorButton

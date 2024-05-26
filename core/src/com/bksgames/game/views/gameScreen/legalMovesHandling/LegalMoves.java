@@ -76,6 +76,7 @@ public class LegalMoves extends Stage {
         currentLegalMoves.add(new IncompleteMove(ActionToken.LASER, Direction.RIGHT));
         currentLegalMoves.add(new IncompleteMove(ActionToken.LASER, Direction.UP));
         currentLegalMoves.add(new IncompleteMove(ActionToken.LASER, Direction.DOWN));
+        currentLegalMoves.add(new IncompleteMove(ActionToken.SWORD, Direction.LEFT));
 //
 
         for (Actor actor : moveToButtonMapping.values()) {

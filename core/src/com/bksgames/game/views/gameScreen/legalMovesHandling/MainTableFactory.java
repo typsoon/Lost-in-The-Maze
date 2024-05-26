@@ -3,7 +3,6 @@ package com.bksgames.game.views.gameScreen.legalMovesHandling;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
@@ -14,11 +13,9 @@ import com.bksgames.game.viewmodels.moves.IncompleteMove;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.ActionButtonFactory;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.LaserButtonGetter;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.MirrorButtonGetter;
+import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.SwordButtonGetter;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.buttonContainers.DirectionalButtonsContainer;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.buttonContainers.TwoButtonedButtonContainer;
-
-import javax.swing.text.TabableView;
-
 
 public class MainTableFactory {
 	static final int mainTableHeight = 200;
@@ -52,13 +49,21 @@ public class MainTableFactory {
 		ImageButton upLaserButton = factory.getButton(new IncompleteMove(ActionToken.LASER, Direction.UP));
 		ImageButton downLaserButton = factory.getButton(new IncompleteMove(ActionToken.LASER, Direction.DOWN));
 
-
 		Table table = new DirectionalButtonsContainer(LaserButtonGetter.LaserArrowButtonSize, atlas.findRegion("MirrorButton"), leftLaserButton, rightLaserButton, upLaserButton, downLaserButton);
 //		table = LaserButtonGetter.getLaserArrowButtonTable(leftLaserButton, rightLaserButton, upLaserButton, downLaserButton, atlas.findRegion("MirrorButton"));
 //		table.debugAll();
 		actionsTable.add(table).padLeft(distanceToAdjacentButton);
 
 //		actionsTable.add(LaserButtonGetter.getLaserArrowButtonTable(leftLaserButton, rightLaserButton, upLaserButton, downLaserButton, atlas.findRegion("MirrorButton"))).padLeft(distanceToAdjacentButton);
+
+		ImageButton leftSwordButton = factory.getButton(new IncompleteMove(ActionToken.SWORD, Direction.LEFT));
+		ImageButton rightSwordButton = factory.getButton(new IncompleteMove(ActionToken.SWORD, Direction.RIGHT));
+		ImageButton upSwordButton = factory.getButton(new IncompleteMove(ActionToken.SWORD, Direction.UP));
+		ImageButton downSwordButton = factory.getButton(new IncompleteMove(ActionToken.SWORD, Direction.DOWN));
+
+		Table swordTable = new DirectionalButtonsContainer(SwordButtonGetter.swordButtonSize, atlas.findRegion("MirrorButton"), leftSwordButton, rightSwordButton, upSwordButton, downSwordButton);
+
+		actionsTable.add(swordTable).padLeft(distanceToAdjacentButton);
 
 		actionsTable.add().expand();
 
