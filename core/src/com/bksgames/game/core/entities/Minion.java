@@ -52,7 +52,7 @@ public class Minion implements Entity, Owned{
     }
     @Override
     public Displayable getDisplayable() {
-        return PlayerEnums.getMinionColor(owner);
+        return PlayerEnums.getMinionDisplayable(owner);
     }
 
     //Owned

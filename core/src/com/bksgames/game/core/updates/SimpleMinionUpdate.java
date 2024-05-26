@@ -7,7 +7,7 @@ import com.bksgames.game.common.updates.UpdateIDs;
 import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.common.updates.MinionUpdate;
 import com.bksgames.game.common.utils.*;
-
+//TODO rename to Absolute
 /**
  * Simple implementation of {@code MinionUpdate}
  *

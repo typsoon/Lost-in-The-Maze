@@ -1,12 +1,15 @@
 package com.bksgames.game.core.main.actionsHandlers;
 
 import com.bksgames.game.core.main.GameManager;
+import com.bksgames.game.core.main.updateHolders.UpdateHolderFactory;
 import com.bksgames.game.core.tiles.Mirror;
 import com.bksgames.game.core.tiles.Tile;
 import com.bksgames.game.core.tiles.Tunnel;
 import com.bksgames.game.common.moves.Move;
 import com.bksgames.game.common.utils.Direction;
 import com.bksgames.game.common.moves.ActionToken;
+import com.bksgames.game.core.updates.SimpleTileUpdate;
+
 /**
  * {@code ActionHandler} for {@code MoveTypes.MIRROR}
  * @author jajko
@@ -29,6 +32,11 @@ public class MirrorHandler extends ActionHandler{
             currentTunnel.setMirror(new Mirror(Mirror.Orientation.SLASH,gameManager.getCurrentPlayer()));
         if(action.direction()==Direction.LEFT)
             currentTunnel.setMirror(new Mirror(Mirror.Orientation.BACKSLASH,gameManager.getCurrentPlayer()));
+        gameManager.sendUpdate(
+                UpdateHolderFactory.produceUpdateHolder(
+                        new SimpleTileUpdate(currentTunnel.getDisplayable(),true,action.position())
+                )
+        );
     }
 
     MirrorHandler(GameManager manager) {

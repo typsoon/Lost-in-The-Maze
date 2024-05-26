@@ -34,7 +34,7 @@ public class SimpleGameService implements GameService {
             return null;
         }
         Collection<Move> relativeLegalMoves = new ArrayList<>();
-        for(Move move : gameManager.getLegalMoves(gameManager.getPlayers().get(gameManager.getCurrentPlayer()).getAbsoluteCoordinates(position), player)) {
+        for(Move move : gameManager.getLegalMoves(gameManager.getPlayers().get(gameManager.getCurrentPlayer()).getAbsoluteCoordinates(position))) {
             relativeLegalMoves.add(new Move(
                     gameManager.getPlayers().get(gameManager.getCurrentPlayer()).getRelativeCoordinates(move.position()),
                     move.type(),move.direction()));
@@ -44,6 +44,7 @@ public class SimpleGameService implements GameService {
 
     @Override
     public boolean move(Move move, PlayerColor player) {
+
         if(player!=gameManager.getCurrentPlayer()) {
             return false;
         }
@@ -54,16 +55,8 @@ public class SimpleGameService implements GameService {
 
     @Override
     public boolean forwardUpdate(PlayerColor color, Update update) {
-        //System.out.println(color + " " + update);
         players.get(color).pushUpdate(update);
         return true;
-    }
-    @Override
-    public boolean forwardUpdates(PlayerColor color, Collection<Update> updates) {
-       for(Update u : updates) {
-           players.get(color).pushUpdate(u);
-       }
-       return true;
     }
 
     @Override

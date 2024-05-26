@@ -4,7 +4,7 @@ import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.common.updates.TileUpdate;
 import com.bksgames.game.common.Displayable;
 import com.bksgames.game.common.updates.UpdateIDs;
-
+//TODO rename to Absolute
 /**
  * Simple implementation of {@code TileUpdate}
  *

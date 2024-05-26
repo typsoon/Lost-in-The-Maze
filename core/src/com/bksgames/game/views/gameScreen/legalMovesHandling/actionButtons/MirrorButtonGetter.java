@@ -3,13 +3,11 @@ package com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.bksgames.game.common.utils.Direction;
 import com.bksgames.game.viewmodels.moves.IncompleteMove;
 
 public class MirrorButtonGetter extends ActionButtonGetter {
@@ -30,8 +28,8 @@ public class MirrorButtonGetter extends ActionButtonGetter {
     public ImageButton get(IncompleteMove incompleteMove) {
 
         TextureRegion buttonTexture = switch (incompleteMove.direction()) {
-            case Direction.RIGHT -> atlas.findRegion("SlashMirror");
-            case Direction.LEFT -> atlas.findRegion("BackSlashMirror");
+            case RIGHT -> atlas.findRegion("SlashMirror");
+            case LEFT -> atlas.findRegion("BackSlashMirror");
 
             default -> throw new IllegalStateException("Unexpected value: " + incompleteMove.direction() + " as a mirror move direction");
         };
