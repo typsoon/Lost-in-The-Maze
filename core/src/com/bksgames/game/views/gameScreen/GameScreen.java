@@ -88,11 +88,6 @@ public class GameScreen implements Screen {
 //        legalMoves.setViewport(new ScreenViewport(gameCamera));
 
         Gdx.input.setInputProcessor(inputMultiplexer);
-
-        playerService.pushUpdate(new SimpleLaserUpdate(Direction.RIGHT, null, new Point(-2,-2)));
-        playerService.pushUpdate(new SimpleLaserUpdate(Direction.RIGHT, Direction.UP, new Point(-1,-2)));
-        playerService.pushUpdate(new SimpleLaserUpdate(Direction.UP, null, new Point(-1,-1)));
-        playerService.pushUpdate(new SimpleLaserUpdate(Direction.UP, Direction.LEFT, new Point(-1,0)));
     }
 
     @Override
