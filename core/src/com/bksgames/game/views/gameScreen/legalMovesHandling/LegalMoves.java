@@ -70,12 +70,6 @@ public class LegalMoves extends Stage {
         moves.forEach(move -> currentLegalMoves.add(new IncompleteMove(move.type(), move.direction())));
 
 //        TODO: TO JEST ŁATKA - TRZEBA TO USUNĄĆ !!!!!!!!
-        currentLegalMoves.add(new IncompleteMove(ActionToken.MIRROR, Direction.RIGHT));
-        currentLegalMoves.add(new IncompleteMove(ActionToken.MIRROR, Direction.LEFT));
-        currentLegalMoves.add(new IncompleteMove(ActionToken.LASER, Direction.LEFT));
-        currentLegalMoves.add(new IncompleteMove(ActionToken.LASER, Direction.RIGHT));
-        currentLegalMoves.add(new IncompleteMove(ActionToken.LASER, Direction.UP));
-        currentLegalMoves.add(new IncompleteMove(ActionToken.LASER, Direction.DOWN));
         currentLegalMoves.add(new IncompleteMove(ActionToken.SWORD, Direction.LEFT));
 //
 
