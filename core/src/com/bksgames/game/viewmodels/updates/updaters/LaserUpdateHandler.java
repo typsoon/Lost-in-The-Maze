@@ -1,7 +1,13 @@
 package com.bksgames.game.viewmodels.updates.updaters;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
@@ -18,6 +24,34 @@ public class LaserUpdateHandler extends Updater {
     public LaserUpdateHandler(TiledMap map, TextureAtlas atlas, PlayerViewModel playerViewModel) {
         super(map, atlas, playerViewModel);
     }
+
+//    private Texture mergeTextures(Texture tex1, Texture tex2) {
+//        SpriteBatch spriteBatch = new SpriteBatch();
+//
+//        int width = Math.max(tex1.getWidth(), tex2.getWidth());
+//        int height = Math.max(tex1.getHeight(), tex2.getHeight());
+//
+//        FrameBuffer frameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, width, height, false);
+//        frameBuffer.begin();
+//
+//        Gdx.gl.glClearColor(0, 0, 0, 0);
+//        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//
+//        spriteBatch.begin();
+//        spriteBatch.draw(tex1, 0, 0);
+//        spriteBatch.draw(tex2, 0, 0);
+//        spriteBatch.end();
+//
+//        frameBuffer.end();
+//
+//        Texture result = frameBuffer.getColorBufferTexture();
+//        result.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+//
+//        // Dispose of the FrameBuffer after use
+//        frameBuffer.dispose();
+//
+//        return result;
+//    }
 
     @Override
     public void process(Update update) {

@@ -19,4 +19,5 @@ public interface PlayerService {
     void pushUpdate(Update update);
     Update getUpdate();
     boolean hasUpdates();
+    void endTurn();
 }

@@ -46,6 +46,13 @@ public class SimplePlayerService implements PlayerService {
         return !updates.isEmpty();
     }
 
+    @Override
+    public void endTurn() {
+//        if (!gameService.endTurn(playerColor)) {
+//            throw new IllegalStateException("Player ending turn is not the active player");
+//        };
+    }
+
     public SimplePlayerService(PlayerColor playerColor, GameService gameService) {
         this.playerColor = playerColor;
         this.gameService = gameService;

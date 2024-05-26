@@ -71,6 +71,7 @@ public class LegalMoves extends Stage {
 
 //        TODO: TO JEST ŁATKA - TRZEBA TO USUNĄĆ !!!!!!!!
         currentLegalMoves.add(new IncompleteMove(ActionToken.SWORD, Direction.LEFT));
+        currentLegalMoves.add(new IncompleteMove(ActionToken.DOOR, Direction.LEFT));
 //
 
         for (Actor actor : moveToButtonMapping.values()) {

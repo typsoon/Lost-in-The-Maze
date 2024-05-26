@@ -10,10 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.bksgames.game.common.moves.ActionToken;
 import com.bksgames.game.common.utils.Direction;
 import com.bksgames.game.viewmodels.moves.IncompleteMove;
-import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.ActionButtonFactory;
-import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.LaserButtonGetter;
-import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.MirrorButtonGetter;
-import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.SwordButtonGetter;
+import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.*;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.buttonContainers.DirectionalButtonsContainer;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.buttonContainers.TwoButtonedButtonContainer;
 
@@ -62,8 +59,15 @@ public class MainTableFactory {
 		ImageButton downSwordButton = factory.getButton(new IncompleteMove(ActionToken.SWORD, Direction.DOWN));
 
 		Table swordTable = new DirectionalButtonsContainer(SwordButtonGetter.swordButtonSize, atlas.findRegion("MirrorButton"), leftSwordButton, rightSwordButton, upSwordButton, downSwordButton);
-
 		actionsTable.add(swordTable).padLeft(distanceToAdjacentButton);
+
+		ImageButton leftDoorButton = factory.getButton(new IncompleteMove(ActionToken.DOOR, Direction.LEFT));
+		ImageButton rightDoorButton = factory.getButton(new IncompleteMove(ActionToken.DOOR, Direction.RIGHT));
+		ImageButton upDoorButton = factory.getButton(new IncompleteMove(ActionToken.DOOR, Direction.UP));
+		ImageButton downDoorButton = factory.getButton(new IncompleteMove(ActionToken.DOOR, Direction.DOWN));
+
+		Table doorTable = new DirectionalButtonsContainer(DoorButtonGetter.DoorButtonSize, atlas.findRegion("MirrorButton"), leftDoorButton, rightDoorButton, upDoorButton, downDoorButton);
+		actionsTable.add(doorTable).padLeft(distanceToAdjacentButton);
 
 		actionsTable.add().expand();
 

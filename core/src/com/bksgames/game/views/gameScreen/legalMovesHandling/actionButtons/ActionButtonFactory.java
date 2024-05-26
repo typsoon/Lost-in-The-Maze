@@ -26,5 +26,6 @@ public class ActionButtonFactory {
         mapping.put(ActionToken.MIRROR, new MirrorButtonGetter(atlas));
         mapping.put(ActionToken.LASER, new LaserButtonGetter(atlas));
         mapping.put(ActionToken.SWORD, new SwordButtonGetter(atlas));
+        mapping.put(ActionToken.DOOR, new DoorButtonGetter(atlas));
     }
 }
