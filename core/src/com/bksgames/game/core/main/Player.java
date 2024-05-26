@@ -80,8 +80,11 @@ public class Player {
      * @return {@code True} if {@code Player} can see this {@code point} <br>
      * {@code False} otherwise
      */
-    boolean isVisible(Point point) {
+    public boolean isVisible(Point point) {
         return visibleTiles.contains(point);
+    }
+    public boolean isVisible(int x,int y) {
+        return visibleTiles.contains(new Point(x, y));
     }
 
     /**

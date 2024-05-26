@@ -25,12 +25,20 @@ public enum Direction {
                 return DOWN;
             }
         }else if(p1.y == p2.y) {
-            if(p1.x < p2.x) {
+            if(p1.x > p2.x) {
                 return LEFT;
             } else {
                 return RIGHT;
             }
         }
         return null;
+    }
+    public Direction getOpposite(){
+        return switch (this) {
+            case LEFT -> RIGHT;
+            case RIGHT -> LEFT;
+            case UP -> DOWN;
+            case DOWN -> UP;
+        };
     }
 }

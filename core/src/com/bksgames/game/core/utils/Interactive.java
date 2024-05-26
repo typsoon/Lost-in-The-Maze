@@ -9,4 +9,5 @@ import com.bksgames.game.common.moves.ActionToken;
 public interface Interactive {
     int getActionPoints();
     boolean makeAction(ActionToken actionToken);
+    boolean canMakeAction(ActionToken actionToken);
 }

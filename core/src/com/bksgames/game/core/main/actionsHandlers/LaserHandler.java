@@ -2,6 +2,8 @@ package com.bksgames.game.core.main.actionsHandlers;
 
 import com.bksgames.game.core.entities.Entity;
 import com.bksgames.game.core.main.GameManager;
+import com.bksgames.game.core.main.updateHolders.UpdateHolderFactory;
+import com.bksgames.game.core.updates.SimpleLaserUpdate;
 import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.common.moves.Move;
 import com.bksgames.game.common.utils.Direction;
@@ -13,7 +15,6 @@ import com.bksgames.game.core.utils.SourceOfDamage;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 /**
  * {@code ActionHandler} for {@code MoveTypes.LASER}
  * @author jajko
@@ -26,7 +27,7 @@ public class LaserHandler extends ActionHandler{
             throw new IllegalStateException("Wrong move type!");
 
         Point point = action.position();
-        Set<Point> lineOfSight = gameManager.getBoard().getLineOfSight(point, action.direction());
+        List<Point> lineOfSight = gameManager.getBoard().getLineOfSight(point, action.direction());
         List<Direction> line = new ArrayList<>();
         Point prev = action.position();
         for(Point p : lineOfSight){
@@ -43,9 +44,13 @@ public class LaserHandler extends ActionHandler{
             }
         }
         point = action.position();
-       action.direction().next(point);
+        action.direction().next(point);
         for(int i=1;i<line.size();i++){
-            gameManager.laserUpdate(line.get(i-1),line.get(i),point);
+            if(line.get(i-1).equals(line.get(i))){
+                gameManager.sendUpdate(UpdateHolderFactory.produceUpdateHolder(new SimpleLaserUpdate(line.get(i-1).getOpposite(),null,point)));
+            }else{
+                gameManager.sendUpdate(UpdateHolderFactory.produceUpdateHolder(new SimpleLaserUpdate(line.get(i-1),line.get(i),point)));
+            }
             line.get(i).next(point);
         }
     }

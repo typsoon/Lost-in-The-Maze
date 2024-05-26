@@ -55,7 +55,7 @@ public interface Board {
     Set<Point> getNexusesVision(PlayerColor player);
 
     /**
-     * @return set of {@code Point} which are visible when looking from {@code point} in {@code direction}
+     * @return list of {@code Point} which are visible when looking from {@code point} in {@code direction}
      */
-    Set<Point> getLineOfSight(Point point, Direction direction);
+    List<Point> getLineOfSight(Point point, Direction direction);
 }

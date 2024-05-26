@@ -15,7 +15,6 @@ public interface GameService {
     Collection<Move> getLegalMoves(Point position, PlayerColor player);
     boolean move(Move move, PlayerColor player);
     boolean forwardUpdate(PlayerColor color, Update update);
-    boolean forwardUpdates(PlayerColor color, Collection<Update> updates);
     void startGame();
     void endTurn(PlayerColor color);
 }
