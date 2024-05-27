@@ -1,4 +1,4 @@
-package com.bksgames.game.viewmodels.updates.updaters;
+package com.bksgames.game.views.updates.updaters;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -36,7 +36,6 @@ public class TileUpdateUpdater extends Updater {
 
         layer.setCell(MazeMapFactory.maxBoardWidth + tileUpdate.getRelativeX(), MazeMapFactory.maxBoardHeight + tileUpdate.getRelativeY(), myCell);
     }
-
 
     public TileUpdateUpdater(TiledMap map, TextureAtlas atlas, PlayerViewModel playerViewModel) {
         super(map, atlas, playerViewModel);

@@ -1,21 +1,21 @@
 package com.bksgames.game.core.main.updateHolders;
 
 import com.bksgames.game.common.Displayable;
-import com.bksgames.game.common.MinionEvent;
+import com.bksgames.game.common.EntityEvent;
 import com.bksgames.game.common.moves.ActionToken;
-import com.bksgames.game.common.updates.MinionUpdate;
+import com.bksgames.game.common.updates.EntityUpdate;
 import com.bksgames.game.common.updates.UpdateIDs;
 import com.bksgames.game.common.utils.Direction;
 import com.bksgames.game.core.main.Player;
 
-public class MinionUpdateHolder extends UpdateHolder<MinionUpdate> {
+public class MinionUpdateHolder extends UpdateHolder<EntityUpdate> {
 
     @Override
-    public MinionUpdate encode(Player player) {
+    public EntityUpdate encode(Player player) {
         if(!player.isVisible(content.getRelativeX(),content.getRelativeY())) {
             return null;
         }
-        return new MinionUpdate() {
+        return new EntityUpdate() {
             @Override
             public Direction getDirection() {
                 return content.getDirection();
@@ -26,15 +26,15 @@ public class MinionUpdateHolder extends UpdateHolder<MinionUpdate> {
                 return content.getDisplayable();
             }
 
-            @Override
-            public ActionToken getMoveType() {
-                return content.getMoveType();
-            }
-
-            @Override
-            public MinionEvent getEvent() {
-                return content.getEvent();
-            }
+//            @Override
+//            public ActionToken getMoveType() {
+//                return content.getMoveType();
+//            }
+//
+//            @Override
+//            public EntityEvent entityEventType() {
+//                return content.entityEventType();
+//            }
 
             @Override
             public UpdateIDs getID() {
@@ -52,7 +52,7 @@ public class MinionUpdateHolder extends UpdateHolder<MinionUpdate> {
             }
         };
     }
-    MinionUpdateHolder(MinionUpdate content) {
+    MinionUpdateHolder(EntityUpdate content) {
         super(content);
     }
 }

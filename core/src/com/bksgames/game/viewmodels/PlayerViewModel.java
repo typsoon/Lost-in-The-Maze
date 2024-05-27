@@ -19,6 +19,8 @@ public interface PlayerViewModel {
     void tileRevealed(Point position);
     void minionMoved(Point start, Direction direction);
     List<Point> getMinionsPositions();
+    void minionKilled(Point position);
+    void minionSpawned(Point position);
 
     Point getMinionPos(int id);
     int getMinionId(Point position);
