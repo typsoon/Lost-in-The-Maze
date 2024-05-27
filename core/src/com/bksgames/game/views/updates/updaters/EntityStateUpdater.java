@@ -26,8 +26,10 @@ public class EntityStateUpdater extends Updater {
         if (entityStateUpdate.entityEventType() != null) {
             switch (entityStateUpdate.entityEventType()) {
                 case KILLED -> {
-                    if (playerViewModel.hasPlayableMinion(position)) {
-                        playerViewModel.minionKilled(position);
+                    if (entityStateUpdate.isMinion()) {
+                        if(playerViewModel.hasPlayableMinion(position))
+                            playerViewModel.minionKilled(position);
+
                         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(DisplayableToImage.getDisplayInfo(Displayable.BLUE_MINION).layer());
                         layer.setCell(MazeMapFactory.maxBoardWidth + position.x, MazeMapFactory.maxBoardHeight + position.y, null);
                     }

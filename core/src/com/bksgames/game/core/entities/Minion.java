@@ -58,8 +58,8 @@ public class Minion implements Entity, Owned, Interactive, Respawnable {
         this.hitPoints = startingHP;
         this.actionPoints = startingAP;
         return UpdateHolderFactory.produceUpdateHolder(
-                //new SimpleEntityStateUpdate(true,EntityEvent.SPAWNED,null,position)
-                new SimpleTileUpdate(getDisplayable(),true,position)
+                new SimpleEntityStateUpdate(true,EntityEvent.SPAWNED,null,position)
+//                new SimpleTileUpdate(getDisplayable(),true, position)
         );
     }
 
