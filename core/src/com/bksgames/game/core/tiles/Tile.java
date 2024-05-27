@@ -1,6 +1,10 @@
 package com.bksgames.game.core.tiles;
 
 import com.bksgames.game.core.utils.IsDisplayable;
+import com.bksgames.game.core.utils.Vulnerable;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Representing single field in {@code Board}
@@ -22,5 +26,9 @@ public interface Tile extends IsDisplayable {
      */
     default boolean isHollow() {
         return getTunnel() != null;
+    }
+
+    default Collection<Vulnerable> getVulnerable(){
+        return new ArrayList<>();
     }
 }

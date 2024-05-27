@@ -1,8 +1,10 @@
 package com.bksgames.game.core.tiles;
 
-import com.bksgames.game.core.entities.Entity;
-import com.bksgames.game.core.utils.PlayerEnums;
 import com.bksgames.game.common.Displayable;
+import com.bksgames.game.core.entities.Entity;
+import com.bksgames.game.core.utils.KnownPosition;
+import com.bksgames.game.core.utils.PlayerEnums;
+import com.bksgames.game.core.utils.Vulnerable;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -19,18 +21,39 @@ public class Tunnel implements Tile {
     private Mirror mirror;
     private final Collection<Entity> entities = new ArrayList<>();
 
+    public void removeObject(KnownPosition object) {
+        if (object instanceof Entity entity) {
+            removeEntity(entity);
+        }
+        //in future removing doors itd
+    }
+
+    public void addObject(KnownPosition object) {
+        if (object instanceof Entity entity) {
+            addEntity(entity);
+        }
+        //in future adding doors itd
+    }
+
+    @Override
+    public Collection<Vulnerable> getVulnerable() {
+        return new ArrayList<>(entities);
+    }
+
     /**
      * @return {@code Collection} of {@code Entity} present in {@code Tunnel}
      */
     public Collection<Entity> getEntities() {
         return entities;
     }
+
     /**
      * Add {@code Entity} to {@code Tunnel}
      */
     public void addEntity(Entity entity) {
         entities.add(entity);
     }
+
     /**
      * Remove {@code Entity} from {@code Tunnel}
      */
@@ -59,11 +82,12 @@ public class Tunnel implements Tile {
         if (mirror == null) {
             return Displayable.TUNNEL;
         }
-        return PlayerEnums.getMirrorDisplayable(mirror.getOwner(),mirror.getOrientation());
+        return PlayerEnums.getMirrorDisplayable(mirror.getOwner(), mirror.getOrientation());
     }
 
     @Override
     public Tunnel getTunnel() {
         return this;
     }
+
 }

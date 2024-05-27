@@ -30,10 +30,10 @@ public class SimpleGameService implements GameService {
 
     @Override
     public Collection<Move> getLegalMoves(Point position, PlayerColor player) {
-        if(player!=gameManager.getCurrentPlayer()) {
-            return null;
-        }
         Collection<Move> relativeLegalMoves = new ArrayList<>();
+        if(player!=gameManager.getCurrentPlayer()) {
+            return relativeLegalMoves;
+        }
         for(Move move : gameManager.getLegalMoves(gameManager.getPlayers().get(gameManager.getCurrentPlayer()).getAbsoluteCoordinates(position))) {
             relativeLegalMoves.add(new Move(
                     gameManager.getPlayers().get(gameManager.getCurrentPlayer()).getRelativeCoordinates(move.position()),
@@ -44,7 +44,6 @@ public class SimpleGameService implements GameService {
 
     @Override
     public boolean move(Move move, PlayerColor player) {
-
         if(player!=gameManager.getCurrentPlayer()) {
             return false;
         }
@@ -68,11 +67,12 @@ public class SimpleGameService implements GameService {
     }
 
     @Override
-    public void endTurn(PlayerColor player) {
+    public boolean endTurn(PlayerColor player) {
         if(gameManager.getCurrentPlayer()!=player) {
-            throw new IllegalStateException("Not in a turn");
+            return false;
         }
         gameManager.endTurn();
+        return true;
     }
 
     public SimpleGameService(Parameters parameters) {

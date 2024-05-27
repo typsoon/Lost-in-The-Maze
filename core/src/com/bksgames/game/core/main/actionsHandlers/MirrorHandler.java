@@ -25,18 +25,20 @@ public class MirrorHandler extends ActionHandler{
         Tunnel currentTunnel = currentTile.getTunnel();
 
         if(currentTunnel==null){
-            throw new IllegalArgumentException("To nie Tunnel");
+            throw new IllegalArgumentException("Not a tunnel!");
         }
 
         if(action.direction()== Direction.RIGHT)
             currentTunnel.setMirror(new Mirror(Mirror.Orientation.SLASH,gameManager.getCurrentPlayer()));
         if(action.direction()==Direction.LEFT)
             currentTunnel.setMirror(new Mirror(Mirror.Orientation.BACKSLASH,gameManager.getCurrentPlayer()));
+
         gameManager.sendUpdate(
                 UpdateHolderFactory.produceUpdateHolder(
                         new SimpleTileUpdate(currentTunnel.getDisplayable(),true,action.position())
                 )
         );
+        gameManager.getVisionManager().playerVisionUpdate();
     }
 
     MirrorHandler(GameManager manager) {
