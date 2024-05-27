@@ -9,6 +9,7 @@ import com.bksgames.game.common.updates.Update;
 import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.viewmodels.DisplayableToImage;
 import com.bksgames.game.viewmodels.PlayerViewModel;
+import com.bksgames.game.views.gameScreen.MazeMapFactory;
 
 public class EntityStateUpdater extends Updater {
     public EntityStateUpdater(TiledMap map, TextureAtlas atlas, PlayerViewModel playerViewModel) {
@@ -28,7 +29,7 @@ public class EntityStateUpdater extends Updater {
                     if (playerViewModel.hasPlayableMinion(position)) {
                         playerViewModel.minionKilled(position);
                         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(DisplayableToImage.getDisplayInfo(Displayable.BLUE_MINION).layer());
-                        layer.setCell(position.x, position.y, null);
+                        layer.setCell(MazeMapFactory.maxBoardWidth + position.x, MazeMapFactory.maxBoardHeight + position.y, null);
                     }
                 }
                 case SPAWNED -> {
