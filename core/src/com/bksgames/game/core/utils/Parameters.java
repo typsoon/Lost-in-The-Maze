@@ -85,8 +85,8 @@ public class Parameters {
     /**
      * Constructs {@code Parameters} with custom values
      */
-    public Parameters(int maxMirrorsBending, int wallBuildCount, int doorPrice, int doorHitPoints, int doorCooldown, int actionsNumber, int minionHitPoints, int nexusHitPoints
-    , int laserDamage, int swordDamage, int mapSize, int baseSize, int minionCount) {
+    public Parameters(int minionCount, int maxMirrorsBending, int wallBuildCount, int doorPrice, int doorCooldown,
+                      int doorHitPoints, int actionsNumber, int minionHitPoints, int nexusHitPoints, int mapSize, int baseSize, int laserDamage, int swordDamage) {
         this.maxMirrorsBending = maxMirrorsBending;
         this.wallBuildCount = wallBuildCount;
         this.doorPrice = doorPrice;

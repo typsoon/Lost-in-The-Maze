@@ -16,20 +16,19 @@ public class ConfigManagerSingleton {
 		if (instance == null) {
 			Configuration config = new ConfigManager(path);
 
-			int minionCount = configToInt("minionCount", config);
-			int maxMirrorsBending = configToInt("maxMirrorsBending", config);
-			int wallBuildCount = configToInt("wallBuildCount", config);
-			int doorPrice = configToInt("doorPrice", config);
-			int doorCooldown = configToInt("doorCooldown", config);
-			int doorHitPoints = configToInt("doorHitPoints", config);
-			int actionsNumber = configToInt("actionsNumber", config);
-			int minionHitPoints = configToInt("minionHitPoints", config);
-			int nexusHitPoints = configToInt("nexusHitPoints", config);
-			int mapSize = configToInt("mapSize", config);
-			int baseSize = configToInt("baseSize", config);
-//        TODO: think about these values
-			int laserDamage = configToInt("laserDamage", config);
-			int swordDamage = configToInt("swordDamage", config);
+			final int minionCount = configToInt("minionCount", config);
+			final int maxMirrorsBending = configToInt("maxMirrorsBending", config);
+			final int wallBuildCount = configToInt("wallBuildCount", config);
+			final int doorPrice = configToInt("doorPrice", config);
+			final int doorCooldown = configToInt("doorCooldown", config);
+			final int doorHitPoints = configToInt("doorHitPoints", config);
+			final int actionsNumber = configToInt("actionsNumber", config);
+			final int minionHitPoints = configToInt("minionHitPoints", config);
+			final int nexusHitPoints = configToInt("nexusHitPoints", config);
+			final int mapSize = configToInt("mapSize", config);
+			final int baseSize = configToInt("baseSize", config);
+			final int laserDamage = configToInt("laserDamage", config);
+			final int swordDamage = configToInt("swordDamage", config);
 
 
 			instance = new Parameters(minionCount, maxMirrorsBending, wallBuildCount, doorPrice, doorCooldown,
