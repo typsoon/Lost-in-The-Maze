@@ -21,13 +21,12 @@ import com.bksgames.game.views.gameScreen.laserHandling.ViewLaserHandler;
 import com.bksgames.game.views.gameScreen.laserHandling.SimpleLaserHandler;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.LegalMoves;
 
-public class GameScreen implements Screen {
+public class GameScreen extends ScreenAdapter {
 
     final LostInTheMaze game;
     private final OrthographicCamera gameCamera;
 
     private final Viewport hudViewport;
-    private final OrthographicCamera hudCamera;
 
     private final PlayerService playerService;
 
@@ -49,6 +48,9 @@ public class GameScreen implements Screen {
 
     private final ViewLaserHandler viewLaserHandler;
 
+    EndTheTurnStage endTurnStage;
+    TextureAtlas atlas;
+
     //    Tiles are squares - tileSize is its width
 
     public GameScreen(final LostInTheMaze game, PlayerService playerService) {
@@ -62,8 +64,6 @@ public class GameScreen implements Screen {
 
         mapRenderer = new OrthogonalTiledMapRenderer(map);
 
-
-        hudCamera = new OrthographicCamera();
         hudViewport = new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), hudCamera);
 //        hudViewport = new ExtendViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), hudCamera);
 //        hudViewport = new ExtendViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), hudCamera);
@@ -86,12 +86,16 @@ public class GameScreen implements Screen {
 
         updateProcessor = new UpdateProcessor(map, boardAtlas, playerViewModel);
 
-        legalMoves = new LegalMoves(actionButtonsAtlas, hudViewport, gameCamera, playerViewModel, playerService);
+        legalMoves = new LegalMoves(actionButtonsAtlas, gameCamera, playerViewModel, playerService);
+
+        atlas = new TextureAtlas(Gdx.files.internal("MainMenu.atlas"));
+        endTurnStage = new EndTheTurnStage(atlas, game, hudViewport, playerService);
+//        endTurnStage.setDebugAll(true);
 
         MinionClickReceiver minionClickReceiver = new MinionClickReceiver(gameCamera, legalMoves, playerViewModel);
 
 //        inputMultiplexer = new InputMultiplexer(screenMover, minionClickReceiver);
-        InputMultiplexer inputMultiplexer = new InputMultiplexer(legalMoves, screenMover, minionClickReceiver);
+        InputMultiplexer inputMultiplexer = new InputMultiplexer(legalMoves, endTurnStage, screenMover, minionClickReceiver);
 
         gameCamera.position.set( MazeMapFactory.tilePixelSize* MazeMapFactory.maxBoardHeight, MazeMapFactory.tilePixelSize* MazeMapFactory.maxBoardWidth, 0);
         gameCamera.update();
@@ -103,6 +107,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
+
         screenMover.update(delta);
 
         while (playerService.hasUpdates()) {
@@ -113,14 +118,16 @@ public class GameScreen implements Screen {
 
         legalMoves.act(delta);//, gameCamera);
 
+//        legalMoves.getViewport().update((int) gameCamera.position.x, (int) gameCamera.position.y, true);
+
         mapRenderer.setView(gameCamera);
         mapRenderer.render();
 
         viewLaserHandler.framePassed();
         legalMoves.draw();
 
-//        endTheTurnStage.act(delta);
-//        endTheTurnStage.draw();
+        endTurnStage.act(delta);
+        endTurnStage.draw();
     }
 
     @Override
@@ -128,24 +135,8 @@ public class GameScreen implements Screen {
         gameCamera.viewportWidth = width;
         gameCamera.viewportHeight = height;
 
-//        hudViewport.update(width, height);
         legalMoves.getViewport().update(width, height, false);
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-//        endTheTurnStage.getViewport().update(width, height, false);
+        endTurnStage.getViewport().update(width, height, false);
     }
 
     @Override

@@ -69,15 +69,13 @@ public class MainMenuScreen extends ScreenAdapter {
         textButtonStyle.pressedOffsetY = -1;
 
         Button buttonPlay = new TextButton("Play", textButtonStyle);
-
-        GameService gameService = new SimpleGameService(new Parameters());
+        // @typsoon rozwaz to jakos lepiej  !!!!!!!!!!!!!!!!!!!
 
         stage.addListener(new InputListener() {
             @Override
             public boolean keyDown(InputEvent event, int keycode) {
                 if (keycode == Input.Keys.ENTER) {
-                    displayGameScreen(gameService);
-//                    game.startGame();
+                    game.startGame();
                 }
 
                 return super.keyDown(event, keycode);
@@ -87,9 +85,8 @@ public class MainMenuScreen extends ScreenAdapter {
         buttonPlay.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-//                game.startGame();
+                game.startGame();
 
-                displayGameScreen(gameService);
                 return true;
             }
         });
@@ -128,6 +125,11 @@ public class MainMenuScreen extends ScreenAdapter {
         stage.act(delta);
 
         stage.draw();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        stage.getViewport().update(width, height, false);
     }
 
     @Override
