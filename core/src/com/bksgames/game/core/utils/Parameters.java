@@ -1,5 +1,8 @@
 package com.bksgames.game.core.utils;
 
+import com.bksgames.game.common.ConfigManagerSingleton;
+import com.bksgames.game.common.utils.Configuration;
+
 /**
  * Game parameters
  * @author typsoon
@@ -61,22 +64,23 @@ public class Parameters {
     /**
      * Constructs {@code Parameters} with base values
      */
-    public Parameters() {
-        minionCount = 3; //max 4
-        maxMirrorsBending = 5;
-        wallBuildCount = 0;
-        doorPrice = 0;
-        doorCooldown = 2;
-        doorHitPoints = 3;
-        actionsNumber = 5;
-        minionHitPoints = 5;
-        nexusHitPoints = 20;
-        mapSize = 30;
-        baseSize = 7;
-//        TODO: think about these values
-        laserDamage = 6;
-        swordDamage = 2;
-    }
+
+//    public Parameters() {
+////        minionCount = 3; //max 4
+////        maxMirrorsBending = 5;
+////        wallBuildCount = 0;
+////        doorPrice = 0;
+////        doorCooldown = 2;
+////        doorHitPoints = 3;
+////        actionsNumber = 5;
+////        minionHitPoints = 5;
+////        nexusHitPoints = 20;
+////        mapSize = 30;
+////        baseSize = 7;
+//////        TODO: think about these values
+////        laserDamage = 6;
+////        swordDamage = 2;
+//    }
 
     /**
      * Constructs {@code Parameters} with custom values

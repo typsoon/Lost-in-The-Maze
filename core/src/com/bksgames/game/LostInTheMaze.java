@@ -1,6 +1,7 @@
 package com.bksgames.game;
 
 import com.badlogic.gdx.Game;
+import com.bksgames.game.common.ConfigManagerSingleton;
 import com.bksgames.game.common.PlayerColor;
 import com.bksgames.game.core.main.Player;
 import com.bksgames.game.core.utils.Parameters;
@@ -40,7 +41,7 @@ public class LostInTheMaze extends Game {
 
 	public void startGame(){
 //		setScreen(turnTransitionScreen);
-		GameService gameService = new SimpleGameService(new Parameters());
+		GameService gameService = new SimpleGameService(ConfigManagerSingleton.getInstance());
 		PlayerService bluePlayer = gameService.connect(PlayerColor.BLUE);
 		PlayerService redPlayer = gameService.connect(PlayerColor.RED);
 		activePlayer = bluePlayer;

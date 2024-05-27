@@ -15,6 +15,7 @@ import com.bksgames.game.core.updates.SimpleTileUpdate;
 import com.bksgames.game.core.utils.Parameters;
 import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.services.GameService;
+import com.bksgames.game.viewmodels.PlayerViewModel;
 
 import java.util.*;
 
@@ -32,7 +33,21 @@ public class SimpleGameManager implements GameManager {
     private final GameService gameService;
     private final Parameters parameters;
     private PlayerColor activePlayer;
-    private Iterator<PlayerColor> nextPlayer;
+    private Iterator<PlayerColor> nextPlayer = new Iterator<PlayerColor>() {
+        private boolean isBlue = true;
+
+        @Override
+        public boolean hasNext() {
+            return true;
+        }
+
+        @Override
+        public PlayerColor next() {
+            var answer = isBlue ? PlayerColor.RED : PlayerColor.BLUE;
+            isBlue = !isBlue;
+            return answer;
+        }
+    };
     private final DamageManager damageManager;
     private final VisionManager visionManager;
 
