@@ -77,12 +77,19 @@ public class SimpleViewModel implements PlayerViewModel{
             throw new IllegalStateException("No minion on position" + position);
         }
 
-        minionPositions.remove(position);
+//        this means a minion is dead
+        minionPositions.set(minionPositions.indexOf(position),new Point(0, 0));
     }
 
     @Override
     public void minionSpawned(Point position) {
-        minionPositions.add(position);
+
+        for (int i = 0 ; i < minionPositions.size() ; i++) {
+            if (minionPositions.get(i).equals(new Point(0, 0))) {
+                minionPositions.set(i,position);
+                return;
+            }
+        }
     }
 
     @Override
@@ -98,14 +105,14 @@ public class SimpleViewModel implements PlayerViewModel{
     public SimpleViewModel(ViewLaserHandler viewLaserHandler) {
         this.viewLaserHandler = viewLaserHandler;
 
-        minionPositions = new ArrayList<>();
-        minionSpawned(new Point(-1, 0));
-        minionSpawned(new Point(1, 0));
-        minionSpawned(new Point(0, 1));
-//        minionPositions = new ArrayList<>(List.of(new Point[]{
-//                new Point(-1, 0),
-//                new Point(1, 0),
-//                new Point(0, 1),
-//        }));
+//        minionPositions = new ArrayList<>();
+//        minionSpawned(new Point(-1, 0));
+//        minionSpawned(new Point(1, 0));
+//        minionSpawned(new Point(0, 1));
+        minionPositions = new ArrayList<>(List.of(new Point[]{
+                new Point(-1, 0),
+                new Point(1, 0),
+                new Point(0, 1),
+        }));
     }
 }
