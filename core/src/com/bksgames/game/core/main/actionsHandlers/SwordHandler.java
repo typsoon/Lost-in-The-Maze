@@ -4,7 +4,7 @@ import com.bksgames.game.common.moves.ActionToken;
 import com.bksgames.game.common.moves.Move;
 import com.bksgames.game.core.main.GameManager;
 import com.bksgames.game.core.main.updateHolders.UpdateHolderFactory;
-import com.bksgames.game.core.updates.SimpleMinionUpdate;
+import com.bksgames.game.core.updates.SimpleSwordUpdate;
 import com.bksgames.game.core.utils.SourceOfDamage;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public class SwordHandler extends ActionHandler {
         );
         gameManager.sendUpdate(
                 UpdateHolderFactory.produceUpdateHolder(
-                        new SimpleMinionUpdate(action.direction(), null, null, ActionToken.SWORD, action.position())
+                        new SimpleSwordUpdate(action.direction(),action.position())
                 )
         );
     }
