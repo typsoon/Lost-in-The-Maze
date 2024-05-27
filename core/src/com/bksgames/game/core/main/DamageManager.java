@@ -36,8 +36,8 @@ public class DamageManager {
                 if (updateHolder != null) {
                     gameManager.sendUpdate(updateHolder);
                     // dead.add(vulnerable);
-                    if (gameManager.getBoard().getTile(vulnerable.getPosition()).getTunnel() != null)
-                        gameManager.getBoard().getTile(vulnerable.getPosition()).getTunnel().removeObject(vulnerable);
+                    if (gameManager.getBoard().getTile(point).getTunnel() != null)
+                        gameManager.getBoard().getTile(point).getTunnel().removeObject(vulnerable);
 
                     if (vulnerable instanceof Respawnable respawnable)
                         respawnWaitingRoom.put(respawnable, 5);//TODO respawn manager with different respawn queue
