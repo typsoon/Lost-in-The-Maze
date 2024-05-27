@@ -2,7 +2,6 @@ package com.bksgames.game.core.boards;
 
 import com.bksgames.game.core.utils.Point;
 
-import java.util.Queue;
 import java.util.*;
 
 /**
@@ -11,6 +10,8 @@ import java.util.*;
  */
 class BoardGenerationUtils {
     static final private Random rng = new Random();
+    static final private int INFINITY = 10000;
+    static final private int MAX_RANDOM = 50;
     static void randomPath(Point start, Point dest, int c, int[][]grid, int width, int height) {
        int[][]workGrid = new int[width][height];
        for(int y=0;y<height;y++)
@@ -20,12 +21,10 @@ class BoardGenerationUtils {
                if(grid[x][y]==0 && check(grid,width,height,x+1,y,c) && check(grid,width,height,x-1,y,c)
                        && check(grid,width,height,x,y+1,c) && check(grid,width,height,x,y-1,c)
                )
-                   workGrid[x][y]=rng.nextInt(50);
+                   workGrid[x][y]=rng.nextInt(MAX_RANDOM);
                else
-                   workGrid[x][y]=10000;
-              // System.out.print(workGrid[x][y] + " ");
+                   workGrid[x][y]=INFINITY;
            }
-           //System.out.println();
        }
         int[][]lengthGrid = new int[width][height];
         int[][]prevGrid = new int[width][height];
@@ -33,81 +32,36 @@ class BoardGenerationUtils {
             for(int x=0;x<width;x++)
                 lengthGrid[x][y]=Integer.MAX_VALUE;
         lengthGrid[start.x][start.y]=1;
-       PriorityQueue<Node> que = new PriorityQueue<>();
-       que.add(new Node(start.x,start.y,0));
-       while(!que.isEmpty())
-       {
+        PriorityQueue<Node> que = new PriorityQueue<>();
+        que.add(new Node(start.x,start.y,0));
+        while (!que.isEmpty()) {
             Node act = que.poll();
-            //System.out.println(act.x + "  " + act.y);
-            if(act.l > lengthGrid[act.x][act.y])
+            if (act.l > lengthGrid[act.x][act.y])
                 continue;
-            if(act.x - 1 >= 0 && act.l + workGrid[act.x-1][act.y] < lengthGrid[act.x-1][act.y]){
-                lengthGrid[act.x-1][act.y] = act.l + workGrid[act.x-1][act.y];
-                prevGrid[act.x-1][act.y]=1;
-                que.add(new Node(act.x-1, act.y, lengthGrid[act.x-1][act.y]));
+            if (act.x - 1 >= 0 && act.l + workGrid[act.x - 1][act.y] < lengthGrid[act.x - 1][act.y]) {
+                lengthGrid[act.x - 1][act.y] = act.l + workGrid[act.x - 1][act.y];
+                que.add(new Node(act.x - 1, act.y, lengthGrid[act.x - 1][act.y]));
+                prevGrid[act.x - 1][act.y] = 1;
             }
-            if(act.x + 1 < width && act.l + workGrid[act.x+1][act.y] < lengthGrid[act.x+1][act.y]){
-                lengthGrid[act.x+1][act.y] = act.l + workGrid[act.x+1][act.y];
-                que.add(new Node(act.x+1, act.y, lengthGrid[act.x+1][act.y]));
-                prevGrid[act.x+1][act.y]=2;
+            if (act.x + 1 < width && act.l + workGrid[act.x + 1][act.y] < lengthGrid[act.x + 1][act.y]) {
+                lengthGrid[act.x + 1][act.y] = act.l + workGrid[act.x + 1][act.y];
+                que.add(new Node(act.x + 1, act.y, lengthGrid[act.x + 1][act.y]));
+                prevGrid[act.x + 1][act.y] = 2;
             }
-            if(act.y - 1 >= 0 && act.l + workGrid[act.x][act.y-1] < lengthGrid[act.x][act.y-1]){
-                lengthGrid[act.x][act.y-1] = act.l + workGrid[act.x][act.y-1];
-                que.add(new Node(act.x, act.y-1, lengthGrid[act.x][act.y-1]));
-                prevGrid[act.x][act.y-1]=3;
+            if (act.y - 1 >= 0 && act.l + workGrid[act.x][act.y - 1] < lengthGrid[act.x][act.y - 1]) {
+                lengthGrid[act.x][act.y - 1] = act.l + workGrid[act.x][act.y - 1];
+                que.add(new Node(act.x, act.y - 1, lengthGrid[act.x][act.y - 1]));
+                prevGrid[act.x][act.y - 1] = 3;
             }
-            if(act.y + 1 < height && act.l + workGrid[act.x][act.y+1] < lengthGrid[act.x][act.y+1]){
-                lengthGrid[act.x][act.y+1] = act.l + workGrid[act.x][act.y+1];
-                que.add(new Node(act.x, act.y+1, lengthGrid[act.x][act.y+1]));
-                prevGrid[act.x][act.y+1]=4;
-            }
-       }
-       grid[start.x][start.y] = c;
-       createPath(dest, grid, prevGrid, c);
-    }
-
-    static void shortestRandomPath(Point start, Point dest, int c, int[][]grid, int width, int height){
-        int[][]workGrid = new int[width][height];
-        int[][]prevGrid = new int[width][height];
-        Queue<Point> que = new LinkedList<>();
-        workGrid[start.x][start.y]=1;
-        que.add(new Point(start));
-        while(!que.isEmpty())
-        {
-            Point act = que.poll();
-            ArrayList<Point> moves = new ArrayList<>();
-            if(act.x - 1 > 0 && workGrid[act.x-1][act.y]==0)
-            {
-                workGrid[act.x-1][act.y] = 1;
-                prevGrid[act.x-1][act.y] = 1;
-                moves.add(new Point(act.x-1, act.y));
-            }
-            if(act.x + 1 < width && workGrid[act.x+1][act.y]==0)
-            {
-                workGrid[act.x+1][act.y] = 1;
-                prevGrid[act.x+1][act.y] = 2;
-                moves.add(new Point(act.x+1, act.y));
-            }
-            if(act.y - 1 > 0 && workGrid[act.x][act.y-1]==0)
-            {
-                workGrid[act.x][act.y-1] = 1;
-                prevGrid[act.x][act.y-1] = 3;
-                moves.add(new Point(act.x, act.y-1));
-            }
-            if(act.y + 1 < height && workGrid[act.x][act.y+1]==0)
-            {
-                workGrid[act.x][act.y+1] = 1;
-                prevGrid[act.x][act.y+1] = 4;
-                moves.add(new Point(act.x, act.y+1));
-            }
-            while(!moves.isEmpty())
-            {
-                que.add(moves.remove(rng.nextInt(moves.size())));
+            if (act.y + 1 < height && act.l + workGrid[act.x][act.y + 1] < lengthGrid[act.x][act.y + 1]) {
+                lengthGrid[act.x][act.y + 1] = act.l + workGrid[act.x][act.y + 1];
+                que.add(new Node(act.x, act.y + 1, lengthGrid[act.x][act.y + 1]));
+                prevGrid[act.x][act.y + 1] = 4;
             }
         }
-        createPath(dest, grid, prevGrid,c);
+        grid[start.x][start.y] = c;
+        createPath(dest, grid, prevGrid, c);
     }
-
     static void generateRest(int [][]grid,int width,int height, int c){
         ArrayList<Point> fields = new ArrayList<>();
         for(int y=0;y<height;y++) {
@@ -201,16 +155,12 @@ class BoardGenerationUtils {
             y=n.y;
             l=n.l;
         }
-
-
-
         @Override
         public int compareTo(Node o) {
             return Integer.compare(this.l, o.l);
         }
     }
-    private static  boolean check(int[][] grid,int width,int height,int x,int y,int c)
-    {
+    private static  boolean check(int[][] grid,int width,int height,int x,int y,int c) {
         if(x<0 || x >= width)
             return true;
         if(y<0 || y>=height)
@@ -218,8 +168,7 @@ class BoardGenerationUtils {
         else
             return grid[x][y]!=c;
     }
-    static boolean adjacent(Point a,Point b)
-    {
+    static boolean adjacent(Point a,Point b) {
         if(a.x==b.x && Math.abs(a.y-b.y)==1)
             return true;
         if(a.y==b.y && Math.abs(a.x-b.x)==1)

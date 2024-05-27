@@ -1,9 +1,6 @@
 package com.bksgames.game.core.main.updateHolders;
 
-import com.bksgames.game.common.updates.LaserUpdate;
-import com.bksgames.game.common.updates.EntityUpdate;
-import com.bksgames.game.common.updates.SwordUpdate;
-import com.bksgames.game.common.updates.TileUpdate;
+import com.bksgames.game.common.updates.*;
 
 public class UpdateHolderFactory {
     public static TileUpdateHolder produceUpdateHolder(TileUpdate tileUpdate) {
@@ -12,10 +9,13 @@ public class UpdateHolderFactory {
     public static LaserUpdateHolder produceUpdateHolder(LaserUpdate laserUpdate) {
         return new LaserUpdateHolder(laserUpdate);
     }
-    public static MinionUpdateHolder produceUpdateHolder(EntityUpdate entityUpdate) {
-        return new MinionUpdateHolder(entityUpdate);
+    public static EntityUpdateHolder produceUpdateHolder(EntityUpdate entityUpdate) {
+        return new EntityUpdateHolder(entityUpdate);
     }
     public static SwordUpdateHolder produceUpdateHolder (SwordUpdate swordUpdate){
         return new SwordUpdateHolder(swordUpdate);
+    }
+    public static EntityStateUpdateHolder produceUpdateHolder (EntityStateUpdate entityStateUpdate){
+        return new EntityStateUpdateHolder(entityStateUpdate);
     }
 }

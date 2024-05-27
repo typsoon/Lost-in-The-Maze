@@ -4,11 +4,11 @@ import com.bksgames.game.common.Displayable;
 import com.bksgames.game.common.EntityEvent;
 import com.bksgames.game.common.PlayerColor;
 import com.bksgames.game.common.moves.ActionToken;
-import com.bksgames.game.common.updates.EntityUpdate;
+import com.bksgames.game.common.updates.EntityStateUpdate;
 import com.bksgames.game.common.utils.Direction;
 import com.bksgames.game.core.main.updateHolders.UpdateHolder;
 import com.bksgames.game.core.main.updateHolders.UpdateHolderFactory;
-import com.bksgames.game.core.updates.SimpleEntityUpdate;
+import com.bksgames.game.core.updates.SimpleEntityStateUpdate;
 import com.bksgames.game.core.utils.*;
 
 import java.util.EnumMap;
@@ -67,11 +67,11 @@ public class Minion implements Entity, Owned, Interactive, Respawnable {
     }
 
     @Override
-    public UpdateHolder<EntityUpdate> damage(SourceOfDamage sourceOfDamage) {
+    public UpdateHolder<EntityStateUpdate> damage(SourceOfDamage sourceOfDamage) {
         hitPoints -= sourceOfDamage.getDamageValue();
         if (hitPoints <= 0) {
             return UpdateHolderFactory.produceUpdateHolder(
-                    new SimpleEntityUpdate(null, null, EntityEvent.KILLED, null, getPosition())
+                    new SimpleEntityStateUpdate(true,EntityEvent.KILLED,null,position)
             );
         }
         return null;

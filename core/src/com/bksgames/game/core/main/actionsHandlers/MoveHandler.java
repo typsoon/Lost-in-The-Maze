@@ -37,7 +37,7 @@ public class MoveHandler extends ActionHandler {
         gameManager.getVisionManager().playerVisionUpdate(gameManager.getCurrentPlayer());
         gameManager.sendUpdate(
                 UpdateHolderFactory.produceUpdateHolder(
-                        new SimpleEntityUpdate(action.direction(),minion.getDisplayable(),null, ActionToken.MOVE,lastPos)
+                        new SimpleEntityUpdate(action.direction(),minion.getDisplayable(),lastPos)
                 )
         );
         gameManager.sendUpdate(

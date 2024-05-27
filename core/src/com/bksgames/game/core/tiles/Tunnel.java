@@ -21,6 +21,7 @@ public class Tunnel implements Tile {
     private Mirror mirror;
     private final Collection<Entity> entities = new ArrayList<>();
 
+    //this will be removed when board will be observing all KnownPosition objects
     public void removeObject(KnownPosition object) {
         if (object instanceof Entity entity) {
             removeEntity(entity);
@@ -28,6 +29,7 @@ public class Tunnel implements Tile {
         //in future removing doors itd
     }
 
+    //this will be removed when board will be observing all KnownPosition objects
     public void addObject(KnownPosition object) {
         if (object instanceof Entity entity) {
             addEntity(entity);
@@ -89,5 +91,4 @@ public class Tunnel implements Tile {
     public Tunnel getTunnel() {
         return this;
     }
-
 }

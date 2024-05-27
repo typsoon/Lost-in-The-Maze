@@ -8,6 +8,7 @@ import com.bksgames.game.core.tiles.Mirror;
  * Easier access to Enums associated with {@code PlayerColor}
  *
  * @author jajko
+ * @author riper
  */
 
 public class PlayerEnums {
