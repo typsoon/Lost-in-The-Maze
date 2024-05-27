@@ -1,5 +1,6 @@
 package com.bksgames.game.core.tiles;
 
+import com.bksgames.game.core.main.updateHolders.UpdateHolder;
 import com.bksgames.game.core.utils.*;
 import com.bksgames.game.common.Displayable;
 import com.bksgames.game.common.PlayerColor;
@@ -17,14 +18,20 @@ public class Nexus implements  Vulnerable, KnownPosition, Owned, Tile {
 
     //Vulnerable
     @Override
+    public Point getRespawnPosition() {
+        return null;
+    }
+    @Override
     public int getHitPoints() {
         return hitPoints;
     }
     //    TODO: write this
     @Override
-    public boolean damage(SourceOfDamage sourceOfDamage) {
+    public UpdateHolder damage(SourceOfDamage sourceOfDamage) {
         hitPoints-=sourceOfDamage.getDamageValue();
-        return hitPoints <= 0;
+        if(hitPoints <= 0)
+            return null; //TODO nexus destroyed update
+        return null;
     }
 
     //KnownPosition

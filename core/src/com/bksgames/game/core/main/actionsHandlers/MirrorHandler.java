@@ -25,7 +25,7 @@ public class MirrorHandler extends ActionHandler{
         Tunnel currentTunnel = currentTile.getTunnel();
 
         if(currentTunnel==null){
-            throw new IllegalArgumentException("To nie Tunnel");
+            throw new IllegalArgumentException("Not a tunnel!");
         }
 
         if(action.direction()== Direction.RIGHT)

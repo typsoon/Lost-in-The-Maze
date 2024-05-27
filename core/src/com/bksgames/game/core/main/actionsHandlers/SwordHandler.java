@@ -1,9 +1,12 @@
 package com.bksgames.game.core.main.actionsHandlers;
 
+import com.bksgames.game.common.MinionEvent;
 import com.bksgames.game.core.entities.Entity;
 import com.bksgames.game.core.main.GameManager;
+import com.bksgames.game.core.main.updateHolders.UpdateHolderFactory;
 import com.bksgames.game.core.tiles.Tile;
 import com.bksgames.game.core.tiles.Tunnel;
+import com.bksgames.game.core.updates.SimpleMinionUpdate;
 import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.core.utils.SourceOfDamage;
 import com.bksgames.game.core.utils.Vulnerable;
@@ -40,6 +43,11 @@ public class SwordHandler extends ActionHandler{
                 }
             }
         }
+        gameManager.sendUpdate(
+                UpdateHolderFactory.produceUpdateHolder(
+                        new SimpleMinionUpdate(action.direction(),null, null,ActionToken.SWORD,action.position())
+                )
+        );
     }
     SwordHandler(GameManager manager) {
         super(manager);

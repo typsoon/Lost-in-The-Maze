@@ -1,9 +1,6 @@
 package com.bksgames.game.core.entities;
 
-import com.bksgames.game.core.utils.IsDisplayable;
-import com.bksgames.game.core.utils.KnownPosition;
-import com.bksgames.game.core.utils.Point;
-import com.bksgames.game.core.utils.Vulnerable;
+import com.bksgames.game.core.utils.*;
 
 /**
  * Objects are {@code Entity}
@@ -11,11 +8,6 @@ import com.bksgames.game.core.utils.Vulnerable;
  * @author riper
  * @author jajko
  */
-public interface Entity extends Vulnerable, KnownPosition, IsDisplayable {
-    /**
-     * Spawns {@code Entity}
-     * @param position Spawning location
-     * @param hitPoints {@code Entity} HP after spawn
-     */
-    void spawn(Point position, int hitPoints);
+public interface Entity extends Vulnerable, KnownPosition, IsDisplayable, Spawnable {
+
 }

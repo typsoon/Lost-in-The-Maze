@@ -41,6 +41,7 @@ public class SimpleGameManager implements GameManager {
         if (!getLegalMoves(move.position()).contains(move)) {
             return false;
         }
+        players.get(activePlayer).getMinion(move.position()).makeAction(move.type());
         moveHandlers.get(move.type()).handle(move);
         return true;
     }
@@ -62,18 +63,29 @@ public class SimpleGameManager implements GameManager {
         if (minion == null) {
             return legalMoves;
         }
-        for(Direction direction : Direction.values()) {
-            if(board.getTile(direction.getNext(position)).getTunnel()!=null
-                    && board.getTile(direction.getNext(position)).getTunnel().getEntities().isEmpty() ) {
-                legalMoves.add(new Move(position.getPosition(), ActionToken.MOVE, direction));
+        if(minion.canMakeAction(ActionToken.MOVE)) {
+            for(Direction direction : Direction.values()) {
+                if(board.getTile(direction.getNext(position)).getTunnel()!=null
+                        && board.getTile(direction.getNext(position)).getTunnel().getEntities().isEmpty() ) {
+                    legalMoves.add(new Move(position.getPosition(), ActionToken.MOVE, direction));
+                }
             }
         }
-        if(board.getTile(position).getTunnel().getMirror()==null) {
-            legalMoves.add(new Move(position,ActionToken.MIRROR,Direction.LEFT));
-            legalMoves.add(new Move(position,ActionToken.MIRROR,Direction.RIGHT));
+        if(minion.canMakeAction(ActionToken.MIRROR)) {
+            if(board.getTile(position).getTunnel().getMirror()==null) {
+                legalMoves.add(new Move(position,ActionToken.MIRROR,Direction.LEFT));
+                legalMoves.add(new Move(position,ActionToken.MIRROR,Direction.RIGHT));
+            }
         }
-        for(Direction direction : Direction.values()){
-            legalMoves.add(new Move(position,ActionToken.LASER,direction));
+        if(minion.canMakeAction(ActionToken.LASER)){
+            for(Direction direction : Direction.values()){
+                legalMoves.add(new Move(position,ActionToken.LASER,direction));
+            }
+        }
+        if(minion.canMakeAction(ActionToken.SWORD)){
+            for(Direction direction : Direction.values()){
+                legalMoves.add(new Move(position,ActionToken.SWORD,direction));
+            }
         }
         return legalMoves;
     }
@@ -138,11 +150,14 @@ public class SimpleGameManager implements GameManager {
             moveHandlers.put(moveType, ActionHandlerFactory.CreateActionHandler(moveType, this));
         }
         players = new EnumMap<>(PlayerColor.class);
-        activePlayer = PlayerColor.BLUE;
+
         players.put(PlayerColor.BLUE,
                 new Player(board.getNexus(PlayerColor.BLUE).get(0).getPosition()));
         players.put(PlayerColor.RED,
                 new Player(board.getNexus(PlayerColor.RED).get(0).getPosition()));
+        nextPlayer = players.keySet().iterator();
+        activePlayer = nextPlayer.next();
+
 
         for (PlayerColor playerColor : players.keySet()) {
             playerSetup(playerColor);
