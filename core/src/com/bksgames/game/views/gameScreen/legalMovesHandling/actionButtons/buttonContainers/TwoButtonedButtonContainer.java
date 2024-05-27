@@ -4,11 +4,14 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 
 public class TwoButtonedButtonContainer extends ButtonContainer {
-    public TwoButtonedButtonContainer(int defaultButtonSize, TextureRegion region, ImageButton upButton, ImageButton downButton) {
-        super(defaultButtonSize, region);
+    static final int backgroundSize = 75;
 
-        addImageButton(upButton);
+    public TwoButtonedButtonContainer(TextureRegion region, ImageButton upButton, ImageButton downButton) {
+        super(region, backgroundSize);
+
+        addImageButton(upButton).center();
         row();
-        addImageButton(downButton);
+
+        addImageButton(downButton).center();
     }
 }

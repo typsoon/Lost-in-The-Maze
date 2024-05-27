@@ -8,11 +8,11 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.bksgames.game.LostInTheMaze;
-import com.bksgames.game.core.updates.SimpleLaserUpdate;
-import com.bksgames.game.core.utils.Point;
-import com.bksgames.game.common.utils.Direction;
 import com.bksgames.game.services.PlayerService;
 import com.bksgames.game.viewmodels.PlayerViewModel;
 import com.bksgames.game.viewmodels.SimpleViewModel;
@@ -26,7 +26,7 @@ public class GameScreen implements Screen {
     final LostInTheMaze game;
     private final OrthographicCamera gameCamera;
 
-    private final FitViewport hudViewport;
+    private final Viewport hudViewport;
     private final OrthographicCamera hudCamera;
 
     private final PlayerService playerService;
@@ -64,7 +64,10 @@ public class GameScreen implements Screen {
 
 
         hudCamera = new OrthographicCamera();
-        hudViewport = new FitViewport(800, 480, hudCamera);
+        hudViewport = new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), hudCamera);
+//        hudViewport = new ExtendViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), hudCamera);
+//        hudViewport = new ExtendViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), hudCamera);
+//        hudViewport = new FitViewport(800, 480, hudCamera);
 
 //        playerViewModel = new SimpleViewModel((TiledMapTileLayer) map.getLayers().get("minions"));
 
@@ -115,6 +118,9 @@ public class GameScreen implements Screen {
 
         viewLaserHandler.framePassed();
         legalMoves.draw();
+
+//        endTheTurnStage.act(delta);
+//        endTheTurnStage.draw();
     }
 
     @Override
@@ -139,6 +145,7 @@ public class GameScreen implements Screen {
     @Override
     public void hide() {
 
+//        endTheTurnStage.getViewport().update(width, height, false);
     }
 
     @Override

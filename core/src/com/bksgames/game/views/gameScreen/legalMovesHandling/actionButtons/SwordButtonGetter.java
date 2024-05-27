@@ -35,6 +35,7 @@ public class SwordButtonGetter extends ActionButtonGetter{
 //        ImageButton button = new ImageButton(sprite.get);
 //        ImageButton button = new ImageButton(new TextureRegionDrawable(rotatedRegion));
         ImageButton button = new ImageButton(new TextureRegionDrawable(region));
+        button.setSize(swordButtonSize, swordButtonSize);
 
         button.addCaptureListener(getTouchDownListenerForAButton(button, incompleteMove));
 

@@ -3,6 +3,7 @@ package com.bksgames.game.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -15,13 +16,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.bksgames.game.LostInTheMaze;
-import com.bksgames.game.core.utils.Parameters;
 import com.bksgames.game.common.PlayerColor;
+import com.bksgames.game.core.utils.Parameters;
 import com.bksgames.game.services.GameService;
 import com.bksgames.game.services.SimpleGameService;
 import com.bksgames.game.views.gameScreen.GameScreen;
 
-public class MainMenuScreen implements Screen {
+public class MainMenuScreen extends ScreenAdapter {
 
     private TextureAtlas atlas;
     private Stage stage;
@@ -68,13 +69,15 @@ public class MainMenuScreen implements Screen {
         textButtonStyle.pressedOffsetY = -1;
 
         Button buttonPlay = new TextButton("Play", textButtonStyle);
-        GameService gameService = new SimpleGameService(new Parameters()); // @typsoon rozwaz to jakos lepiej  !!!!!!!!!!!!!!!!!!!
+
+        GameService gameService = new SimpleGameService(new Parameters());
 
         stage.addListener(new InputListener() {
             @Override
             public boolean keyDown(InputEvent event, int keycode) {
                 if (keycode == Input.Keys.ENTER) {
                     displayGameScreen(gameService);
+//                    game.startGame();
                 }
 
                 return super.keyDown(event, keycode);
@@ -84,8 +87,9 @@ public class MainMenuScreen implements Screen {
         buttonPlay.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                displayGameScreen(gameService);
+//                game.startGame();
 
+                displayGameScreen(gameService);
                 return true;
             }
         });
@@ -124,26 +128,6 @@ public class MainMenuScreen implements Screen {
         stage.act(delta);
 
         stage.draw();
-    }
-
-    @Override
-    public void resize(int width, int height) {
-        stage.getViewport().update(width, height, false);
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
     }
 
     @Override

@@ -2,15 +2,12 @@ package com.bksgames.game.views.gameScreen.legalMovesHandling;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.common.moves.Move;
@@ -21,7 +18,6 @@ import com.bksgames.game.viewmodels.PlayerViewModel;
 import com.bksgames.game.viewmodels.moves.IncompleteMove;
 import com.bksgames.game.views.gameScreen.MazeMapFactory;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.ActionButtonFactory;
-import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.Resizable;
 
 import java.util.*;
 
@@ -34,9 +30,6 @@ public class LegalMoves extends Stage {
     private final PlayerViewModel playerViewModel;
 
     private final OrthographicCamera gameCamera;
-
-    private final Table arrowTable;
-    private final Table actionsTable;
 
     int activeMinionId = -1;
     Collection<IncompleteMove> currentLegalMoves = new ArrayList<>();
@@ -66,7 +59,6 @@ public class LegalMoves extends Stage {
         if (moves == null)
             throw new IllegalStateException("legal moves are null");
 
-
         currentLegalMoves = new ArrayList<>();
         moves.forEach(move -> currentLegalMoves.add(new IncompleteMove(move.type(), move.direction())));
 
@@ -93,9 +85,6 @@ public class LegalMoves extends Stage {
 
         if (!isActive())
             return;
-
-        arrowTable.invalidate();
-        arrowTable.layout();
 
 //        TODO: think about whether this sends obsolete queries
         if (currentLegalMoves == null || currentLegalMoves.isEmpty()) {
@@ -144,31 +133,11 @@ public class LegalMoves extends Stage {
         super.getRoot().setColor(0,0,0,0.75f);
 //        super.getRoot().setColor(0,0,0,0.9f);
 
-
-
         ActionButtonFactory factory = new ActionButtonFactory(atlas, moveToButtonMapping);
-        arrowTable = new Table();
-        actionsTable = new Table();
-        mainTable = MainTableFactory.produce(arrowTable, actionsTable, factory, atlas);
+        mainTable = MainTableFactory.produce(factory, atlas);
         this.addActor(mainTable);
 
-        mainTable.setSize(Gdx.graphics.getWidth(), MainTableFactory.mainTableHeight);
-
-
-        float newArrowButtonSize = MainTableFactory.arrowButtonSize;
-//        float newArrowButtonSize = MainTableFactory.arrowButtonSize * screenScalingHeight;
-//        float newButtonSize = MainTableFactory.arrowButtonSize * gameCamera.zoom;
-        for (Cell<?> cell : arrowTable.getCells()) {
-            cell.size(newArrowButtonSize, newArrowButtonSize);
-        }
-
-        float newActionButtonSize = MainTableFactory.actionButtonSize;
-//        float newActionButtonSize = MainTableFactory.actionButtonSize * screenScalingHeight;
-        for (Cell<?> cell : actionsTable.getCells()) {
-            cell.size(newActionButtonSize, newActionButtonSize);
-            if (cell.getActor() instanceof Resizable resizable)
-                resizable.resize(1);
-        }
+        mainTable.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         this.addCaptureListener(new InputListener() {
             @Override
@@ -183,19 +152,13 @@ public class LegalMoves extends Stage {
                     return true;
                 }
 
-                arrowTable.notify(event, true);
+                mainTable.notify(event, true);
 
                 return List.of(Input.Keys.LEFT, Input.Keys.RIGHT, Input.Keys.DOWN, Input.Keys.UP).contains(keycode);
-
-//                consume all events that come in when the stage is Active
             }
         });
 
         this.addListener(event -> {
-//            if (event instanceof ChangeListener.ChangeEvent changeEvent) {
-//                Gdx.app.log("ChangeEvent", changeEvent.toString());
-//            }
-
             if (event instanceof ChosenMove chosenMove) {
                 Gdx.app.log("Move has been chosen", String.valueOf(chosenMove.getIncompleteMove()));
 

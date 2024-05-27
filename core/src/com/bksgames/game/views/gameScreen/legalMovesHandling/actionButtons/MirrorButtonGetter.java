@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.bksgames.game.viewmodels.moves.IncompleteMove;
 
 public class MirrorButtonGetter extends ActionButtonGetter {
-    public static final int slashButtonSize = 30;
+    static final int mirrorButtonSize = 25;
 
     MirrorButtonGetter(TextureAtlas atlas) {
         super(atlas);
@@ -25,6 +25,8 @@ public class MirrorButtonGetter extends ActionButtonGetter {
         };
 
         ImageButton button = new ImageButton(new TextureRegionDrawable(buttonTexture));
+        button.setSize(mirrorButtonSize, mirrorButtonSize);
+
         button.bottom().left();
 
         button.addCaptureListener(getTouchDownListenerForAButton(button, incompleteMove));
