@@ -64,8 +64,8 @@ public class TurnTransitionScreen extends ScreenAdapter {
 		gameCamera.setToOrtho(false, 800, 480);
 
 		stage = new Stage();
-//		Gdx.input.setInputProcessor(stage);
-		atlas = new TextureAtlas(Gdx.files.internal("TurnTransitionScreen.atlas"));
+		Gdx.input.setInputProcessor(stage);
+		atlas = new TextureAtlas(Gdx.files.internal("MainMenu.atlas"));
 		skin = new Skin(atlas);
 		Table table = new Table(skin);
 

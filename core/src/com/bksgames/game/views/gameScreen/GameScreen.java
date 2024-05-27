@@ -90,7 +90,7 @@ public class GameScreen extends ScreenAdapter {
 
         legalMoves = new LegalMoves(actionButtonsAtlas, gameCamera, playerViewModel, playerService);
 
-        atlas = new TextureAtlas(Gdx.files.internal("TurnTransitionScreen.atlas"));
+        atlas = new TextureAtlas(Gdx.files.internal("MainMenu.atlas"));
         endTurnStage = new EndTheTurnStage(atlas, game, hudViewport, playerService);
 //        endTurnStage.setDebugAll(true);
 

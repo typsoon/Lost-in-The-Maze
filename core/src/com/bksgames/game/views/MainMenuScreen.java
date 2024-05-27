@@ -68,13 +68,13 @@ public class MainMenuScreen implements Screen {
         textButtonStyle.pressedOffsetY = -1;
 
         Button buttonPlay = new TextButton("Play", textButtonStyle);
-        GameService gameService = new SimpleGameService(new Parameters()); // @typsoon rozwaz to jakos lepiej  !!!!!!!!!!!!!!!!!!!
+        // @typsoon rozwaz to jakos lepiej  !!!!!!!!!!!!!!!!!!!
 
         stage.addListener(new InputListener() {
             @Override
             public boolean keyDown(InputEvent event, int keycode) {
                 if (keycode == Input.Keys.ENTER) {
-                    displayGameScreen(gameService);
+                    game.startGame();
                 }
 
                 return super.keyDown(event, keycode);
@@ -84,7 +84,7 @@ public class MainMenuScreen implements Screen {
         buttonPlay.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                displayGameScreen(gameService);
+                game.startGame();1
 
                 return true;
             }
