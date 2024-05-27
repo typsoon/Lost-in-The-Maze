@@ -4,8 +4,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 
 public class DirectionalButtonsContainer extends ButtonContainer {
-    public DirectionalButtonsContainer(int defaultButtonSize, TextureRegion region, ImageButton leftButton, ImageButton rightButton, ImageButton upButton, ImageButton downButton) {
-        super(defaultButtonSize, region);
+    static final int backgroundSize = 75;
+
+    public DirectionalButtonsContainer(TextureRegion region, ImageButton leftButton, ImageButton rightButton, ImageButton upButton, ImageButton downButton) {
+        super(region, backgroundSize);
 
         add().expand();
         addImageButton(upButton);

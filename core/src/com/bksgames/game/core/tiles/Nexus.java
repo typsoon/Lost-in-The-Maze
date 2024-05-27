@@ -31,7 +31,6 @@ public class Nexus implements Vulnerable, KnownPosition, Owned, Tile {
         return hitPoints;
     }
 
-    //    TODO: write this
     @Override
     public UpdateHolder<?> damage(SourceOfDamage sourceOfDamage) {
         hitPoints -= sourceOfDamage.getDamageValue();

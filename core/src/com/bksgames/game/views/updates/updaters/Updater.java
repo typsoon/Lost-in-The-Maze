@@ -1,4 +1,4 @@
-package com.bksgames.game.viewmodels.updates.updaters;
+package com.bksgames.game.views.updates.updaters;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;

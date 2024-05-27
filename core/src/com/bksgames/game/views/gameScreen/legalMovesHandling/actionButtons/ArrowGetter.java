@@ -3,7 +3,6 @@ package com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -12,6 +11,8 @@ import com.bksgames.game.viewmodels.moves.IncompleteMove;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.ChosenMove;
 
 public class ArrowGetter extends ActionButtonGetter {
+    static final int arrowButtonSize = 60;
+
     public ArrowGetter(TextureAtlas atlas) {
         super(atlas);
     }
@@ -33,6 +34,8 @@ public class ArrowGetter extends ActionButtonGetter {
 //        }
 
         ImageButton button = new ImageButton(new TextureRegionDrawable(region));
+        button.setSize(arrowButtonSize, arrowButtonSize);
+
         button.setName(textureName);
         button.getImage().setFillParent(true);
 

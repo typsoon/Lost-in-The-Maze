@@ -1,5 +1,5 @@
 package com.bksgames.game.common;
 
-public enum MinionEvent {
+public enum EntityEvent {
     SPAWNED, KILLED
 }

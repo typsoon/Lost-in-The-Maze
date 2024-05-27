@@ -8,23 +8,16 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.bksgames.game.LostInTheMaze;
-import com.bksgames.game.core.updates.SimpleLaserUpdate;
-import com.bksgames.game.core.utils.Point;
-import com.bksgames.game.common.utils.Direction;
 import com.bksgames.game.services.PlayerService;
 import com.bksgames.game.viewmodels.PlayerViewModel;
 import com.bksgames.game.viewmodels.SimpleViewModel;
-import com.bksgames.game.viewmodels.updates.UpdateProcessor;
+import com.bksgames.game.views.updates.UpdateProcessor;
 import com.bksgames.game.views.gameScreen.laserHandling.ViewLaserHandler;
 import com.bksgames.game.views.gameScreen.laserHandling.SimpleLaserHandler;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.LegalMoves;
-
-import java.util.concurrent.atomic.AtomicLong;
 
 public class GameScreen extends ScreenAdapter {
 
@@ -65,11 +58,15 @@ public class GameScreen extends ScreenAdapter {
         map = MazeMapFactory.produce();
 
         gameCamera = new OrthographicCamera();
-        gameCamera.setToOrtho(false, 800, 480);
+        gameCamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+//        gameCamera.setToOrtho(false, 800, 480);
 
         mapRenderer = new OrthogonalTiledMapRenderer(map);
 
-        hudViewport = new ExtendViewport(800, 480, new OrthographicCamera());
+        hudViewport = new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), new OrthographicCamera());
+//        hudViewport = new ExtendViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), hudCamera);
+//        hudViewport = new ExtendViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), hudCamera);
+//        hudViewport = new FitViewport(800, 480, hudCamera);
 
 //        playerViewModel = new SimpleViewModel((TiledMapTileLayer) map.getLayers().get("minions"));
 
@@ -88,7 +85,7 @@ public class GameScreen extends ScreenAdapter {
 
         updateProcessor = new UpdateProcessor(map, boardAtlas, playerViewModel);
 
-        legalMoves = new LegalMoves(actionButtonsAtlas, gameCamera, playerViewModel, playerService);
+        legalMoves = new LegalMoves(actionButtonsAtlas, hudViewport, gameCamera, playerViewModel, playerService);
 
         atlas = new TextureAtlas(Gdx.files.internal("MainMenu.atlas"));
         endTurnStage = new EndTheTurnStage(atlas, game, hudViewport, playerService);

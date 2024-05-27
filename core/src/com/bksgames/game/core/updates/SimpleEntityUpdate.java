@@ -1,26 +1,22 @@
 package com.bksgames.game.core.updates;
 
 import com.bksgames.game.common.Displayable;
-import com.bksgames.game.common.MinionEvent;
-import com.bksgames.game.common.moves.ActionToken;
+import com.bksgames.game.common.updates.EntityUpdate;
 import com.bksgames.game.common.updates.UpdateIDs;
 import com.bksgames.game.core.utils.Point;
-import com.bksgames.game.common.updates.MinionUpdate;
 import com.bksgames.game.common.utils.*;
 //TODO rename to Absolute
 /**
- * Simple implementation of {@code MinionUpdate}
+ * Simple implementation of {@code EntityUpdate}
  *
  * @author riper
  */
-public class SimpleMinionUpdate implements MinionUpdate {
+public class SimpleEntityUpdate implements EntityUpdate {
     private final Direction direction;
     private final Displayable displayable;
-    private final MinionEvent event;
-    private final ActionToken move;
     private final Point relativePosition;
 
-    //MinionUpdate
+    //EntityUpdate
     @Override
     public Direction getDirection() {
         return direction;
@@ -32,18 +28,8 @@ public class SimpleMinionUpdate implements MinionUpdate {
     }
 
     @Override
-    public ActionToken getMoveType() {
-        return move;
-    }
-
-    @Override
-    public MinionEvent getEvent() {
-        return event;
-    }
-
-    @Override
     public UpdateIDs getID() {
-        return UpdateIDs.MINION_UPDATE;
+        return UpdateIDs.ENTITY_UPDATE;
     }
 
     @Override
@@ -57,13 +43,11 @@ public class SimpleMinionUpdate implements MinionUpdate {
     }
 
     /**
-     * Constructs simple {@code MinionUpdate}
+     * Constructs simple {@code EntityUpdate}
      */
-    public SimpleMinionUpdate(Direction direction, Displayable displayable, MinionEvent event, ActionToken move, Point relativePosition) {
+    public SimpleEntityUpdate(Direction direction, Displayable displayable, Point relativePosition) {
         this.direction = direction;
         this.displayable = displayable;
-        this.event = event;
-        this.move = move;
         this.relativePosition = relativePosition.getPosition();
     }
 }

@@ -4,6 +4,7 @@ import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.common.utils.Direction;
 import com.bksgames.game.views.gameScreen.laserHandling.ViewLaserHandler;
 
+import java.nio.channels.Pipe;
 import java.util.*;
 import java.util.List;
 
@@ -71,6 +72,20 @@ public class SimpleViewModel implements PlayerViewModel{
     }
 
     @Override
+    public void minionKilled(Point position) {
+        if (!minionPositions.contains(position)) {
+            throw new IllegalStateException("No minion on position" + position);
+        }
+
+        minionPositions.remove(position);
+    }
+
+    @Override
+    public void minionSpawned(Point position) {
+        minionPositions.add(position);
+    }
+
+    @Override
     public int getMinionId(Point position) {
         return minionPositions.indexOf(position);
     }
@@ -82,10 +97,15 @@ public class SimpleViewModel implements PlayerViewModel{
 
     public SimpleViewModel(ViewLaserHandler viewLaserHandler) {
         this.viewLaserHandler = viewLaserHandler;
-        minionPositions = new ArrayList<>(List.of(new Point[]{
-                new Point(-1, 0),
-                new Point(1, 0),
-                new Point(0, 1),
-        }));
+
+        minionPositions = new ArrayList<>();
+        minionSpawned(new Point(-1, 0));
+        minionSpawned(new Point(1, 0));
+        minionSpawned(new Point(0, 1));
+//        minionPositions = new ArrayList<>(List.of(new Point[]{
+//                new Point(-1, 0),
+//                new Point(1, 0),
+//                new Point(0, 1),
+//        }));
     }
 }

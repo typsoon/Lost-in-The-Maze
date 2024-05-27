@@ -3,6 +3,7 @@ package com.bksgames.game.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -15,13 +16,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.bksgames.game.LostInTheMaze;
-import com.bksgames.game.core.utils.Parameters;
 import com.bksgames.game.common.PlayerColor;
+import com.bksgames.game.core.utils.Parameters;
 import com.bksgames.game.services.GameService;
 import com.bksgames.game.services.SimpleGameService;
 import com.bksgames.game.views.gameScreen.GameScreen;
 
-public class MainMenuScreen implements Screen {
+public class MainMenuScreen extends ScreenAdapter {
 
     private TextureAtlas atlas;
     private Stage stage;
@@ -129,21 +130,6 @@ public class MainMenuScreen implements Screen {
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, false);
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
     }
 
     @Override
