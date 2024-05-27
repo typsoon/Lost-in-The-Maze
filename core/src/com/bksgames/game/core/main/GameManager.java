@@ -36,8 +36,8 @@ public interface GameManager  {
     Map<PlayerColor, Player> getPlayers();
     Parameters getParameters();
     PlayerColor getCurrentPlayer();
-
-    void playerVisionUpdate(PlayerColor color);
+    DamageManager getDamageManager();
+    VisionManager getVisionManager();
 
     void endTurn();
 }

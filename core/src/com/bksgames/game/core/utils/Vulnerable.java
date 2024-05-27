@@ -15,7 +15,7 @@ public interface Vulnerable extends KnownPosition{
     /**
      * Deal damage
      * @param sourceOfDamage source of received damage
-     * @return {@code true} if killed | {@code false} otherwise
+     * @return {@code UpdateHolder} with death update if killed | {@code false} otherwise
      */
-    <T extends Update> UpdateHolder<T> damage(SourceOfDamage sourceOfDamage);
+    UpdateHolder<? extends Update> damage(SourceOfDamage sourceOfDamage);
 }

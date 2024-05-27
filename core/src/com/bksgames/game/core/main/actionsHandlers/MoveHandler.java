@@ -34,7 +34,7 @@ public class MoveHandler extends ActionHandler {
         nextTunnel.addEntity(minion);
 
         minion.moveMinion(action.direction());
-        gameManager.playerVisionUpdate(gameManager.getCurrentPlayer());
+        gameManager.getVisionManager().playerVisionUpdate(gameManager.getCurrentPlayer());
         gameManager.sendUpdate(
                 UpdateHolderFactory.produceUpdateHolder(
                         new SimpleMinionUpdate(action.direction(),minion.getDisplayable(),null, ActionToken.MOVE,lastPos)

@@ -1,26 +1,26 @@
 package com.bksgames.game.core.entities;
 
+import com.bksgames.game.common.Displayable;
 import com.bksgames.game.common.MinionEvent;
+import com.bksgames.game.common.PlayerColor;
 import com.bksgames.game.common.moves.ActionToken;
 import com.bksgames.game.common.updates.MinionUpdate;
-import com.bksgames.game.common.updates.Update;
+import com.bksgames.game.common.utils.Direction;
 import com.bksgames.game.core.main.updateHolders.UpdateHolder;
 import com.bksgames.game.core.main.updateHolders.UpdateHolderFactory;
 import com.bksgames.game.core.updates.SimpleMinionUpdate;
 import com.bksgames.game.core.utils.*;
-import com.bksgames.game.common.utils.Direction;
-import com.bksgames.game.common.Displayable;
-import com.bksgames.game.common.PlayerColor;
 
 import java.util.EnumMap;
 
 /**
  * Representing {@code Minion}
+ *
  * @author typsoon
  * @author riper
  * @author jajko
  */
-public class Minion implements Entity, Owned, Interactive {
+public class Minion implements Entity, Owned, Interactive, Respawnable {
     private Point position;
     private final PlayerColor owner;
 
@@ -35,14 +35,16 @@ public class Minion implements Entity, Owned, Interactive {
     private final EnumMap<ActionToken, Integer> actionCosts;
 
 
-    public void nextTurn(){
+    public void nextTurn() {
         actionPoints = startingAP;
     }
+
     /**
      * Move {@code Minion} to adjacent field
+     *
      * @param direction {@code Direction} of moving
      */
-    public void moveMinion(Direction direction){
+    public void moveMinion(Direction direction) {
         direction.next(position);
     }
 
@@ -53,26 +55,33 @@ public class Minion implements Entity, Owned, Interactive {
         this.hitPoints = startingHP;
         this.actionPoints = startingAP;
     }
+
     @Override
     public Point getBaseSpawnPosition() {
         return respawnPosition;
     }
+
     @Override
-    public int getHitPoints() { return hitPoints;}
+    public int getHitPoints() {
+        return hitPoints;
+    }
+
     @Override
-    public UpdateHolder damage(SourceOfDamage sourceOfDamage) {
-        hitPoints-= sourceOfDamage.getDamageValue();
-        if(hitPoints <= 0){
+    public UpdateHolder<MinionUpdate> damage(SourceOfDamage sourceOfDamage) {
+        hitPoints -= sourceOfDamage.getDamageValue();
+        if (hitPoints <= 0) {
             return UpdateHolderFactory.produceUpdateHolder(
-                    new SimpleMinionUpdate(null,null, MinionEvent.KILLED,null,getPosition())
+                    new SimpleMinionUpdate(null, null, MinionEvent.KILLED, null, getPosition())
             );
         }
         return null;
     }
+
     @Override
-    public Point getPosition(){
+    public Point getPosition() {
         return position.getPosition();
     }
+
     @Override
     public Displayable getDisplayable() {
         return PlayerEnums.getMinionDisplayable(owner);
@@ -92,8 +101,10 @@ public class Minion implements Entity, Owned, Interactive {
 
     @Override
     public boolean makeAction(ActionToken actionToken) {
-        if(!canMakeAction(actionToken)){ return false; }
-        actionPoints-=actionCosts.get(actionToken);
+        if (!canMakeAction(actionToken)) {
+            return false;
+        }
+        actionPoints -= actionCosts.get(actionToken);
         return true;
     }
 
@@ -103,11 +114,11 @@ public class Minion implements Entity, Owned, Interactive {
     }
 
     /**
-     *
      * Constructs {@code Minion}
-     * @param position initial position
+     *
+     * @param position   initial position
      * @param startingHP initial HP
-     * @param player owner
+     * @param player     owner
      */
     public Minion(Point position, int startingHP, int startingAP, PlayerColor player) {
         this.owner = player;
@@ -115,10 +126,10 @@ public class Minion implements Entity, Owned, Interactive {
         this.startingHP = startingHP;
         this.respawnPosition = position;
         actionCosts = new EnumMap<>(ActionToken.class);
-        actionCosts.put(ActionToken.MOVE,1);
-        actionCosts.put(ActionToken.SWORD,2);
-        actionCosts.put(ActionToken.LASER,3);
-        actionCosts.put(ActionToken.MIRROR,4);
+        actionCosts.put(ActionToken.MOVE, 1);
+        actionCosts.put(ActionToken.SWORD, 2);
+        actionCosts.put(ActionToken.LASER, 3);
+        actionCosts.put(ActionToken.MIRROR, 4);
         spawn(position);
     }
 

@@ -32,11 +32,13 @@ public class MirrorHandler extends ActionHandler{
             currentTunnel.setMirror(new Mirror(Mirror.Orientation.SLASH,gameManager.getCurrentPlayer()));
         if(action.direction()==Direction.LEFT)
             currentTunnel.setMirror(new Mirror(Mirror.Orientation.BACKSLASH,gameManager.getCurrentPlayer()));
+
         gameManager.sendUpdate(
                 UpdateHolderFactory.produceUpdateHolder(
                         new SimpleTileUpdate(currentTunnel.getDisplayable(),true,action.position())
                 )
         );
+        gameManager.getVisionManager().playerVisionUpdate();
     }
 
     MirrorHandler(GameManager manager) {

@@ -44,18 +44,19 @@ public interface Board {
      */
     List<Nexus> getNexus(PlayerColor player);
 
+
     /**
      * @return set of {@code Point} which are visible by {@code Minion}
      */
-    Set<Point> getVisible(Minion minion);
+    Set<Point> getVisible(Minion minion); //TODO move to VisionManager
 
     /**
      * @return set of {@code Point} which are visible by {@code Nexus}
      */
-    Set<Point> getNexusesVision(PlayerColor player);
+    Set<Point> getNexusesVision(PlayerColor player); //TODO move to VisionManager
 
     /**
      * @return list of {@code Point} which are visible when looking from {@code point} in {@code direction}
      */
-    List<Point> getLineOfSight(Point point, Direction direction);
+    List<Point> getLineOfSight(Point point, Direction direction); //TODO move to VisionManager
 }
