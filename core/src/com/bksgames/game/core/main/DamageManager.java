@@ -7,9 +7,7 @@ import com.bksgames.game.core.utils.Respawnable;
 import com.bksgames.game.core.utils.SourceOfDamage;
 import com.bksgames.game.core.utils.Vulnerable;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class DamageManager {
     //    Map<Point, Collection<Vulnerable>> receivers;
@@ -52,20 +50,22 @@ public class DamageManager {
     }
 
     public void nextTurn() {
+        Collection<Respawnable> alive = new HashSet<>();
         for (Respawnable respawnable : respawnWaitingRoom.keySet()) {
             respawnWaitingRoom.put(respawnable, respawnWaitingRoom.get(respawnable) - 1);
             if (respawnWaitingRoom.get(respawnable) == 0) {
-                respawnWaitingRoom.remove(respawnable);
+                alive.add(respawnable);
                 respawn(respawnable);
                 //subscribe(respawnable);
             }
         }
+        respawnWaitingRoom.keySet().removeAll(alive);
     }
 
     private void respawn(Respawnable respawnable) {
         if (gameManager.getBoard().getTile(respawnable.getBaseSpawnPosition()).getTunnel() != null
                 && gameManager.getBoard().getTile(respawnable.getBaseSpawnPosition()).getTunnel().getEntities().isEmpty()) {
-            respawnable.spawn();
+            gameManager.sendUpdate(respawnable.spawn());
             gameManager.getBoard().getTile(respawnable.getBaseSpawnPosition()).getTunnel().addObject(respawnable);
         } else {
             //TODO search for spot
