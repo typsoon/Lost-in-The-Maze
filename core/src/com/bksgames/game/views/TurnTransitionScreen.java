@@ -31,8 +31,6 @@ public class TurnTransitionScreen extends ScreenAdapter {
 	private final LostInTheMaze game;
 	OrthographicCamera gameCamera;
 
-//	EndTheTurnStage endTurnStage;
-
 	public TurnTransitionScreen(LostInTheMaze game) {
 		this.game = game;
 	}
@@ -42,20 +40,11 @@ public class TurnTransitionScreen extends ScreenAdapter {
 		ScreenUtils.clear(0, 0, 0, 0);
 		stage.act(delta);
 		stage.draw();
-
-		//-------------------------------------
-//		endTurnStage.act(delta);
-//		endTurnStage.draw();
-		//-------------------------------------
 	}
 
 	@Override
 	public void resize(int width, int height) {
 		stage.getViewport().update(width, height, false);
-
-		//-------------------------------------------------------------------------
-//		endTurnStage.getViewport().update(width, height, false);
-		//-------------------------------------------------------------------------
 	}
 
 	@Override
@@ -69,11 +58,6 @@ public class TurnTransitionScreen extends ScreenAdapter {
 		skin = new Skin(atlas);
 		Table table = new Table(skin);
 
-		//------------------------------------------------------------------------------
-//		endTurnStage = new EndTheTurnStage(atlas, game, gameCamera);
-//		Gdx.input.setInputProcessor(endTurnStage);
-		//------------------------------------------------------------------------------
-
 		generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Harrington_SHAREWARE.ttf"));
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 		parameter.size = 50;
@@ -85,7 +69,7 @@ public class TurnTransitionScreen extends ScreenAdapter {
 		textButtonStyle.pressedOffsetX = 1;
 		textButtonStyle.pressedOffsetY = -1;
 
-		Button buttonNext = new TextButton("Next player's turn", textButtonStyle);;
+		Button buttonNext = new TextButton("Next player's turn", textButtonStyle);
 
 		stage.addListener(new InputListener() {
 			@Override

@@ -23,7 +23,6 @@ public class LostInTheMaze extends Game {
 	private final TurnTransitionScreen turnTransitionScreen = new TurnTransitionScreen(this);
 	Map<PlayerService,GameScreen> playerScreens = new HashMap<>();
 
-
 	@Override
 	public void create () {
 		gameTitle = "Lost in The Maze";

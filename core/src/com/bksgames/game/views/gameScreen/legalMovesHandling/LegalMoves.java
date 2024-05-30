@@ -5,14 +5,11 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.*;
-import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.common.moves.Move;
-import com.bksgames.game.common.moves.ActionToken;
-import com.bksgames.game.common.utils.Direction;
 import com.bksgames.game.services.PlayerService;
 import com.bksgames.game.viewmodels.PlayerViewModel;
 import com.bksgames.game.viewmodels.moves.IncompleteMove;
@@ -43,6 +40,7 @@ public class LegalMoves extends Stage {
         gameCamera.position.x = (minionLocation.x + MazeMapFactory.maxBoardWidth) * MazeMapFactory.tilePixelSize;
         gameCamera.position.y = (minionLocation.y + MazeMapFactory.maxBoardHeight) * MazeMapFactory.tilePixelSize;
         gameCamera.update();
+//        getViewport().setWorldSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         activateLegalMoves();
         act(0);
@@ -62,7 +60,7 @@ public class LegalMoves extends Stage {
         currentLegalMoves = new ArrayList<>();
         moves.forEach(move -> currentLegalMoves.add(new IncompleteMove(move.type(), move.direction())));
 
-//        TODO: TO JEST ŁATKA - TRZEBA TO USUNĄĆ !!!!!!!!
+//        TODO: delete this when done with testing
 //        currentLegalMoves.add(new IncompleteMove(ActionToken.DOOR, Direction.LEFT));
 //
 
@@ -103,6 +101,7 @@ public class LegalMoves extends Stage {
             throw new IllegalStateException("No active minion");
         }
 
+//        getViewport().setWorldSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         mainTable.setVisible(true);
     }
 
@@ -123,6 +122,8 @@ public class LegalMoves extends Stage {
     public LegalMoves(TextureAtlas atlas, Viewport hudViewport, OrthographicCamera gameCamera, PlayerViewModel playerViewModel, PlayerService playerService) {
 //        Stage
         super(hudViewport);
+
+
 
         this.gameCamera = gameCamera;
         this.playerService = playerService;
