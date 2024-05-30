@@ -90,6 +90,8 @@ public class SimpleViewModel implements PlayerViewModel{
                 return;
             }
         }
+
+        minionPositions.add(position);
     }
 
     @Override
@@ -105,14 +107,11 @@ public class SimpleViewModel implements PlayerViewModel{
     public SimpleViewModel(ViewLaserHandler viewLaserHandler) {
         this.viewLaserHandler = viewLaserHandler;
 
-//        minionPositions = new ArrayList<>();
-//        minionSpawned(new Point(-1, 0));
-//        minionSpawned(new Point(1, 0));
-//        minionSpawned(new Point(0, 1));
-        minionPositions = new ArrayList<>(List.of(new Point[]{
-                new Point(-1, 0),
-                new Point(1, 0),
-                new Point(0, 1),
-        }));
+        minionPositions = new ArrayList<>();
+
+//        TODO: this data should be provided in updates
+        minionSpawned(new Point(-1, 0));
+        minionSpawned(new Point(1, 0));
+        minionSpawned(new Point(0, 1));
     }
 }

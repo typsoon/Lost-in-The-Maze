@@ -2,7 +2,6 @@ package com.bksgames.game.views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -16,11 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.bksgames.game.LostInTheMaze;
-import com.bksgames.game.common.PlayerColor;
-import com.bksgames.game.core.utils.Parameters;
-import com.bksgames.game.services.GameService;
-import com.bksgames.game.services.SimpleGameService;
-import com.bksgames.game.views.gameScreen.GameScreen;
 
 public class MainMenuScreen extends ScreenAdapter {
 
@@ -69,7 +63,6 @@ public class MainMenuScreen extends ScreenAdapter {
         textButtonStyle.pressedOffsetY = -1;
 
         Button buttonPlay = new TextButton("Play", textButtonStyle);
-        // @typsoon rozwaz to jakos lepiej  !!!!!!!!!!!!!!!!!!!
 
         stage.addListener(new InputListener() {
             @Override
@@ -139,12 +132,5 @@ public class MainMenuScreen extends ScreenAdapter {
         stage.dispose();
         font.dispose();
         generator.dispose();
-    }
-
-    private void displayGameScreen(GameService gameService) {
-        GameScreen bluePlayerScreen = new GameScreen(game,gameService.connect(PlayerColor.BLUE));
-        GameScreen redPlayerScreen = new GameScreen(game, gameService.connect(PlayerColor.RED));
-        gameService.startGame();
-        game.setScreen(bluePlayerScreen);
     }
 }
