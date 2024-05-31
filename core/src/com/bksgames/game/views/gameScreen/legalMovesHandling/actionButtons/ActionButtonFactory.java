@@ -1,10 +1,9 @@
 package com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.bksgames.game.common.moves.ActionToken;
-import com.bksgames.game.viewmodels.moves.IncompleteMove;
+import com.bksgames.game.views.gameScreen.legalMovesHandling.IncompleteMove;
 
 import java.util.HashMap;
 import java.util.Map;

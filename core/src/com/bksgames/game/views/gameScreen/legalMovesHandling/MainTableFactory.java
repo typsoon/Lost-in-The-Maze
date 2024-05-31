@@ -1,18 +1,15 @@
 package com.bksgames.game.views.gameScreen.legalMovesHandling;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.bksgames.game.common.moves.ActionToken;
 import com.bksgames.game.common.utils.Direction;
-import com.bksgames.game.viewmodels.moves.IncompleteMove;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.*;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.buttonContainers.ArrowButtonContainer;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.buttonContainers.DirectionalButtonsContainer;

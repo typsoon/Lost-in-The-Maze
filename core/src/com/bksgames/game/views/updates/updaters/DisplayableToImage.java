@@ -1,4 +1,4 @@
-package com.bksgames.game.viewmodels;
+package com.bksgames.game.views.updates.updaters;
 
 import com.bksgames.game.common.Displayable;
 

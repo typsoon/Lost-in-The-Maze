@@ -12,7 +12,6 @@ import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.common.moves.Move;
 import com.bksgames.game.services.PlayerService;
 import com.bksgames.game.viewmodels.PlayerViewModel;
-import com.bksgames.game.viewmodels.moves.IncompleteMove;
 import com.bksgames.game.views.gameScreen.MazeMapFactory;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.ActionButtonFactory;
 

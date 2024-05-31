@@ -10,7 +10,6 @@ import com.bksgames.game.common.updates.LaserUpdate;
 import com.bksgames.game.common.updates.Update;
 import com.bksgames.game.common.utils.Direction;
 import com.bksgames.game.common.Displayable;
-import com.bksgames.game.viewmodels.DisplayableToImage;
 import com.bksgames.game.viewmodels.PlayerViewModel;
 import com.bksgames.game.views.gameScreen.MazeMapFactory;
 

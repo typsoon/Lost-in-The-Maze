@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.bksgames.game.viewmodels.moves.IncompleteMove;
+import com.bksgames.game.views.gameScreen.legalMovesHandling.IncompleteMove;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.ChosenMove;
 
 public class ArrowGetter extends ActionButtonGetter {

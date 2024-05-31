@@ -8,7 +8,6 @@ import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.common.updates.TileUpdate;
 import com.bksgames.game.common.updates.Update;
-import com.bksgames.game.viewmodels.DisplayableToImage;
 import com.bksgames.game.viewmodels.PlayerViewModel;
 import com.bksgames.game.views.gameScreen.MazeMapFactory;
 
