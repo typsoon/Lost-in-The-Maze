@@ -8,8 +8,6 @@ import com.bksgames.game.common.updates.EntityStateUpdate;
 import com.bksgames.game.common.utils.Direction;
 import com.bksgames.game.core.main.updateHolders.UpdateHolder;
 import com.bksgames.game.core.main.updateHolders.UpdateHolderFactory;
-import com.bksgames.game.core.updates.SimpleEntityStateUpdate;
-import com.bksgames.game.core.updates.SimpleTileUpdate;
 import com.bksgames.game.core.utils.*;
 
 import java.util.EnumMap;
@@ -58,8 +56,8 @@ public class Minion implements Entity, Owned, Interactive, Respawnable {
         this.hitPoints = startingHP;
         this.actionPoints = startingAP;
         return UpdateHolderFactory.produceUpdateHolder(
-                new SimpleEntityStateUpdate(true,EntityEvent.SPAWNED,null,position)
-//                new SimpleTileUpdate(getDisplayable(),true, position)
+                new EntityStateUpdate(true,EntityEvent.SPAWNED,null,position.x, position.y)
+//                new TileUpdate(getDisplayable(),true, position.x, position.y)
         );
     }
 
@@ -79,7 +77,7 @@ public class Minion implements Entity, Owned, Interactive, Respawnable {
         if (hitPoints <= 0) {
             actionPoints=0;
             return UpdateHolderFactory.produceUpdateHolder(
-                    new SimpleEntityStateUpdate(true,EntityEvent.KILLED,null,position)
+                    new EntityStateUpdate(true,EntityEvent.KILLED,null,position.x, position.y)
             );
         }
         return null;

@@ -3,6 +3,7 @@ package com.bksgames.game.core.main;
 import com.bksgames.game.common.PlayerColor;
 import com.bksgames.game.common.moves.ActionToken;
 import com.bksgames.game.common.moves.Move;
+import com.bksgames.game.common.updates.TileUpdate;
 import com.bksgames.game.common.updates.Update;
 import com.bksgames.game.common.utils.Direction;
 import com.bksgames.game.core.boards.Board;
@@ -11,7 +12,6 @@ import com.bksgames.game.core.entities.Minion;
 import com.bksgames.game.core.main.actionsHandlers.ActionHandler;
 import com.bksgames.game.core.main.actionsHandlers.ActionHandlerFactory;
 import com.bksgames.game.core.main.updateHolders.UpdateHolder;
-import com.bksgames.game.core.updates.SimpleTileUpdate;
 import com.bksgames.game.core.utils.Parameters;
 import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.services.GameService;
@@ -178,9 +178,11 @@ public class SimpleGameManager implements GameManager {
         for (PlayerColor playerColor : players.keySet()) {
             for (int y = 0; y <= parameters.mapSize; y++) {
                 for (int x = 0; x <= getParameters().mapSize; x++) {
+//                    TODO: look at this and make it better if possible
+                    var point = players.get(playerColor).getRelativeCoordinates(new Point(x,y));
                     gameService.forwardUpdate(playerColor,
-                            new SimpleTileUpdate(board.getTile(x, y).getDisplayable(), true,
-                                    players.get(playerColor).getRelativeCoordinates(new Point(x, y))));
+                            new TileUpdate(board.getTile(x, y).getDisplayable(), true,
+                                    point.x, point.y));
                 }
             }
         }

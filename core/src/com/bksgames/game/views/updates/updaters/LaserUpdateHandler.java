@@ -7,13 +7,12 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.common.updates.LaserUpdate;
-import com.bksgames.game.common.updates.Update;
 import com.bksgames.game.common.utils.Direction;
 import com.bksgames.game.common.Displayable;
 import com.bksgames.game.viewmodels.PlayerViewModel;
 import com.bksgames.game.views.gameScreen.MazeMapFactory;
 
-public class LaserUpdateHandler extends Updater {
+public class LaserUpdateHandler extends Updater<LaserUpdate> {
     public LaserUpdateHandler(TiledMap map, TextureAtlas atlas, PlayerViewModel playerViewModel) {
         super(map, atlas, playerViewModel);
     }
@@ -47,14 +46,11 @@ public class LaserUpdateHandler extends Updater {
 //    }
 
     @Override
-    public void process(Update update) {
-        if (!(update instanceof LaserUpdate laserUpdate))
-            throw new IllegalArgumentException("Laser update must be an instance of LaserUpdate");
-
-        playerViewModel.laserFired(new Point(laserUpdate.getRelativeX(), laserUpdate.getRelativeY()));
+    public void process(LaserUpdate laserUpdate) {
+        playerViewModel.laserFired(new Point(laserUpdate.relativeX(), laserUpdate.relativeY()));
 
         Displayable laserKind;
-        if (laserUpdate.getDeflectedDirection() == null)
+        if (laserUpdate.deflectedDirection() == null)
             laserKind = Displayable.STRAIGHT_LASER;
         else laserKind = Displayable.BENT_LASER;
 
@@ -68,35 +64,35 @@ public class LaserUpdateHandler extends Updater {
 
         int rotation;
         if (laserKind == Displayable.STRAIGHT_LASER) {
-            rotation = switch (laserUpdate.getDirection()) {
+            rotation = switch (laserUpdate.direction()) {
                 case LEFT, RIGHT -> TiledMapTileLayer.Cell.ROTATE_0;
                 case UP, DOWN -> TiledMapTileLayer.Cell.ROTATE_90;
             };
         }
         else {
-            if (laserUpdate.getDirection() == Direction.UP && laserUpdate.getDeflectedDirection() == Direction.LEFT) {
+            if (laserUpdate.direction() == Direction.UP && laserUpdate.deflectedDirection() == Direction.LEFT) {
                 rotation = TiledMapTileLayer.Cell.ROTATE_180;
-            } else if (laserUpdate.getDirection() == Direction.UP && laserUpdate.getDeflectedDirection() == Direction.RIGHT) {
+            } else if (laserUpdate.direction() == Direction.UP && laserUpdate.deflectedDirection() == Direction.RIGHT) {
                 rotation = TiledMapTileLayer.Cell.ROTATE_270;
-            } else if (laserUpdate.getDirection() == Direction.DOWN && laserUpdate.getDeflectedDirection() == Direction.LEFT) {
+            } else if (laserUpdate.direction() == Direction.DOWN && laserUpdate.deflectedDirection() == Direction.LEFT) {
                 rotation = TiledMapTileLayer.Cell.ROTATE_90;
-            } else if (laserUpdate.getDirection() == Direction.DOWN && laserUpdate.getDeflectedDirection() == Direction.RIGHT) {
+            } else if (laserUpdate.direction() == Direction.DOWN && laserUpdate.deflectedDirection() == Direction.RIGHT) {
                 rotation = TiledMapTileLayer.Cell.ROTATE_0;
-            } else if (laserUpdate.getDirection() == Direction.LEFT && laserUpdate.getDeflectedDirection() == Direction.UP) {
+            } else if (laserUpdate.direction() == Direction.LEFT && laserUpdate.deflectedDirection() == Direction.UP) {
                 rotation = TiledMapTileLayer.Cell.ROTATE_0;
-            } else if (laserUpdate.getDirection() == Direction.LEFT && laserUpdate.getDeflectedDirection() == Direction.DOWN) {
+            } else if (laserUpdate.direction() == Direction.LEFT && laserUpdate.deflectedDirection() == Direction.DOWN) {
                 rotation = TiledMapTileLayer.Cell.ROTATE_270;
-            } else if (laserUpdate.getDirection() == Direction.RIGHT && laserUpdate.getDeflectedDirection() == Direction.UP) {
+            } else if (laserUpdate.direction() == Direction.RIGHT && laserUpdate.deflectedDirection() == Direction.UP) {
                 rotation = TiledMapTileLayer.Cell.ROTATE_90;
             } else {
-//            else if (laserUpdate.getDirection() == Direction.RIGHT && laserUpdate.getDeflectedDirection() == Direction.DOWN) {
+//            else if (laserUpdate.direction() == Direction.RIGHT && laserUpdate.getDeflectedDirection() == Direction.DOWN) {
                 rotation = TiledMapTileLayer.Cell.ROTATE_180;
             }
         }
 
         myCell.setRotation(rotation);
 
-        layer.setCell(MazeMapFactory.maxBoardWidth + laserUpdate.getRelativeX(), MazeMapFactory.maxBoardHeight + laserUpdate.getRelativeY(),
+        layer.setCell(MazeMapFactory.maxBoardWidth + laserUpdate.relativeX(), MazeMapFactory.maxBoardHeight + laserUpdate.relativeY(),
                 myCell);
 //        layer.getCell(MazeMapFactory.maxBoardWidth + )
     }

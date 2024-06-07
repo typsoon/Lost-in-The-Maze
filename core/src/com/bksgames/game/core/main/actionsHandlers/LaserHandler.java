@@ -2,10 +2,10 @@ package com.bksgames.game.core.main.actionsHandlers;
 
 import com.bksgames.game.common.moves.ActionToken;
 import com.bksgames.game.common.moves.Move;
+import com.bksgames.game.common.updates.LaserUpdate;
 import com.bksgames.game.common.utils.Direction;
 import com.bksgames.game.core.main.GameManager;
 import com.bksgames.game.core.main.updateHolders.UpdateHolderFactory;
-import com.bksgames.game.core.updates.SimpleLaserUpdate;
 import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.core.utils.SourceOfDamage;
 
@@ -38,11 +38,13 @@ public class LaserHandler extends ActionHandler {
         point = action.position();
         action.direction().next(point);
         for (int i = 1; i < line.size(); i++) {
+            LaserUpdate laserUpdateToBeSent;
             if (line.get(i - 1).equals(line.get(i))) {
-                gameManager.sendUpdate(UpdateHolderFactory.produceUpdateHolder(new SimpleLaserUpdate(line.get(i - 1), null, point)));
+                laserUpdateToBeSent = new LaserUpdate(line.get(i-1), null, point.x, point.y);
             } else {
-                gameManager.sendUpdate(UpdateHolderFactory.produceUpdateHolder(new SimpleLaserUpdate(line.get(i - 1), line.get(i), point)));
+                laserUpdateToBeSent = new LaserUpdate(line.get(i-1), line.get(i), point.x, point.y);
             }
+            gameManager.sendUpdate(UpdateHolderFactory.produceUpdateHolder(laserUpdateToBeSent));
             line.get(i).next(point);
         }
     }

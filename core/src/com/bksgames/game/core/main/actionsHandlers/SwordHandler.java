@@ -2,9 +2,9 @@ package com.bksgames.game.core.main.actionsHandlers;
 
 import com.bksgames.game.common.moves.ActionToken;
 import com.bksgames.game.common.moves.Move;
+import com.bksgames.game.common.updates.SwordUpdate;
 import com.bksgames.game.core.main.GameManager;
 import com.bksgames.game.core.main.updateHolders.UpdateHolderFactory;
-import com.bksgames.game.core.updates.SimpleSwordUpdate;
 import com.bksgames.game.core.utils.SourceOfDamage;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public class SwordHandler extends ActionHandler {
         );
         gameManager.sendUpdate(
                 UpdateHolderFactory.produceUpdateHolder(
-                        new SimpleSwordUpdate(action.direction(),action.position())
+                        new SwordUpdate(action.direction(), action.position().x, action.position().y)
                 )
         );
     }

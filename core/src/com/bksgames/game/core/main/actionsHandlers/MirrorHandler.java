@@ -1,5 +1,6 @@
 package com.bksgames.game.core.main.actionsHandlers;
 
+import com.bksgames.game.common.updates.TileUpdate;
 import com.bksgames.game.core.main.GameManager;
 import com.bksgames.game.core.main.updateHolders.UpdateHolderFactory;
 import com.bksgames.game.core.tiles.Mirror;
@@ -8,7 +9,6 @@ import com.bksgames.game.core.tiles.Tunnel;
 import com.bksgames.game.common.moves.Move;
 import com.bksgames.game.common.utils.Direction;
 import com.bksgames.game.common.moves.ActionToken;
-import com.bksgames.game.core.updates.SimpleTileUpdate;
 
 /**
  * {@code ActionHandler} for {@code MoveTypes.MIRROR}
@@ -35,7 +35,7 @@ public class MirrorHandler extends ActionHandler{
 
         gameManager.sendUpdate(
                 UpdateHolderFactory.produceUpdateHolder(
-                        new SimpleTileUpdate(currentTunnel.getDisplayable(),true,action.position())
+                        new TileUpdate(currentTunnel.getDisplayable(),true,action.position().x, action.position().y)
                 )
         );
         gameManager.getVisionManager().playerVisionUpdate();

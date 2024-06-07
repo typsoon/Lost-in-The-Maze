@@ -2,11 +2,11 @@ package com.bksgames.game.core.main;
 
 import com.bksgames.game.common.Displayable;
 import com.bksgames.game.common.PlayerColor;
+import com.bksgames.game.common.updates.TileUpdate;
 import com.bksgames.game.core.entities.Entity;
 import com.bksgames.game.core.entities.Minion;
 import com.bksgames.game.core.main.updateHolders.UpdateHolderFactory;
 import com.bksgames.game.core.tiles.Tile;
-import com.bksgames.game.core.updates.SimpleTileUpdate;
 import com.bksgames.game.core.utils.Point;
 
 import java.util.HashSet;
@@ -26,19 +26,19 @@ public class VisionManager {
             Tile actTile = gameManager.getBoard().getTile(point);
             gameManager.sendUpdate(
                     UpdateHolderFactory.produceUpdateHolder(
-                            new SimpleTileUpdate(actTile.getDisplayable(), player.isVisible(point), point))
+                            new TileUpdate(actTile.getDisplayable(), player.isVisible(point), point.x, point.y))
                     ,color);
             if (actTile.isHollow()) {
                 if (actTile.getDisplayable() != Displayable.TUNNEL)
                     gameManager.sendUpdate(
                             UpdateHolderFactory.produceUpdateHolder(
-                                    new SimpleTileUpdate(Displayable.TUNNEL, player.isVisible(point), point))
+                                    new TileUpdate(Displayable.TUNNEL, player.isVisible(point), point.x, point.y))
                             ,color);
 
                 for (Entity entity : actTile.getTunnel().getEntities()) {
                     gameManager.sendUpdate(
                             UpdateHolderFactory.produceUpdateHolder(
-                                    new SimpleTileUpdate(entity.getDisplayable(), player.isVisible(point), point))
+                                    new TileUpdate(entity.getDisplayable(), player.isVisible(point), point.x, point.y))
                             ,color);
                 }
             }

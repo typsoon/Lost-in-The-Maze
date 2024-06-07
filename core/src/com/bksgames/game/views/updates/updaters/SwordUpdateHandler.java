@@ -6,12 +6,9 @@ import com.bksgames.game.common.updates.SwordUpdate;
 import com.bksgames.game.common.updates.Update;
 import com.bksgames.game.viewmodels.PlayerViewModel;
 
-public class SwordUpdateHandler extends Updater {
+public class SwordUpdateHandler extends Updater<SwordUpdate> {
     @Override
-    public void process(Update update) {
-        if (!(update instanceof SwordUpdate swordUpdate)) {
-            throw new IllegalArgumentException("Invalid update type: " + update.getClass().getSimpleName());
-        }
+    public void process(SwordUpdate swordUpdate) {
     }
 
     public SwordUpdateHandler(TiledMap map, TextureAtlas atlas, PlayerViewModel playerViewModel) {

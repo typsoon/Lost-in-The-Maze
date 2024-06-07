@@ -10,35 +10,10 @@ public class EntityUpdateHolder extends UpdateHolder<EntityUpdate> {
 
     @Override
     public EntityUpdate encode(Player player) {
-        if(!player.isVisible(content.getRelativeX(),content.getRelativeY())) {
+        if(!player.isVisible(content.relativeX(),content.relativeY())) {
             return null;
         }
-        return new EntityUpdate() {
-            @Override
-            public Direction getDirection() {
-                return content.getDirection();
-            }
-
-            @Override
-            public Displayable getDisplayable() {
-                return content.getDisplayable();
-            }
-
-            @Override
-            public UpdateIDs getID() {
-                return content.getID();
-            }
-
-            @Override
-            public int getRelativeX() {
-                return content.getRelativeX()- player.getMainNexus().x;
-            }
-
-            @Override
-            public int getRelativeY() {
-                return content.getRelativeY()- player.getMainNexus().y;
-            }
-        };
+        return new EntityUpdate(content.direction(), content.displayable(), encodedX(player), encodedY(player));
     }
     EntityUpdateHolder(EntityUpdate content) {
         super(content);

@@ -1,12 +1,12 @@
 package com.bksgames.game.core.main.actionsHandlers;
 
+import com.bksgames.game.common.updates.EntityUpdate;
+import com.bksgames.game.common.updates.TileUpdate;
 import com.bksgames.game.core.entities.Minion;
 import com.bksgames.game.core.main.GameManager;
 import com.bksgames.game.core.main.updateHolders.UpdateHolderFactory;
 import com.bksgames.game.core.tiles.Tile;
 import com.bksgames.game.core.tiles.Tunnel;
-import com.bksgames.game.core.updates.SimpleEntityUpdate;
-import com.bksgames.game.core.updates.SimpleTileUpdate;
 import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.common.moves.Move;
 import com.bksgames.game.common.moves.ActionToken;
@@ -37,12 +37,12 @@ public class MoveHandler extends ActionHandler {
         gameManager.getVisionManager().playerVisionUpdate(gameManager.getCurrentPlayer());
         gameManager.sendUpdate(
                 UpdateHolderFactory.produceUpdateHolder(
-                        new SimpleEntityUpdate(action.direction(),minion.getDisplayable(),lastPos)
+                        new EntityUpdate(action.direction(), minion.getDisplayable(), lastPos.x, lastPos.y)
                 )
         );
         gameManager.sendUpdate(
                 UpdateHolderFactory.produceUpdateHolder(
-                        new SimpleTileUpdate(minion.getDisplayable(),true,point)
+                        new TileUpdate(minion.getDisplayable(),true,point.x, point.y)
                 )
         );
     }

@@ -9,29 +9,9 @@ public class SwordUpdateHolder extends UpdateHolder<SwordUpdate> {
 
     @Override
     public SwordUpdate encode(Player player) {
-        if(!player.isVisible(content.getRelativeX(),content.getRelativeY()))
+        if(!player.isVisible(content.relativeX(),content.relativeY()))
             return null;
-        return new SwordUpdate() {
-            @Override
-            public Direction getDirection() {
-                return content.getDirection();
-            }
-
-            @Override
-            public UpdateIDs getID() {
-                return content.getID();
-            }
-
-            @Override
-            public int getRelativeX() {
-                return content.getRelativeX()-player.getMainNexus().x;
-            }
-
-            @Override
-            public int getRelativeY() {
-                return content.getRelativeY()-player.getMainNexus().y;
-            }
-        };
+        return new SwordUpdate(content.direction(), encodedX(player), encodedY(player));
     }
     SwordUpdateHolder(SwordUpdate content) {
         super(content);
