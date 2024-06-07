@@ -2,7 +2,6 @@ package com.bksgames.game.views.updates.updaters;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.bksgames.game.common.updates.Update;
 import com.bksgames.game.viewmodels.PlayerViewModel;
 
 public abstract class Updater<T> {

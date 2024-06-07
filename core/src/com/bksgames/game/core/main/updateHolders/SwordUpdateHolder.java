@@ -1,8 +1,6 @@
 package com.bksgames.game.core.main.updateHolders;
 
 import com.bksgames.game.common.updates.SwordUpdate;
-import com.bksgames.game.common.updates.UpdateIDs;
-import com.bksgames.game.common.utils.Direction;
 import com.bksgames.game.core.main.Player;
 
 public class SwordUpdateHolder extends UpdateHolder<SwordUpdate> {
