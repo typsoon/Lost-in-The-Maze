@@ -1,7 +1,6 @@
 package com.bksgames.game.views.gameScreen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -11,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.bksgames.game.LostInTheMaze;
 import com.bksgames.game.services.PlayerService;
@@ -26,10 +24,7 @@ public class EndTheTurnStage extends Stage {
 	final LostInTheMaze game;
 
 	public EndTheTurnStage(TextureAtlas atlas, LostInTheMaze game, Viewport viewport, PlayerService playerService) {
-		//---------------------------------------------------------------------------------------
 		super(viewport);
-//		super.getViewport().setCamera(camera);
-		//---------------------------------------------------------------------------------------
 
 		this.game = game;
 		skin = new Skin(atlas);
@@ -38,7 +33,6 @@ public class EndTheTurnStage extends Stage {
 		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		this.addActor(table);
 
-		//---------------------------------------------------------------------------------------
 		TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
 		textButtonStyle.font = new BitmapFont();
 		textButtonStyle.up = skin.getDrawable("buttonBackground");
@@ -50,8 +44,6 @@ public class EndTheTurnStage extends Stage {
 		table.add().expand();
 		table.add(endTheTurnButton).top().padTop(20);
 		table.add().expand();
-
-		//---------------------------------------------------------------------------------------
 
 		endTheTurnButton.addListener(new ClickListener() {
 			@Override

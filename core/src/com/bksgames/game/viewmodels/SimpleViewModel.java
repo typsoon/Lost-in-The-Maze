@@ -2,7 +2,7 @@ package com.bksgames.game.viewmodels;
 
 import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.common.utils.Direction;
-import com.bksgames.game.views.gameScreen.laserHandling.ViewLaserHandler;
+import com.bksgames.game.viewmodels.laserHandling.ViewLaserHandler;
 
 import java.util.*;
 import java.util.List;

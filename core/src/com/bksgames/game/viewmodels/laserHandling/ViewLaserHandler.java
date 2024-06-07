@@ -1,4 +1,4 @@
-package com.bksgames.game.views.gameScreen.laserHandling;
+package com.bksgames.game.viewmodels.laserHandling;
 
 import com.bksgames.game.core.utils.Point;
 

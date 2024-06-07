@@ -14,8 +14,8 @@ import com.bksgames.game.services.PlayerService;
 import com.bksgames.game.viewmodels.PlayerViewModel;
 import com.bksgames.game.viewmodels.SimpleViewModel;
 import com.bksgames.game.views.updates.UpdateProcessor;
-import com.bksgames.game.views.gameScreen.laserHandling.ViewLaserHandler;
-import com.bksgames.game.views.gameScreen.laserHandling.SimpleLaserHandler;
+import com.bksgames.game.viewmodels.laserHandling.ViewLaserHandler;
+import com.bksgames.game.viewmodels.laserHandling.SimpleLaserHandler;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.LegalMoves;
 
 public class GameScreen extends ScreenAdapter {

@@ -15,7 +15,6 @@ import com.bksgames.game.core.updates.SimpleTileUpdate;
 import com.bksgames.game.core.utils.Parameters;
 import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.services.GameService;
-import com.bksgames.game.viewmodels.PlayerViewModel;
 
 import java.util.*;
 
@@ -33,21 +32,7 @@ public class SimpleGameManager implements GameManager {
     private final GameService gameService;
     private final Parameters parameters;
     private PlayerColor activePlayer;
-    private Iterator<PlayerColor> nextPlayer = new Iterator<PlayerColor>() {
-        private boolean isBlue = true;
-
-        @Override
-        public boolean hasNext() {
-            return true;
-        }
-
-        @Override
-        public PlayerColor next() {
-            var answer = isBlue ? PlayerColor.RED : PlayerColor.BLUE;
-            isBlue = !isBlue;
-            return answer;
-        }
-    };
+    private Iterator<PlayerColor> nextPlayer;
     private final DamageManager damageManager;
     private final VisionManager visionManager;
 
@@ -157,9 +142,9 @@ public class SimpleGameManager implements GameManager {
         players = new EnumMap<>(PlayerColor.class);
 
         players.put(PlayerColor.BLUE,
-                new Player(board.getNexus(PlayerColor.BLUE).get(0).getPosition()));
+                new Player(board.getNexus(PlayerColor.BLUE).getFirst().getPosition()));
         players.put(PlayerColor.RED,
-                new Player(board.getNexus(PlayerColor.RED).get(0).getPosition()));
+                new Player(board.getNexus(PlayerColor.RED).getFirst().getPosition()));
         nextPlayer = players.keySet().iterator();
         activePlayer = PlayerColor.BLUE;
 
