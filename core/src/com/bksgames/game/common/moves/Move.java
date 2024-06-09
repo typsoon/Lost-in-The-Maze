@@ -7,7 +7,7 @@ import com.bksgames.game.common.utils.Direction;
 public record Move (Point position, ActionToken type, Direction direction) {
     @Override
     public Point position() {
-        return position.getPosition();
+        return position.copy();
     }
 }
 

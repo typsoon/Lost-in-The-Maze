@@ -42,7 +42,7 @@ public class Nexus implements Vulnerable, KnownPosition, Owned, Tile {
     //KnownPosition
     @Override
     public Point getPosition() {
-        return position.getPosition();
+        return position.copy();
     }
 
     //Owned
@@ -61,7 +61,7 @@ public class Nexus implements Vulnerable, KnownPosition, Owned, Tile {
      * Creates Nexus
      */
     public Nexus(PlayerColor owner, Point position, int hitPoints) {
-        this.position = position.getPosition();
+        this.position = position.copy();
         this.owner = owner;
         this.hitPoints = hitPoints;
     }

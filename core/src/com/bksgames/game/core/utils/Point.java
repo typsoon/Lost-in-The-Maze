@@ -44,7 +44,7 @@ public class Point {
     /**
      * @return Copy of this point
      */
-    public Point getPosition() {
+    public Point copy() {
         return new Point(this);
     }
 

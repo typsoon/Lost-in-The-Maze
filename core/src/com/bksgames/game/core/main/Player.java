@@ -40,7 +40,7 @@ public class Player {
      * @return {@code coordinates} but relative to position of {@code mainNexus}
      */
     public Point getRelativeCoordinates(Point coordinates) {
-        return coordinates.getPosition().subtract(mainNexus);
+        return coordinates.copy().subtract(mainNexus);
     }
 
     /**
@@ -48,7 +48,7 @@ public class Player {
      * @return {@code coordinates} but absolute
      */
     public Point getAbsoluteCoordinates(Point coordinates) {
-        return coordinates.getPosition().add(mainNexus);
+        return coordinates.copy().add(mainNexus);
     }
 
     /**
@@ -112,6 +112,6 @@ public class Player {
      * Constructs a {@code Player}
      */
     Player(Point mainNexus) {
-        this.mainNexus = mainNexus.getPosition();
+        this.mainNexus = mainNexus.copy();
     }
 }

@@ -63,10 +63,11 @@ public class DamageManager {
     }
 
     private void respawn(Respawnable respawnable) {
-        if (gameManager.getBoard().getTile(respawnable.getBaseSpawnPosition()).getTunnel() != null
-                && gameManager.getBoard().getTile(respawnable.getBaseSpawnPosition()).getTunnel().getEntities().isEmpty()) {
+        var tile = gameManager.getBoard().getTile(respawnable.getBaseSpawnPosition()).getTunnel();
+        if (tile.getTunnel() != null
+                && tile.getEntities().isEmpty()) {
             gameManager.sendUpdate(respawnable.spawn());
-            gameManager.getBoard().getTile(respawnable.getBaseSpawnPosition()).getTunnel().addObject(respawnable);
+            tile.addObject(respawnable);
         } else {
             //TODO search for spot
         }
