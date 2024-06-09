@@ -28,7 +28,7 @@ public class BoardManager {
     {
         if(!positions.containsKey(observable) || positions.get(observable) == observable.getPosition())
             return;
-        if(observable instanceof IsDisplayable displayable)
+        if(observable instanceof IsDisplayable displayable && observable.getPosition()!=null)
             gameManager.sendUpdate(UpdateHolderFactory.produceUpdateHolder(new TileUpdate(displayable.getDisplayable(),true, observable.getX(), observable.getY())));
         if(positions.get(observable)!=null)
             gameManager.getBoard().getTile(positions.get(observable)).getTunnel().removeObject(observable);

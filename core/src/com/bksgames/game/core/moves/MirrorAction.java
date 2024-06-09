@@ -3,6 +3,7 @@ package com.bksgames.game.core.moves;
 import com.bksgames.game.common.moves.ActionToken;
 import com.bksgames.game.common.updates.TileUpdate;
 import com.bksgames.game.common.utils.Direction;
+import com.bksgames.game.core.entities.Minion;
 import com.bksgames.game.core.main.GameManager;
 import com.bksgames.game.core.main.updateHolders.UpdateHolderFactory;
 import com.bksgames.game.core.tiles.Mirror;
@@ -17,6 +18,12 @@ public class MirrorAction extends Action {
 
     @Override
     public void handle() {
+        Minion minion = gameManager.getPlayers().get(gameManager.getCurrentPlayer()).getMinion(minionPosition);
+        if(minion == null)
+        {
+            return;
+        }
+        minion.makeAction(getActionToken());
         Tile currentTile = gameManager.getBoard().getTile(minionPosition);
         Tunnel currentTunnel = currentTile.getTunnel();
 
