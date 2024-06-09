@@ -4,10 +4,15 @@ import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.common.utils.Direction;
 
 
-public record Move (Point position, ActionToken type, Direction direction) {
-    @Override
-    public Point position() {
-        return position.copy();
+public abstract class Move {
+    protected final IncompleteMove incompleteMove;
+    protected final Point minionPosition;
+
+    protected abstract void handle();
+
+    public Move(IncompleteMove incompleteMove, Point minionPosition) {
+        this.incompleteMove = incompleteMove;
+        this.minionPosition = minionPosition;
     }
 }
 

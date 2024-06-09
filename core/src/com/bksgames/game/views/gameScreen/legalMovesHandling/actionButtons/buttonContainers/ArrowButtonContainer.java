@@ -2,9 +2,10 @@ package com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.butt
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.bksgames.game.views.displayProperties.DisplayPropertiesSingleton;
 
 public class ArrowButtonContainer extends ButtonContainer {
-    static private final int distanceToNextButton = 10;
+    static private final int distanceToNextButton = DisplayPropertiesSingleton.getInstance().distanceToAdjacentButton();
 
     public ArrowButtonContainer(TextureRegion region, ImageButton leftArrowButton, ImageButton rightArrowButton, ImageButton upArrowButton, ImageButton downArrowButton) {
         super(region, 0);

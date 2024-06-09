@@ -9,10 +9,11 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.bksgames.game.views.gameScreen.legalMovesHandling.IncompleteMove;
+import com.bksgames.game.views.displayProperties.DisplayPropertiesSingleton;
+import com.bksgames.game.common.moves.IncompleteMove;
 
 public class SwordButtonGetter extends ActionButtonGetter{
-    static public final int swordButtonSize = 25;
+    static public final int swordButtonSize = DisplayPropertiesSingleton.getInstance().swordButtonSize();
     private final Sound buttonClickSound;
 
     SwordButtonGetter(TextureAtlas atlas) {

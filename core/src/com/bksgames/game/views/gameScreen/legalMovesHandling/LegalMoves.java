@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.bksgames.game.common.moves.IncompleteMove;
 import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.common.moves.Move;
 import com.bksgames.game.services.PlayerService;

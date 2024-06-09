@@ -9,17 +9,19 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.bksgames.game.common.moves.ActionToken;
+import com.bksgames.game.common.moves.IncompleteMove;
 import com.bksgames.game.common.utils.Direction;
+import com.bksgames.game.views.displayProperties.DisplayPropertiesSingleton;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.*;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.buttonContainers.ArrowButtonContainer;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.buttonContainers.DirectionalButtonsContainer;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.buttonContainers.TwoButtonedButtonContainer;
 
 public class MainTableFactory {
-	static final int actionsMenuWidth = 350;
-	static final int actionsMenuHeight = 100;
+	static final int actionsMenuWidth = DisplayPropertiesSingleton.getInstance().actionsMenuWidth();
+	static final int actionsMenuHeight = DisplayPropertiesSingleton.getInstance().actionsMenuHeight();
 
-	static final int distanceToAdjacentButton = 10;
+	static final int distanceToAdjacentButton = DisplayPropertiesSingleton.getInstance().distanceToAdjacentButton();
 
 	//	static Map<MoveTypes, Table> mapping = new HashMap<>();
 	public static Table produce(ActionButtonFactory factory, TextureAtlas atlas){

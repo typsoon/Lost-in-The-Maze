@@ -5,10 +5,11 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.bksgames.game.views.gameScreen.legalMovesHandling.IncompleteMove;
+import com.bksgames.game.views.displayProperties.DisplayPropertiesSingleton;
+import com.bksgames.game.common.moves.IncompleteMove;
 
 public class DoorButtonGetter extends ActionButtonGetter {
-    static public final int DoorButtonSize = 25;
+    static public final int DoorButtonSize = DisplayPropertiesSingleton.getInstance().doorButtonSize();
 
     DoorButtonGetter(TextureAtlas atlas) {
         super(atlas);

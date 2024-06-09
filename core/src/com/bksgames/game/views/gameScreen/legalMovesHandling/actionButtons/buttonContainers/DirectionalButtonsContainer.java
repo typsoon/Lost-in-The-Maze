@@ -2,9 +2,10 @@ package com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.butt
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.bksgames.game.views.displayProperties.DisplayPropertiesSingleton;
 
 public class DirectionalButtonsContainer extends ButtonContainer {
-    static final int backgroundSize = 75;
+    static final int backgroundSize = DisplayPropertiesSingleton.getInstance().actionButtonSize();
 
     public DirectionalButtonsContainer(TextureRegion region, ImageButton leftButton, ImageButton rightButton, ImageButton upButton, ImageButton downButton) {
         super(region, backgroundSize);

@@ -7,11 +7,12 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.bksgames.game.views.gameScreen.legalMovesHandling.IncompleteMove;
+import com.bksgames.game.views.displayProperties.DisplayPropertiesSingleton;
+import com.bksgames.game.common.moves.IncompleteMove;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.ChosenMove;
 
 public class ArrowGetter extends ActionButtonGetter {
-    static final int arrowButtonSize = 60;
+    static final int arrowButtonSize = DisplayPropertiesSingleton.getInstance().arrowButtonSize();
 
     public ArrowGetter(TextureAtlas atlas) {
         super(atlas);

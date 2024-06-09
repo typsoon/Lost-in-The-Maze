@@ -1,14 +1,15 @@
-package com.bksgames.game.viewmodels.laserHandling;
+package com.bksgames.game.views.gameScreen;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.bksgames.game.core.utils.Point;
-import com.bksgames.game.views.gameScreen.MazeMapFactory;
+import com.bksgames.game.viewmodels.laserHandling.ViewLaserHandler;
+import com.bksgames.game.views.displayProperties.DisplayPropertiesSingleton;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 public class SimpleLaserHandler implements ViewLaserHandler {
-    private static final int laserDurationInFrames = 200;
+    private static final int laserDurationInFrames = DisplayPropertiesSingleton.getInstance().laserDurationInFrames();
     private final TiledMapTileLayer laserLayer;
     private final Collection<Point> laserPoints = new ArrayList<>();
     private int framesUntilClear;
