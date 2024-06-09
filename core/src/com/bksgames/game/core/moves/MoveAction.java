@@ -18,14 +18,20 @@ public class MoveAction extends Action {
 
     @Override
     public void handle() {
+        Point point = minionPosition;
         Tile currentTile = gameManager.getBoard().getTile(minionPosition);
         Tunnel currentTunnel = currentTile.getTunnel();
+
         Minion minion = gameManager.getPlayers().get(gameManager.getCurrentPlayer()).getMinion(minionPosition);
+        if(minion == null)
+        {
+            System.out.println("No minion found");
+        }
         Point lastPos = new Point(minion.getX(), minion.getY());
         currentTunnel.removeEntity(minion);
 
-        getIncompleteMove().direction().next(minionPosition);
-        Tile nextTile = gameManager.getBoard().getTile(minionPosition.x, minionPosition.y);
+        point = getIncompleteMove().direction().getNext(minionPosition);
+        Tile nextTile = gameManager.getBoard().getTile(point.x, point.y);
         Tunnel nextTunnel = nextTile.getTunnel();
         nextTunnel.addEntity(minion);
 
@@ -36,11 +42,11 @@ public class MoveAction extends Action {
                         new EntityUpdate(getIncompleteMove().direction(), minion.getDisplayable(), lastPos.x, lastPos.y)
                 )
         );
-        gameManager.sendUpdate(
-                UpdateHolderFactory.produceUpdateHolder(
-                        new TileUpdate(minion.getDisplayable(),true,minionPosition.x, minionPosition.y)
-                )
-        );
+//        gameManager.sendUpdate(
+//                UpdateHolderFactory.produceUpdateHolder(
+//                        new TileUpdate(minion.getDisplayable(),true,point.x, point.y)
+//                )
+//        );
     }
 
     @Override

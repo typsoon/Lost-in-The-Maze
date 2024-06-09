@@ -11,11 +11,11 @@ public class Point {
     /**
      * {@code x} coordinate of {@code Point} | {@code 0} is base value
      */
-    public int x;
+    public final int x;
     /**
      * {@code y} coordinate of {@code Point} | {@code 0} is base value
      */
-    public int y;
+    public final int y;
 
     /**
      * Add another point to this
@@ -24,9 +24,7 @@ public class Point {
      * @return {@code this}
      */
     public Point add(Point point) {
-        this.x += point.x;
-        this.y += point.y;
-        return this;
+        return new Point(this.x+point.x , this.y+point.y);
     }
 
     /**
@@ -36,9 +34,7 @@ public class Point {
      * @return {@code this}
      */
     public Point subtract(Point point) {
-        this.x -= point.x;
-        this.y -= point.y;
-        return this;
+        return new Point(this.x-point.x , this.y-point.y);
     }
 
     /**

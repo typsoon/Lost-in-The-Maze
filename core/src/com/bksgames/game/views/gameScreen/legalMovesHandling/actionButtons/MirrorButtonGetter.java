@@ -17,7 +17,7 @@ public class MirrorButtonGetter extends ActionButtonGetter {
 
     MirrorButtonGetter(TextureAtlas atlas) {
         super(atlas);
-        buttonClickSound = Gdx.audio.newSound(Gdx.files.internal("assets/audio/mirrorSound.mp3"));
+        buttonClickSound = Gdx.audio.newSound(Gdx.files.internal("audio/mirrorSound.mp3"));
     }
 
     @Override

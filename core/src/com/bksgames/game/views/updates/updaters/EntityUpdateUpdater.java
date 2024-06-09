@@ -26,9 +26,9 @@ public class EntityUpdateUpdater extends Updater<EntityUpdate> {
         }
 
 //        TODO: make animations in here
-
+//some hardcore horseshit
         Point whereToPutIt = new Point(entityUpdate.relativeX(), entityUpdate.relativeY());
-        entityUpdate.direction().next(whereToPutIt);
+        whereToPutIt = entityUpdate.direction().getNext(whereToPutIt);
     }
 
     public EntityUpdateUpdater(TiledMap map, TextureAtlas atlas, PlayerViewModel playerViewModel) {super(map, atlas, playerViewModel);}

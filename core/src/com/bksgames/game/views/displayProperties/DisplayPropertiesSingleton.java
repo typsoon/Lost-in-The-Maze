@@ -5,7 +5,7 @@ import com.bksgames.game.common.utils.Configuration;
 
 public class DisplayPropertiesSingleton {
     private static DisplayProperties instance;
-    private static final String path = "assets/displayProperties.properties";
+    private static final String path = "displayProperties.properties";
 
     private DisplayPropertiesSingleton() {
     }

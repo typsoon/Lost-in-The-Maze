@@ -70,7 +70,7 @@ public class SquareBoard implements Board {
         Map<Mirror, Set<Direction>> mirrorMap = new HashMap<>();
         List<Point> lineOfSight = new LinkedList<>();
 
-        direction.next(point);
+       point = direction.getNext(point);
         Tile currentTile = getTile(point.x, point.y);
 
         while(currentTile.isHollow()){
@@ -86,12 +86,12 @@ public class SquareBoard implements Board {
                 }
                 else {
                     direction = currentTunnel.getMirror().deflect(direction);
-                    direction.next(point);
+                    point = direction.getNext(point);
                     break;
                 }
                 direction = currentTunnel.getMirror().deflect(direction);
             }
-            direction.next(point);
+            point = direction.getNext(point);
             currentTile = getTile(point.x, point.y);
         }
         lineOfSight.add(new Point(point));
@@ -116,13 +116,13 @@ public class SquareBoard implements Board {
         for(int x=0;x<baseSize;x++)
         {
 
-            actFP.y = nexus.getY()-baseSize/2;
+            actFP = new Point(actFP.x, nexus.getY()-baseSize/2);
             for(int y=0;y<baseSize;y++)
             {
                 base.add(new Point(actFP));
-                actFP.y++;
+                actFP = Direction.UP.getNext(actFP);
             }
-            actFP.x++;
+            actFP = Direction.RIGHT.getNext(actFP);
         }
         return base;
     }

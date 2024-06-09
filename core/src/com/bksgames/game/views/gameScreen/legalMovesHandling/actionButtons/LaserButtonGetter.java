@@ -18,7 +18,7 @@ public class LaserButtonGetter extends ActionButtonGetter {
 
     LaserButtonGetter(TextureAtlas atlas) {
         super(atlas);
-        buttonClickSound = Gdx.audio.newSound(Gdx.files.internal("assets/audio/laserSound.mp3"));
+        buttonClickSound = Gdx.audio.newSound(Gdx.files.internal("audio/laserSound.mp3"));
     }
 
     @Override
