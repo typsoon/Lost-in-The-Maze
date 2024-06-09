@@ -56,6 +56,16 @@ public class LostInTheMaze extends Game {
 		}
 	}
 
+	@Override
+	public void pause() {
+		backgroundMusic.pause();
+	}
+
+	@Override
+	public void resume() {
+		backgroundMusic.play();
+	}
+
 	public void startGame(){
 //		setScreen(turnTransitionScreen);
 		GameService gameService = new SimpleGameService(ConfigManagerSingleton.getInstance());
@@ -85,4 +95,6 @@ public class LostInTheMaze extends Game {
 	public void displayGameScreen(){
 		setScreen(playerScreens.get(activePlayer));
 	}
+
+
 }
