@@ -5,5 +5,5 @@ import com.bksgames.game.core.utils.Point;
 public interface ViewLaserHandler {
 
     void addLaserAtPosition(Point position);
-    void framePassed();
+    boolean framePassed();
 }

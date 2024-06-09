@@ -34,11 +34,14 @@ public class SimpleLaserHandler implements ViewLaserHandler {
     }
 
     @Override
-    public void framePassed() {
+    public boolean framePassed() {
         if (framesUntilClear > 0) {
             if (--framesUntilClear <= 0) {
                 clearLaser();
+                return false;
             }
+            return true;
         }
+        return false;
     }
 }

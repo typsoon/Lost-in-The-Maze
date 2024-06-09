@@ -125,7 +125,8 @@ public class GameScreen extends ScreenAdapter {
         mapRenderer.setView(gameCamera);
         mapRenderer.render();
 
-        viewLaserHandler.framePassed();
+        if (viewLaserHandler.framePassed())
+            return;
 
         legalMoves.act(delta);
         legalMoves.draw();
