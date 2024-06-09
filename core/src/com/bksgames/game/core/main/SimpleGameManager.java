@@ -122,7 +122,7 @@ public class SimpleGameManager implements GameManager {
 
     @Override
     public PlayerColor getWinner() {
-        Collection<PlayerColor> winners = getPlayers().keySet();
+        Collection<PlayerColor> winners = new ArrayList<>();
         for (PlayerColor playerColor : players.keySet()) {
             if(board.getTile(players.get(playerColor).getMainNexus()) instanceof Nexus nexus)
             {
