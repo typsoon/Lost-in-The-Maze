@@ -1,7 +1,7 @@
 package com.bksgames.game.services;
 
 import com.bksgames.game.core.utils.Point;
-import com.bksgames.game.common.moves.Move;
+import com.bksgames.game.core.actions.Action;
 import com.bksgames.game.common.PlayerColor;
 import com.bksgames.game.common.updates.Update;
 
@@ -21,12 +21,12 @@ public class SimplePlayerService implements PlayerService {
     public PlayerColor getPlayerColor() {return playerColor;}
 
     @Override
-    public boolean sendMove(Move move) {
+    public boolean sendMove(Action move) {
         return gameService.move(move, getPlayerColor());
     }
 
     @Override
-    public Collection<Move> getLegalMoves(Point position) {
+    public Collection<Action> getLegalMoves(Point position) {
         return gameService.getLegalMoves(position, getPlayerColor());
     }
 

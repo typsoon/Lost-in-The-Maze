@@ -2,7 +2,7 @@ package com.bksgames.game.core.main;
 
 import com.bksgames.game.common.PlayerColor;
 import com.bksgames.game.common.moves.ActionToken;
-import com.bksgames.game.common.moves.Move;
+import com.bksgames.game.core.actions.Action;
 import com.bksgames.game.common.updates.TileUpdate;
 import com.bksgames.game.common.updates.Update;
 import com.bksgames.game.common.utils.Direction;
@@ -37,7 +37,7 @@ public class SimpleGameManager implements GameManager {
     private final VisionManager visionManager;
 
     @Override
-    public boolean makeMove(Move move) {
+    public boolean makeMove(Action move) {
         if (!getLegalMoves(move.position()).contains(move)) {
             return false;
         }
@@ -56,9 +56,9 @@ public class SimpleGameManager implements GameManager {
 
     //TODO move somewhere
     @Override
-    public Collection<Move> getLegalMoves(Point position) {
+    public Collection<Action> getLegalMoves(Point position) {
         Minion minion = players.get(getCurrentPlayer()).getMinion(position);
-        Collection<Move> legalMoves = new ArrayList<>();
+        Collection<Action> legalMoves = new ArrayList<>();
         if (minion == null) {
             return legalMoves;
         }
@@ -66,24 +66,24 @@ public class SimpleGameManager implements GameManager {
             for (Direction direction : Direction.values()) {
                 if (board.getTile(direction.getNext(position)).getTunnel() != null
                         && board.getTile(direction.getNext(position)).getTunnel().getEntities().isEmpty()) {
-                    legalMoves.add(new Move(position.copy(), ActionToken.MOVE, direction));
+                    legalMoves.add(new Action(position.copy(), ActionToken.MOVE, direction));
                 }
             }
         }
         if (minion.canMakeAction(ActionToken.MIRROR)) {
             if (board.getTile(position).getTunnel().getMirror() == null) {
-                legalMoves.add(new Move(position, ActionToken.MIRROR, Direction.LEFT));
-                legalMoves.add(new Move(position, ActionToken.MIRROR, Direction.RIGHT));
+                legalMoves.add(new Action(position, ActionToken.MIRROR, Direction.LEFT));
+                legalMoves.add(new Action(position, ActionToken.MIRROR, Direction.RIGHT));
             }
         }
         if (minion.canMakeAction(ActionToken.LASER)) {
             for (Direction direction : Direction.values()) {
-                legalMoves.add(new Move(position, ActionToken.LASER, direction));
+                legalMoves.add(new Action(position, ActionToken.LASER, direction));
             }
         }
         if (minion.canMakeAction(ActionToken.SWORD)) {
             for (Direction direction : Direction.values()) {
-                legalMoves.add(new Move(position, ActionToken.SWORD, direction));
+                legalMoves.add(new Action(position, ActionToken.SWORD, direction));
             }
         }
         return legalMoves;

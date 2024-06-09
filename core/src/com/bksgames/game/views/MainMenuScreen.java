@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -50,6 +51,10 @@ public class MainMenuScreen extends ScreenAdapter {
 
         font = generator.generateFont(parameter);
 
+        Texture texture = font.getRegion().getTexture();
+        texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
+
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = font;
         textButtonStyle.up = skin.getDrawable("buttonBackground");
@@ -85,6 +90,14 @@ public class MainMenuScreen extends ScreenAdapter {
             }
         });
 
+        Button buttonRules = new TextButton("Rules", textButtonStyle);
+        buttonRules.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new RulesScreen(game));
+            }
+        });
+
         Label.LabelStyle headingStyle = new Label.LabelStyle(font, Color.WHITE);
         Label heading = new Label(game.gameTitle, headingStyle);
         heading.setFontScale(1.5f);
@@ -95,6 +108,9 @@ public class MainMenuScreen extends ScreenAdapter {
         table.row();
         table.add(buttonPlay);
         table.getCell(buttonPlay).spaceBottom(40);
+        table.row();
+        table.add(buttonRules);
+        table.getCell(buttonRules).spaceBottom(40);
         table.row();
         table.add(buttonExit);
 

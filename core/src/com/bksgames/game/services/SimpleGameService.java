@@ -2,7 +2,7 @@ package com.bksgames.game.services;
 
 import com.bksgames.game.core.main.GameManager;
 import com.bksgames.game.core.utils.Point;
-import com.bksgames.game.common.moves.Move;
+import com.bksgames.game.core.actions.Action;
 import com.bksgames.game.core.utils.Parameters;
 import com.bksgames.game.core.main.SimpleGameManager;
 import com.bksgames.game.common.PlayerColor;
@@ -29,13 +29,13 @@ public class SimpleGameService implements GameService {
     }
 
     @Override
-    public Collection<Move> getLegalMoves(Point position, PlayerColor player) {
-        Collection<Move> relativeLegalMoves = new ArrayList<>();
+    public Collection<Action> getLegalMoves(Point position, PlayerColor player) {
+        Collection<Action> relativeLegalMoves = new ArrayList<>();
         if(player!=gameManager.getCurrentPlayer()) {
             return relativeLegalMoves;
         }
-        for(Move move : gameManager.getLegalMoves(gameManager.getPlayers().get(gameManager.getCurrentPlayer()).getAbsoluteCoordinates(position))) {
-            relativeLegalMoves.add(new Move(
+        for(Action move : gameManager.getLegalMoves(gameManager.getPlayers().get(gameManager.getCurrentPlayer()).getAbsoluteCoordinates(position))) {
+            relativeLegalMoves.add(new Action(
                     gameManager.getPlayers().get(gameManager.getCurrentPlayer()).getRelativeCoordinates(move.position()),
                     move.type(),move.direction()));
         }
@@ -43,11 +43,11 @@ public class SimpleGameService implements GameService {
     }
 
     @Override
-    public boolean move(Move move, PlayerColor player) {
+    public boolean move(Action move, PlayerColor player) {
         if(player!=gameManager.getCurrentPlayer()) {
             return false;
         }
-        return gameManager.makeMove(new Move(
+        return gameManager.makeMove(new Action(
                 gameManager.getPlayers().get(gameManager.getCurrentPlayer()).getAbsoluteCoordinates(move.position()),
                 move.type(),move.direction()));
     }

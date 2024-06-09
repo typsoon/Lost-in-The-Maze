@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.bksgames.game.core.utils.Point;
-import com.bksgames.game.common.moves.Move;
+import com.bksgames.game.core.actions.Action;
 import com.bksgames.game.services.PlayerService;
 import com.bksgames.game.viewmodels.PlayerViewModel;
 import com.bksgames.game.views.gameScreen.MazeMapFactory;
@@ -51,7 +51,7 @@ public class LegalMoves extends Stage {
         }
 
         Point minionLocation = playerViewModel.getMinionPos(activeMinionId);
-        Collection<Move> moves = playerService.getLegalMoves(minionLocation);
+        Collection<Action> moves = playerService.getLegalMoves(minionLocation);
 
         if (moves == null)
             throw new IllegalStateException("legal moves are null");
@@ -117,7 +117,7 @@ public class LegalMoves extends Stage {
 
         currentLegalMoves.clear();
 
-        return playerService.sendMove(new Move(minionPosition, incompleteMove.type(), incompleteMove.direction()));
+        return playerService.sendMove(new Action(minionPosition, incompleteMove.type(), incompleteMove.direction()));
     }
 
     public LegalMoves(TextureAtlas atlas, Viewport hudViewport, OrthographicCamera gameCamera, PlayerViewModel playerViewModel, PlayerService playerService) {
