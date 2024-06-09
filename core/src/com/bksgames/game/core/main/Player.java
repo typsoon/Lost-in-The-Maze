@@ -63,7 +63,7 @@ public class Player {
      */
     public Minion getMinion(Point position) {
         for (Minion minion : minions) {
-            if (minion.getPosition().equals(position)) {
+            if (minion.getHitPoints()>0 && minion.getPosition().equals(position)) {
                 return minion;
             }
         }

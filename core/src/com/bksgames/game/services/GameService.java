@@ -17,6 +17,5 @@ public interface GameService {
     boolean forwardUpdate(PlayerColor color, Update update);
     void startGame();
     boolean endTurn(PlayerColor color);
-    void endGame();
     PlayerColor getWinner();
 }

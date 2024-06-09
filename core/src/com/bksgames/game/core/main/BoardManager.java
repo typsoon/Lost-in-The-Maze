@@ -30,6 +30,7 @@ public class BoardManager {
             return;
         if(observable instanceof IsDisplayable displayable && observable.getPosition()!=null)
             gameManager.sendUpdate(UpdateHolderFactory.produceUpdateHolder(new TileUpdate(displayable.getDisplayable(),true, observable.getX(), observable.getY())));
+
         if(positions.get(observable)!=null)
             gameManager.getBoard().getTile(positions.get(observable)).getTunnel().removeObject(observable);
         positions.put(observable,observable.getPosition());

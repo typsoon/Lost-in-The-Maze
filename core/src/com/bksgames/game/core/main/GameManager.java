@@ -39,5 +39,6 @@ public interface GameManager  {
     DamageManager getDamageManager();
     VisionManager getVisionManager();
 
+    PlayerColor getWinner();
     void endTurn();
 }

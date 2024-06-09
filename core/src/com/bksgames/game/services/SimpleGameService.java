@@ -81,12 +81,7 @@ public  class SimpleGameService implements GameService {
 
     @Override
     public PlayerColor getWinner() {
-        return null;
-    }
-
-    @Override
-    public void endGame() {
-        gameManager = null;
+        return gameManager.getWinner();
     }
 
     public SimpleGameService(Parameters parameters) {

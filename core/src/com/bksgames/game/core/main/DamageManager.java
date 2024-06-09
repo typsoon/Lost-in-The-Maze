@@ -29,6 +29,7 @@ public class DamageManager {
         for (Point point : range) {
             //if(receivers.containsKey(point))  {
             //Collection<Vulnerable> dead = new ArrayList<>();
+            Collection<Vulnerable> w = gameManager.getBoard().getTile(point).getVulnerable();
             for (Vulnerable vulnerable : gameManager.getBoard().getTile(point).getVulnerable()) {
                 UpdateHolder<? extends Update> updateHolder = vulnerable.damage(sourceOfDamage);
                 if (updateHolder != null) {

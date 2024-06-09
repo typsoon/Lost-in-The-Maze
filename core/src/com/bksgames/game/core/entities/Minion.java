@@ -77,6 +77,8 @@ public class Minion implements Entity, Owned, Interactive, Respawnable {
 
     @Override
     public UpdateHolder<EntityStateUpdate> damage(SourceOfDamage sourceOfDamage) {
+        if(hitPoints<=0)
+            return null;
         hitPoints -= sourceOfDamage.getDamageValue();
         if (hitPoints <= 0) {
             actionPoints=0;
@@ -85,7 +87,7 @@ public class Minion implements Entity, Owned, Interactive, Respawnable {
             UpdateHolder<EntityStateUpdate> update =  UpdateHolderFactory.produceUpdateHolder(
                     new EntityStateUpdate(true,EntityEvent.KILLED,null,position.x, position.y)
             );
-            position=null;
+           position=null;
             return update;
         }
         return null;

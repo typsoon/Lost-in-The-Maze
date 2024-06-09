@@ -19,7 +19,8 @@ public class VisionManager {
         Player player = gameManager.getPlayers().get(color);
         Set<Point> visible = new HashSet<>(gameManager.getBoard().getNexusesVision(color));
         for (Minion minion : player.getMinions()) {
-            visible.addAll(gameManager.getBoard().getVisible(minion));
+            if(minion.getHitPoints()>0)
+                visible.addAll(gameManager.getBoard().getVisible(minion));
         }
         Set<Point> changes = player.updateVisibleTiles(visible);
         for (Point point : changes) {

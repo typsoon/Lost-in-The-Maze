@@ -12,6 +12,7 @@ import com.bksgames.game.core.entities.Minion;
 //import com.bksgames.game.core.main.actionsHandlers.ActionHandler;
 //import com.bksgames.game.core.main.actionsHandlers.ActionHandlerFactory;
 import com.bksgames.game.core.main.updateHolders.UpdateHolder;
+import com.bksgames.game.core.tiles.Nexus;
 import com.bksgames.game.core.utils.Parameters;
 import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.services.GameService;
@@ -120,6 +121,23 @@ public class SimpleGameManager implements GameManager {
     }
 
     @Override
+    public PlayerColor getWinner() {
+        Collection<PlayerColor> winners = getPlayers().keySet();
+        for (PlayerColor playerColor : players.keySet()) {
+            if(board.getTile(players.get(playerColor).getMainNexus()) instanceof Nexus nexus)
+            {
+                if(nexus.getHitPoints()>0)
+                {
+                    winners.add(playerColor);
+                }
+            }
+        }
+        if(winners.size()==1)
+            return winners.iterator().next();
+        return null;
+    }
+
+    @Override
     public void endTurn() {
         if (!nextPlayer.hasNext())
             nextPlayer = players.keySet().iterator();
@@ -169,7 +187,7 @@ public class SimpleGameManager implements GameManager {
             Minion minion = new Minion(direction.getNext(player.getMainNexus()),boardManager , parameters.minionHitPoints(), parameters.actionsNumber(), color);
             player.addMinion(minion);
             // damageManager.subscribe(minion);
-            board.getTile(direction.getNext(player.getMainNexus())).getTunnel().addEntity(minion);
+            //board.getTile(direction.getNext(player.getMainNexus())).getTunnel().addEntity(minion);
             i++;
         }
     }
