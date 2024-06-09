@@ -21,8 +21,8 @@ public class SimplePlayerService implements PlayerService {
     public PlayerColor getPlayerColor() {return playerColor;}
 
     @Override
-    public synchronized boolean sendMove(IncompleteMove incompleteMove) {
-        return gameService.acceptAction(incompleteMove, getPlayerColor());
+    public boolean sendMove(IncompleteMove incompleteMove, Point minionPosition) {
+        return gameService.acceptAction(incompleteMove, getPlayerColor(), minionPosition);
     }
 
     @Override

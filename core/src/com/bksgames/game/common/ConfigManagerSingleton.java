@@ -6,7 +6,7 @@ import com.bksgames.game.core.utils.Parameters;
 
 public class ConfigManagerSingleton {
 	static Parameters instance;
-	private static final String path = "/home/riper/Studia/Project/assets/gameProperties.properties";
+	private static final String path = "gameProperties.properties";
 
 	private ConfigManagerSingleton() {
 //		instance = new ConfigManager(path);

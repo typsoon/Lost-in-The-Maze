@@ -11,7 +11,7 @@ public interface GameService {
     PlayerService connect(PlayerColor player);
 
     Collection<IncompleteMove> getLegalMoves(Point position, PlayerColor player);
-    boolean acceptAction(IncompleteMove action, PlayerColor player);
+    boolean acceptAction(IncompleteMove action, PlayerColor player, Point minionPositions);
 
     @SuppressWarnings("UnusedReturnValue")
     boolean forwardUpdate(PlayerColor color, Update update);

@@ -10,7 +10,7 @@ import java.util.Collection;
 public interface PlayerService {
     PlayerColor getPlayerColor();
 
-    boolean sendMove(IncompleteMove incompleteMove);
+    boolean sendMove(IncompleteMove incompleteMove, Point minionPosition);
 
     Collection<IncompleteMove> getLegalMoves(Point position);
 

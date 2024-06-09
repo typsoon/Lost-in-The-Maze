@@ -1,5 +1,7 @@
 package com.bksgames.game.common.utils;
 
+import com.badlogic.gdx.Gdx;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,7 +14,7 @@ public class ConfigManager implements Configuration{
 	public ConfigManager(String fileName) {
 		properties = new Properties();
 		try
-			(InputStream input = new FileInputStream(fileName)){
+			(InputStream input = Gdx.files.internal(fileName).read()){
 			properties.load(input);
 		} catch (IOException e) {
 			throw new RuntimeException(e);

@@ -1,5 +1,6 @@
 package com.bksgames.game.views.displayProperties;
 
+import com.badlogic.gdx.Gdx;
 import com.bksgames.game.common.utils.ConfigManager;
 import com.bksgames.game.common.utils.Configuration;
 
@@ -12,6 +13,7 @@ public class DisplayPropertiesSingleton {
 
     public static synchronized DisplayProperties getInstance() {
         if (instance == null) {
+
             Configuration config = new ConfigManager(path);
 
             final int actionButtonSize = configToInt("actionButtonSize", config, 75);

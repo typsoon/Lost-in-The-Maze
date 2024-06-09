@@ -31,7 +31,7 @@ public  class SimpleGameService implements GameService {
     }
 
     @Override
-    public synchronized Collection<IncompleteMove> getLegalMoves(Point position, PlayerColor player) {
+    public Collection<IncompleteMove> getLegalMoves(Point position, PlayerColor player) {
         if(player!=gameManager.getCurrentPlayer()) {
             return Collections.emptyList();
         }
@@ -41,8 +41,8 @@ public  class SimpleGameService implements GameService {
     }
 
     @Override
-    public synchronized boolean acceptAction(IncompleteMove incompleteMove, PlayerColor player) {
-        if(player!=gameManager.getCurrentPlayer()) {
+    public synchronized boolean acceptAction(IncompleteMove incompleteMove, PlayerColor player, Point minionPosition) {
+        if(player!=gameManager.getCurrentPlayer() || gameManager.getPlayers().get(player).getAbsoluteCoordinates(minionPosition)==null) {
             return false;
         }
 
@@ -81,7 +81,7 @@ public  class SimpleGameService implements GameService {
 
     @Override
     public PlayerColor getWinner() {
-        return PlayerColor.BLUE;
+        return null;
     }
 
     @Override

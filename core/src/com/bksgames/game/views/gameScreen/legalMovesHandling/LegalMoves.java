@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -115,14 +116,12 @@ public class LegalMoves extends Stage {
 
         currentLegalMoves.clear();
 
-        return playerService.sendMove(incompleteMove);
+        return playerService.sendMove(incompleteMove, playerViewModel.getMinionPos(activeMinionId));
     }
 
     public LegalMoves(TextureAtlas atlas, Viewport hudViewport, OrthographicCamera gameCamera, PlayerViewModel playerViewModel, PlayerService playerService) {
 //        Stage
         super(hudViewport);
-
-
 
         this.gameCamera = gameCamera;
         this.playerService = playerService;
