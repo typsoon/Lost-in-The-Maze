@@ -52,7 +52,7 @@ public class Minion implements Entity, Owned, Interactive, Respawnable {
     //Entity
     @Override
     public UpdateHolder<?> spawn(Point position) {
-        this.position = position.getPosition();
+        this.position = position.copy();
         this.hitPoints = startingHP;
         this.actionPoints = startingAP;
         return UpdateHolderFactory.produceUpdateHolder(
@@ -85,7 +85,7 @@ public class Minion implements Entity, Owned, Interactive, Respawnable {
 
     @Override
     public Point getPosition() {
-        return position.getPosition();
+        return position.copy();
     }
 
     @Override

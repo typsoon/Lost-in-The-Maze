@@ -49,7 +49,7 @@ public class SimpleViewModel implements PlayerViewModel{
         }
 
         for (int i = 0; i < minionPositions.size() ; i++) {
-            if (minionPositions.get(i) != null && minionPositions.get(i).equals(start)) {
+            if (Objects.equals(minionPositions.get(i), start)) {
                 minionPositions.set(i,direction.getNext(minionPositions.get(i)));
             }
         }

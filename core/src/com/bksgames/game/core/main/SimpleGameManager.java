@@ -66,7 +66,7 @@ public class SimpleGameManager implements GameManager {
             for (Direction direction : Direction.values()) {
                 if (board.getTile(direction.getNext(position)).getTunnel() != null
                         && board.getTile(direction.getNext(position)).getTunnel().getEntities().isEmpty()) {
-                    legalMoves.add(new Move(position.getPosition(), ActionToken.MOVE, direction));
+                    legalMoves.add(new Move(position.copy(), ActionToken.MOVE, direction));
                 }
             }
         }
