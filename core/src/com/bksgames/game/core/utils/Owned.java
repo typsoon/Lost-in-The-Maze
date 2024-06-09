@@ -10,5 +10,5 @@ public interface Owned {
     /**
      * @return {@code PlayerColor} of owner
      */
-    PlayerColor getOwner();
+    PlayerColor owner();
 }

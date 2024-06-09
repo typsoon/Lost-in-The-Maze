@@ -47,7 +47,7 @@ public class Nexus implements Vulnerable, KnownPosition, Owned, Tile {
 
     //Owned
     @Override
-    public PlayerColor getOwner() {
+    public PlayerColor owner() {
         return owner;
     }
 

@@ -95,7 +95,7 @@ public class Minion implements Entity, Owned, Interactive, Respawnable {
 
     //Owned
     @Override
-    public PlayerColor getOwner() {
+    public PlayerColor owner() {
         return owner;
     }
 
