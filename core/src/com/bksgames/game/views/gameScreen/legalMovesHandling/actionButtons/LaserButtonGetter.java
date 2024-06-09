@@ -1,17 +1,23 @@
 package com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.IncompleteMove;
 
 public class LaserButtonGetter extends ActionButtonGetter {
     static public final int LaserArrowButtonSize = 25;
+    private final Sound buttonClickSound;
 
     LaserButtonGetter(TextureAtlas atlas) {
         super(atlas);
+        buttonClickSound = Gdx.audio.newSound(Gdx.files.internal("assets/audio/laserSound.mp3"));
     }
 
     @Override
@@ -37,6 +43,12 @@ public class LaserButtonGetter extends ActionButtonGetter {
 
         button.addCaptureListener(getTouchDownListenerForAButton(button, incompleteMove));
 
+        button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                buttonClickSound.play();
+            }
+        });
         button.bottom().left();
 
         return button;
