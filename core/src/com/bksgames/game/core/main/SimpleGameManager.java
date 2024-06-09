@@ -37,15 +37,6 @@ public class SimpleGameManager implements GameManager {
     private final DamageManager damageManager;
     private final VisionManager visionManager;
     private final BoardManager boardManager;
-//    @Override
-//    public boolean makeMove(Action acceptMove) {
-//        if (!getLegalMoves(acceptMove.position()).contains(acceptMove)) {
-//            return false;
-//        }
-//        players.get(activePlayer).getMinion(acceptMove.position()).makeAction(acceptMove.type());
-//        moveHandlers.get(acceptMove.type()).handle(acceptMove);
-//        return true;
-//    }
 
     @Override
     public <T extends Update> boolean sendUpdate(UpdateHolder<T> updateHolder, PlayerColor playerColor) {
@@ -154,10 +145,6 @@ public class SimpleGameManager implements GameManager {
         this.boardManager = new BoardManager(this);
         this.board = SquareBoardFactory.CreateSBFor2Players(parameters,boardManager);
 
-//        moveHandlers = new EnumMap<>(ActionToken.class);
-//        for (ActionToken moveType : ActionToken.values()) {
-//            moveHandlers.put(moveType, ActionHandlerFactory.CreateActionHandler(moveType, this));
-//        }
         players = new EnumMap<>(PlayerColor.class);
 
         players.put(PlayerColor.BLUE,
@@ -186,8 +173,6 @@ public class SimpleGameManager implements GameManager {
             }
             Minion minion = new Minion(direction.getNext(player.getMainNexus()),boardManager , parameters.minionHitPoints(), parameters.actionsNumber(), color);
             player.addMinion(minion);
-            // damageManager.subscribe(minion);
-            //board.getTile(direction.getNext(player.getMainNexus())).getTunnel().addEntity(minion);
             i++;
         }
     }

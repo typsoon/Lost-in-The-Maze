@@ -1,6 +1,5 @@
 package com.bksgames.game.core.boards;
 
-import com.bksgames.game.common.Displayable;
 import com.bksgames.game.common.utils.Direction;
 import com.bksgames.game.core.utils.Point;
 

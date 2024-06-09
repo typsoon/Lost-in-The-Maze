@@ -2,7 +2,6 @@ package com.bksgames.game.common.utils;
 
 import com.badlogic.gdx.Gdx;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;

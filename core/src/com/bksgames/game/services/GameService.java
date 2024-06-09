@@ -13,7 +13,7 @@ public interface GameService {
     Collection<IncompleteMove> getLegalMoves(Point position, PlayerColor player);
     boolean acceptAction(IncompleteMove action, PlayerColor player, Point minionPositions);
 
-    @SuppressWarnings("UnusedReturnValue")
+    @SuppressWarnings({"UnusedReturnValue", "SameReturnValue"})
     boolean forwardUpdate(PlayerColor color, Update update);
     void startGame();
     boolean endTurn(PlayerColor color);

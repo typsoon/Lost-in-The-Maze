@@ -29,7 +29,6 @@ public class DamageManager {
         for (Point point : range) {
             //if(receivers.containsKey(point))  {
             //Collection<Vulnerable> dead = new ArrayList<>();
-            Collection<Vulnerable> w = gameManager.getBoard().getTile(point).getVulnerable();
             for (Vulnerable vulnerable : gameManager.getBoard().getTile(point).getVulnerable()) {
                 UpdateHolder<? extends Update> updateHolder = vulnerable.damage(sourceOfDamage);
                 if (updateHolder != null) {
@@ -65,6 +64,7 @@ public class DamageManager {
 
     private void respawn(Respawnable respawnable) {
         var tile = gameManager.getBoard().getTile(respawnable.getBaseSpawnPosition()).getTunnel();
+        //noinspection StatementWithEmptyBody
         if (tile.getTunnel() != null
                 && tile.getEntities().isEmpty()) {
             gameManager.sendUpdate(respawnable.spawn());

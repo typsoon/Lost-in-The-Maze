@@ -25,8 +25,7 @@ public class RulesScreen extends ScreenAdapter {
 	private Skin skin;
 	private BitmapFont font;
 	private FreeTypeFontGenerator generator;
-	private OrthographicCamera gameCamera;
-	private final LostInTheMaze game;
+    private final LostInTheMaze game;
 
 	public RulesScreen(final LostInTheMaze game) {
 		this.game = game;
@@ -34,7 +33,7 @@ public class RulesScreen extends ScreenAdapter {
 
 	@Override
 	public void show() {
-		gameCamera = new OrthographicCamera();
+        OrthographicCamera gameCamera = new OrthographicCamera();
 		gameCamera.setToOrtho(false, 800, 480);
 
 		stage = new Stage();

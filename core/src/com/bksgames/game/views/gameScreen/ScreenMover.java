@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
 import com.bksgames.game.common.utils.Direction;
 import com.bksgames.game.viewmodels.PlayerViewModel;
-import com.bksgames.game.views.displayProperties.DisplayProperties;
 import com.bksgames.game.views.displayProperties.DisplayPropertiesSingleton;
 
 public class ScreenMover extends InputAdapter {

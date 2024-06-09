@@ -2,9 +2,7 @@ package com.bksgames.game.core.tiles;
 
 import com.bksgames.game.common.Displayable;
 import com.bksgames.game.common.PlayerColor;
-import com.bksgames.game.core.boards.Board;
 import com.bksgames.game.core.main.BoardManager;
-import com.bksgames.game.core.main.GameManager;
 import com.bksgames.game.core.main.updateHolders.UpdateHolder;
 import com.bksgames.game.core.utils.*;
 

@@ -13,16 +13,12 @@ public class UpdateProcessor implements UpdateVisitor {
     private final Updater<SwordUpdate> swordUpdateHandler;
     private final Updater<TileUpdate> tileUpdateUpdater;
 
-//    final TiledMap map;
-//    final TextureAtlas atlas;
 
     public void process(Update update) {
         update.visit(this);
     }
 
     public UpdateProcessor(TiledMap map, TextureAtlas atlas, PlayerViewModel playerViewModel) {
-//        this.map = map;
-//        this.atlas = atlas;
 
         entityStateUpdater = new EntityStateUpdater(map, atlas, playerViewModel);
         entityUpdateUpdater = new EntityUpdateUpdater(map, atlas, playerViewModel);

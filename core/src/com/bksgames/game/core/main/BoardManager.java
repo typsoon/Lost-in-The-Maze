@@ -1,8 +1,6 @@
 package com.bksgames.game.core.main;
 
-import com.bksgames.game.common.Displayable;
 import com.bksgames.game.common.updates.TileUpdate;
-import com.bksgames.game.core.main.updateHolders.TileUpdateHolder;
 import com.bksgames.game.core.main.updateHolders.UpdateHolderFactory;
 import com.bksgames.game.core.utils.IsDisplayable;
 import com.bksgames.game.core.utils.KnownPosition;
@@ -20,7 +18,8 @@ public class BoardManager {
             gameManager.sendUpdate(UpdateHolderFactory.produceUpdateHolder(new TileUpdate(displayable.getDisplayable(),true, observable.getX(), observable.getY())));
         return this;
     }
-    public void unsubscribe( KnownPosition observable)
+    @SuppressWarnings("unused")
+    public void unsubscribe(KnownPosition observable)
     {
         positions.remove(observable);
     }

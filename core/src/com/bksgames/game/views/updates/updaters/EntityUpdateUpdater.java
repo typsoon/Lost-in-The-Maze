@@ -28,6 +28,7 @@ public class EntityUpdateUpdater extends Updater<EntityUpdate> {
 //        TODO: make animations in here
 //some hardcore horseshit
         Point whereToPutIt = new Point(entityUpdate.relativeX(), entityUpdate.relativeY());
+        //noinspection UnusedAssignment
         whereToPutIt = entityUpdate.direction().getNext(whereToPutIt);
     }
 

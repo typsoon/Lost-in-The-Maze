@@ -12,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.bksgames.game.LostInTheMaze;
 import com.bksgames.game.common.PlayerColor;
@@ -27,7 +26,7 @@ public class EndGameScreen extends ScreenAdapter {
 	private final LostInTheMaze game;
 	OrthographicCamera gameCamera;
 
-	PlayerColor winner;
+	final PlayerColor winner;
 
 	public EndGameScreen(LostInTheMaze game, PlayerColor winner) {
 		this.game = game;

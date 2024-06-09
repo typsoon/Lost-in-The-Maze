@@ -2,7 +2,6 @@ package com.bksgames.game.core.boards;
 
 import com.bksgames.game.common.utils.Direction;
 import com.bksgames.game.core.main.BoardManager;
-import com.bksgames.game.core.main.GameManager;
 import com.bksgames.game.core.tiles.Nexus;
 import com.bksgames.game.core.utils.Parameters;
 import com.bksgames.game.core.tiles.Tunnel;

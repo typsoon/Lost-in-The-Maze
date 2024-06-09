@@ -2,7 +2,6 @@ package com.bksgames.game.services;
 
 import com.bksgames.game.common.moves.IncompleteMove;
 import com.bksgames.game.core.main.GameManager;
-import com.bksgames.game.core.main.Player;
 import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.core.moves.Action;
 import com.bksgames.game.core.utils.Parameters;

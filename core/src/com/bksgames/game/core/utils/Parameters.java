@@ -26,22 +26,6 @@ public record Parameters(int minionCount, int maxMirrorsBending, int wallBuildCo
     /**
      * Constructs {@code Parameters} with custom values
      */
-//    public Parameters(int minionCount, int maxMirrorsBending, int wallBuildCount, int doorPrice, int doorCooldown,
-//                      int doorHitPoints, int actionsNumber, int minionHitPoints, int nexusHitPoints, int mapSize, int baseSize, int laserDamage, int swordDamage) {
-//        this.maxMirrorsBending = maxMirrorsBending;
-//        this.wallBuildCount = wallBuildCount;
-//        this.doorPrice = doorPrice;
-//        this.doorCooldown = doorCooldown;
-//        this.doorHitPoints = doorHitPoints;
-//        this.actionsNumber = actionsNumber;
-//        this.minionHitPoints = minionHitPoints;
-//        this.nexusHitPoints = nexusHitPoints;
-//        this.laserDamage = laserDamage;
-//        this.swordDamage = swordDamage;
-//        this.mapSize = mapSize;
-//        this.baseSize = baseSize;
-//        this.minionCount = Math.min(minionCount, 4);
-//    }
 
     public Parameters {
 
