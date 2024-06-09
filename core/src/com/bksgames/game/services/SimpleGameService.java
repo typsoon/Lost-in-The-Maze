@@ -81,7 +81,7 @@ public class SimpleGameService implements GameService {
 
     @Override
     public PlayerColor getWinner() {
-        return PlayerColor.BLUE;
+        return PlayerColor.RED;
     }
 
     public SimpleGameService(Parameters parameters) {
