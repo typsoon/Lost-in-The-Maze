@@ -34,11 +34,12 @@ public class DisplayPropertiesSingleton {
             final int endTheTurnScreenButtonTopPadding = configToInt("endTheTurnScreenButtonTopPadding", config, 20);
             final float scrollZoomMultiplier = configToFloat("scrollZoomMultiplier", config, 0.1f);
             final float adjustZoomSpeed = configToFloat("adjustZoomSpeed", config, 0.2f);
+            final float backgroundMusicVolume = configToFloat("backgroundMusicVolume", config, 0.3f);
 
             instance = new DisplayProperties(actionButtonSize, arrowButtonSize, slashButtonSize, doorButtonSize,
                     laserButtonSize, mirrorButtonSize, swordButtonSize, distanceToAdjacentButton, cameraSpeed, laserDurationInFrames, mainTableHeight, offset,
                     actionsMenuWidth, actionsMenuHeight, bottomPadding, leftPadding, rightPadding, endTheTurnScreenButtonTopPadding,
-                    scrollZoomMultiplier, adjustZoomSpeed);}
+                    scrollZoomMultiplier, adjustZoomSpeed, backgroundMusicVolume);}
         return instance;
     }
 
