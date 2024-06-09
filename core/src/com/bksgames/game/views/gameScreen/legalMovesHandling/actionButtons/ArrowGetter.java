@@ -46,7 +46,7 @@ public class ArrowGetter extends ActionButtonGetter {
         button.addCaptureListener(getTouchDownListenerForAButton(button, incompleteMove));
         button.addCaptureListener(new InputListener() {
             @Override
-            public boolean keyDown(InputEvent event, int keycode) {
+            public synchronized boolean keyDown(InputEvent event, int keycode) {
                 if (keycode == key) {
                     button.fire(new ChosenMove(incompleteMove));
                     return true;

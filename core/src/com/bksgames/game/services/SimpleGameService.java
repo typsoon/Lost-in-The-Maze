@@ -48,6 +48,7 @@ public  class SimpleGameService implements GameService {
 
         Action foundAction = possibleActions.stream().filter(
                 action -> action.getIncompleteMove().equals(incompleteMove)).findFirst().orElse(null);
+        possibleActions.clear();
         if (foundAction != null) {
             foundAction.handle();
             return true;

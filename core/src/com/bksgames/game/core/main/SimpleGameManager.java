@@ -174,7 +174,7 @@ public class SimpleGameManager implements GameManager {
         for (PlayerColor playerColor : players.keySet()) {
             visionManager.playerVisionUpdate(playerColor);
         }
-        mapTesting();
+       // mapTesting();
     }
 
     private void playerSetup(PlayerColor color) {

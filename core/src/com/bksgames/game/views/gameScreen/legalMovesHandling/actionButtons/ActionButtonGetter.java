@@ -18,7 +18,7 @@ public abstract class ActionButtonGetter {
     protected static InputListener getTouchDownListenerForAButton(ImageButton button, IncompleteMove incompleteMove) {
         return new ClickListener() {
             @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int whichButton) {
+            public synchronized boolean touchDown(InputEvent event, float x, float y, int pointer, int whichButton) {
                 //                This is important because of how LibGdx works
                 if (!button.isVisible())
                     return false;

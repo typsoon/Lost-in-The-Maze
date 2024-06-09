@@ -60,9 +60,6 @@ public class LegalMoves extends Stage {
 
         currentLegalMoves = new ArrayList<>(moves);
 
-//        TODO: delete this when done with testing
-//        currentLegalMoves.add(new IncompleteMove(ActionToken.DOOR, Direction.LEFT));
-//
 
         for (Actor actor : moveToButtonMapping.values()) {
             actor.setVisible(false);

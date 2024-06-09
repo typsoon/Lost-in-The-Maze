@@ -2,7 +2,6 @@ package com.bksgames.game.core.moves;
 
 import com.bksgames.game.common.moves.ActionToken;
 import com.bksgames.game.common.updates.EntityUpdate;
-import com.bksgames.game.common.updates.TileUpdate;
 import com.bksgames.game.common.utils.Direction;
 import com.bksgames.game.core.entities.Minion;
 import com.bksgames.game.core.main.GameManager;
@@ -23,10 +22,6 @@ public class MoveAction extends Action {
         Tunnel currentTunnel = currentTile.getTunnel();
 
         Minion minion = gameManager.getPlayers().get(gameManager.getCurrentPlayer()).getMinion(minionPosition);
-        if(minion == null)
-        {
-            return;
-        }
         minion.makeAction(getActionToken());
         Point lastPos = new Point(minion.getX(), minion.getY());
         currentTunnel.removeEntity(minion);
@@ -43,11 +38,6 @@ public class MoveAction extends Action {
                         new EntityUpdate(getIncompleteMove().direction(), minion.getDisplayable(), lastPos.x, lastPos.y)
                 )
         );
-//        gameManager.sendUpdate(
-//                UpdateHolderFactory.produceUpdateHolder(
-//                        new TileUpdate(minion.getDisplayable(),true,point.x, point.y)
-//                )
-//        );
     }
 
     @Override

@@ -35,13 +35,6 @@ public class EndGameScreen extends ScreenAdapter {
 	}
 
 	@Override
-	public void render(float delta) {
-		ScreenUtils.clear(0, 0, 0, 0);
-		stage.act(delta);
-		stage.draw();
-	}
-
-	@Override
 	public void resize(int width, int height) {
 		stage.getViewport().update(width, height, false);
 	}
@@ -52,7 +45,6 @@ public class EndGameScreen extends ScreenAdapter {
 		gameCamera.setToOrtho(false, 800, 480);
 
 		stage = new Stage();
-		Gdx.input.setInputProcessor(stage);
 		atlas = new TextureAtlas(Gdx.files.internal("MainMenu.atlas"));
 		skin = new Skin(atlas);
 		Table table = new Table(skin);
@@ -96,9 +88,11 @@ public class EndGameScreen extends ScreenAdapter {
 		});
 
 		Button buttonExit = new TextButton("Exit", textButtonStyle);
-		buttonExit.addListener(new ClickListener() {
-			public void clicked(InputEvent event, float x, float y) {
+		buttonExit.addListener(new InputListener() {
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				Gdx.app.exit();
+				return true;
 			}
 		});
 
@@ -110,6 +104,14 @@ public class EndGameScreen extends ScreenAdapter {
 		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
 		stage.addActor(table);
+		Gdx.input.setInputProcessor(stage);
+	}
+
+	@Override
+	public void render(float delta) {
+		ScreenUtils.clear(0, 0, 0, 0);
+		stage.act(delta);
+		stage.draw();
 	}
 
 	@Override

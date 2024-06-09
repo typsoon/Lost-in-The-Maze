@@ -80,9 +80,6 @@ public class GameScreen extends ScreenAdapter {
 
     @Override
     public void show() {
-        if (playerService.getWinner() != null)
-            game.endGame(playerService.getWinner());
-
         hudViewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
 //        TODO: make it so the buttons are positioned and scaled correctly when the LegalMoves mainTable becomes visible
@@ -106,6 +103,9 @@ public class GameScreen extends ScreenAdapter {
         gameCamera.update();
 
         Gdx.input.setInputProcessor(inputMultiplexer);
+
+        if (playerService.getWinner() != null)
+            game.endGame(playerService.getWinner());
     }
 
     @Override
@@ -115,6 +115,9 @@ public class GameScreen extends ScreenAdapter {
 
         while (playerService.hasUpdates()) {
             updateProcessor.process(playerService.getUpdate());
+
+            if (playerService.getWinner() != null)
+                game.endGame(playerService.getWinner());
         }
 
         ScreenUtils.clear(0,0 , 0, 1);
