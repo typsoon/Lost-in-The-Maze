@@ -1,11 +1,11 @@
 package com.bksgames.game.core.main;
 
+import com.bksgames.game.core.moves.Action;
 import com.bksgames.game.common.updates.Update;
 import com.bksgames.game.core.boards.Board;
 import com.bksgames.game.core.main.updateHolders.UpdateHolder;
 import com.bksgames.game.core.utils.Parameters;
 import com.bksgames.game.core.utils.Point;
-import com.bksgames.game.core.actions.Action;
 import com.bksgames.game.common.PlayerColor;
 
 import java.util.Collection;
@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public interface GameManager  {
 
-    boolean makeMove(Action move);
+//    boolean makeMove(Action acceptMove);
 
     @SuppressWarnings("UnusedReturnValue")
     <T extends Update> boolean sendUpdate(UpdateHolder<T> updateHolder, PlayerColor playerColor);
@@ -30,9 +30,6 @@ public interface GameManager  {
     }
 
     Collection<Action> getLegalMoves(Point position);
-    default Collection<Action> getLegalMoves(int x, int y){
-        return getLegalMoves(new Point(x,y));
-    }
 
 
     Board getBoard();

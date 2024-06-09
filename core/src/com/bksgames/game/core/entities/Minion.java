@@ -41,7 +41,7 @@ public class Minion implements Entity, Owned, Interactive, Respawnable {
     }
 
     /**
-     * Move {@code Minion} to adjacent field
+     * Action {@code Minion} to adjacent field
      *
      * @param direction {@code Direction} of moving
      */

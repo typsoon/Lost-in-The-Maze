@@ -1,23 +1,24 @@
 package com.bksgames.game.services;
 
+import com.bksgames.game.common.moves.IncompleteMove;
 import com.bksgames.game.core.main.GameManager;
 import com.bksgames.game.core.utils.Point;
-import com.bksgames.game.core.actions.Action;
+import com.bksgames.game.core.moves.Action;
 import com.bksgames.game.core.utils.Parameters;
 import com.bksgames.game.core.main.SimpleGameManager;
 import com.bksgames.game.common.PlayerColor;
 import com.bksgames.game.common.updates.Update;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class SimpleGameService implements GameService {
 
     final Map<PlayerColor, PlayerService> players;
     GameManager gameManager;
     final Parameters parameters;
+
+    Collection<Action> possibleActions;
+
     @Override
     public PlayerService connect(PlayerColor player) {
         if(players.containsKey(player)) {
@@ -29,27 +30,29 @@ public class SimpleGameService implements GameService {
     }
 
     @Override
-    public Collection<Action> getLegalMoves(Point position, PlayerColor player) {
-        Collection<Action> relativeLegalMoves = new ArrayList<>();
+    public Collection<IncompleteMove> getLegalMoves(Point position, PlayerColor player) {
         if(player!=gameManager.getCurrentPlayer()) {
-            return relativeLegalMoves;
+            return Collections.emptyList();
         }
-        for(Action move : gameManager.getLegalMoves(gameManager.getPlayers().get(gameManager.getCurrentPlayer()).getAbsoluteCoordinates(position))) {
-            relativeLegalMoves.add(new Action(
-                    gameManager.getPlayers().get(gameManager.getCurrentPlayer()).getRelativeCoordinates(move.position()),
-                    move.type(),move.direction()));
-        }
-        return relativeLegalMoves;
+
+        possibleActions = gameManager.getLegalMoves(gameManager.getPlayers().get(player).getAbsoluteCoordinates(position));
+        return possibleActions.stream().map(Action::getIncompleteMove).toList();
     }
 
     @Override
-    public boolean move(Action move, PlayerColor player) {
+    public boolean acceptAction(IncompleteMove incompleteMove, PlayerColor player) {
         if(player!=gameManager.getCurrentPlayer()) {
             return false;
         }
-        return gameManager.makeMove(new Action(
-                gameManager.getPlayers().get(gameManager.getCurrentPlayer()).getAbsoluteCoordinates(move.position()),
-                move.type(),move.direction()));
+
+        Action foundAction = possibleActions.stream().filter(
+                action -> action.getIncompleteMove().equals(incompleteMove)).findFirst().orElse(null);
+        if (foundAction != null) {
+            foundAction.handle();
+            return true;
+        }
+
+        return false;
     }
 
     @Override

@@ -27,7 +27,7 @@ public class MirrorButtonGetter extends ActionButtonGetter {
             case RIGHT -> atlas.findRegion("SlashMirror");
             case LEFT -> atlas.findRegion("BackSlashMirror");
 
-            default -> throw new IllegalStateException("Unexpected value: " + incompleteMove.direction() + " as a mirror move direction");
+            default -> throw new IllegalStateException("Unexpected value: " + incompleteMove.direction() + " as a mirror acceptMove direction");
         };
 
         ImageButton button = new ImageButton(new TextureRegionDrawable(buttonTexture));

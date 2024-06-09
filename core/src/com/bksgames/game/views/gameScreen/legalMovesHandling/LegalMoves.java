@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.bksgames.game.common.moves.IncompleteMove;
 import com.bksgames.game.core.utils.Point;
-import com.bksgames.game.core.actions.Action;
+//import com.bksgames.game.core.actions.Action;
 import com.bksgames.game.services.PlayerService;
 import com.bksgames.game.viewmodels.PlayerViewModel;
 import com.bksgames.game.views.gameScreen.MazeMapFactory;
@@ -52,13 +52,12 @@ public class LegalMoves extends Stage {
         }
 
         Point minionLocation = playerViewModel.getMinionPos(activeMinionId);
-        Collection<Action> moves = playerService.getLegalMoves(minionLocation);
+        Collection<IncompleteMove> moves = playerService.getLegalMoves(minionLocation);
 
         if (moves == null)
             throw new IllegalStateException("legal moves are null");
 
-        currentLegalMoves = new ArrayList<>();
-        moves.forEach(move -> currentLegalMoves.add(new IncompleteMove(move.type(), move.direction())));
+        currentLegalMoves = new ArrayList<>(moves);
 
 //        TODO: delete this when done with testing
 //        currentLegalMoves.add(new IncompleteMove(ActionToken.DOOR, Direction.LEFT));
@@ -70,7 +69,7 @@ public class LegalMoves extends Stage {
 
         for (IncompleteMove incompleteMove : currentLegalMoves) {
             if (!moveToButtonMapping.containsKey(incompleteMove))
-                throw new IllegalStateException("No such legal move" + incompleteMove);
+                throw new IllegalStateException("No such legal acceptMove" + incompleteMove);
 
             moveToButtonMapping.get(incompleteMove).setVisible(true);
         }
@@ -114,11 +113,9 @@ public class LegalMoves extends Stage {
             throw new IllegalStateException("No active minion");
         }
 
-        Point minionPosition = playerViewModel.getMinionPos(activeMinionId);
-
         currentLegalMoves.clear();
 
-        return playerService.sendMove(new Action(minionPosition, incompleteMove.type(), incompleteMove.direction()));
+        return playerService.sendMove(incompleteMove);
     }
 
     public LegalMoves(TextureAtlas atlas, Viewport hudViewport, OrthographicCamera gameCamera, PlayerViewModel playerViewModel, PlayerService playerService) {
@@ -162,7 +159,7 @@ public class LegalMoves extends Stage {
 
         this.addListener(event -> {
             if (event instanceof ChosenMove chosenMove) {
-                Gdx.app.log("Move has been chosen", String.valueOf(chosenMove.getIncompleteMove()));
+                Gdx.app.log("Action has been chosen", String.valueOf(chosenMove.getIncompleteMove()));
 
                 sendMove(chosenMove.getIncompleteMove());
 

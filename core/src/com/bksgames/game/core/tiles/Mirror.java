@@ -10,7 +10,7 @@ import com.bksgames.game.common.PlayerColor;
  * @author jajko
  * @author riper
  */
-public record Mirror(com.bksgames.game.core.tiles.Mirror.Orientation orientation, PlayerColor owner) implements Owned {
+public record Mirror(Orientation orientation, PlayerColor owner) implements Owned {
     /**
      * {@code Orientation} of {@code Mirror}<br>
      * {@code SLASH} - {@code /}<br>

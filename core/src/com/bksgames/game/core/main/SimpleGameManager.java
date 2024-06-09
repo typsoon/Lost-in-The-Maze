@@ -1,16 +1,16 @@
 package com.bksgames.game.core.main;
 
 import com.bksgames.game.common.PlayerColor;
+import com.bksgames.game.core.moves.*;
 import com.bksgames.game.common.moves.ActionToken;
-import com.bksgames.game.core.actions.Action;
 import com.bksgames.game.common.updates.TileUpdate;
 import com.bksgames.game.common.updates.Update;
 import com.bksgames.game.common.utils.Direction;
 import com.bksgames.game.core.boards.Board;
 import com.bksgames.game.core.boards.SquareBoardFactory;
 import com.bksgames.game.core.entities.Minion;
-import com.bksgames.game.core.main.actionsHandlers.ActionHandler;
-import com.bksgames.game.core.main.actionsHandlers.ActionHandlerFactory;
+//import com.bksgames.game.core.main.actionsHandlers.ActionHandler;
+//import com.bksgames.game.core.main.actionsHandlers.ActionHandlerFactory;
 import com.bksgames.game.core.main.updateHolders.UpdateHolder;
 import com.bksgames.game.core.utils.Parameters;
 import com.bksgames.game.core.utils.Point;
@@ -28,7 +28,7 @@ import java.util.*;
 public class SimpleGameManager implements GameManager {
     private final Board board;
     private final EnumMap<PlayerColor, Player> players;
-    private final EnumMap<ActionToken, ActionHandler> moveHandlers;
+//    private final EnumMap<ActionToken, ActionHandler> moveHandlers;
     private final GameService gameService;
     private final Parameters parameters;
     private PlayerColor activePlayer;
@@ -36,15 +36,15 @@ public class SimpleGameManager implements GameManager {
     private final DamageManager damageManager;
     private final VisionManager visionManager;
 
-    @Override
-    public boolean makeMove(Action move) {
-        if (!getLegalMoves(move.position()).contains(move)) {
-            return false;
-        }
-        players.get(activePlayer).getMinion(move.position()).makeAction(move.type());
-        moveHandlers.get(move.type()).handle(move);
-        return true;
-    }
+//    @Override
+//    public boolean makeMove(Action acceptMove) {
+//        if (!getLegalMoves(acceptMove.position()).contains(acceptMove)) {
+//            return false;
+//        }
+//        players.get(activePlayer).getMinion(acceptMove.position()).makeAction(acceptMove.type());
+//        moveHandlers.get(acceptMove.type()).handle(acceptMove);
+//        return true;
+//    }
 
     @Override
     public <T extends Update> boolean sendUpdate(UpdateHolder<T> updateHolder, PlayerColor playerColor) {
@@ -54,39 +54,39 @@ public class SimpleGameManager implements GameManager {
         return true;
     }
 
-    //TODO move somewhere
+    //TODO acceptMove somewhere
     @Override
     public Collection<Action> getLegalMoves(Point position) {
         Minion minion = players.get(getCurrentPlayer()).getMinion(position);
-        Collection<Action> legalMoves = new ArrayList<>();
+        Collection<Action> legalActions = new ArrayList<>();
         if (minion == null) {
-            return legalMoves;
+            return legalActions;
         }
         if (minion.canMakeAction(ActionToken.MOVE)) {
             for (Direction direction : Direction.values()) {
                 if (board.getTile(direction.getNext(position)).getTunnel() != null
                         && board.getTile(direction.getNext(position)).getTunnel().getEntities().isEmpty()) {
-                    legalMoves.add(new Action(position.copy(), ActionToken.MOVE, direction));
+                    legalActions.add(new MoveAction(direction, position.copy(), this));
                 }
             }
         }
         if (minion.canMakeAction(ActionToken.MIRROR)) {
             if (board.getTile(position).getTunnel().getMirror() == null) {
-                legalMoves.add(new Action(position, ActionToken.MIRROR, Direction.LEFT));
-                legalMoves.add(new Action(position, ActionToken.MIRROR, Direction.RIGHT));
+                legalActions.add(new MirrorAction(Direction.LEFT, position.copy(), this));
+                legalActions.add(new MirrorAction(Direction.RIGHT, position.copy(), this));
             }
         }
         if (minion.canMakeAction(ActionToken.LASER)) {
             for (Direction direction : Direction.values()) {
-                legalMoves.add(new Action(position, ActionToken.LASER, direction));
+                legalActions.add(new LaserAction(direction, position.copy(), this));
             }
         }
         if (minion.canMakeAction(ActionToken.SWORD)) {
             for (Direction direction : Direction.values()) {
-                legalMoves.add(new Action(position, ActionToken.SWORD, direction));
+                legalActions.add(new SwordAction(direction, position.copy(), this));
             }
         }
-        return legalMoves;
+        return legalActions;
     }
 
     @Override
@@ -135,10 +135,10 @@ public class SimpleGameManager implements GameManager {
         this.damageManager = new DamageManager(this);
         this.visionManager = new VisionManager(this);
 
-        moveHandlers = new EnumMap<>(ActionToken.class);
-        for (ActionToken moveType : ActionToken.values()) {
-            moveHandlers.put(moveType, ActionHandlerFactory.CreateActionHandler(moveType, this));
-        }
+//        moveHandlers = new EnumMap<>(ActionToken.class);
+//        for (ActionToken moveType : ActionToken.values()) {
+//            moveHandlers.put(moveType, ActionHandlerFactory.CreateActionHandler(moveType, this));
+//        }
         players = new EnumMap<>(PlayerColor.class);
 
         players.put(PlayerColor.BLUE,
