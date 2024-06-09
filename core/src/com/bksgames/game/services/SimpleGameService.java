@@ -64,7 +64,7 @@ public  class SimpleGameService implements GameService {
 
     @Override
     public void startGame() {
-        if(gameManager!=null) {
+        if(gameManager!=null && gameManager.getWinner()==null) {
             throw new IllegalStateException("Game already started");
         }
         gameManager = new SimpleGameManager(this,parameters);
