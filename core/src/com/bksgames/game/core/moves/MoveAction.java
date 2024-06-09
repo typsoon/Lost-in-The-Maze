@@ -18,15 +18,16 @@ public class MoveAction extends Action {
 
     @Override
     public void handle() {
-        Point point = minionPosition;
+        Point point;
         Tile currentTile = gameManager.getBoard().getTile(minionPosition);
         Tunnel currentTunnel = currentTile.getTunnel();
 
         Minion minion = gameManager.getPlayers().get(gameManager.getCurrentPlayer()).getMinion(minionPosition);
         if(minion == null)
         {
-            System.out.println("No minion found");
+            return;
         }
+        minion.makeAction(getActionToken());
         Point lastPos = new Point(minion.getX(), minion.getY());
         currentTunnel.removeEntity(minion);
 
