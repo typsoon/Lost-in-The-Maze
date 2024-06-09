@@ -12,7 +12,7 @@ import com.bksgames.game.common.updates.Update;
 
 import java.util.*;
 
-public class SimpleGameService implements GameService {
+public  class SimpleGameService implements GameService {
 
     final Map<PlayerColor, PlayerService> players;
     GameManager gameManager;
@@ -31,7 +31,7 @@ public class SimpleGameService implements GameService {
     }
 
     @Override
-    public Collection<IncompleteMove> getLegalMoves(Point position, PlayerColor player) {
+    public synchronized Collection<IncompleteMove> getLegalMoves(Point position, PlayerColor player) {
         if(player!=gameManager.getCurrentPlayer()) {
             return Collections.emptyList();
         }
@@ -41,7 +41,7 @@ public class SimpleGameService implements GameService {
     }
 
     @Override
-    public boolean acceptAction(IncompleteMove incompleteMove, PlayerColor player) {
+    public synchronized boolean acceptAction(IncompleteMove incompleteMove, PlayerColor player) {
         if(player!=gameManager.getCurrentPlayer()) {
             return false;
         }
@@ -82,6 +82,11 @@ public class SimpleGameService implements GameService {
     @Override
     public PlayerColor getWinner() {
         return PlayerColor.BLUE;
+    }
+
+    @Override
+    public void endGame() {
+        gameManager = null;
     }
 
     public SimpleGameService(Parameters parameters) {

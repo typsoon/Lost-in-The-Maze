@@ -20,7 +20,7 @@ public class LaserAction extends Action {
     public void handle() {
         List<Point> lineOfSight = gameManager.getBoard().getLineOfSight(minionPosition, getIncompleteMove().direction());
         List<Direction> line = new ArrayList<>();
-        Point prev = minionPosition;
+        Point prev = minionPosition.copy();
         for (Point p : lineOfSight) {
             line.add(Direction.getDirection(prev, p));
             prev = p;
@@ -28,16 +28,17 @@ public class LaserAction extends Action {
         gameManager.getDamageManager().dealDamage(
                 new SourceOfDamage(gameManager.getParameters(), SourceOfDamage.DamageType.LASER), lineOfSight.stream().distinct().toList()
         );
-        getIncompleteMove().direction().next(minionPosition);
+
+        Point point =  getIncompleteMove().direction().getNext(minionPosition);
         for (int i = 1; i < line.size(); i++) {
             LaserUpdate laserUpdateToBeSent;
             if (line.get(i - 1).equals(line.get(i))) {
-                laserUpdateToBeSent = new LaserUpdate(line.get(i-1), null, minionPosition.x, minionPosition.y);
+                laserUpdateToBeSent = new LaserUpdate(line.get(i-1), null, point.x, point.y);
             } else {
-                laserUpdateToBeSent = new LaserUpdate(line.get(i-1), line.get(i), minionPosition.x, minionPosition.y);
+                laserUpdateToBeSent = new LaserUpdate(line.get(i-1), line.get(i), point.x, point.y);
             }
             gameManager.sendUpdate(UpdateHolderFactory.produceUpdateHolder(laserUpdateToBeSent));
-            line.get(i).next(minionPosition);
+            point = line.get(i).getNext(point);
         }
     }
 

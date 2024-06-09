@@ -1,5 +1,6 @@
 package com.bksgames.game.core.tiles;
 
+import com.bksgames.game.core.main.BoardManager;
 import com.bksgames.game.core.utils.Owned;
 import com.bksgames.game.common.utils.Direction;
 import com.bksgames.game.common.PlayerColor;

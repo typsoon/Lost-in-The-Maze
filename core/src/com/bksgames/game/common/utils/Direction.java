@@ -10,10 +10,6 @@ public enum Direction {
         this.x=x;
         this.y=y;
     }
-    public void next(Point point){
-        point.x+=this.x;
-        point.y+=this.y;
-    }
     public Point getNext(Point point){
         return new Point(point.x+this.x,point.y+this.y);
     }

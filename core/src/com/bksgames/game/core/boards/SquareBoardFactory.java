@@ -1,5 +1,8 @@
 package com.bksgames.game.core.boards;
 
+import com.bksgames.game.common.utils.Direction;
+import com.bksgames.game.core.main.BoardManager;
+import com.bksgames.game.core.main.GameManager;
 import com.bksgames.game.core.tiles.Nexus;
 import com.bksgames.game.core.utils.Parameters;
 import com.bksgames.game.core.tiles.Tunnel;
@@ -19,7 +22,7 @@ public class SquareBoardFactory
     /**
      * @return simple {@code SquareBoard} for 2 {@code Players}
      */
-    static public SquareBoard CreateSBFor2Players(Parameters parameters)    {
+    static public SquareBoard CreateSBFor2Players(Parameters parameters, BoardManager boardManager)    {
         SquareBoard board = new SquareBoard(Math.max(parameters.mapSize(), 27), parameters.baseSize()); // do przemyslenia
 
         board.playerNexuses.put(PlayerColor.RED,new ArrayList<>());
@@ -173,27 +176,27 @@ public class SquareBoardFactory
                 actSP = new Point(spNexusOffset.x,spNexusOffset.y);
         for(int x=1;x<=parameters.baseSize();x++)
         {
-            actFP.x++;
-            actSP.x++;
+            actFP = Direction.RIGHT.getNext(actFP);
+            actSP = Direction.RIGHT.getNext(actSP);
 
-            actFP.y = fpNexusOffset.y;
-            actSP.y = spNexusOffset.y;
+            actFP = new Point(actFP.x,fpNexusOffset.y);
+            actSP = new Point(actSP.x,spNexusOffset.y);
             for(int y=1;y<=parameters.baseSize();y++)
             {
 
-                actFP.y++;
-                actSP.y++;
+                actFP = Direction.UP.getNext(actFP);
+                actSP = Direction.UP.getNext(actSP);
                 if(x==4 && y==4)
                 {
                     if(rng.nextInt(10000)%2==0){
-                        board.grid[actFP.x][actFP.y] = new Nexus(PlayerColor.RED,actFP,parameters.nexusHitPoints());
+                        board.grid[actFP.x][actFP.y] = new Nexus(PlayerColor.RED,actFP,parameters.nexusHitPoints(),boardManager);
                         board.playerNexuses.get(PlayerColor.RED).add((Nexus) board.grid[actFP.x][actFP.y]);
-                        board.grid[actSP.x][actSP.y] = new Nexus(PlayerColor.BLUE,actSP,parameters.nexusHitPoints());
+                        board.grid[actSP.x][actSP.y] = new Nexus(PlayerColor.BLUE,actSP,parameters.nexusHitPoints(),boardManager);
                         board.playerNexuses.get(PlayerColor.BLUE).add((Nexus) board.grid[actSP.x][actSP.y]);
                     }else {
-                        board.grid[actFP.x][actFP.y] = new Nexus(PlayerColor.BLUE,actFP,parameters.nexusHitPoints());
+                        board.grid[actFP.x][actFP.y] = new Nexus(PlayerColor.BLUE,actFP,parameters.nexusHitPoints(),boardManager);
                         board.playerNexuses.get(PlayerColor.BLUE).add((Nexus) board.grid[actFP.x][actFP.y]);
-                        board.grid[actSP.x][actSP.y] = new Nexus(PlayerColor.RED,actSP,parameters.nexusHitPoints());
+                        board.grid[actSP.x][actSP.y] = new Nexus(PlayerColor.RED,actSP,parameters.nexusHitPoints(),boardManager);
                         board.playerNexuses.get(PlayerColor.RED).add((Nexus) board.grid[actSP.x][actSP.y]);
                     }
 

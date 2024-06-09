@@ -17,4 +17,6 @@ public interface KnownPosition {
      * @return {@code y} coordinate of position of object
      */
     default int getY(){return this.getPosition().y;}
+
+    void notifyPositionChanged();
 }

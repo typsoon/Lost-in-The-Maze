@@ -35,7 +35,7 @@ public class SimpleGameManager implements GameManager {
     private Iterator<PlayerColor> nextPlayer;
     private final DamageManager damageManager;
     private final VisionManager visionManager;
-
+    private final BoardManager boardManager;
 //    @Override
 //    public boolean makeMove(Action acceptMove) {
 //        if (!getLegalMoves(acceptMove.position()).contains(acceptMove)) {
@@ -56,7 +56,7 @@ public class SimpleGameManager implements GameManager {
 
     //TODO acceptMove somewhere
     @Override
-    public Collection<Action> getLegalMoves(Point position) {
+    public synchronized Collection<Action> getLegalMoves(Point position) {
         Minion minion = players.get(getCurrentPlayer()).getMinion(position);
         Collection<Action> legalActions = new ArrayList<>();
         if (minion == null) {
@@ -131,9 +131,10 @@ public class SimpleGameManager implements GameManager {
     public SimpleGameManager(GameService gameService, Parameters parameters) {
         this.parameters = parameters;
         this.gameService = gameService;
-        this.board = SquareBoardFactory.CreateSBFor2Players(parameters);
         this.damageManager = new DamageManager(this);
         this.visionManager = new VisionManager(this);
+        this.boardManager = new BoardManager(this);
+        this.board = SquareBoardFactory.CreateSBFor2Players(parameters,boardManager);
 
 //        moveHandlers = new EnumMap<>(ActionToken.class);
 //        for (ActionToken moveType : ActionToken.values()) {
@@ -155,7 +156,7 @@ public class SimpleGameManager implements GameManager {
         for (PlayerColor playerColor : players.keySet()) {
             visionManager.playerVisionUpdate(playerColor);
         }
-        //mapTesting();
+        mapTesting();
     }
 
     private void playerSetup(PlayerColor color) {
@@ -165,7 +166,7 @@ public class SimpleGameManager implements GameManager {
             if (i >= parameters.minionCount()) {
                 break;
             }
-            Minion minion = new Minion(direction.getNext(player.getMainNexus()), parameters.minionHitPoints(), parameters.actionsNumber(), color);
+            Minion minion = new Minion(direction.getNext(player.getMainNexus()),boardManager , parameters.minionHitPoints(), parameters.actionsNumber(), color);
             player.addMinion(minion);
             // damageManager.subscribe(minion);
             board.getTile(direction.getNext(player.getMainNexus())).getTunnel().addEntity(minion);

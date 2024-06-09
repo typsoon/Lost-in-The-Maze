@@ -1,5 +1,7 @@
 package com.bksgames.game.core.boards;
 
+import com.bksgames.game.common.Displayable;
+import com.bksgames.game.common.utils.Direction;
 import com.bksgames.game.core.utils.Point;
 
 import java.util.*;
@@ -129,13 +131,13 @@ class BoardGenerationUtils {
         while(prevGrid[act.x][act.y]!=0)
         {
             if(prevGrid[act.x][act.y]==1)
-                act.x++;
+                act = Direction.RIGHT.getNext(act);
             else if(prevGrid[act.x][act.y]==2)
-                act.x--;
+                act = Direction.LEFT.getNext(act);
             else if(prevGrid[act.x][act.y]==3)
-                act.y++;
+                act = Direction.UP.getNext(act);
             else
-                act.y--;
+                act = Direction.DOWN.getNext(act);
             grid[act.x][act.y]=c;
         }
     }

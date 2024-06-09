@@ -18,7 +18,7 @@ public class SwordButtonGetter extends ActionButtonGetter{
 
     SwordButtonGetter(TextureAtlas atlas) {
         super(atlas);
-        buttonClickSound = Gdx.audio.newSound(Gdx.files.internal("assets/audio/swordSound.mp3"));
+        buttonClickSound = Gdx.audio.newSound(Gdx.files.internal("audio/swordSound.mp3"));
     }
 
     @Override
