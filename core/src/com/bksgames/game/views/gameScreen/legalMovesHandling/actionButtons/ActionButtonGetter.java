@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.bksgames.game.views.gameScreen.legalMovesHandling.IncompleteMove;
+import com.bksgames.game.common.moves.IncompleteMove;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.ChosenMove;
 
 public abstract class ActionButtonGetter {

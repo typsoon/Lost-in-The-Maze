@@ -7,11 +7,19 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
 import com.bksgames.game.common.utils.Direction;
 import com.bksgames.game.viewmodels.PlayerViewModel;
+import com.bksgames.game.views.displayProperties.DisplayProperties;
+import com.bksgames.game.views.displayProperties.DisplayPropertiesSingleton;
 
 public class ScreenMover extends InputAdapter {
     private final OrthographicCamera gameCamera;
-    private static final float cameraSpeed = 400f;
-    private static final float offset = 10;
+    private static final float cameraSpeed = DisplayPropertiesSingleton.getInstance().offset();
+    private static final float offset = DisplayPropertiesSingleton.getInstance().offset();
+    private static final float scrollZoomMultiplier = DisplayPropertiesSingleton.getInstance().scrollZoomMultiplier();
+
+    private static final float invertedZoomMultiplier = 1/(1+1/scrollZoomMultiplier);
+
+    private static final float adjustZoomSpeed = DisplayPropertiesSingleton.getInstance().adjustZoomSpeed();
+
     //    private static final float cameraSpeed = 5f;
     private boolean leftPressed, rightPressed, upPressed, downPressed;
     private int lastMouseX, lastMouseY;
@@ -90,11 +98,14 @@ public class ScreenMover extends InputAdapter {
     }
 
     private static float getMin(Vector3 displayedRectangleCenter, Vector3 acceptableLeftUpper, Vector3 acceptableRightLower) {
-        float t1 = (displayedRectangleCenter.x - acceptableLeftUpper.x) / 400;
-        float t2 = (acceptableLeftUpper.y - displayedRectangleCenter.y) / 240;
+        final float screenWidth = Gdx.graphics.getWidth();
+        final float screenHeight = Gdx.graphics.getHeight();
 
-        float t3 = (acceptableRightLower.x - displayedRectangleCenter.x)/ 400;
-        float t4 = (displayedRectangleCenter.y - acceptableRightLower.y) / 240;
+        float t1 = (displayedRectangleCenter.x - acceptableLeftUpper.x) * 2 / screenWidth;
+        float t2 = (acceptableLeftUpper.y - displayedRectangleCenter.y) * 2 / screenHeight;
+
+        float t3 = (acceptableRightLower.x - displayedRectangleCenter.x) * 2 / screenWidth;
+        float t4 = (displayedRectangleCenter.y - acceptableRightLower.y) * 2 / screenHeight;
 
 //        Gdx.app.log("tInfo", String.valueOf(t1) + ' ' + String.valueOf(t2) + ' ' + String.valueOf(t3) + ' ' + String.valueOf(t4));
 //
@@ -108,10 +119,10 @@ public class ScreenMover extends InputAdapter {
         float added;
         if (amountY > 0) {
             // Zoom in when scrolling up
-            added = gameCamera.zoom * 0.1f;
+            added = gameCamera.zoom * scrollZoomMultiplier;
         } else {
             // Zoom out when scrolling down
-            added = -gameCamera.zoom / 11f;
+            added = -gameCamera.zoom / 0.11f;
         }
         adjustZoom(added);
         return true; // Indicate that the input event was handled
@@ -226,10 +237,10 @@ public class ScreenMover extends InputAdapter {
 
         if (controlPressed) {
             if (zoomOutPressed) {
-                adjustZoom(0.02f);
+                adjustZoom(adjustZoomSpeed);
             }
             if (zoomInPressed) {
-                adjustZoom(-0.02f);
+                adjustZoom(-adjustZoomSpeed);
             }
         }
 

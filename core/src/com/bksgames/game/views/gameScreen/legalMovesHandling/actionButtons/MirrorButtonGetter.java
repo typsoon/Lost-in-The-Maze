@@ -8,10 +8,11 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.bksgames.game.views.gameScreen.legalMovesHandling.IncompleteMove;
+import com.bksgames.game.views.displayProperties.DisplayPropertiesSingleton;
+import com.bksgames.game.common.moves.IncompleteMove;
 
 public class MirrorButtonGetter extends ActionButtonGetter {
-    static final int mirrorButtonSize = 25;
+    static final int mirrorButtonSize = DisplayPropertiesSingleton.getInstance().mirrorButtonSize();
     private final Sound buttonClickSound;
 
     MirrorButtonGetter(TextureAtlas atlas) {

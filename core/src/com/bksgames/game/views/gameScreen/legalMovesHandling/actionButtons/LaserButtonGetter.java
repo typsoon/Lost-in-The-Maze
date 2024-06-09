@@ -9,10 +9,11 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.bksgames.game.views.gameScreen.legalMovesHandling.IncompleteMove;
+import com.bksgames.game.views.displayProperties.DisplayPropertiesSingleton;
+import com.bksgames.game.common.moves.IncompleteMove;
 
 public class LaserButtonGetter extends ActionButtonGetter {
-    static public final int LaserArrowButtonSize = 25;
+    static public final int LaserArrowButtonSize = DisplayPropertiesSingleton.getInstance().laserButtonSize();
     private final Sound buttonClickSound;
 
     LaserButtonGetter(TextureAtlas atlas) {

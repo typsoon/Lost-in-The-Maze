@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.bksgames.game.LostInTheMaze;
 import com.bksgames.game.services.PlayerService;
+import com.bksgames.game.views.displayProperties.DisplayPropertiesSingleton;
 
 public class EndTheTurnStage extends Stage {
 	final Skin skin;
@@ -39,7 +40,7 @@ public class EndTheTurnStage extends Stage {
 		Button endTheTurnButton = new TextButton("End Turn", textButtonStyle);
 
 		table.add().expand();
-		table.add(endTheTurnButton).top().padTop(20);
+		table.add(endTheTurnButton).top().padTop(DisplayPropertiesSingleton.getInstance().endTheTurnScreenButtonTopPadding());
 		table.add().expand();
 
 		endTheTurnButton.addListener(new ClickListener() {
