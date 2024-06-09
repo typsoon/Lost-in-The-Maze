@@ -36,6 +36,8 @@ public class Nexus implements Vulnerable, KnownPosition, Owned, Tile {
 
     @Override
     public UpdateHolder<?> damage(SourceOfDamage sourceOfDamage) {
+        if(sourceOfDamage.getSource()== SourceOfDamage.DamageType.LASER)
+            return null;
         hitPoints -= sourceOfDamage.getDamageValue();
         if (hitPoints <= 0)
             return null; //TODO nexus destroyed update
