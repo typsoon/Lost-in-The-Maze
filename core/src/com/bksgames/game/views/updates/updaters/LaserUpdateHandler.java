@@ -41,7 +41,7 @@ public class LaserUpdateHandler extends Updater<LaserUpdate> {
 //
 //        // Dispose of the FrameBuffer after use
 //        frameBuffer.dispose();
-//
+///
 //        return result;
 //    }
 

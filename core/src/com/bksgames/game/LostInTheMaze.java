@@ -9,6 +9,7 @@ import com.bksgames.game.common.PlayerColor;
 import com.bksgames.game.services.GameService;
 import com.bksgames.game.services.PlayerService;
 import com.bksgames.game.services.SimpleGameService;
+import com.bksgames.game.views.EndGameScreen;
 import com.bksgames.game.views.MainMenuScreen;
 import com.bksgames.game.views.TurnTransitionScreen;
 import com.bksgames.game.views.displayProperties.DisplayPropertiesSingleton;
@@ -22,6 +23,7 @@ public class LostInTheMaze extends Game {
 	public String gameTitle;
 	private PlayerService activePlayer;
 	private final TurnTransitionScreen turnTransitionScreen = new TurnTransitionScreen(this);
+
 	final Map<PlayerService,GameScreen> playerScreens = new HashMap<>();
 	private Music backgroundMusic;
 
@@ -29,7 +31,7 @@ public class LostInTheMaze extends Game {
 	public void create () {
 		gameTitle = "Lost in The Maze";
 
-		backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("assets/audio/LostInTheMaze.mp3"));
+		backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/LostInTheMaze.mp3"));
 		backgroundMusic.setLooping(true);
 		backgroundMusic.setVolume(DisplayPropertiesSingleton.getInstance().backgroungMusicVolume());
 		Timer.schedule(new Timer.Task() {
@@ -66,7 +68,7 @@ public class LostInTheMaze extends Game {
 		displayGameScreen();
 	}
 
-	public void endTurn(){
+	public void endTurn() {
 		setScreen(turnTransitionScreen);
 
 		Iterator<PlayerService> iter = playerScreens.keySet().iterator();
@@ -74,6 +76,10 @@ public class LostInTheMaze extends Game {
 			activePlayer = iter.next();
 		}
 		else activePlayer = playerScreens.keySet().iterator().next();
+	}
+
+	public void endGame(PlayerColor winner) {
+		setScreen(new EndGameScreen(this, winner));
 	}
 
 	public void displayGameScreen(){

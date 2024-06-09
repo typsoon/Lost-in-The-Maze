@@ -80,6 +80,9 @@ public class GameScreen extends ScreenAdapter {
 
     @Override
     public void show() {
+        if (playerService.getWinner() != null)
+            game.endGame(playerService.getWinner());
+
         hudViewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
 //        TODO: make it so the buttons are positioned and scaled correctly when the LegalMoves mainTable becomes visible

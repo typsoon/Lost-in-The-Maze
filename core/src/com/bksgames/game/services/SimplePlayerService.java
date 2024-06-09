@@ -52,6 +52,11 @@ public class SimplePlayerService implements PlayerService {
         }
     }
 
+    @Override
+    public PlayerColor getWinner() {
+        return gameService.getWinner();
+    }
+
     public SimplePlayerService(PlayerColor playerColor, GameService gameService) {
         this.playerColor = playerColor;
         this.gameService = gameService;

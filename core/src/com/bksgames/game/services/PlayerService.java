@@ -18,4 +18,6 @@ public interface PlayerService {
     Update getUpdate();
     boolean hasUpdates();
     void endTurn();
+
+    PlayerColor getWinner();
 }

@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.bksgames.game.LostInTheMaze;
+import com.bksgames.game.common.PlayerColor;
 
 public class EndGameScreen extends ScreenAdapter {
 	private TextureAtlas atlas;
@@ -24,9 +25,10 @@ public class EndGameScreen extends ScreenAdapter {
 
 	private final boolean isWinner; // true - blue, false - red
 
-	public EndGameScreen(LostInTheMaze game, boolean isWinner) {
+	public EndGameScreen(LostInTheMaze game, PlayerColor winner) {
 		this.game = game;
-		this.isWinner = isWinner;
+
+		this.isWinner = true;
 	}
 
 	@Override

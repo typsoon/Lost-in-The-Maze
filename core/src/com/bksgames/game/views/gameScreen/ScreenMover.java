@@ -122,7 +122,7 @@ public class ScreenMover extends InputAdapter {
             added = gameCamera.zoom * scrollZoomMultiplier;
         } else {
             // Zoom out when scrolling down
-            added = -gameCamera.zoom / 0.11f;
+            added = -gameCamera.zoom * invertedZoomMultiplier;
         }
         adjustZoom(added);
         return true; // Indicate that the input event was handled
