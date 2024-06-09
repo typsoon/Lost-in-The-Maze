@@ -12,6 +12,8 @@ class BoardGenerationUtils {
     static final private Random rng = new Random();
     static final private int INFINITY = 10000;
     static final private int MAX_RANDOM = 50;
+
+    @SuppressWarnings("SameParameterValue")
     static void randomPath(Point start, Point dest, int c, int[][]grid, int width, int height) {
        int[][]workGrid = new int[width][height];
        for(int y=0;y<height;y++)
@@ -62,6 +64,8 @@ class BoardGenerationUtils {
         grid[start.x][start.y] = c;
         createPath(dest, grid, prevGrid, c);
     }
+
+    @SuppressWarnings("SameParameterValue")
     static void generateRest(int [][]grid,int width,int height, int c){
         ArrayList<Point> fields = new ArrayList<>();
         for(int y=0;y<height;y++) {
@@ -136,9 +140,10 @@ class BoardGenerationUtils {
         }
     }
     private static class Node implements Comparable<Node>{
-        int x;
-        int y;
-        int l;
+        final int x;
+        final int y;
+        final int l;
+        @SuppressWarnings("unused")
         Node(){
             x=0;
             y=0;
@@ -150,6 +155,7 @@ class BoardGenerationUtils {
             this.y=y;
             this.l=l;
         }
+        @SuppressWarnings("unused")
         Node(Node n){
             x=n.x;
             y=n.y;
@@ -171,8 +177,6 @@ class BoardGenerationUtils {
     static boolean adjacent(Point a,Point b) {
         if(a.x==b.x && Math.abs(a.y-b.y)==1)
             return true;
-        if(a.y==b.y && Math.abs(a.x-b.x)==1)
-            return true;
-        return false;
+        return a.y == b.y && Math.abs(a.x - b.x) == 1;
     }
 }

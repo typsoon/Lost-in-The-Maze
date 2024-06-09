@@ -1,11 +1,8 @@
 package com.bksgames.game.views.gameScreen;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.bksgames.game.core.utils.Point;
-
-import java.util.Vector;
 
 public class MazeMapFactory {
 	final static public int tilePixelSize = 50;

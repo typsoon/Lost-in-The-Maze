@@ -15,7 +15,7 @@ public class ConfigManager implements Configuration{
 			(InputStream input = new FileInputStream(fileName)){
 			properties.load(input);
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
 	}
 

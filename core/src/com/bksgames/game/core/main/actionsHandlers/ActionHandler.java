@@ -12,7 +12,7 @@ public abstract class ActionHandler {
     /**
      * owner of handler
      */
-    GameManager gameManager;
+    final GameManager gameManager;
 
     /**
      * handling an action

@@ -3,8 +3,6 @@ package com.bksgames.game;
 import com.badlogic.gdx.Game;
 import com.bksgames.game.common.ConfigManagerSingleton;
 import com.bksgames.game.common.PlayerColor;
-import com.bksgames.game.core.main.Player;
-import com.bksgames.game.core.utils.Parameters;
 import com.bksgames.game.services.GameService;
 import com.bksgames.game.services.PlayerService;
 import com.bksgames.game.services.SimpleGameService;
@@ -15,13 +13,12 @@ import com.bksgames.game.views.gameScreen.GameScreen;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.TreeMap;
 
 public class LostInTheMaze extends Game {
 	public String gameTitle;
 	private PlayerService activePlayer;
 	private final TurnTransitionScreen turnTransitionScreen = new TurnTransitionScreen(this);
-	Map<PlayerService,GameScreen> playerScreens = new HashMap<>();
+	final Map<PlayerService,GameScreen> playerScreens = new HashMap<>();
 
 	@Override
 	public void create () {

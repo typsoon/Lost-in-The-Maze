@@ -14,12 +14,9 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.bksgames.game.LostInTheMaze;
 import com.bksgames.game.services.PlayerService;
 
-//import javax.swing.event.ChangeListener;
-//import java.awt.*;
-
 public class EndTheTurnStage extends Stage {
-	Skin skin;
-	Table table;
+	final Skin skin;
+	final Table table;
 
 	final LostInTheMaze game;
 

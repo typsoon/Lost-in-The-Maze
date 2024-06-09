@@ -10,13 +10,15 @@ public interface Interactive {
  /**
   * @return amount of active points
   */
-     int getActionPoints();
+ @SuppressWarnings("unused")
+ int getActionPoints();
  /**
   * Make action and use action points
   * @param actionToken type of action
   * @return if action was made
   */
-     boolean makeAction(ActionToken actionToken);
+ @SuppressWarnings("UnusedReturnValue")
+ boolean makeAction(ActionToken actionToken);
  /**
   *
   * @param actionToken type of action

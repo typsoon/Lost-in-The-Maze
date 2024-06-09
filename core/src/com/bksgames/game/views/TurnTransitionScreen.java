@@ -12,13 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.bksgames.game.LostInTheMaze;
-import com.bksgames.game.core.utils.Parameters;
-import com.bksgames.game.services.GameService;
-import com.bksgames.game.services.SimpleGameService;
-import com.bksgames.game.views.gameScreen.EndTheTurnStage;
 
 public class TurnTransitionScreen extends ScreenAdapter {
 

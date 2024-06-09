@@ -84,7 +84,7 @@ public class Tunnel implements Tile {
         if (mirror == null) {
             return Displayable.TUNNEL;
         }
-        return PlayerEnums.getMirrorDisplayable(mirror.getOwner(), mirror.getOrientation());
+        return PlayerEnums.getMirrorDisplayable(mirror.owner(), mirror.orientation());
     }
 
     @Override

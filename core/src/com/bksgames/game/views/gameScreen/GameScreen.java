@@ -86,13 +86,6 @@ public class GameScreen extends ScreenAdapter {
 //        TODO: make it so the buttons are positioned and scaled correctly when the LegalMoves mainTable becomes visible
         hudViewport.setWorldSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-//        Gdx.app.log("ScreenSize", String.valueOf(Gdx.graphics.getWidth()) + ' ' + Gdx.graphics.getHeight());
-//        Gdx.app.log("hudViewport world width", String.valueOf(hudViewport.getWorldWidth()) + ' ' + hudViewport.getWorldHeight());
-//        Gdx.app.log("hudViewport screen width", String.valueOf(hudViewport.getScreenWidth()) + ' ' + hudViewport.getScreenHeight());
-//        Gdx.app.log("ScreenSize", String.valueOf(Gdx.graphics.getWidth()) + ' ' + Gdx.graphics.getHeight());
-//        Gdx.app.log("hudViewport world width", String.valueOf(hudViewport.getWorldWidth()) + ' ' + hudViewport.getWorldHeight());
-//        Gdx.app.log("hudViewport screen width", String.valueOf(hudViewport.getScreenWidth()) + ' ' + hudViewport.getScreenHeight());
-
         boardAtlas = new TextureAtlas(Gdx.files.internal("Board.atlas"));
         actionButtonsAtlas = new TextureAtlas(Gdx.files.internal("ActionButtons.atlas"));
 

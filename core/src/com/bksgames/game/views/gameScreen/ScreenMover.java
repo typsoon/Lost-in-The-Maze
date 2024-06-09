@@ -21,7 +21,7 @@ public class ScreenMover extends InputAdapter {
     private boolean zoomInPressed;
     private boolean zoomOutPressed;
 
-    PlayerViewModel playerViewModel;
+    final PlayerViewModel playerViewModel;
 
     ScreenMover(OrthographicCamera gameCamera, PlayerViewModel playerViewModel) {
         this.gameCamera = gameCamera;
@@ -137,8 +137,6 @@ public class ScreenMover extends InputAdapter {
             int deltaX = screenX - lastMouseX;
             int deltaY = screenY - lastMouseY;
 
-            var tempX = gameCamera.position.x - deltaX * gameCamera.zoom;
-            var tempY = gameCamera.position.y + deltaY * gameCamera.zoom;
 //            gameCamera.translate(-deltaX * gameCamera.zoom, deltaY*gameCamera.zoom);
             alterCameraPosition(-deltaX * gameCamera.zoom, deltaY * gameCamera.zoom);
 

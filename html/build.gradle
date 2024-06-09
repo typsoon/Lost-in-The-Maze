@@ -8,12 +8,14 @@ gwt {
     devModules 'com.bksgames.game.GdxDefinitionSuperdev'
     project.webAppDirName = 'webapp'
 
-    compiler {
-        strict = true;
-        disableCastChecking = true;
-    }
+    compiler(({
+        strict = true
+        disableCastChecking = true
+    } as Closure<GwtCompileOptions>))
 }
 
+
+import org.docstr.gradle.plugins.gwt.GwtCompileOptions
 import org.docstr.gradle.plugins.gwt.GwtSuperDev
 import org.akhikhl.gretty.AppBeforeIntegrationTestTask
 
@@ -38,7 +40,8 @@ tasks.register('startHttpServer') {
     }
 }
 
-task beforeRun(type: AppBeforeIntegrationTestTask, dependsOn: startHttpServer) {
+tasks.register('beforeRun', AppBeforeIntegrationTestTask) {
+    dependsOn startHttpServer
     // The next line allows ports to be reused instead of
     // needing a process to be manually terminated.
     file("build/TEMP_PORTS.properties").delete()
@@ -86,7 +89,6 @@ tasks.compileGwt.dependsOn(addSource)
 tasks.draftCompileGwt.dependsOn(addSource)
 tasks.checkGwt.dependsOn(addSource)
 
-sourceCompatibility = 1.8
 sourceSets.main.java.srcDirs = [ "src/" ]
 
 eclipse.project.name = appName + "-html"

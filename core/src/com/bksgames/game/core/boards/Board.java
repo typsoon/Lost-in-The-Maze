@@ -32,11 +32,14 @@ public interface Board {
     /**
      * @return {@code Width} of {@code Board}
      */
+    @SuppressWarnings("unused")
     int getWidth();
+
 
     /**
      * @return {@code Height} of {@code Board}
      */
+    @SuppressWarnings("unused")
     int getHeight();
 
     /**

@@ -15,9 +15,9 @@ import java.util.Map;
 
 public class SimpleGameService implements GameService {
 
-    Map<PlayerColor, PlayerService> players;
+    final Map<PlayerColor, PlayerService> players;
     GameManager gameManager;
-    Parameters parameters;
+    final Parameters parameters;
     @Override
     public PlayerService connect(PlayerColor player) {
         if(players.containsKey(player)) {

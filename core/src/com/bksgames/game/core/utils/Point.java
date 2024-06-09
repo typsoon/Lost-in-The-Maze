@@ -66,6 +66,7 @@ public class Point {
     /**
      * Constructs point with {@code (0,0)} coordinates
      */
+    @SuppressWarnings("unused")
     public Point() {
         this(0, 0);
     }

@@ -5,7 +5,6 @@ import com.bksgames.game.common.utils.Direction;
 import com.bksgames.game.viewmodels.laserHandling.ViewLaserHandler;
 
 import java.util.*;
-import java.util.List;
 
 public class SimpleViewModel implements PlayerViewModel{
     final List<Point> minionPositions;
@@ -16,7 +15,7 @@ public class SimpleViewModel implements PlayerViewModel{
         viewLaserHandler.addLaserAtPosition(position);
     }
 
-    EnumMap<Direction, Integer> mostDistances = new EnumMap<>(Map.of(
+    final EnumMap<Direction, Integer> mostDistances = new EnumMap<>(Map.of(
             Direction.UP, 0,
             Direction.DOWN, 0,
             Direction.RIGHT, 0,

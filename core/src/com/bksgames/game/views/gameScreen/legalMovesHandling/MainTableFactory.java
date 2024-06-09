@@ -16,22 +16,10 @@ import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.butto
 import com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons.buttonContainers.TwoButtonedButtonContainer;
 
 public class MainTableFactory {
-	static final int mainTableHeight = 200;
 	static final int actionsMenuWidth = 350;
 	static final int actionsMenuHeight = 100;
-	static final int actionButtonSize = 75;
 
 	static final int distanceToAdjacentButton = 10;
-	static final int bottomPadding = 20;
-	static final int leftPadding = 20;
-	static final int rightPadding = 20;
-
-	public static final int slashButtonSize = 30;
-	static final int arrowButtonSize = 75;
-	static public final int swordButtonSize = 25;
-	static public final int doorButtonSize = 25;
-
-	private Table mainTable;
 
 	//	static Map<MoveTypes, Table> mapping = new HashMap<>();
 	public static Table produce(ActionButtonFactory factory, TextureAtlas atlas){
@@ -41,9 +29,6 @@ public class MainTableFactory {
 
 		final Table actionsTable = new Table();
 		actionsTable.setBounds(0, 0, actionsMenuWidth, actionsMenuHeight);
-//		actionsTable.setSize(actionsMenuWidth, actionsMenuHeight);
-
-//		mainTable.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
 		Drawable drawable = new TextureRegionDrawable(atlas.findRegion("ActionMenuBackground"));
 		actionsTable.setBackground(drawable);

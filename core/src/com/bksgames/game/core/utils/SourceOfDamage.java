@@ -8,11 +8,12 @@ public class SourceOfDamage {
 
     public int getDamageValue() {
         return switch (damageType) {
-            case LASER -> parameters.laserDamage;
-            case SWORD -> parameters.swordDamage;
+            case LASER -> parameters.laserDamage();
+            case SWORD -> parameters.swordDamage();
         };
     }
 
+    @SuppressWarnings("unused")
     public DamageType getSource() { return damageType;}
 
     public enum DamageType {

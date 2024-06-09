@@ -11,8 +11,8 @@ import java.util.*;
 
 public class DamageManager {
     //    Map<Point, Collection<Vulnerable>> receivers;
-    Map<Respawnable, Integer> respawnWaitingRoom;
-    GameManager gameManager;
+    final Map<Respawnable, Integer> respawnWaitingRoom;
+    final GameManager gameManager;
 
     //    public DamageManager subscribe(Vulnerable vulnerable) {
 //        if(!receivers.containsKey(vulnerable.getPosition())) {

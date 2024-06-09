@@ -13,7 +13,6 @@ public class ActionHandlerFactory {
             case LASER -> new LaserHandler(manager);
             case SWORD -> new SwordHandler(manager);
             case MIRROR -> new MirrorHandler(manager);
-            default -> throw new RuntimeException("Missing ActionHandler for " + type.name() + "!");
         };
     }
 }

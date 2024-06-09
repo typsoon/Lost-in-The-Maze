@@ -18,7 +18,10 @@ public interface GameManager  {
 
     boolean makeMove(Move move);
 
+    @SuppressWarnings("UnusedReturnValue")
     <T extends Update> boolean sendUpdate(UpdateHolder<T> updateHolder, PlayerColor playerColor);
+
+    @SuppressWarnings("UnusedReturnValue")
     default <T extends Update> boolean sendUpdate(UpdateHolder<T> updateHolder){
         for(PlayerColor playerColor: getPlayers().keySet()){
             sendUpdate(updateHolder, playerColor);

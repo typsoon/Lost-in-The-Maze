@@ -12,11 +12,10 @@ import java.util.Queue;
 public class SimplePlayerService implements PlayerService {
     final PlayerColor playerColor; // color of player
     final GameService gameService;
-    int maxX, minX, maxY, minY;
 
 //    TODO: BIG TODO, CHANGE THIS TO STREAM
 //    TODO: TUDUDU TUDUDU
-    Queue<Update> updates = new ArrayDeque<>();
+    final Queue<Update> updates = new ArrayDeque<>();
 
     @Override
     public PlayerColor getPlayerColor() {return playerColor;}
@@ -50,7 +49,7 @@ public class SimplePlayerService implements PlayerService {
     public void endTurn() {
         if (!gameService.endTurn(playerColor)) {
             throw new IllegalStateException("Player ending turn is not the active player");
-        };
+        }
     }
 
     public SimplePlayerService(PlayerColor playerColor, GameService gameService) {
