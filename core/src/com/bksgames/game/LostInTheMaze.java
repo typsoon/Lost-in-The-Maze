@@ -1,6 +1,9 @@
 package com.bksgames.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.utils.Timer;
 import com.bksgames.game.common.ConfigManagerSingleton;
 import com.bksgames.game.common.PlayerColor;
 import com.bksgames.game.services.GameService;
@@ -19,10 +22,21 @@ public class LostInTheMaze extends Game {
 	private PlayerService activePlayer;
 	private final TurnTransitionScreen turnTransitionScreen = new TurnTransitionScreen(this);
 	final Map<PlayerService,GameScreen> playerScreens = new HashMap<>();
+	private Music backgroundMusic;
 
 	@Override
 	public void create () {
 		gameTitle = "Lost in The Maze";
+
+		backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("assets/audio/LostInTheMaze.mp3"));
+		backgroundMusic.setLooping(true);
+		backgroundMusic.setVolume(0.3f);
+		Timer.schedule(new Timer.Task() {
+			@Override
+			public void run() {
+				backgroundMusic.play();
+			}
+		}, 5);
 
 		this.setScreen(new MainMenuScreen(this));
 	}
@@ -33,7 +47,11 @@ public class LostInTheMaze extends Game {
 	}
 	
 	@Override
-	public void dispose () {}
+	public void dispose () {
+		if (backgroundMusic != null) {
+			backgroundMusic.dispose();
+		}
+	}
 
 	public void startGame(){
 //		setScreen(turnTransitionScreen);
