@@ -11,6 +11,7 @@ import com.bksgames.game.services.PlayerService;
 import com.bksgames.game.services.SimpleGameService;
 import com.bksgames.game.views.MainMenuScreen;
 import com.bksgames.game.views.TurnTransitionScreen;
+import com.bksgames.game.views.displayProperties.DisplayPropertiesSingleton;
 import com.bksgames.game.views.gameScreen.GameScreen;
 
 import java.util.HashMap;
@@ -30,7 +31,7 @@ public class LostInTheMaze extends Game {
 
 		backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("assets/audio/LostInTheMaze.mp3"));
 		backgroundMusic.setLooping(true);
-		backgroundMusic.setVolume(0.3f);
+		backgroundMusic.setVolume(DisplayPropertiesSingleton.getInstance().backgroungMusicVolume());
 		Timer.schedule(new Timer.Task() {
 			@Override
 			public void run() {
