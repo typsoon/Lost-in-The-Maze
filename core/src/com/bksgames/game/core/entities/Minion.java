@@ -83,11 +83,12 @@ public class Minion implements Entity, Owned, Interactive, Respawnable {
         if (hitPoints <= 0) {
             actionPoints=0;
 
-            notifyPositionChanged();
+
             UpdateHolder<EntityStateUpdate> update =  UpdateHolderFactory.produceUpdateHolder(
                     new EntityStateUpdate(true,EntityEvent.KILLED,null,position.x, position.y)
             );
-           position=null;
+            position=null;
+            notifyPositionChanged();
             return update;
         }
         return null;
