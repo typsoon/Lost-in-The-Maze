@@ -33,6 +33,8 @@ public enum Direction {
         }
         return null;
     }
+
+    @SuppressWarnings("unused")
     public Direction getOpposite(){
         return switch (this) {
             case LEFT -> RIGHT;

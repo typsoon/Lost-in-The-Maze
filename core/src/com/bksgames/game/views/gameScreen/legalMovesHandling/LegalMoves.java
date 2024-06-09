@@ -20,7 +20,7 @@ import java.util.*;
 public class LegalMoves extends Stage {
     private final Table mainTable;
     //    private TextureAtlas atlas;
-    Map<IncompleteMove, ImageButton> moveToButtonMapping = new HashMap<>();
+    final Map<IncompleteMove, ImageButton> moveToButtonMapping = new HashMap<>();
 
     private final PlayerService playerService;
     private final PlayerViewModel playerViewModel;
@@ -104,8 +104,10 @@ public class LegalMoves extends Stage {
         mainTable.setVisible(true);
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean isActive() {return mainTable.isVisible();}
 
+    @SuppressWarnings("UnusedReturnValue")
     public boolean sendMove(IncompleteMove incompleteMove) {
         if (activeMinionId == -1) {
             throw new IllegalStateException("No active minion");

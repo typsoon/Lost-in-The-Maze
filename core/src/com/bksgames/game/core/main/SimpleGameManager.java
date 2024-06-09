@@ -162,10 +162,10 @@ public class SimpleGameManager implements GameManager {
         Player player = players.get(color);
         int i = 0;
         for (Direction direction : Direction.values()) {
-            if (i >= parameters.minionCount) {
+            if (i >= parameters.minionCount()) {
                 break;
             }
-            Minion minion = new Minion(direction.getNext(player.getMainNexus()), parameters.minionHitPoints, parameters.actionsNumber, color);
+            Minion minion = new Minion(direction.getNext(player.getMainNexus()), parameters.minionHitPoints(), parameters.actionsNumber(), color);
             player.addMinion(minion);
             // damageManager.subscribe(minion);
             board.getTile(direction.getNext(player.getMainNexus())).getTunnel().addEntity(minion);
@@ -174,10 +174,11 @@ public class SimpleGameManager implements GameManager {
     }
 
     //for debug
+    @SuppressWarnings("unused")
     private void mapTesting() {
         for (PlayerColor playerColor : players.keySet()) {
-            for (int y = 0; y <= parameters.mapSize; y++) {
-                for (int x = 0; x <= getParameters().mapSize; x++) {
+            for (int y = 0; y <= parameters.mapSize(); y++) {
+                for (int x = 0; x <= getParameters().mapSize(); x++) {
 //                    TODO: look at this and make it better if possible
                     var point = players.get(playerColor).getRelativeCoordinates(new Point(x,y));
                     gameService.forwardUpdate(playerColor,

@@ -29,13 +29,6 @@ public class EntityUpdateUpdater extends Updater<EntityUpdate> {
 
         Point whereToPutIt = new Point(entityUpdate.relativeX(), entityUpdate.relativeY());
         entityUpdate.direction().next(whereToPutIt);
-
-//        minionCell = minionLayer.getCell(whereToPutIt.x, whereToPutIt.y);
-//
-//        DisplayableToImage.DisplayInfo info = DisplayableToImage.getDisplayInfo(entityUpdate.getDisplayable());
-//        TextureRegion region = atlas.findRegion(info.visible());
-//        minionCell = new TiledMapTileLayer.Cell();
-//        minionCell.setTile(new StaticTiledMapTile(region));
     }
 
     public EntityUpdateUpdater(TiledMap map, TextureAtlas atlas, PlayerViewModel playerViewModel) {super(map, atlas, playerViewModel);}

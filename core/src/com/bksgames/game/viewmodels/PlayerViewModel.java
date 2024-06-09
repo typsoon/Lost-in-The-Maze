@@ -7,12 +7,6 @@ import java.util.List;
 
 
 public interface PlayerViewModel {
-//TODO: BIG TODO, IMPLEMENT THESE
-//    int getMaxX();
-//    int getMaxY();
-//    int getMinX();
-//    int getMinY();
-
     void laserFired(Point position);
     int getMostDistant(Direction direction);
 

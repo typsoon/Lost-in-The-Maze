@@ -11,7 +11,6 @@ import com.bksgames.game.common.utils.Direction;
 import com.bksgames.game.common.PlayerColor;
 
 import java.util.*;
-import java.util.List;
 
 /**
  *  Representing {@code SquareBoard}

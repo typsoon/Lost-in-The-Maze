@@ -5,7 +5,7 @@ import com.bksgames.game.core.main.Player;
 import com.bksgames.game.core.utils.Point;
 
 public abstract class UpdateHolder<T extends Update> {
-    T content;
+    final T content;
 
     abstract public T encode(Player player);
 

@@ -14,6 +14,8 @@ public interface GameService {
     }
     Collection<Move> getLegalMoves(Point position, PlayerColor player);
     boolean move(Move move, PlayerColor player);
+
+    @SuppressWarnings("UnusedReturnValue")
     boolean forwardUpdate(PlayerColor color, Update update);
     void startGame();
     boolean endTurn(PlayerColor color);

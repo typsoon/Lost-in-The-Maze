@@ -26,12 +26,6 @@ public class ArrowGetter extends ActionButtonGetter {
             case DOWN -> "DownArrow";
         };
         TextureRegion region = atlas.findRegion(textureName);
-//        switch (incompleteMove.direction()) {
-//            case LEFT -> region = atlas.findRegion("LeftArrow");
-//            case RIGHT -> region = atlas.findRegion("RightArrow");
-//            case UP -> region = atlas.findRegion("UpArrow");
-//            case DOWN -> region = atlas.findRegion("DownArrow");
-//        }
 
         ImageButton button = new ImageButton(new TextureRegionDrawable(region));
         button.setSize(arrowButtonSize, arrowButtonSize);

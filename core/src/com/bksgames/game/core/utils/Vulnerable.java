@@ -11,6 +11,7 @@ public interface Vulnerable extends KnownPosition{
     /**
      * @return amount of remaining hitpoints
      */
+    @SuppressWarnings("unused")
     int getHitPoints();
     /**
      * Deal damage

@@ -7,22 +7,22 @@ import com.bksgames.game.viewmodels.PlayerViewModel;
 import com.bksgames.game.views.updates.updaters.*;
 
 public class UpdateProcessor implements UpdateVisitor {
-    private final EntityStateUpdater entityStateUpdater;
-    private final EntityUpdateUpdater entityUpdateUpdater;
-    private final LaserUpdateHandler laserUpdateHandler;
-    private final SwordUpdateHandler swordUpdateHandler;
-    private final TileUpdateUpdater tileUpdateUpdater;
+    private final Updater<EntityStateUpdate> entityStateUpdater;
+    private final Updater<EntityUpdate> entityUpdateUpdater;
+    private final Updater<LaserUpdate> laserUpdateHandler;
+    private final Updater<SwordUpdate> swordUpdateHandler;
+    private final Updater<TileUpdate> tileUpdateUpdater;
 
-    TiledMap map;
-    TextureAtlas atlas;
+//    final TiledMap map;
+//    final TextureAtlas atlas;
 
     public void process(Update update) {
         update.visit(this);
     }
 
     public UpdateProcessor(TiledMap map, TextureAtlas atlas, PlayerViewModel playerViewModel) {
-        this.map = map;
-        this.atlas = atlas;
+//        this.map = map;
+//        this.atlas = atlas;
 
         entityStateUpdater = new EntityStateUpdater(map, atlas, playerViewModel);
         entityUpdateUpdater = new EntityUpdateUpdater(map, atlas, playerViewModel);
