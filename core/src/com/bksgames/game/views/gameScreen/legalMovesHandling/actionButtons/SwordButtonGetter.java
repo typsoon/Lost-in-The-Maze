@@ -23,7 +23,8 @@ public class SwordButtonGetter extends ActionButtonGetter{
 
     @Override
     public ImageButton get(IncompleteMove incompleteMove) {
-        TextureRegion region = atlas.findRegion("SwordButton");
+//        TextureRegion region = atlas.findRegion("SwordButton");
+        TextureRegion region = getArrow(incompleteMove.direction());
 
         region.flip(true, false);
 

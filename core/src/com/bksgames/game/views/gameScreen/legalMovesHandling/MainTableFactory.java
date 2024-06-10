@@ -1,5 +1,6 @@
 package com.bksgames.game.views.gameScreen.legalMovesHandling;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -42,13 +43,13 @@ public class MainTableFactory {
 		actionsTable.add(mirrorTable).left();
 //		actionsTable.add(MirrorButtonGetter.getMirrorButtonTable(backSlashButton, slashButton, atlas.findRegion("MirrorButton"))).left();
 
-		Table laserTable = produceBasicDirectionalContainer(atlas.findRegion("MirrorButton"), factory, ActionToken.LASER);
+		Table laserTable = produceBasicDirectionalContainer(atlas.findRegion("MirrorButton"), atlas.findRegion("LaserArrowButton"), factory, ActionToken.LASER);
 		actionsTable.add(laserTable).padLeft(distanceToAdjacentButton);
 
-		Table swordTable = produceBasicDirectionalContainer(atlas.findRegion("MirrorButton"), factory, ActionToken.SWORD);
+		Table swordTable = produceBasicDirectionalContainer(atlas.findRegion("MirrorButton"), atlas.findRegion("DoorButton"), factory, ActionToken.SWORD);
 		actionsTable.add(swordTable).padLeft(distanceToAdjacentButton);
 
-		Table doorTable = produceBasicDirectionalContainer(atlas.findRegion("MirrorButton"), factory, ActionToken.DOOR);
+		Table doorTable = produceBasicDirectionalContainer(atlas.findRegion("MirrorButton"), atlas.findRegion("DoorButton"), factory, ActionToken.DOOR);
 		actionsTable.add(doorTable).padLeft(distanceToAdjacentButton);
 
 		actionsTable.add().expand();
@@ -81,12 +82,12 @@ public class MainTableFactory {
 		return actorCell;
 	}
 
-	private static Table produceBasicDirectionalContainer(TextureRegion region, ActionButtonFactory factory, ActionToken actionToken) {
+	private static Table produceBasicDirectionalContainer(TextureRegion region, TextureRegion middleImage, ActionButtonFactory factory, ActionToken actionToken) {
 		ImageButton leftButton = factory.getButton(new IncompleteMove(actionToken, Direction.LEFT));
 		ImageButton rightButton = factory.getButton(new IncompleteMove(actionToken, Direction.RIGHT));
 		ImageButton upButton = factory.getButton(new IncompleteMove(actionToken, Direction.UP));
 		ImageButton downButton = factory.getButton(new IncompleteMove(actionToken, Direction.DOWN));
 
-		return new DirectionalButtonsContainer(region, leftButton, rightButton, upButton, downButton);
+		return new DirectionalButtonsContainer(region, middleImage, leftButton, rightButton, upButton, downButton);
 	}
 }

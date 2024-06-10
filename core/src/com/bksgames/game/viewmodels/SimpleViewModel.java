@@ -2,13 +2,12 @@ package com.bksgames.game.viewmodels;
 
 import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.common.utils.Direction;
-import com.bksgames.game.viewmodels.laserHandling.ViewLaserHandler;
 
 import java.util.*;
 
 public class SimpleViewModel implements PlayerViewModel{
     final List<Point> minionPositions;
-    private final ViewLaserHandler viewLaserHandler;
+    private final ViewFrameObserver viewLaserHandler;
 
     @Override
     public void laserFired(Point position) {
@@ -102,7 +101,7 @@ public class SimpleViewModel implements PlayerViewModel{
         return minionPositions.contains(position);
     }
 
-    public SimpleViewModel(ViewLaserHandler viewLaserHandler) {
+    public SimpleViewModel(ViewFrameObserver viewLaserHandler) {
         this.viewLaserHandler = viewLaserHandler;
 
         minionPositions = new ArrayList<>();

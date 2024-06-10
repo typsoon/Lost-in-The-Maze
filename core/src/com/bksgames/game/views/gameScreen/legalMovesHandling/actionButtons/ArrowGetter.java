@@ -1,6 +1,7 @@
 package com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons;
 
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -20,18 +21,19 @@ public class ArrowGetter extends ActionButtonGetter {
 
     @Override
     public ImageButton get(IncompleteMove incompleteMove) {
-        String textureName = switch (incompleteMove.direction()) {
-            case LEFT -> "LeftArrow";
-            case RIGHT -> "RightArrow";
-            case UP -> "UpArrow";
-            case DOWN -> "DownArrow";
-        };
-        TextureRegion region = atlas.findRegion(textureName);
+//        String textureName = switch (incompleteMove.direction()) {
+//            case LEFT -> "LeftArrow";
+//            case RIGHT -> "RightArrow";
+//            case UP -> "UpArrow";
+//            case DOWN -> "DownArrow";
+//        };
+//        TextureRegion region = atlas.findRegion(textureName);
+        TextureRegion region = getArrow(incompleteMove.direction());
 
         ImageButton button = new ImageButton(new TextureRegionDrawable(region));
         button.setSize(arrowButtonSize, arrowButtonSize);
 
-        button.setName(textureName);
+//        button.setName(textureName);
         button.getImage().setFillParent(true);
 
         final int key = switch (incompleteMove.direction()){

@@ -14,7 +14,7 @@ import com.bksgames.game.services.PlayerService;
 import com.bksgames.game.viewmodels.PlayerViewModel;
 import com.bksgames.game.viewmodels.SimpleViewModel;
 import com.bksgames.game.views.updates.UpdateProcessor;
-import com.bksgames.game.viewmodels.laserHandling.ViewLaserHandler;
+import com.bksgames.game.viewmodels.ViewFrameObserver;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.LegalMoves;
 
 public class GameScreen extends ScreenAdapter {
@@ -42,7 +42,7 @@ public class GameScreen extends ScreenAdapter {
 
     private final PlayerViewModel playerViewModel;
 
-    private final ViewLaserHandler viewLaserHandler;
+    private final ViewFrameObserver viewLaserHandler;
 
     EndTheTurnStage endTurnStage;
     TextureAtlas atlas;

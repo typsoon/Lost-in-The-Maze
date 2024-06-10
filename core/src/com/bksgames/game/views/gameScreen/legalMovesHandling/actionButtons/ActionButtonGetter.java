@@ -1,11 +1,14 @@
 package com.bksgames.game.views.gameScreen.legalMovesHandling.actionButtons;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.bksgames.game.common.moves.IncompleteMove;
+import com.bksgames.game.common.utils.Direction;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.ChosenMove;
 
 public abstract class ActionButtonGetter {
@@ -31,6 +34,15 @@ public abstract class ActionButtonGetter {
                 return false;
             }
         };
+    }
+
+    public TextureRegion getArrow(Direction direction) {
+        return atlas.findRegion(switch(direction) {
+            case LEFT -> "RightArrow";
+            case RIGHT -> "LeftArrow";
+            case UP -> "UpArrow";
+            case DOWN -> "DownArrow";
+        });
     }
 
     public abstract ImageButton get(IncompleteMove incompleteMove);

@@ -23,7 +23,8 @@ public class LaserButtonGetter extends ActionButtonGetter {
 
     @Override
     public ImageButton get(IncompleteMove incompleteMove) {
-        TextureRegion region = atlas.findRegion("LaserArrowButton");
+//        TextureRegion region = atlas.findRegion("LaserArrowButton");
+        TextureRegion region = getArrow(incompleteMove.direction());
 
         Sprite sprite = new Sprite(region);
         sprite.setOriginCenter();
