@@ -8,10 +8,16 @@ import java.util.*;
 public class SimpleViewModel implements PlayerViewModel{
     final List<Point> minionPositions;
     private final ViewFrameObserver viewLaserHandler;
+    private final ViewFrameObserver viewSwordHandler;
 
     @Override
     public void laserFired(Point position) {
-        viewLaserHandler.addLaserAtPosition(position);
+        viewLaserHandler.addItemAtPosition(position);
+    }
+
+    @Override
+    public void swordSwung(Point position) {
+        viewSwordHandler.addItemAtPosition(position);
     }
 
     final EnumMap<Direction, Integer> mostDistances = new EnumMap<>(Map.of(
@@ -101,8 +107,9 @@ public class SimpleViewModel implements PlayerViewModel{
         return minionPositions.contains(position);
     }
 
-    public SimpleViewModel(ViewFrameObserver viewLaserHandler) {
+    public SimpleViewModel(ViewFrameObserver viewLaserHandler, ViewFrameObserver viewSwordHandler) {
         this.viewLaserHandler = viewLaserHandler;
+        this.viewSwordHandler = viewSwordHandler;
 
         minionPositions = new ArrayList<>();
 

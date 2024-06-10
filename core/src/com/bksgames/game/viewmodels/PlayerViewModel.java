@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface PlayerViewModel {
     void laserFired(Point position);
+    void swordSwung(Point position);
     int getMostDistant(Direction direction);
 
     void tileRevealed(Point position);

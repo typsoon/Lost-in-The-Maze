@@ -29,11 +29,15 @@ public class MazeMapFactory {
 		TiledMapTileLayer laser = new TiledMapTileLayer(3 * maxBoardWidth, 3 * maxBoardHeight, tilePixelSize, tilePixelSize);
 		laser.setName("laser");
 
+		TiledMapTileLayer sword = new TiledMapTileLayer(3 * maxBoardWidth, 3 * maxBoardHeight, tilePixelSize, tilePixelSize);
+		sword.setName("sword");
+
 		map.getLayers().add(tunnels);
 		map.getLayers().add(wallsAndNexuses);
 		map.getLayers().add(mirrors);
 		map.getLayers().add(minions);
 		map.getLayers().add(laser);
+		map.getLayers().add(sword);
 
 		return map;
 	}

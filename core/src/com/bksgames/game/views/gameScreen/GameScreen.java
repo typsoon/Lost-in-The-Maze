@@ -43,6 +43,7 @@ public class GameScreen extends ScreenAdapter {
     private final PlayerViewModel playerViewModel;
 
     private final ViewFrameObserver viewLaserHandler;
+    private final ViewFrameObserver viewSwordHandler;
 
     EndTheTurnStage endTurnStage;
     TextureAtlas atlas;
@@ -72,8 +73,10 @@ public class GameScreen extends ScreenAdapter {
 //        playerViewModel = new SimpleViewModel((TiledMapTileLayer) map.getLayers().get("minions"));
 
         TiledMapTileLayer laserLayer = (TiledMapTileLayer) map.getLayers().get("laser");
+        TiledMapTileLayer swordLayer = (TiledMapTileLayer) map.getLayers().get("sword");
         viewLaserHandler = new SimpleLaserHandler(laserLayer);
-        playerViewModel = new SimpleViewModel(viewLaserHandler);
+        viewSwordHandler = new SwordFrameHandler(swordLayer);
+        playerViewModel = new SimpleViewModel(viewLaserHandler, viewSwordHandler);
 
         screenMover = new ScreenMover(gameCamera, playerViewModel);
     }
@@ -127,6 +130,8 @@ public class GameScreen extends ScreenAdapter {
 
         if (viewLaserHandler.framePassed())
             return;
+
+        viewSwordHandler.framePassed();
 
         legalMoves.act(delta);
         legalMoves.draw();

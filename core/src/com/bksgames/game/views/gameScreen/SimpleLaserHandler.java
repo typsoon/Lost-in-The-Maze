@@ -27,7 +27,7 @@ public class SimpleLaserHandler implements ViewFrameObserver {
     }
 
     @Override
-    public void addLaserAtPosition(Point position) {
+    public void addItemAtPosition(Point position) {
         laserPoints.add(position);
         if (framesUntilClear <= 0)
             framesUntilClear = laserDurationInFrames;
