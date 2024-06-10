@@ -43,10 +43,10 @@ public class MainTableFactory {
 		actionsTable.add(mirrorTable).left();
 //		actionsTable.add(MirrorButtonGetter.getMirrorButtonTable(backSlashButton, slashButton, atlas.findRegion("MirrorButton"))).left();
 
-		Table laserTable = produceBasicDirectionalContainer(atlas.findRegion("MirrorButton"), atlas.findRegion("LaserArrowButton"), factory, ActionToken.LASER);
+		Table laserTable = produceBasicDirectionalContainer(atlas.findRegion("MirrorButton"), atlas.findRegion("Wand"), factory, ActionToken.LASER);
 		actionsTable.add(laserTable).padLeft(distanceToAdjacentButton);
 
-		Table swordTable = produceBasicDirectionalContainer(atlas.findRegion("MirrorButton"), atlas.findRegion("DoorButton"), factory, ActionToken.SWORD);
+		Table swordTable = produceBasicDirectionalContainer(atlas.findRegion("MirrorButton"), atlas.findRegion("Dagger"), factory, ActionToken.SWORD);
 		actionsTable.add(swordTable).padLeft(distanceToAdjacentButton);
 
 		Table doorTable = produceBasicDirectionalContainer(atlas.findRegion("MirrorButton"), atlas.findRegion("DoorButton"), factory, ActionToken.DOOR);
