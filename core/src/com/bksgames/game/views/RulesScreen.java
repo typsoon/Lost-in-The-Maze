@@ -19,11 +19,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.bksgames.game.LostInTheMaze;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class RulesScreen extends ScreenAdapter {
 	private TextureAtlas atlas;
 	private Stage stage;
 	private Skin skin;
-	private BitmapFont font;
+	private BitmapFont font, font1;
 	private FreeTypeFontGenerator generator;
     private final LostInTheMaze game;
 
@@ -40,13 +44,14 @@ public class RulesScreen extends ScreenAdapter {
 		Gdx.input.setInputProcessor(stage);
 		atlas = new TextureAtlas(Gdx.files.internal("MainMenu.atlas"));
 		skin = new Skin(atlas);
-		Table table = new Table(skin);
+		Table table = new Table(skin).padLeft(20).padTop(25);
 
 		generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Harrington_SHAREWARE.ttf"));
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 		parameter.size = 50;
 
 		font = generator.generateFont(parameter);
+		font1 = new BitmapFont();
 
 		Texture texture = font.getRegion().getTexture();
 		texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
@@ -56,9 +61,11 @@ public class RulesScreen extends ScreenAdapter {
 		heading.setFontScale(1.5f);
 		heading.setAlignment(10);
 
-		Label.LabelStyle rulesStyle = new Label.LabelStyle(font, Color.WHITE);
-		Label rules = new Label("Here are the rules of the game:\n\n1. Rule 1\n2. Rule 2\n3. Rule 3\n\n4. Rule 4\n5. Rule 5\n6. Rule 6\n\n7. Rule 7\n8. Rule 8\n9. Rule 9", rulesStyle);
-		rules.setFontScale(0.8f);
+		String rulesText = loadRulesFromFile("assets/rules.txt");
+
+		Label.LabelStyle rulesStyle = new Label.LabelStyle(font1, Color.WHITE);
+		Label rules = new Label(rulesText, rulesStyle);
+		rules.setFontScale(1.2f);
 		rules.setWrap(true);
 
 		ScrollPane.ScrollPaneStyle scrollPaneStyle = new ScrollPane.ScrollPaneStyle();
@@ -110,5 +117,18 @@ public class RulesScreen extends ScreenAdapter {
 		stage.dispose();
 		font.dispose();
 		generator.dispose();
+	}
+
+	private String loadRulesFromFile(String filePath) {
+		StringBuilder rules = new StringBuilder();
+		try (BufferedReader reader = new BufferedReader(new InputStreamReader(Gdx.files.internal(filePath).read()))) {
+			String line;
+			while ((line = reader.readLine()) != null) {
+				rules.append(line).append("\n");
+			}
+		} catch (IOException e) {
+			Gdx.app.error("RulesScreen", "Error reading rules file", e);
+		}
+		return rules.toString();
 	}
 }
