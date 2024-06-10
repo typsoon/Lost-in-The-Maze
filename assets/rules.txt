@@ -1,0 +1,21 @@
+GOAL
+There are two teams, each comprised of three minions and a nexus. The objective for each team is to navigate through the maze and reach the enemy nexus with one of their minions in order to capture it.
+
+BEGINNING OF TURN
+Each turn initiates with the Beginning of Turn phase, during which players are unable to take any actions. Instead, they observe the events that unfolded in visible files during their opponent's turn. Minions under the active player's control receive a set number of actions, defined by actionsNumber parameter.
+
+TURN
+Following the initial phase, players progress to the main segment of their turn. Here, they are granted the opportunity to utilize the actions of their minions strategically.
+
+END OF TURN
+As the turn draws to a close, any actions left unused by minions are lost.
+
+
+NEXUS
+Nexus is the most important object in the game. Players must safeguard their own nexus while looking for a way to gain control of their enemy's nexus to secure victory.
+
+MIRRORS
+Mirrors, unlike other structures, do not block the movement of minions. They can be put down as long as the building minion has not used any actions during the current turn. ...
+
+WALLS
+Walls serve as barriers, obstructing both the passage and vision of minions. Players have a limited number of opportunities, defined by the parameter wallBuildCount, to put down walls. Moreover, walls can only be built if the building minion has not yet used any actions during the current turn.
