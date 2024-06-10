@@ -57,7 +57,7 @@ public class EndGameScreen extends ScreenAdapter {
 		texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
 
-		Label.LabelStyle headingStyleBlue = new Label.LabelStyle(font, Color.BLUE);
+		Label.LabelStyle headingStyleBlue = new Label.LabelStyle(font, Color.CYAN);
 		Label.LabelStyle headingStyleRed = new Label.LabelStyle(font, Color.RED);
 
 		Label.LabelStyle currStyle = (winner==PlayerColor.RED) ? headingStyleRed : headingStyleBlue;
