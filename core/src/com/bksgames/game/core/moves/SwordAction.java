@@ -19,10 +19,6 @@ public class SwordAction extends Action {
     @Override
     public void handle() {
         Minion minion = gameManager.getPlayers().get(gameManager.getCurrentPlayer()).getMinion(minionPosition);
-        if(minion == null)
-        {
-            return;
-        }
         minion.makeAction(getActionToken());
         gameManager.getDamageManager().dealDamage(
                 new SourceOfDamage(gameManager.getParameters(), SourceOfDamage.DamageType.SWORD),

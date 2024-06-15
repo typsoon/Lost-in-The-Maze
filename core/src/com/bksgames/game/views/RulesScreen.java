@@ -61,7 +61,7 @@ public class RulesScreen extends ScreenAdapter {
 		heading.setFontScale(1.5f);
 		heading.setAlignment(10);
 
-		String rulesText = loadRulesFromFile("assets/rules.txt");
+		String rulesText = loadRulesFromFile("rules.txt");
 
 		Label.LabelStyle rulesStyle = new Label.LabelStyle(font1, Color.WHITE);
 		Label rules = new Label(rulesText, rulesStyle);

@@ -19,10 +19,6 @@ public class MirrorAction extends Action {
     @Override
     public void handle() {
         Minion minion = gameManager.getPlayers().get(gameManager.getCurrentPlayer()).getMinion(minionPosition);
-        if(minion == null)
-        {
-            return;
-        }
         minion.makeAction(getActionToken());
         Tile currentTile = gameManager.getBoard().getTile(minionPosition);
         Tunnel currentTunnel = currentTile.getTunnel();

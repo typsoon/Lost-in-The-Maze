@@ -52,7 +52,7 @@ public class SquareBoard implements Board {
         visible.add(new Point(minion.getX(), minion.getY()));
         for(Direction d : Direction.values()){
             Point point = new Point(minion.getX(), minion.getY());
-            visible.addAll(getLineOfSight(point, d));
+            visible.addAll(getLineOfSight(point, d,List.of(minion.owner())));
         }
         return getBiggerVision(visible);
     }
@@ -66,7 +66,7 @@ public class SquareBoard implements Board {
         return vision;
     }
     @Override
-    public List<Point> getLineOfSight(Point point, Direction direction) {
+    public List<Point> getLineOfSight(Point point, Direction direction, Collection<PlayerColor> canSee) {
         Map<Mirror, Set<Direction>> mirrorMap = new HashMap<>();
         List<Point> lineOfSight = new LinkedList<>();
 
@@ -76,7 +76,10 @@ public class SquareBoard implements Board {
         while(currentTile.isHollow()){
             lineOfSight.add(new Point(point));
             Tunnel currentTunnel = currentTile.getTunnel();
-            if(currentTunnel.getMirror()!=null){
+            if(currentTunnel.getMirror()!=null ){
+                if(!canSee.contains(currentTunnel.getMirror().owner())) {
+                    break;
+                }
                 if(!mirrorMap.containsKey(currentTunnel.getMirror())){
                     mirrorMap.put(currentTunnel.getMirror(), new HashSet<>());
                     mirrorMap.get(currentTunnel.getMirror()).add(direction);

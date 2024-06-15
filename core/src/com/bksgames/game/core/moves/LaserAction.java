@@ -1,5 +1,6 @@
 package com.bksgames.game.core.moves;
 
+import com.bksgames.game.common.PlayerColor;
 import com.bksgames.game.common.moves.ActionToken;
 import com.bksgames.game.common.updates.LaserUpdate;
 import com.bksgames.game.common.utils.Direction;
@@ -10,6 +11,7 @@ import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.core.utils.SourceOfDamage;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class LaserAction extends Action {
@@ -20,21 +22,15 @@ public class LaserAction extends Action {
     @Override
     public void handle() {
         Minion minion = gameManager.getPlayers().get(gameManager.getCurrentPlayer()).getMinion(minionPosition);
-        if(minion == null)
-        {
-            return;
-        }
         minion.makeAction(getActionToken());
-        List<Point> lineOfSight = gameManager.getBoard().getLineOfSight(minionPosition, getIncompleteMove().direction());
+        List<Point> lineOfSight = gameManager.getBoard().getLineOfSight(minionPosition, getIncompleteMove().direction(), Arrays.stream(PlayerColor.values()).toList());
         List<Direction> line = new ArrayList<>();
         Point prev = minionPosition.copy();
         for (Point p : lineOfSight) {
             line.add(Direction.getDirection(prev, p));
             prev = p;
         }
-        gameManager.getDamageManager().dealDamage(
-                new SourceOfDamage(gameManager.getParameters(), SourceOfDamage.DamageType.LASER), lineOfSight.stream().distinct().toList()
-        );
+
 
         Point point =  getIncompleteMove().direction().getNext(minionPosition);
         for (int i = 1; i < line.size(); i++) {
@@ -47,6 +43,9 @@ public class LaserAction extends Action {
             gameManager.sendUpdate(UpdateHolderFactory.produceUpdateHolder(laserUpdateToBeSent));
             point = line.get(i).getNext(point);
         }
+        gameManager.getDamageManager().dealDamage(
+                new SourceOfDamage(gameManager.getParameters(), SourceOfDamage.DamageType.LASER), lineOfSight.stream().distinct().toList()
+        );
     }
 
     @Override

@@ -11,6 +11,7 @@ import com.bksgames.game.common.PlayerColor;
  * @author riper
  */
 public record Mirror(Orientation orientation, PlayerColor owner) implements Owned {
+
     /**
      * {@code Orientation} of {@code Mirror}<br>
      * {@code SLASH} - {@code /}<br>
@@ -48,6 +49,11 @@ public record Mirror(Orientation orientation, PlayerColor owner) implements Owne
                 case RIGHT -> Direction.DOWN;
             };
         }
+    }
+    //mirrors need to be distinct
+    @Override
+    public boolean equals(Object obj) {
+        return obj==this;
     }
 
     /**

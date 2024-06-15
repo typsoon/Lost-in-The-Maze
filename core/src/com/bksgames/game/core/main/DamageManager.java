@@ -34,8 +34,8 @@ public class DamageManager {
                 if (updateHolder != null) {
                     gameManager.sendUpdate(updateHolder);
                     // dead.add(vulnerable);
-                    if (gameManager.getBoard().getTile(point).getTunnel() != null)
-                        gameManager.getBoard().getTile(point).getTunnel().removeObject(vulnerable);
+                  //  if (gameManager.getBoard().getTile(point).getTunnel() != null)
+                   //     gameManager.getBoard().getTile(point).getTunnel().removeObject(vulnerable);
 
                     if (vulnerable instanceof Respawnable respawnable)
                         respawnWaitingRoom.put(respawnable, 5);//TODO respawn manager with different respawn queue
@@ -68,7 +68,7 @@ public class DamageManager {
         if (tile.getTunnel() != null
                 && tile.getEntities().isEmpty()) {
             gameManager.sendUpdate(respawnable.spawn());
-            tile.addObject(respawnable);
+            //tile.addObject(respawnable);
         } else {
             //TODO search for spot
         }

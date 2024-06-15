@@ -17,20 +17,9 @@ public class MoveAction extends Action {
 
     @Override
     public void handle() {
-        Point point;
-        Tile currentTile = gameManager.getBoard().getTile(minionPosition);
-        Tunnel currentTunnel = currentTile.getTunnel();
-
         Minion minion = gameManager.getPlayers().get(gameManager.getCurrentPlayer()).getMinion(minionPosition);
         minion.makeAction(getActionToken());
         Point lastPos = new Point(minion.getX(), minion.getY());
-        currentTunnel.removeEntity(minion);
-
-        point = getIncompleteMove().direction().getNext(minionPosition);
-        Tile nextTile = gameManager.getBoard().getTile(point.x, point.y);
-        Tunnel nextTunnel = nextTile.getTunnel();
-        nextTunnel.addEntity(minion);
-
         minion.moveMinion(getIncompleteMove().direction());
         gameManager.getVisionManager().playerVisionUpdate(gameManager.getCurrentPlayer());
         gameManager.sendUpdate(

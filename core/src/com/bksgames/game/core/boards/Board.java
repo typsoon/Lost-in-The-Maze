@@ -7,6 +7,7 @@ import com.bksgames.game.core.utils.Point;
 import com.bksgames.game.common.utils.Direction;
 import com.bksgames.game.common.PlayerColor;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -51,15 +52,17 @@ public interface Board {
     /**
      * @return set of {@code Point} which are visible by {@code Minion}
      */
-    Set<Point> getVisible(Minion minion); //TODO acceptMove to VisionManager
+    Set<Point> getVisible(Minion minion); //TODO Move to VisionManager
 
     /**
      * @return set of {@code Point} which are visible by {@code Nexus}
      */
-    Set<Point> getNexusesVision(PlayerColor player); //TODO acceptMove to VisionManager
+    Set<Point> getNexusesVision(PlayerColor player); //TODO Move to VisionManager
 
     /**
      * @return list of {@code Point} which are visible when looking from {@code point} in {@code direction}
      */
-    List<Point> getLineOfSight(Point point, Direction direction); //TODO acceptMove to VisionManager
+    List<Point> getLineOfSight(Point point, Direction direction, Collection<PlayerColor> canSee); //TODO Move to VisionManager
+
+
 }

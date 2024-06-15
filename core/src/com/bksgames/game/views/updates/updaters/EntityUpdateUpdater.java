@@ -25,8 +25,7 @@ public class EntityUpdateUpdater extends Updater<EntityUpdate> {
                     MazeMapFactory.maxBoardHeight + entityUpdate.relativeY(), null);
         }
 
-//        TODO: make animations in here
-//some hardcore horseshit
+//TODO: make animations in here
         Point whereToPutIt = new Point(entityUpdate.relativeX(), entityUpdate.relativeY());
         //noinspection UnusedAssignment
         whereToPutIt = entityUpdate.direction().getNext(whereToPutIt);
