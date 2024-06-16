@@ -152,9 +152,9 @@ public class Minion implements Entity, Owned, Interactive, Respawnable {
         this.observer = observer.subscribe(this);
         actionCosts = new EnumMap<>(ActionToken.class);
         actionCosts.put(ActionToken.MOVE, 1);
-        actionCosts.put(ActionToken.SWORD, 2);
-        actionCosts.put(ActionToken.LASER, 3);
-        actionCosts.put(ActionToken.MIRROR, 4);
+        actionCosts.put(ActionToken.SWORD, 4);
+        actionCosts.put(ActionToken.LASER, 10);
+        actionCosts.put(ActionToken.MIRROR, 8);
         spawn(position);
     }
 
