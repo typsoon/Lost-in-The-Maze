@@ -29,10 +29,15 @@ public class ConfigManagerSingleton {
 			final int baseSize = configToInt("baseSize", config);
 			final int laserDamage = configToInt("laserDamage", config);
 			final int swordDamage = configToInt("swordDamage", config);
+			final int movePrice = configToInt("movePrice", config);
+			final int swordPrice = configToInt("swordPrice", config);
+			final int laserPrice = configToInt("laserPrice", config);
+			final int mirrorPrice = configToInt("mirrorPrice", config);
 
 
 			instance = new Parameters(minionCount, maxMirrorsBending, wallBuildCount, doorPrice, doorCooldown,
-					doorHitPoints, actionsNumber, minionHitPoints, nexusHitPoints, mapSize, baseSize, laserDamage, swordDamage);
+					doorHitPoints, actionsNumber, minionHitPoints, nexusHitPoints, mapSize, baseSize, laserDamage, swordDamage,
+					movePrice, swordPrice, laserPrice, mirrorPrice);
 		}
 		return instance;
 	}

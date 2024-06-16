@@ -22,7 +22,7 @@ package com.bksgames.game.core.utils;
 @SuppressWarnings("unused")
 public record Parameters(int minionCount, int maxMirrorsBending, int wallBuildCount, int doorPrice, int doorCooldown,
                          int doorHitPoints, int actionsNumber, int minionHitPoints, int nexusHitPoints, int mapSize,
-                         int baseSize, int laserDamage, int swordDamage) {
+                         int baseSize, int laserDamage, int swordDamage, int movePrice, int swordPrice, int laserPrice, int mirrorPrice) {
     /**
      * Constructs {@code Parameters} with custom values
      */

@@ -1,5 +1,6 @@
 package com.bksgames.game.core.entities;
 
+import com.bksgames.game.common.ConfigManagerSingleton;
 import com.bksgames.game.common.Displayable;
 import com.bksgames.game.common.EntityEvent;
 import com.bksgames.game.common.PlayerColor;
@@ -151,10 +152,10 @@ public class Minion implements Entity, Owned, Interactive, Respawnable {
         this.respawnPosition = position;
         this.observer = observer.subscribe(this);
         actionCosts = new EnumMap<>(ActionToken.class);
-        actionCosts.put(ActionToken.MOVE, 1);
-        actionCosts.put(ActionToken.SWORD, 2);
-        actionCosts.put(ActionToken.LASER, 3);
-        actionCosts.put(ActionToken.MIRROR, 4);
+        actionCosts.put(ActionToken.MOVE, ConfigManagerSingleton.getInstance().movePrice());
+        actionCosts.put(ActionToken.SWORD, ConfigManagerSingleton.getInstance().swordPrice());
+        actionCosts.put(ActionToken.LASER, ConfigManagerSingleton.getInstance().laserPrice());
+        actionCosts.put(ActionToken.MIRROR, ConfigManagerSingleton.getInstance().movePrice());
         spawn(position);
     }
 
