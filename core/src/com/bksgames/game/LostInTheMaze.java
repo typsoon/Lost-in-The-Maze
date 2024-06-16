@@ -33,7 +33,7 @@ public class LostInTheMaze extends Game {
 
 		backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/LostInTheMaze.mp3"));
 		backgroundMusic.setLooping(true);
-		backgroundMusic.setVolume(DisplayPropertiesSingleton.getInstance().backgroungMusicVolume());
+		backgroundMusic.setVolume(DisplayPropertiesSingleton.getInstance().backgroundMusicVolume());
 		Timer.schedule(new Timer.Task() {
 			@Override
 			public void run() {

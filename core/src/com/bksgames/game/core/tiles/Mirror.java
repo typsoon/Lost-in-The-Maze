@@ -55,6 +55,11 @@ public record Mirror(Orientation orientation, PlayerColor owner) implements Owne
     public boolean equals(Object obj) {
         return obj==this;
     }
+//
+//    @Override
+//    public int hashCode() {
+//        return System.identityHashCode(this);
+//    }
 
     /**
      * Constructs a {@code Mirror}

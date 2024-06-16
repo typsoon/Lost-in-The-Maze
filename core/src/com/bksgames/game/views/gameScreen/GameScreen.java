@@ -13,6 +13,7 @@ import com.bksgames.game.LostInTheMaze;
 import com.bksgames.game.services.PlayerService;
 import com.bksgames.game.viewmodels.PlayerViewModel;
 import com.bksgames.game.viewmodels.SimpleViewModel;
+import com.bksgames.game.views.displayProperties.DisplayPropertiesSingleton;
 import com.bksgames.game.views.updates.UpdateProcessor;
 import com.bksgames.game.viewmodels.ViewFrameObserver;
 import com.bksgames.game.views.gameScreen.legalMovesHandling.LegalMoves;
@@ -74,8 +75,8 @@ public class GameScreen extends ScreenAdapter {
 
         TiledMapTileLayer laserLayer = (TiledMapTileLayer) map.getLayers().get("laser");
         TiledMapTileLayer swordLayer = (TiledMapTileLayer) map.getLayers().get("sword");
-        viewLaserHandler = new SimpleLaserHandler(laserLayer);
-        viewSwordHandler = new SwordFrameHandler(swordLayer);
+        viewLaserHandler = new TemporaryEffectUpdater(laserLayer, DisplayPropertiesSingleton.getInstance().laserDurationInFrames());
+        viewSwordHandler = new TemporaryEffectUpdater(swordLayer, DisplayPropertiesSingleton.getInstance().swordDurationInFrames());
         playerViewModel = new SimpleViewModel(viewLaserHandler, viewSwordHandler);
 
         screenMover = new ScreenMover(gameCamera, playerViewModel);
