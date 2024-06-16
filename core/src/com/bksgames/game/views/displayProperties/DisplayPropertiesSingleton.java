@@ -25,6 +25,7 @@ public class DisplayPropertiesSingleton {
             final int distanceToAdjacentButton = configToInt("distanceToAdjacentButton", config, 10);
             final float cameraSpeed = configToFloat("cameraSpeed", config, 400f);
             final int laserDurationInFrames = configToInt("laserDurationInFrames", config, 200);
+            final int swordDurationInFrames = configToInt("swordDurationInFrames", config, 10);
             final int mainTableHeight = configToInt("mainTableHeight", config, 200);
             final int offset = configToInt("offset", config, 10);
             final int actionsMenuWidth = configToInt("actionsMenuWidth", config, 350);
@@ -38,7 +39,7 @@ public class DisplayPropertiesSingleton {
             final float backgroundMusicVolume = configToFloat("backgroundMusicVolume", config, 0.3f);
 
             instance = new DisplayProperties(actionButtonSize, arrowButtonSize, slashButtonSize, doorButtonSize,
-                    laserButtonSize, mirrorButtonSize, swordButtonSize, distanceToAdjacentButton, cameraSpeed, laserDurationInFrames, mainTableHeight, offset,
+                    laserButtonSize, mirrorButtonSize, swordButtonSize, distanceToAdjacentButton, cameraSpeed, laserDurationInFrames, swordDurationInFrames,mainTableHeight, offset,
                     actionsMenuWidth, actionsMenuHeight, bottomPadding, leftPadding, rightPadding, endTheTurnScreenButtonTopPadding,
                     scrollZoomMultiplier, adjustZoomSpeed, backgroundMusicVolume);}
         return instance;
